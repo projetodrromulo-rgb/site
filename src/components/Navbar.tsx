@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { Phone, Menu, X, Home, Stethoscope, User, MapPin, ShieldCheck, Newspaper, Star } from "lucide-react";
 
 export default function Navbar() {
@@ -34,45 +33,19 @@ export default function Navbar() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-                className={`fixed top-0 left-0 right-0 z-[150] flex justify-center px-4 py-4 transition-all duration-500 will-change-transform ${hasScrolled ? "pt-4" : "pt-8"
-                    }`}
+                className="fixed top-8 left-0 right-0 z-[150] flex justify-center"
             >
-                <div
-                    className={`flex items-center justify-between w-full max-w-5xl px-6 py-3 transition-all duration-500 rounded-full ${hasScrolled
-                        ? "bg-primary-dark/40 backdrop-blur-3xl border border-accent/20 shadow-lg shadow-black/20"
-                        : "bg-transparent border border-transparent"
+                {/* Minimal Circular Menu Button - Centered */}
+                <button
+                    onClick={() => setIsMenuOpen(true)}
+                    className={`w-14 h-14 rounded-full flex items-center justify-center text-accent transition-all hover:scale-110 active:scale-90 shadow-xl shadow-black/20 group relative overflow-hidden ${hasScrolled
+                        ? "bg-primary-dark/60 backdrop-blur-2xl border border-accent/30"
+                        : "bg-accent/10 border border-accent/30"
                         }`}
                 >
-                    {/* Logo/Brand */}
-                    <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 border border-accent/30 group-hover:bg-accent/20 transition-colors">
-                            <span className="font-sans font-bold text-accent tracking-tighter">RO</span>
-                        </div>
-                        <span className="font-sans font-semibold text-neutral-light tracking-wide text-sm hidden sm:block">
-                            Dr. Rômulo
-                        </span>
-                    </Link>
-
-                    {/* Navigation Container - Desktop (Hidden except menu icon) */}
-                    <div className="flex items-center gap-4">
-                        <a
-                            href="https://wa.me/5511999999999"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-accent text-primary-dark font-sans font-semibold text-sm rounded-full hover:bg-accent/90 transition-all hover:scale-105 active:scale-95 shadow-md"
-                        >
-                            <Phone size={16} />
-                            <span>Agendar</span>
-                        </a>
-
-                        <button
-                            onClick={() => setIsMenuOpen(true)}
-                            className="w-12 h-12 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-accent hover:bg-accent hover:text-primary-dark transition-all hover:scale-105 active:scale-95"
-                        >
-                            <Menu size={24} />
-                        </button>
-                    </div>
-                </div>
+                    <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Menu size={28} className="relative z-10" />
+                </button>
             </motion.header>
 
             {/* Fullscreen Overlay Menu */}

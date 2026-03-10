@@ -6,6 +6,7 @@ import { PostsRecentes } from "@/components/sections/posts-recentes";
 import CTA from "@/components/sections/cta";
 import Locations from "@/components/sections/locations";
 import Depoimentos from "@/components/sections/depoimentos";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Procedimentos />
       <PostsRecentes />
       <Depoimentos />
+      <Footer />
     </main>
   );
 }
