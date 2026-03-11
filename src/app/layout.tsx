@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import MobileNav from "@/components/MobileNav";
 import Navbar from "@/components/Navbar";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <div className="noise-bg"></div>
           {children}
           <Navbar />
+          <WhatsAppButton />
         </SmoothScrolling>
       </body>
     </html>
