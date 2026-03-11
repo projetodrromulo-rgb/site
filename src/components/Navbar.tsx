@@ -33,7 +33,7 @@ export default function Navbar() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-                className="fixed top-8 left-0 right-0 z-[150] flex justify-center"
+                className="fixed top-8 right-8 md:right-12 lg:right-24 z-[150]"
             >
                 {/* Minimal Circular Menu Button - Centered */}
                 <button
@@ -63,9 +63,9 @@ export default function Navbar() {
                             <div className="absolute top-8 right-8 lg:top-12 lg:right-24">
                                 <button
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:text-primary-dark transition-all hover:rotate-90"
+                                    className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:text-primary-dark transition-all hover:rotate-90"
                                 >
-                                    <X size={32} />
+                                    <X className="w-6 h-6 md:w-8 md:h-8" />
                                 </button>
                             </div>
 
@@ -75,7 +75,7 @@ export default function Navbar() {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.1 }}
-                                    className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6 w-full"
+                                    className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-3 md:gap-y-6 w-full"
                                 >
                                     {navLinks.map((link, idx) => (
                                         <motion.div
@@ -87,13 +87,13 @@ export default function Navbar() {
                                             <a
                                                 href={link.href}
                                                 onClick={() => setIsMenuOpen(false)}
-                                                className="flex items-center gap-6 p-4 group"
+                                                className="flex items-center gap-4 md:gap-6 px-4 py-2 md:p-4 group"
                                             >
-                                                <div className="w-14 h-14 rounded-2xl bg-accent/5 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-primary-dark transition-all duration-300">
-                                                    <link.icon size={28} />
+                                                <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-accent/5 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-primary-dark transition-all duration-300">
+                                                    <link.icon className="w-5 h-5 md:w-7 md:h-7" />
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <span className="text-2xl font-black text-white/90 group-hover:text-accent transition-colors block">
+                                                    <span className="text-lg md:text-2xl font-black text-white/90 group-hover:text-accent transition-colors block">
                                                         {link.label}
                                                     </span>
                                                     <div className="w-0 h-[2px] bg-accent group-hover:w-full transition-all duration-500" />
@@ -113,9 +113,9 @@ export default function Navbar() {
                                     <a
                                         href="https://wa.me/5511999999999"
                                         target="_blank"
-                                        className="flex items-center justify-center gap-4 py-5 bg-accent text-primary-dark font-black text-xl rounded-2xl shadow-2xl shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all"
+                                        className="flex items-center justify-center gap-3 md:gap-4 py-4 md:py-5 bg-accent text-primary-dark font-black text-lg md:text-xl rounded-2xl shadow-2xl shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all"
                                     >
-                                        <Phone size={24} />
+                                        <Phone className="w-5 h-5 md:w-6 md:h-6" />
                                         AGENDAR MINHA CONSULTA
                                     </a>
                                 </motion.div>
