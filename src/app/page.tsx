@@ -8,14 +8,16 @@ import Depoimentos from "@/components/sections/depoimentos";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/hero";
 import { getHeroContent } from "@/components/sections/hero/use-hero-content";
+import { getAboutContent } from "@/components/sections/about/get-about-content";
 
 export default function Home() {
   const heroContent = getHeroContent();
+  const aboutContent = getAboutContent();
 
   return (
     <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
       <Hero content={heroContent} />
-      <About />
+      <About content={aboutContent} />
       <Locations />
       <CTA />
       <Convenios />
