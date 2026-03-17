@@ -9,16 +9,18 @@ import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/hero";
 import { getHeroContent } from "@/components/sections/hero/use-hero-content";
 import { getAboutContent } from "@/components/sections/about/get-about-content";
+import { getLocationsContent } from "@/components/sections/locations/get-locations-content";
 
 export default function Home() {
   const heroContent = getHeroContent();
   const aboutContent = getAboutContent();
+  const locationsContent = getLocationsContent();
 
   return (
     <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
       <Hero content={heroContent} />
       <About content={aboutContent} />
-      <Locations />
+      <Locations content={locationsContent} />
       <CTA />
       <Convenios />
       <Procedimentos />

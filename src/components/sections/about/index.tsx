@@ -35,7 +35,7 @@ export default function About({ content }: AboutProps) {
                         className="space-y-4 text-center w-full"
                     >
                         <div className="flex items-center gap-4 justify-center w-full">
-                            <div className="w-12 h-[1px] bg-accent/40"></div>
+                            <div className="w-18 h-[1px] bg-accent/40"></div>
                             <span className="text-accent text-sm font-bold uppercase tracking-widest whitespace-nowrap">{subtitle}</span>
                         </div>
                         <h2 className="text-4xl md:text-5xl lg:text-5xl font-black leading-tight text-primary-dark">
