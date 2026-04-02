@@ -10,4 +10,16 @@ export interface HeroContent {
         text: string;
         whatsappUrl: string;
     };
+
+    logoImage: {
+        src: string;
+        alt: string;
+    };
+
+    backgroundVideo: {
+        src: string;
+        poster?: string;
+    };
+
+
 }

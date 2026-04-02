@@ -2,18 +2,12 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const PHRASES = [
-    "Ortopedia e Cirurgia de Coluna",
-    "Cirurgia Minimamente Invasiva",
-    "Recuperação Rápida e Segura"
-];
-
 export const useHero = () => {
     const containerRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const mediaContainerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const doctorImageRef = useRef<HTMLImageElement>(null);
+    const spotlightRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
 
     // Video playback optimization (Performance)
@@ -38,6 +32,7 @@ export const useHero = () => {
     }, []);
 
     const logoRef = useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     // Entry animations
     useGSAP(() => {
@@ -56,13 +51,14 @@ export const useHero = () => {
         );
 
         tl.from(
-            contentRef.current?.children || [],
+            ".hero-animate-item",
             {
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
                 stagger: 0.15,
-                ease: "power3.out"
+                ease: "power3.out",
+                clearProps: "all" // Garante que estilos inline do GSAP não atrapalhem após a animação
             }
         ).fromTo(
             mediaContainerRef.current,
@@ -75,7 +71,7 @@ export const useHero = () => {
             },
             "-=0.6"
         ).from(
-            doctorImageRef.current,
+            spotlightRef.current,
             {
                 opacity: 0,
                 y: 50,
@@ -83,6 +79,16 @@ export const useHero = () => {
                 ease: "power3.out"
             },
             "-=1.0"
+        ).fromTo(
+            scrollRef.current,
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            },
+            "-=0.5"
         );
     }, { scope: containerRef });
 
@@ -96,7 +102,7 @@ export const useHero = () => {
         });
 
         // Entrada do médico centralizado abaixo
-        gsap.to(doctorImageRef.current, {
+        gsap.to(spotlightRef.current, {
             opacity: 1,
             y: 0,
             duration: 1.5,
@@ -109,9 +115,10 @@ export const useHero = () => {
         contentRef,
         mediaContainerRef,
         videoRef,
-        doctorImageRef,
+        spotlightRef,
         overlayRef,
         logoRef,
+        scrollRef,
         handleVideoEnded
     };
 };

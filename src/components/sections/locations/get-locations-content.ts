@@ -1,6 +1,6 @@
 import { LocationsContent } from "./types";
 
-export const getLocationsContent = (): LocationsContent => {
+export async function getLocationsContent(): Promise<LocationsContent> {
     return {
         sectionSubtitle: "Onde Atendemos",
         sectionTitle: "Nossas Unidades de Atendimento",

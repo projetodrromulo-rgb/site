@@ -40,9 +40,16 @@ export function TypingText({ phrases }: TypingTextProps) {
     }, [text, isDeleting, phraseIndex]);
 
     return (
-        <span className="text-[#0db9f2] text-xs md:text-sm font-bold uppercase tracking-wider">
-            {text}
-            <span className="animate-pulse">|</span>
-        </span>
+
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0db9f2]/10 border border-[#0db9f2]/20 mb-4 lg:mb-6 drop-shadow-sm">
+            <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0db9f2] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0db9f2]"></span>
+            </span>
+            <span className="text-[#0db9f2] text-xs md:text-sm font-bold uppercase tracking-wider">
+                {text}
+                <span className="animate-pulse">|</span>
+            </span>
+        </div>
     );
 }

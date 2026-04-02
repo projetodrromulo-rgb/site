@@ -1,6 +1,6 @@
 import { AboutContent } from "./types";
 
-export const getAboutContent = (): AboutContent => {
+export async function getAboutContent(): Promise<AboutContent> {
     return {
         subtitle: "Sobre o Especialista",
         headline: {
