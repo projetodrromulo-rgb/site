@@ -1,10 +1,9 @@
-export interface HeroContent {
+import { SharedComponentsTypes } from "@/components/shared/types";
+
+export type HeroContent = {
     typingPhrases: string[];
-    headline: {
-        top: string;
-        highlight: string;
-        bottom: string;
-    };
+    headline: SharedComponentsTypes['headline']
+
     description: string;
     cta: {
         text: string;

@@ -8,9 +8,15 @@ export async function getHeroContent(): Promise<HeroContent> {
             "Recuperação Rápida e Segura"
         ],
         headline: {
-            top: "Sua jornada para uma",
-            highlight: "vida sem dor",
-            bottom: "começa aqui"
+            textTop: "Sua jornada para uma",
+            textHighlight: "vida sem dor",
+            textBottom: "começa aqui",
+            styles: {
+                textColorTitle: "var(--color-title-primary)",
+                textColorHighlightFrom: "var(--color-title-primary-highlight-from)",
+                textColorHighlightTo: "var(--color-title-primary-highlight-to)",
+                textColorBottom: "var(--color-title-primary)"
+            }
         },
         description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
         cta: {

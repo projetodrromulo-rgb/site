@@ -1,14 +1,21 @@
-import { AboutContent } from "./types";
+import { AboutContent } from "../types";
 
 export async function getAboutContent(): Promise<AboutContent> {
     return {
         subtitle: "Sobre o Especialista",
         headline: {
-            normal: "Comprometido com sua",
-            highlight: "Saúde e Bem-estar"
+            textTop: "Comprometido com sua",
+            textHighlight: "Saúde e bem estar",
+            styles: {
+                textColorTitle: "var(--color-title-secondary)",
+                textColorHighlightTo: "var(--color-title-secondary-highlight-to)",
+                textColorHighlightFrom: "var(--color-title-secondary-highlight-from)",
+                textColorBottom: "var(--color-title-secondary-bottom)"
+            }
+
         },
         image: {
-            src: "/images/foto-about.svg",
+            src: "/images/about-image-bg-none.svg",
             alt: "Dr. Rômulo Oliveira"
         },
         paragraphs: [

@@ -2,7 +2,8 @@
 
 import { useHero } from "./hooks/use-hero";
 import { HeroContent } from "./types";
-import { BackgroundVideo, Cta, Description, HeroSpotlight, Logo, Title, TypingText, ScrollDown } from './_components';
+import { BackgroundVideo, Cta, Description, HeroSpotlight, Logo, ScrollDown } from './_components';
+import { Title, TypingText } from "@/components/shared";
 
 interface HeroProps {
     content: HeroContent;
