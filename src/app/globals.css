@@ -6,6 +6,19 @@
   --color-accent: #3D8EB9;
   --color-neutral-light: #F0F4F8;
 
+
+
+  --color-title-primary: #F0F4F8;
+  --color-title-primary-highlight-from: #F0F4F8;
+  --color-title-primary-highlight-to: #0db9f2;
+
+  --color-title-secondary: #0B2B40;
+  --color-title-secondary-highlight-to: #0db9f2;
+  --color-title-secondary-highlight-from: #1F4E6B;
+  --color-title-secondary-bottom: #0B2B40;
+
+
+
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
