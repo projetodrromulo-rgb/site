@@ -1,4 +1,4 @@
-import { getLocationsContent } from "@/components/sections/locations/get-locations-content";
+import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
 
 export async function LocalBusinessSEO() {
     const locations = await getLocationsContent();

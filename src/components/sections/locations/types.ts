@@ -1,3 +1,5 @@
+import { SharedComponentsTypes } from "@/components/shared/types";
+
 export interface LocationUnit {
     id: string;
     title: string;
@@ -5,12 +7,13 @@ export interface LocationUnit {
     address: string;
     phone: string;
     mapUrl: string;
-    websiteUrl?: string;
+    websiteUrl: string;
+    image: string;
 }
 
 export interface LocationsContent {
-    sectionSubtitle: string;
-    sectionTitle: string;
-    sectionDescription: string;
+    subtitle: string;
+    headline: SharedComponentsTypes["headline"];
+    description: string;
     units: LocationUnit[];
 }

@@ -9,7 +9,7 @@ import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/hero";
 import { getHeroContent } from "@/components/sections/hero/data/get-hero-content";
 import { getAboutContent } from "@/components/sections/about/data/get-about-content";
-import { getLocationsContent } from "@/components/sections/locations/get-locations-content";
+import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
 import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 
 export default async function Home() {

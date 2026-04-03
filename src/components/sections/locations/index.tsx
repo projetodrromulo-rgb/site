@@ -1,93 +1,165 @@
 "use client"
 
-import { MapPin, Phone, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useMemo, useEffect } from "react";
+import { Title, TypingText } from "@/components/shared";
+import { LocationCard } from "./_components";
 import { LocationsContent } from "./types";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface LocationsProps {
     content: LocationsContent;
 }
 
 export default function Locations({ content }: LocationsProps) {
-    const { sectionSubtitle, sectionTitle, sectionDescription, units } = content;
+    const { subtitle, headline, description, units } = content;
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    
+    // Configurações do Carrossel 3D (Equilíbrio de 400px)
+    const cardWidth = 400; 
+    const angleStep = 360 / units.length;
+    // Raio otimizado para a largura de 400px com respiro generoso
+    const radius = Math.round((cardWidth / 2) / Math.tan(Math.PI / units.length)) + 70;
+
+    const next = () => setActiveIndex((prev) => (prev + 1) % units.length);
+    const prev = () => setActiveIndex((prev) => (prev - 1 + units.length) % units.length);
+
+    // Giro Automático com Pausa Inteligente
+    useEffect(() => {
+        if (isPaused) return;
+        
+        const timer = setInterval(() => {
+            next();
+        }, 4500); // 4.5 segundos por giro para leitura ideal
+
+        return () => clearInterval(timer);
+    }, [isPaused, activeIndex]);
 
     return (
-        <section id="locations" className="relative py-24 px-6 md:px-12 lg:px-24 bg-neutral-light text-primary-dark">
-            <div className="max-w-7xl mx-auto space-y-16">
-                <div className="text-center space-y-4">
-                    <span className="text-accent text-sm font-bold uppercase tracking-widest">{sectionSubtitle}</span>
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-primary-dark">{sectionTitle}</h3>
-                    <p className="text-primary-dark/60 max-w-2xl mx-auto">
-                        {sectionDescription}
+        <section id="locations" className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center">
+            {/* Elementos Decorativos de Fundo */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] grayscale invert mix-blend-multiply bg-[url('/images/bg-hero-poster.jpg')] bg-cover bg-fixed -z-10" />
+            
+            <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 mb-20">
+                <header className="flex flex-col items-center text-center space-y-6">
+                    <TypingText phrases={[subtitle]} />
+                    <Title headline={headline} className="max-w-4xl" />
+                    <p className="text-lg md:text-xl text-primary-dark/60 max-w-3xl mx-auto leading-relaxed">
+                        {description}
                     </p>
+                </header>
+            </div>
+
+            {/* PALCO 3D REAL (Cilindro de 400px) */}
+            <div 
+                className="relative w-full h-[520px] flex items-center justify-center [perspective:2500px]"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+            >
+                {/* Carrrossel Central Draggable */}
+                <motion.div 
+                    className="relative w-[400px] h-[400px] [transform-style:preserve-3d] cursor-grab active:cursor-grabbing"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.1}
+                    onDragStart={() => setIsPaused(true)}
+                    onDragEnd={(e, info) => {
+                        const threshold = 50; // Sensibilidade do arraste
+                        if (info.offset.x < -threshold) {
+                            next();
+                        } else if (info.offset.x > threshold) {
+                            prev();
+                        }
+                        setIsPaused(false);
+                    }}
+                    animate={{ rotateY: -activeIndex * angleStep }}
+                    transition={{ type: "spring", stiffness: 45, damping: 15 }}
+                >
+                    {units.map((unit, index) => {
+                        const angle = index * angleStep;
+                        return (
+                            <div
+                                key={unit.id}
+                                className="absolute inset-0 [transform-style:preserve-3d] backface-hidden"
+                                style={{
+                                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                                    opacity: 1, // Visibilidade mantida pela física 3D
+                                }}
+                            >
+                                <motion.div
+                                    animate={{ 
+                                        opacity: activeIndex === index ? 1 : 0.3,
+                                        scale: activeIndex === index ? 1.1 : 0.9,
+                                        filter: activeIndex === index ? "blur(0px)" : "blur(2px)"
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                    className="h-full w-full"
+                                >
+                                    <LocationCard
+                                        unit={unit}
+                                        index={index}
+                                    />
+                                </motion.div>
+                            </div>
+                        );
+                    })}
+                </motion.div>
+
+                {/* Gradientes laterais removidos para evitar ofuscação dos cards */}
+            </div>
+
+            {/* BARRA DE NAVEGAÇÃO INFERIOR */}
+            <div 
+                className="max-w-8xl mx-auto px-6 md:px-20 mt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-30"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+            >
+                
+                {/* Setas e Progresso */}
+                <div className="flex items-center gap-8">
+                    <div className="flex gap-4">
+                        <button 
+                            onClick={prev} 
+                            aria-label="Unidade Anterior"
+                            className="p-4 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-primary-dark hover:bg-accent hover:text-white transition-all shadow-xl"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <button 
+                            onClick={next} 
+                            aria-label="Próxima Unidade"
+                            className="p-4 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-primary-dark hover:bg-accent hover:text-white transition-all shadow-xl"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
+
+                    <div className="w-48 h-[1px] bg-primary-dark/10 relative hidden md:block">
+                        <motion.div 
+                            className="absolute top-0 left-0 h-full bg-accent"
+                            animate={{ width: `${((activeIndex + 1) / units.length) * 100}%` }}
+                        />
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-                    {units.map((unit, index) => (
-                        <motion.div
-                            key={unit.id}
-                            initial={{ opacity: 0, y: 50, scale: 0.98 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{
-                                duration: 1.2,
-                                delay: index * 0.15,
-                                ease: [0.16, 1, 0.3, 1]
-                            }}
-                            whileHover={{
-                                rotateX: 5,
-                                rotateY: -5,
-                                scale: 1.02,
-                                transition: { duration: 0.4, ease: "easeOut" }
-                            }}
-                            className="bg-white p-8 rounded-3xl border border-primary-dark/10 border-t-4 border-t-accent flex flex-col gap-6 h-full group shadow-sm hover:shadow-2xl hover:shadow-accent/5 overflow-hidden"
-                            style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
-                        >
-                            <div className="flex justify-between items-start" style={{ transform: "translateZ(20px)" }}>
-                                <div className="space-y-1">
-                                    <h4 className="text-2xl font-bold text-primary-dark">{unit.title}</h4>
-                                    <p className="text-accent font-semibold">{unit.subtitle}</p>
-                                </div>
-                                {unit.websiteUrl ? (
-                                    <a
-                                        href={unit.websiteUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors cursor-pointer"
-                                        title={`Visitar site de ${unit.title}`}
-                                    >
-                                        <Globe size={24} />
-                                    </a>
-                                ) : (
-                                    <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
-                                        <MapPin size={24} />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="space-y-4 text-primary-dark/60" style={{ transform: "translateZ(10px)" }}>
-                                <p className="flex items-start gap-3">
-                                    <MapPin size={18} className="text-accent mt-1 shrink-0" />
-                                    {unit.address}
-                                </p>
-                                <p className="flex items-center gap-3">
-                                    <Phone size={18} className="text-accent shrink-0" />
-                                    {unit.phone}
-                                </p>
-                            </div>
-
-                            <a
-                                href={unit.mapUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 w-full mt-auto py-4 bg-accent text-white font-bold rounded-2xl hover:bg-accent/90 transition-all active:scale-95 shadow-lg shadow-accent/20"
-                                style={{ transform: "translateZ(30px)" }}
-                            >
-                                <Globe size={18} />
-                                Ver no Google Maps
-                            </a>
-                        </motion.div>
-                    ))}
+                {/* Dots e Contador */}
+                <div className="flex items-center gap-8">
+                    <div className="flex gap-2">
+                        {units.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setActiveIndex(index)}
+                                aria-label={`Ir para unidade ${index + 1}`}
+                                className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === index ? "w-10 bg-accent" : "w-3 bg-primary-dark/10"}`}
+                            />
+                        ))}
+                    </div>
+                    <div className="text-2xl font-black text-primary-dark/10 flex gap-1">
+                        <span className="text-primary-dark">{String(activeIndex + 1).padStart(2, '0')}</span>
+                        <span>/</span>
+                        <span>{String(units.length).padStart(2, '0')}</span>
+                    </div>
                 </div>
             </div>
         </section>
