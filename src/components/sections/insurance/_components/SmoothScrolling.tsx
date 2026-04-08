@@ -2,6 +2,12 @@
 
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function SmoothScrolling({ children }: { children: React.ReactNode }) {
     useEffect(() => {
@@ -9,6 +15,15 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard quintic
         });
+
+        // Sincroniza o ScrollTrigger com o Lenis
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
 
         // Intercepta todos os links âncora dinamicamente usando delegação de eventos
         const handleAnchorClick = (e: MouseEvent) => {
@@ -20,36 +35,24 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
                 e.preventDefault();
 
                 if (hash === "#") {
-                    // Se for apenas "#", volta para o topo da página suavemente
                     lenis.scrollTo(0, {
-                        duration: 2.5,
+                        duration: 1.5,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                     });
                 } else if (hash.length > 1 && document.querySelector(hash)) {
-                    // Se houver um ID válido de destino
                     lenis.scrollTo(hash, {
-                        duration: 2.5, // Scroll suave e beeeem lento (2.5 segundos)
+                        duration: 1.5,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                     });
                 }
             }
         };
 
-        // Adiciona o listener no document para pegar cliques em novos elementos inseridos
         document.addEventListener("click", handleAnchorClick as EventListener);
-
-        let rafId: number;
-
-        function raf(time: number) {
-            lenis.raf(time);
-            rafId = requestAnimationFrame(raf);
-        }
-
-        rafId = requestAnimationFrame(raf);
 
         return () => {
             document.removeEventListener("click", handleAnchorClick as EventListener);
-            cancelAnimationFrame(rafId);
+            gsap.ticker.remove(lenis.raf);
             lenis.destroy();
         };
     }, []);

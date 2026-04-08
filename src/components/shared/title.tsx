@@ -3,9 +3,6 @@ import { SharedComponentsTypes } from "./types";
 interface TitleProps {
     headline: SharedComponentsTypes['headline'];
     className?: string;
-
-
-
 }
 export function Title({
     headline,
