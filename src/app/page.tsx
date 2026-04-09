@@ -1,7 +1,7 @@
 import About from "@/components/sections/about";
 import CTA from "@/components/sections/cta";
 import Locations from "@/components/sections/locations";
-import Depoimentos from "@/components/sections/depoimentos";
+import TestimonialsSection from "@/components/sections/testimonials";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/hero";
 import { getHeroContent } from "@/components/sections/hero/data/get-hero-content";
@@ -11,6 +11,7 @@ import { getCTAContent } from "@/components/sections/cta/data/get-content";
 import { getInsuranceContent } from "@/components/sections/insurance/data/get-content";
 import { getBlogContent } from "@/components/sections/blog/data/get-content";
 import { getProceduresContent } from "@/components/sections/procedures/data/get-content";
+import { getTestimonialsContent } from "@/components/sections/testimonials/data/get-content";
 import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 import { Insurance } from "@/components/sections/insurance";
 import { Procedures } from "@/components/sections/procedures";
@@ -24,6 +25,7 @@ export default async function Home() {
   const insuranceContent = await getInsuranceContent();
   const proceduresContent = await getProceduresContent();
   const blogContent = await getBlogContent();
+  const testimonialsContent = await getTestimonialsContent();
 
   return (
     <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
@@ -35,7 +37,7 @@ export default async function Home() {
       <Insurance content={insuranceContent} />
       <Procedures content={proceduresContent} />
       <BlogSection content={blogContent} />
-      <Depoimentos />
+      <TestimonialsSection content={testimonialsContent} />
       <Footer />
     </main>
   );

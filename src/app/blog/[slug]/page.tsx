@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
-import { allPosts } from "@/data/posts";
+import { allPosts } from "@/components/sections/blog/data/posts";
 
 export default function PostDetailPage() {
     const { slug } = useParams();

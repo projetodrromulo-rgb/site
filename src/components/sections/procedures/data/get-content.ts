@@ -1,5 +1,5 @@
 import { ProceduresSectionContent } from "../types";
-import { allProcedures } from "@/data/procedures";
+import { allProcedures } from "./procedures";
 
 export async function getProceduresContent(): Promise<ProceduresSectionContent> {
     // In a real scenario, this could be a call to a CMS or an API

@@ -1,4 +1,4 @@
-import { allPosts } from "@/data/posts";
+import { allPosts } from "./posts";
 import { BlogSectionContent } from "../types";
 
 export async function getBlogContent(): Promise<BlogSectionContent> {

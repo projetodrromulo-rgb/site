@@ -1,49 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { TestimonialsSectionContent } from "./types";
+import { TypingText } from "@/components/shared";
 
-const testimonials = [
-    {
-        id: 1,
-        name: "Clara M.",
-        text: "O acompanhamento com a Dra. Ana transformou minha forma de lidar com a ansiedade. Hoje me sinto muito mais plena e no controle da minha vida.",
-        rating: 5,
-        location: "Rio de Janeiro, RJ",
-    },
-    {
-        id: 2,
-        name: "Ricardo S.",
-        text: "A abordagem integrativa e o uso da hipnose me ajudaram a superar traumas que eu carregava há anos. Sou muito grato por todo o acolhimento.",
-        rating: 5,
-        location: "São Paulo, SP",
-    },
-    {
-        id: 3,
-        name: "Fernanda L.",
-        text: "As sessões de psicoterapia e o trabalho com o Pathwork trouxeram uma clareza que eu nunca achei possível. Uma profissional excepcional.",
-        rating: 5,
-        location: "Belo Horizonte, MG",
-    },
-    {
-        id: 4,
-        name: "Patrícia G.",
-        text: "Sempre me senti ouvida e compreendida. A Dra. Ana Maria tem uma sensibilidade única que faz toda a diferença no processo de cura.",
-        rating: 5,
-        location: "Salvador, BA",
-    },
-    {
-        id: 5,
-        name: "Juliana C.",
-        text: "A integração entre a medicina e a psicoterapia me deu a segurança que eu precisava. O atendimento é humano, ético e transformador.",
-        rating: 5,
-        location: "Curitiba, PR",
-    },
-];
+interface TestimonialsSectionProps {
+    content: TestimonialsSectionContent;
+}
 
-export default function Depoimentos() {
+export default function TestimonialsSection({ content }: TestimonialsSectionProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { testimonials } = content;
 
     // Auto-play logic
     useEffect(() => {
@@ -81,18 +50,16 @@ export default function Depoimentos() {
             </div>
 
             <div className="container mx-auto px-6 text-center relative z-10">
-                <div>
-                    <div className="mb-16 space-y-4">
-                        <span className="text-primary-medium font-semibold uppercase tracking-wider text-sm flex items-center justify-center gap-2 mb-4">
-                            <span className="w-8 h-[1px] bg-primary-medium/30"></span>
-                            Experiências Reais
-                            <span className="w-8 h-[1px] bg-primary-medium/30"></span>
-                        </span>
-                        <h2 className="text-4xl lg:text-5xl font-bold text-primary-dark">
-                            O que dizem nossos <span className="text-accent italic font-cursive text-6xl">Pacientes</span>
-                        </h2>
-                        <div className="h-1 w-20 bg-gradient-to-r from-primary-medium to-accent rounded-full mx-auto mt-4"></div>
-                    </div>
+                <div className="mb-16 space-y-4">
+                    <span className="text-primary-medium font-semibold uppercase tracking-wider text-sm flex items-center justify-center gap-2 mb-4">
+                        <TypingText phrases={[content.badge]} />
+                    </span>
+                    <h2 className="text-4xl lg:text-5xl font-bold text-primary-dark">
+                        {content.title.split(" ").map((word, i) =>
+                            word === "Pacientes" ? <span key={i} className="text-accent italic font-cursive text-6xl"> {word}</span> : i === 0 ? word : ` ${word}`
+                        )}
+                    </h2>
+                    <div className="h-1 w-20 bg-gradient-to-r from-primary-medium to-accent rounded-full mx-auto mt-4"></div>
                 </div>
 
                 <div className="relative h-[440px] md:h-[460px] flex items-center justify-center perspective-1000">
@@ -100,14 +67,14 @@ export default function Depoimentos() {
                     <button
                         onClick={handlePrev}
                         className="absolute left-0 md:left-4 lg:left-10 z-50 p-4 rounded-full bg-white shadow-xl text-primary-medium hover:scale-110 active:scale-95 transition-all border border-gray-100 group"
-                        aria-label="Depoimento Anterior"
+                        aria-label="Previous Testimonial"
                     >
                         <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
                     </button>
                     <button
                         onClick={handleNext}
                         className="absolute right-0 md:right-4 lg:right-10 z-50 p-4 rounded-full bg-white shadow-xl text-primary-medium hover:scale-110 active:scale-95 transition-all border border-gray-100 group"
-                        aria-label="Próximo Depoimento"
+                        aria-label="Next Testimonial"
                     >
                         <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
                     </button>

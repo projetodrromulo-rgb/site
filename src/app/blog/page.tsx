@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import { allPosts } from "@/data/posts";
+import { allPosts } from "@/components/sections/blog/data/posts";
 
 const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
@@ -48,7 +48,7 @@ export default function BlogPage() {
             const timer = setTimeout(() => {
                 const element = document.getElementById('blog-content');
                 if (element) {
-                    element.scrollIntoView({ 
+                    element.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
@@ -200,11 +200,10 @@ export default function BlogPage() {
                                 onClick={() => {
                                     setCurrentPage(page);
                                 }}
-                                className={`size-10 rounded-lg font-bold transition-all active:scale-95 ${
-                                    currentPage === page
+                                className={`size-10 rounded-lg font-bold transition-all active:scale-95 ${currentPage === page
                                         ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
                                         : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 shadow-sm"
-                                }`}
+                                    }`}
                             >
                                 {page}
                             </button>
