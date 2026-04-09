@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
-import SmoothScrolling from "@/components/sections/insurance/_components/SmoothScrolling";
-import MobileNav from "@/components/MobileNav";
+import SmoothScrolling from "@/components/shared/SmoothScrolling";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 

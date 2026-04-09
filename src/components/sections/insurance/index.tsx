@@ -3,8 +3,7 @@
 import { InsuranceContent } from "./types";
 import { useInsurance } from "./hooks/use-insurance";
 import { HospitalCard, InsuranceDescription, InsuranceTitle } from "./_components";
-import { Badge } from "@/components/shared/badge";
-import { cn } from "@/lib/utils";
+
 import { Title, TypingText } from "@/components/shared";
 
 interface InsuranceProps {
