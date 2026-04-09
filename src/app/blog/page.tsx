@@ -16,14 +16,16 @@ import {
     User
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { allPosts } from "@/data/posts";
 
-const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar", "Cardiologia"];
+const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
 export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState("Todos");
     const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 9;
 
     const filteredPosts = useMemo(() => {
         return allPosts.filter(post => {
@@ -32,6 +34,33 @@ export default function BlogPage() {
                 post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
+    }, [selectedCategory, searchQuery]);
+
+    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    const paginatedPosts = useMemo(() => {
+        const startIndex = (currentPage - 1) * postsPerPage;
+        return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+    }, [filteredPosts, currentPage]);
+
+    // Handle scroll to top on page change
+    useEffect(() => {
+        if (currentPage > 1) {
+            const timer = setTimeout(() => {
+                const element = document.getElementById('blog-content');
+                if (element) {
+                    element.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 50); // Small delay to wait for layout shifts
+            return () => clearTimeout(timer);
+        }
+    }, [currentPage]);
+
+    // Reset pagination when filter changes
+    useEffect(() => {
+        setCurrentPage(1);
     }, [selectedCategory, searchQuery]);
 
     return (
@@ -51,7 +80,7 @@ export default function BlogPage() {
                 </div>
             </header>
 
-            <main className="flex-1 max-w-5xl mx-auto w-full px-4 pt-24 pb-32">
+            <main id="blog-content" className="flex-1 max-w-5xl mx-auto w-full px-4 pt-24 pb-32 scroll-mt-28">
                 {/* Search Bar */}
                 <div className="py-6">
                     <label className="flex flex-col w-full group">
@@ -89,13 +118,13 @@ export default function BlogPage() {
                 {/* Articles Grid */}
                 <div className="min-h-[400px]">
                     <AnimatePresence mode="popLayout">
-                        {filteredPosts.length > 0 ? (
+                        {paginatedPosts.length > 0 ? (
                             <motion.div
                                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                                 layout
                             >
-                                {filteredPosts.map((post) => (
-                                    <Link key={post.slug} href={`/blog/${post.slug}`}>
+                                {paginatedPosts.map((post) => (
+                                    <Link key={post.slug} href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
                                         <motion.article
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             animate={{ opacity: 1, scale: 1 }}
@@ -162,15 +191,24 @@ export default function BlogPage() {
                     </AnimatePresence>
                 </div>
 
-                {/* Pagination (Stitch style) - Only visible if there are results */}
-                {filteredPosts.length > 0 && (
+                {/* Pagination - Only visible if there are multiple pages */}
+                {totalPages > 1 && (
                     <div className="mt-16 flex justify-center gap-2">
-                        <button className="size-10 rounded-lg bg-[#0db9f2] text-white font-bold shadow-lg shadow-[#0db9f2]/20 active:scale-95 transition-transform">1</button>
-                        <button className="size-10 rounded-lg bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 transition-all font-bold active:scale-95">2</button>
-                        <button className="size-10 rounded-lg bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 transition-all font-bold active:scale-95">3</button>
-                        <button className="size-10 rounded-lg bg-slate-200 dark:bg-[#223f49] flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 transition-all active:scale-95">
-                            <ChevronRight size={20} />
-                        </button>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => {
+                                    setCurrentPage(page);
+                                }}
+                                className={`size-10 rounded-lg font-bold transition-all active:scale-95 ${
+                                    currentPage === page
+                                        ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
+                                        : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 shadow-sm"
+                                }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
                     </div>
                 )}
             </main>
