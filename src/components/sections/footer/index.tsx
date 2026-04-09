@@ -1,42 +1,23 @@
 "use client";
 
 import { Phone, Mail, Instagram, Linkedin, MessageCircle, MapPin, ChevronRight } from "lucide-react";
+import { FooterContent } from "./types";
 
-export default function Footer() {
+interface FooterProps {
+    content: FooterContent;
+}
+
+export default function Footer({ content }: FooterProps) {
     const currentYear = new Date().getFullYear();
 
-    const navLinks = [
-        { label: "Início", href: "#" },
-        { label: "Especialidades", href: "#procedimentos" },
-        { label: "Sobre", href: "#sobre" },
-        { label: "Onde Atendemos", href: "#locations" },
-        { label: "Convênios", href: "#differentials" },
-        { label: "Blog", href: "#blog" },
-        { label: "Depoimentos", href: "#testimonials" },
-    ];
-
-    const clinics = [
-        {
-            name: "Unidade Barra",
-            address: "Av. das Américas, 4666 - Sala 302, Barra da Tijuca",
-            phone: "(21) 3385-0000",
-        },
-        {
-            name: "Unidade Centro",
-            address: "Rua México, 119 - Sala 1205, Centro",
-            phone: "(21) 2240-1111",
-        },
-        {
-            name: "Unidade Barra2",
-            address: "Av. das Américas, 4666 - Sala 302, Barra da Tijuca",
-            phone: "(21) 3385-0000",
-        },
-        {
-            name: "Unidade Centro2",
-            address: "Rua México, 119 - Sala 1205, Centro",
-            phone: "(21) 2240-1111",
+    const getIcon = (platform: string) => {
+        switch (platform) {
+            case "whatsapp": return <MessageCircle size={18} />;
+            case "instagram": return <Instagram size={18} />;
+            case "linkedin": return <Linkedin size={18} />;
+            default: return null;
         }
-    ];
+    };
 
     return (
         <footer className="bg-primary-dark border-t border-accent/20 pt-20 pb-10 px-6 md:px-12 lg:px-24">
@@ -54,18 +35,20 @@ export default function Footer() {
                             </div>
                         </div>
                         <p className="text-neutral-light/60 text-sm leading-relaxed max-w-xs">
-                            Excelência e precisão em cirurgia de coluna. Focado em devolver a qualidade de vida e mobilidade aos nossos pacientes através de técnicas modernas e humanizadas.
+                            {content.brandDescription}
                         </p>
                         <div className="flex items-center gap-4">
-                            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300">
-                                <MessageCircle size={18} />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300">
-                                <Instagram size={18} />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300">
-                                <Linkedin size={18} />
-                            </a>
+                            {content.socialLinks.map((social) => (
+                                <a 
+                                    key={social.platform}
+                                    href={social.href} 
+                                    target={social.platform === "whatsapp" ? "_blank" : undefined}
+                                    rel={social.platform === "whatsapp" ? "noopener noreferrer" : undefined}
+                                    className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300"
+                                >
+                                    {getIcon(social.platform)}
+                                </a>
+                            ))}
                         </div>
                     </div>
 
@@ -76,7 +59,7 @@ export default function Footer() {
                             Navegação
                         </h4>
                         <ul className="space-y-3">
-                            {navLinks.map((link) => (
+                            {content.navLinks.map((link) => (
                                 <li key={link.label}>
                                     <a href={link.href} className="text-neutral-light/50 hover:text-accent text-sm transition-colors flex items-center gap-2 group">
                                         <span className="w-1 h-1 rounded-full bg-accent scale-0 group-hover:scale-100 transition-transform" />
@@ -94,7 +77,7 @@ export default function Footer() {
                             Nossas Unidades
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {clinics.map((clinic) => (
+                            {content.clinics.map((clinic) => (
                                 <div key={clinic.name} className="space-y-3">
                                     <h5 className="text-accent font-semibold text-sm uppercase tracking-wider">{clinic.name}</h5>
                                     <div className="space-y-2">
@@ -110,14 +93,13 @@ export default function Footer() {
                                 </div>
                             ))}
                         </div>
-
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-neutral-light/40 text-[10px] uppercase tracking-[0.2em] font-medium text-center md:text-left leading-relaxed">
-                        © {currentYear} Dr. Rômulo - CRM 52.00000-0. <br className="md:hidden" /> todos os direitos reservados.
+                        © {currentYear} Dr. Rômulo - CRM {content.crm}. <br className="md:hidden" /> todos os direitos reservados.
                     </p>
                     <div className="flex items-center gap-6">
                         <a href="#" className="text-neutral-light/30 hover:text-accent text-[10px] uppercase tracking-widest transition-colors font-bold">Privacidade</a>

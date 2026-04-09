@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, MessageCircle } from "lucide-react";
-import Footer from "@/components/sections/Footer";
 import { Metadata } from "next";
+import Footer from "@/components/sections/footer";
+import { getFooterContent } from "@/components/sections/footer/data/get-content";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -39,6 +40,8 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
     if (!procedure) {
         notFound();
     }
+
+    const footerContent = await getFooterContent();
 
     return (
         <div className="min-h-screen bg-[#0A192F] text-white flex flex-col">
@@ -129,7 +132,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                                 Entre em contato conosco para tirar suas dúvidas e agendar uma consulta presencial com o Dr. Romulo.
                             </p>
                         </div>
-                        
+
                         <a
                             href={`https://wa.me/5511999999999?text=Olá, vim do site e gostaria de agendar uma avaliação para o procedimento: ${procedure.title}`}
                             target="_blank"
@@ -142,7 +145,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                     </div>
                 </div>
             </main>
-            
+
             {/* Structured Data (JSON-LD) for SEO */}
             <script
                 type="application/ld+json"
@@ -159,7 +162,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                 }}
             />
 
-            <Footer />
+            <Footer content={footerContent} />
         </div>
     );
 }
