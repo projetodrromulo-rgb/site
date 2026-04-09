@@ -1,5 +1,4 @@
 import About from "@/components/sections/about";
-import { Procedimentos } from "@/components/sections/procedimentos";
 import { PostsRecentes } from "@/components/sections/posts-recentes";
 import CTA from "@/components/sections/cta";
 import Locations from "@/components/sections/locations";
@@ -11,8 +10,10 @@ import { getAboutContent } from "@/components/sections/about/data/get-about-cont
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
 import { getCTAContent } from "@/components/sections/cta/data/get-content";
 import { getInsuranceContent } from "@/components/sections/insurance/data/get-content";
+import { getProceduresContent } from "@/components/sections/procedures/data/get-content";
 import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 import { Insurance } from "@/components/sections/insurance";
+import { Procedures } from "@/components/sections/procedures";
 
 export default async function Home() {
   const heroContent = await getHeroContent();
@@ -20,6 +21,7 @@ export default async function Home() {
   const locationsContent = await getLocationsContent();
   const ctaContent = await getCTAContent();
   const insuranceContent = await getInsuranceContent();
+  const proceduresContent = await getProceduresContent();
 
   return (
     <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
@@ -29,7 +31,7 @@ export default async function Home() {
       <Locations content={locationsContent} />
       <CTA content={ctaContent} />
       <Insurance content={insuranceContent} />
-      <Procedimentos />
+      <Procedures content={proceduresContent} />
       <PostsRecentes />
       <Depoimentos />
       <Footer />

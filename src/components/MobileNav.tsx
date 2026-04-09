@@ -9,40 +9,40 @@ export default function MobileNav() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
-    // Do not show on blog pages
-    if (pathname === "/blog" || pathname?.startsWith("/blog/")) {
+    // Do not show on blog or procedure pages
+    if (pathname === "/blog" || pathname?.startsWith("/blog/") || pathname?.startsWith("/procedimentos/")) {
         return null;
     }
 
     const navLinks = [
-        { label: "Início", href: "#", icon: Home },
-        { label: "Especialidades", href: "#procedimentos", icon: Stethoscope },
-        { label: "Sobre", href: "#sobre", icon: User },
-        { label: "Onde Atendemos", href: "#locations", icon: MapPin },
-        { label: "Convênios", href: "#differentials", icon: ShieldCheck },
-        { label: "Blog", href: "#blog", icon: Newspaper },
-        { label: "Depoimentos", href: "#testimonials", icon: Star },
+        { label: "Início", href: "/", icon: Home },
+        { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
+        { label: "Sobre", href: "/#sobre", icon: User },
+        { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
+        { label: "Convênios", href: "/#insurance-section", icon: ShieldCheck },
+        { label: "Blog", href: "/#blog", icon: Newspaper },
+        { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 
     return (
         <>
             {/* Bottom Bar */}
             <nav className="fixed bottom-0 left-0 right-0 flex gap-2 border-t border-white/5 bg-[#101e22]/95 px-4 pb-4 pt-2 backdrop-blur-md z-[100] transition-opacity duration-300">
-                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="#">
+                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="/">
                     <div className="flex h-8 items-center justify-center">
                         <Home size={24} />
                     </div>
                     <p className="text-[10px] font-bold uppercase tracking-wider">Início</p>
                 </a>
 
-                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="#sobre">
+                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="/#sobre">
                     <div className="flex h-8 items-center justify-center">
                         <User size={24} />
                     </div>
                     <p className="text-[10px] font-bold uppercase tracking-wider">Sobre</p>
                 </a>
 
-                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="#procedimentos">
+                <a className="flex flex-1 flex-col items-center justify-center gap-1 text-accent hover:text-white transition-colors" href="/#procedimentos">
                     <div className="flex h-8 items-center justify-center">
                         <Stethoscope size={24} />
                     </div>

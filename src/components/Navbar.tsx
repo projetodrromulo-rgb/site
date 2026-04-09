@@ -18,13 +18,13 @@ export default function Navbar() {
     });
 
     const navLinks = [
-        { label: "Início", href: "#", icon: Home },
-        { label: "Especialidades", href: "#procedimentos", icon: Stethoscope },
-        { label: "Sobre", href: "#sobre", icon: User },
-        { label: "Onde Atendemos", href: "#locations", icon: MapPin },
-        { label: "Convênios", href: "#differentials", icon: ShieldCheck },
-        { label: "Blog", href: "#blog", icon: Newspaper },
-        { label: "Depoimentos", href: "#testimonials", icon: Star },
+        { label: "Início", href: "/", icon: Home },
+        { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
+        { label: "Sobre", href: "/#sobre", icon: User },
+        { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
+        { label: "Convênios", href: "/#insurance-section", icon: ShieldCheck },
+        { label: "Blog", href: "/#blog", icon: Newspaper },
+        { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 
     return (
