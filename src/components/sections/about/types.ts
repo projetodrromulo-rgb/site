@@ -1,4 +1,4 @@
-import { sharedComponentsTypes } from "@/components/shared/types";
+import { SharedComponentsTypes } from "@/components/shared/types";
 
 export interface Feature {
     icon: string;
@@ -8,7 +8,7 @@ export interface Feature {
 
 export interface AboutContent {
     subtitle: string;
-    headline: sharedComponentsTypes["headline"];
+    headline: SharedComponentsTypes["headline"];
     image: {
         src: string;
         alt: string;
