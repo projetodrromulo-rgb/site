@@ -15,57 +15,94 @@ export default function Locations({ content }: LocationsProps) {
     const { subtitle, headline, description, units } = content;
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    
-    // Configurações do Carrossel 3D (Equilíbrio de 400px)
-    const cardWidth = 400; 
+
+    // Configurações Responsivas do Carrossel 3D
+    const [cardWidth, setCardWidth] = useState(400);
+    const [cardHeight, setCardHeight] = useState(450);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const w = window.innerWidth;
+            if (w < 480) { // Mobile Pequeno
+                setCardWidth(280);
+                setCardHeight(380);
+            } else if (w < 768) { // Mobile / Tablet
+                setCardWidth(320);
+                setCardHeight(420);
+            } else if (w < 1024) { // Laptop Pequeno
+                setCardWidth(360);
+                setCardHeight(440);
+            } else { // Desktop
+                setCardWidth(400);
+                setCardHeight(450);
+            }
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const angleStep = 360 / units.length;
-    // Raio otimizado para a largura de 400px com respiro generoso
-    const radius = Math.round((cardWidth / 2) / Math.tan(Math.PI / units.length)) + 70;
+    // Raio otimizado para a largura dinâmica com respiro generoso
+    const radius = useMemo(() => {
+        return Math.round((cardWidth / 2) / Math.tan(Math.PI / units.length)) + (cardWidth < 400 ? 50 : 70);
+    }, [cardWidth, units.length]);
 
     const next = () => setActiveIndex((prev) => (prev + 1) % units.length);
     const prev = () => setActiveIndex((prev) => (prev - 1 + units.length) % units.length);
 
-    // Giro Automático com Pausa Inteligente
+    // Giro Automático com Velocidade Aumentada
     useEffect(() => {
         if (isPaused) return;
-        
+
         const timer = setInterval(() => {
             next();
-        }, 4500); // 4.5 segundos por giro para leitura ideal
+        }, 2800);
 
         return () => clearInterval(timer);
     }, [isPaused, activeIndex]);
 
     return (
-        <section id="locations" className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center">
+        <motion.section
+            id="locations"
+            initial={{ opacity: 1 }}
+            className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center"
+        >
             {/* Elementos Decorativos de Fundo */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] grayscale invert mix-blend-multiply bg-[url('/images/bg-hero-poster.jpg')] bg-cover bg-fixed -z-10" />
-            
+
             <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 mb-20">
                 <header className="flex flex-col items-center text-center space-y-6">
                     <TypingText phrases={[subtitle]} />
                     <Title headline={headline} className="max-w-4xl" />
-                    <p className="text-lg md:text-xl text-primary-dark/60 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-primary-dark/60 max-w-3xl mx-auto leading-relaxed px-4">
                         {description}
                     </p>
                 </header>
             </div>
 
-            {/* PALCO 3D REAL (Cilindro de 400px) */}
-            <div 
-                className="relative w-full h-[520px] flex items-center justify-center [perspective:2500px]"
+            {/* PALCO 3D REAL (Responsivo) */}
+            <div
+                className="relative w-full flex items-center justify-center [perspective:2500px]"
+                style={{ height: cardHeight + 120 }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
                 {/* Carrrossel Central Draggable */}
-                <motion.div 
-                    className="relative w-[400px] h-[400px] [transform-style:preserve-3d] cursor-grab active:cursor-grabbing"
+                <motion.div
+                    className="relative [transform-style:preserve-3d] cursor-grab active:cursor-grabbing"
+                    style={{
+                        width: cardWidth,
+                        height: cardHeight,
+                        willChange: "transform"
+                    }}
                     drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.1}
                     onDragStart={() => setIsPaused(true)}
                     onDragEnd={(e, info) => {
-                        const threshold = 50; // Sensibilidade do arraste
+                        const threshold = 50;
                         if (info.offset.x < -threshold) {
                             next();
                         } else if (info.offset.x > threshold) {
@@ -73,8 +110,12 @@ export default function Locations({ content }: LocationsProps) {
                         }
                         setIsPaused(false);
                     }}
+                    initial={{ rotateY: -360 }}
                     animate={{ rotateY: -activeIndex * angleStep }}
-                    transition={{ type: "spring", stiffness: 45, damping: 15 }}
+                    transition={{
+                        rotateY: { type: "tween", duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                        default: { duration: 0.1 }
+                    }}
                 >
                     {units.map((unit, index) => {
                         const angle = index * angleStep;
@@ -84,17 +125,19 @@ export default function Locations({ content }: LocationsProps) {
                                 className="absolute inset-0 [transform-style:preserve-3d] backface-hidden"
                                 style={{
                                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                                    opacity: 1, // Visibilidade mantida pela física 3D
+                                    opacity: 1,
                                 }}
                             >
                                 <motion.div
-                                    animate={{ 
-                                        opacity: activeIndex === index ? 1 : 0.3,
-                                        scale: activeIndex === index ? 1.1 : 0.9,
-                                        filter: activeIndex === index ? "blur(0px)" : "blur(2px)"
+                                    animate={{
+                                        opacity: activeIndex === index ? 1 : 0.25,
+                                        scale: activeIndex === index ? 1.05 : 0.85,
+                                        filter: activeIndex === index ? "blur(0px)" : "blur(4px)",
+                                        z: activeIndex === index ? 50 : 0
                                     }}
-                                    transition={{ duration: 0.5 }}
-                                    className="h-full w-full"
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    className="h-full w-full will-change-transform"
+                                    style={{ transformStyle: "preserve-3d" }}
                                 >
                                     <LocationCard
                                         unit={unit}
@@ -105,29 +148,27 @@ export default function Locations({ content }: LocationsProps) {
                         );
                     })}
                 </motion.div>
-
-                {/* Gradientes laterais removidos para evitar ofuscação dos cards */}
             </div>
 
             {/* BARRA DE NAVEGAÇÃO INFERIOR */}
-            <div 
+            <div
                 className="max-w-8xl mx-auto px-6 md:px-20 mt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-30"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
-                
+
                 {/* Setas e Progresso */}
                 <div className="flex items-center gap-8">
                     <div className="flex gap-4">
-                        <button 
-                            onClick={prev} 
+                        <button
+                            onClick={prev}
                             aria-label="Unidade Anterior"
                             className="p-4 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-primary-dark hover:bg-accent hover:text-white transition-all shadow-xl"
                         >
                             <ChevronLeft size={20} />
                         </button>
-                        <button 
-                            onClick={next} 
+                        <button
+                            onClick={next}
                             aria-label="Próxima Unidade"
                             className="p-4 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-primary-dark hover:bg-accent hover:text-white transition-all shadow-xl"
                         >
@@ -136,7 +177,7 @@ export default function Locations({ content }: LocationsProps) {
                     </div>
 
                     <div className="w-48 h-[1px] bg-primary-dark/10 relative hidden md:block">
-                        <motion.div 
+                        <motion.div
                             className="absolute top-0 left-0 h-full bg-accent"
                             animate={{ width: `${((activeIndex + 1) / units.length) * 100}%` }}
                         />
@@ -162,6 +203,6 @@ export default function Locations({ content }: LocationsProps) {
                     </div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }
