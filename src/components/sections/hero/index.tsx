@@ -54,7 +54,7 @@ export default function Hero({ content }: HeroProps) {
 
             </div>
 
-            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center h-full pt-24 pb-8 lg:py-0">
+            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center h-full pb-8 lg:py-0">
 
                 <div ref={contentRef} className="relative flex flex-col items-center text-center drop-shadow-2xl z-20 pointer-events-auto">
                     <div className="hero-animate-item"><TypingText phrases={typingPhrases} /></div>

@@ -24,7 +24,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
     // Sync visible items with JS for boundary logic
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 768) setVisibleItems(1.5);
+            if (window.innerWidth < 768) setVisibleItems(1);
             else if (window.innerWidth < 1024) setVisibleItems(2.5);
             else setVisibleItems(3.5);
         };
@@ -70,34 +70,34 @@ export default function BlogSection({ content }: BlogSectionProps) {
 
                 <div className="relative">
                     {/* Navigation Buttons - Flanking */}
-                    <div className="absolute top-1/2 -left-4 lg:-left-16 -translate-y-1/2 z-20 blog-animate-footer opacity-0">
+                    <div className="absolute top-1/2 left-0 md:-left-4 lg:-left-16 -translate-y-1/2 z-20 blog-animate-footer opacity-0">
                         <button
                             onClick={prevStep}
                             disabled={isAtStart}
-                            className={`group size-12 lg:size-14 rounded-full border border-[#112240]/10 bg-white shadow-xl flex items-center justify-center text-[#112240] hover:bg-[#0db9f2] hover:text-white transition-all duration-300 active:scale-95 ${isAtStart ? 'opacity-30 cursor-not-allowed scale-90 grayscale' : 'opacity-100 cursor-pointer'}`}
+                            className={`group size-10 md:size-12 lg:size-14 rounded-full border border-[#112240]/10 bg-white/90 backdrop-blur-md shadow-xl flex items-center justify-center text-[#112240] hover:bg-[#0db9f2] hover:text-white transition-all duration-300 active:scale-95 ${isAtStart ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 cursor-pointer'}`}
                             aria-label="Anterior"
                         >
-                            <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
+                            <ChevronLeft size={20} className="md:size-24 group-hover:-translate-x-0.5 transition-transform" />
                         </button>
                     </div>
 
-                    <div className="absolute top-1/2 -right-4 lg:-right-16 -translate-y-1/2 z-20 blog-animate-footer opacity-0">
+                    <div className="absolute top-1/2 right-0 md:-right-4 lg:-right-16 -translate-y-1/2 z-20 blog-animate-footer opacity-0">
                         <button
                             onClick={nextStep}
                             disabled={isAtEnd}
-                            className={`group size-12 lg:size-14 rounded-full border border-[#112240]/10 bg-white shadow-xl flex items-center justify-center text-[#112240] hover:bg-[#0db9f2] hover:text-white transition-all duration-300 active:scale-95 ${isAtEnd ? 'opacity-30 cursor-not-allowed scale-90 grayscale' : 'opacity-100 cursor-pointer'}`}
+                            className={`group size-10 md:size-12 lg:size-14 rounded-full border border-[#112240]/10 bg-white/90 backdrop-blur-md shadow-xl flex items-center justify-center text-[#112240] hover:bg-[#0db9f2] hover:text-white transition-all duration-300 active:scale-95 ${isAtEnd ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 cursor-pointer'}`}
                             aria-label="Próximo"
                         >
-                            <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
+                            <ChevronRight size={20} className="md:size-24 group-hover:translate-x-0.5 transition-transform" />
                         </button>
                     </div>
 
                     {/* Carousel Container */}
-                    <div className="overflow-hidden px-1 py-4 lg:mx-0">
+                    <div className="overflow-hidden -mx-4 px-12 py-4 lg:mx-0 lg:px-1">
                         <motion.div
-                            className="flex gap-6 [--visible-items:1.5] md:[--visible-items:2.5] lg:[--visible-items:3.5]"
+                            className="flex gap-4 md:gap-6 [--visible-items:1] md:[--visible-items:2.5] lg:[--visible-items:3.5]"
                             animate={{ 
-                                x: `calc(-${currentIndex * 100}% / var(--visible-items) - ${currentIndex * 24}px + var(--carousel-offset, 0px))` 
+                                x: `calc(-${currentIndex * 100}% - ${currentIndex * (visibleItems === 1 ? 16 : 24)}px)` 
                             }}
                             transition={{ 
                                 type: "spring", 
@@ -109,7 +109,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
                             {posts.map((post, idx) => (
                                 <div
                                     key={post.slug}
-                                    className="w-[calc(100%/var(--visible-items)-20px)] shrink-0"
+                                    className="w-full md:w-[calc(100%/var(--visible-items)-20px)] shrink-0"
                                 >
                                     <BlogPostCard
                                         post={post}
@@ -119,7 +119,9 @@ export default function BlogSection({ content }: BlogSectionProps) {
                             ))}
                         </motion.div>
                     </div>
+
                 </div>
+
 
                 {/* View All Button */}
                 <div className="flex justify-center mt-12 blog-animate-footer opacity-0">
