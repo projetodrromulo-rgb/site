@@ -35,9 +35,9 @@ export default function PostDetailPage() {
                     <Link href="/blog" className="text-[#0db9f2] flex size-12 shrink-0 items-center justify-center hover:bg-white/10 rounded-xl transition-all active:scale-95">
                         <ArrowLeft size={28} />
                     </Link>
-                    <h2 className="text-white dark:text-slate-100 text-sm md:text-base font-bold leading-tight tracking-tight flex-1 text-center font-display line-clamp-1 pr-12 md:pr-0">
+                    <h1 className="text-white dark:text-slate-100 text-sm md:text-base font-bold leading-tight tracking-tight flex-1 text-center font-display line-clamp-1 pr-12 md:pr-0">
                         {post.title}
-                    </h2>
+                    </h1>
                     <div className="hidden md:flex w-12 items-center justify-end" aria-hidden="true" />
                 </div>
             </header>
@@ -97,12 +97,18 @@ export default function PostDetailPage() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
                     className="prose prose-slate dark:prose-invert max-w-none 
-                        prose-headings:font-display prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-slate-100
-                        prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:leading-relaxed prose-p:text-lg
+                        prose-headings:font-display prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-slate-100
+                        prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:leading-relaxed prose-p:text-lg prose-p:my-8
+                        prose-strong:text-[#0db9f2] prose-strong:font-black
+                        prose-h2:text-3xl md:text-4xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:leading-tight
                         prose-blockquote:border-l-4 prose-blockquote:border-[#0db9f2] prose-blockquote:bg-[#0db9f2]/5 
-                        prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:italic
-                        prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-li:text-lg
-                        prose-img:rounded-2xl"
+                        prose-blockquote:py-4 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:italic
+                        prose-blockquote:text-xl prose-blockquote:font-medium prose-blockquote:text-slate-800 dark:prose-blockquote:text-slate-200
+                        prose-ul:list-none prose-ul:pl-0
+                        prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-li:text-lg prose-li:relative prose-li:pl-8
+                        prose-li:before:content-[''] prose-li:before:absolute prose-li:before:left-0 prose-li:before:top-[0.6em]
+                        prose-li:before:size-2 prose-li:before:rounded-full prose-li:before:bg-[#0db9f2]
+                        prose-img:rounded-3xl"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                 />
 
