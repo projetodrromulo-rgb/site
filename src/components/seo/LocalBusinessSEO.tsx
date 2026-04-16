@@ -10,7 +10,7 @@ export async function LocalBusinessSEO() {
         "image": "https://www.drromulocoluna.com.br/images/image-profile.png",
         "description": "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento humanizado em Belo Horizonte, Betim e Contagem.",
         "url": "http://drromulocoluna.com.br/",
-        "telephone": "+5531996689572",
+        "telephone": `+${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5531996689572").replace(/^\+/, "")}`,
         "medicalSpecialty": "OrthopedicSurgery",
         "address": {
             "@type": "PostalAddress",
