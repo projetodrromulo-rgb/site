@@ -53,10 +53,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                             href={unit.mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
+                            className="relative px-4 h-10 rounded-xl bg-accent flex items-center justify-center gap-2 text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
                             title="Abrir no Google Maps"
                         >
                             <Navigation size={18} className="group-hover/gps:rotate-12 transition-transform" />
+                            <span className="text-[11px] font-black uppercase tracking-wider">Como Chegar</span>
                         </a>
                     </div>
 
