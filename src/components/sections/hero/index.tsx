@@ -2,8 +2,9 @@
 
 import { useHero } from "./hooks/use-hero";
 import { HeroContent } from "./types";
-import { BackgroundVideo, Cta, Description, HeroSpotlight, Logo, ScrollDown } from './_components';
+import { BackgroundVideo, Description, HeroSpotlight, ScrollDown } from './_components';
 import { Title, TypingText } from "@/components/shared";
+import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 
 interface HeroProps {
     content: HeroContent;
@@ -19,7 +20,6 @@ export default function Hero({ content }: HeroProps) {
         videoRef,
         spotlightRef,
         overlayRef,
-        logoRef,
         scrollRef,
         handleVideoEnded
     } = useHero();
@@ -32,13 +32,6 @@ export default function Hero({ content }: HeroProps) {
             ref={containerRef}
             className="relative w-full min-h-screen flex items-center px-6 md:px-12 lg:px-24  overflow-hidden"
         >
-
-            <Logo
-                logoImage={logoImage}
-                ref={logoRef}
-                className="absolute top-4 left-8 md:left-12 lg:left-4 z-[150] opacity-0"
-            />
-
 
             <div
                 ref={mediaContainerRef}
@@ -60,7 +53,7 @@ export default function Hero({ content }: HeroProps) {
                     <div className="hero-animate-item"><TypingText phrases={typingPhrases} /></div>
                     <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} /></div>
                     <div className="hero-animate-item w-full flex justify-center"><Description description={description} /></div>
-                    <div className="hero-animate-item"><Cta cta={cta} /></div>
+                    <CtaWhatsApp cta={cta} />
                 </div>
 
                 <HeroSpotlight

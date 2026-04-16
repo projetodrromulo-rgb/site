@@ -1,13 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Phone, Menu, X, Home, Stethoscope, User, MapPin, ShieldCheck, Newspaper, Star } from "lucide-react";
+import { Logo } from "./sections/hero/_components/logo";
 
 export default function Navbar() {
     const { scrollY } = useScroll();
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Dados do logo - idealmente viriam de um provider ou props, mas usaremos os do hero por enquanto
+    const logoData = {
+        src: "/images/logo.svg",
+        alt: "Dr. Rômulo Oliveira Logo"
+    };
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         if (latest > 50) {
@@ -29,27 +36,38 @@ export default function Navbar() {
 
     return (
         <>
-            <motion.header
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ 
-                    y: hasScrolled ? 0 : -100, 
-                    opacity: hasScrolled ? 1 : 0 
-                }}
-                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                className="fixed top-8 right-8 md:right-12 lg:right-24 z-[150]"
+            <div
+
+                className={`fixed top-0 left-0 w-full z-[150] transition-all duration-500 ${hasScrolled
+                    ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
+                    : "bg-transparent py-4"
+                    }`}
             >
-                {/* Minimal Circular Menu Button - Centered */}
-                <button
-                    onClick={() => setIsMenuOpen(true)}
-                    className={`w-14 h-14 rounded-full flex items-center justify-center text-accent transition-all hover:scale-110 active:scale-90 shadow-xl shadow-black/20 group relative overflow-hidden ${hasScrolled
-                        ? "bg-primary-dark/60 backdrop-blur-2xl border border-accent/30"
-                        : "bg-accent/10 border border-accent/30"
-                        }`}
-                >
-                    <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Menu size={28} className="relative z-10" />
-                </button>
-            </motion.header>
+                <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between">
+                    {/* Logo Section */}
+                    <Logo
+                        logoImage={logoData}
+                        scrolled={hasScrolled}
+                        className="scale-75 md:scale-90 origin-left"
+                    />
+
+                    {/* Menu Button Container */}
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => setIsMenuOpen(true)}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${hasScrolled
+                                ? "bg-primary-dark text-white border border-white/10 shadow-lg"
+                                : "bg-white/10 backdrop-blur-md text-white border border-white/20"
+                                }`}
+                        >
+                            <span className="hidden md:block text-sm uppercase tracking-wider">Menu</span>
+                            <div className={`p-1 rounded-full ${hasScrolled ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
+                                <Menu size={20} />
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             {/* Fullscreen Overlay Menu */}
             <AnimatePresence>

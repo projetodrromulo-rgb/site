@@ -41,7 +41,7 @@ export default function About({ content }: AboutProps) {
             id="sobre"
             ref={containerRef}
             aria-labelledby="about-title"
-            className="relative w-full overflow-hidden bg-neutral-light border-b border-primary-dark/5 lg:pt-16 pt-24"
+            className="relative w-full overflow-hidden bg-neutral-light border-b border-primary-dark/5 lg:pt-16"
         >
             <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 text-primary-dark w-full space-y-16 lg:space-y-24 md:pb-12">
                 <header id="about-title" className="space-y-6 text-center w-full flex flex-col items-center">

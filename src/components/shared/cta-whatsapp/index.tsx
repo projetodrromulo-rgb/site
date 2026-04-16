@@ -1,16 +1,17 @@
 import { IconWhatsApp } from "@/components/icon-whats-app";
-import { HeroContent } from "../types";
+import { WhatsAppButtonType } from "./type";
 
-interface CtaProps {
-    cta: HeroContent['cta'];
+
+type WhatsAppButtonProps = {
+    cta: WhatsAppButtonType
 }
 
-export function Cta({ cta }: CtaProps) {
+export function CtaWhatsApp({ cta }: WhatsAppButtonProps) {
     return (
         <div>
             <a
                 className="relative z-30 flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#25D366]/90 text-white px-8 py-5 rounded-xl font-extrabold text-lg shadow-lg shadow-[#25D366]/20 transition-all active:scale-95 group"
-                href={cta.whatsappUrl}
+                href={`https://wa.me/${cta.whatsAppNumber}?text=Olá, vim do site Dr. Romulo. Gostaria de agendar uma consulta.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Falar com Dr. Rômulo Oliveira pelo WhatsApp"

@@ -1,5 +1,4 @@
 export * from './background-video';
-export * from './cta';
 export * from './description';
 export * from './hero-spotlight';
 export * from './logo';

@@ -31,24 +31,13 @@ export const useHero = () => {
         return () => observer.disconnect();
     }, []);
 
-    const logoRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     // Entry animations
     useGSAP(() => {
         const tl = gsap.timeline();
 
-        // Logo animation (Delayed by 3 seconds as requested)
-        gsap.fromTo(logoRef.current,
-            { opacity: 0, y: -20 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 3,
-                ease: "power3.out"
-            }
-        );
+
 
         tl.from(
             ".hero-animate-item",
@@ -117,7 +106,6 @@ export const useHero = () => {
         videoRef,
         spotlightRef,
         overlayRef,
-        logoRef,
         scrollRef,
         handleVideoEnded
     };

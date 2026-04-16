@@ -21,7 +21,7 @@ export async function getHeroContent(): Promise<HeroContent> {
         description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
         cta: {
             text: "Descubra como podemos ajudar",
-            whatsappUrl: "https://wa.me/5511999999999?text=Olá, vim do site Dr. Romulo. Gostaria de agendar uma consulta."
+            whatsAppNumber: "5531996689572"
         },
 
         logoImage: {
