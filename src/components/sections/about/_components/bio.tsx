@@ -10,7 +10,7 @@ interface AboutBioProps {
 export const AboutBio = forwardRef<HTMLDivElement, AboutBioProps>(
     ({ paragraphs, formation, className }, ref) => {
         return (
-            <div ref={ref} className={`${className} space-y-8 text-primary-dark/80 text-lg md:text-xl leading-relaxed flex-1`}>
+            <div ref={ref} className={`${className} pb-6 space-y-8 text-primary-dark/80 text-lg md:text-xl leading-relaxed flex-1 `}>
                 {/* Texto Biográfico principal */}
                 <div className="space-y-4">
                     {paragraphs.map((p, idx) => (
@@ -24,7 +24,7 @@ export const AboutBio = forwardRef<HTMLDivElement, AboutBioProps>(
                         <Award className="text-accent" size={28} strokeWidth={2.5} />
                         Formação de Excelência
                     </h3>
-                    
+
                     <ul className="grid grid-cols-1 gap-4">
                         {formation.map((item, idx) => (
                             <li key={idx} className="flex items-start gap-4 text-base md:text-lg group">

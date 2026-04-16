@@ -16,11 +16,6 @@ export const AboutProfile = forwardRef<HTMLDivElement, AboutProfileProps>(
 
                 <div className="relative h-[500px] md:h-[650px] w-[350px] md:w-[480px] bg-white/10 p-[5px] rounded-[2.8rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.10)] transition-all duration-700 ease-out group-hover:[transform:rotateX(6deg)_rotateY(-12deg)_translateZ(40px)] border-b-[6px] border-r-[6px] border-black/10 overflow-hidden group/card shadow-accent/5">
 
-                    {/* 
-                    O Ponto Iluminado (Trace Effect) - Agora maior e mais lento 
-                    
-                    <div className="absolute inset-[-1000%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_47%,#0db9f2_50%,transparent_53%,transparent_100%)] animate-[spin_8s_linear_infinite] opacity-20" />
-                    */}
 
                     <div className="relative w-full h-full bg-white rounded-[2.7rem] p-3 flex items-center justify-center">
                         <div className="relative w-full h-full overflow-hidden rounded-[2rem]">
