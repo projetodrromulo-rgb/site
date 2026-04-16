@@ -77,7 +77,7 @@ export default function About({ content }: AboutProps) {
 
 
             {/* Barra de Diferenciais na base da seção */}
-            <footer className="w-full border-t border-primary-dark/10 bg-white/40 backdrop-blur-xl py-14 px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 relative overflow-hidden">
+            <footer className="w-full border-t border-primary-dark/10 bg-white/40 backdrop-blur-xl py-14 px-6 md:px-12 lg:px-8 xl:px-0 2xl:px-20 relative overflow-hidden">
                 <AboutFeatures
                     ref={featuresRef}
                     features={features}
