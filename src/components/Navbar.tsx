@@ -38,12 +38,12 @@ export default function Navbar() {
         <>
             <div
 
-                className={`fixed top-0 left-0 w-full z-[150] transition-all duration-500 ${hasScrolled
+                className={`fixed top-0 left-0 w-full z-[150]   ${hasScrolled
                     ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
                     : "bg-transparent py-4"
                     }`}
             >
-                <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between">
+                <div className="w-full px-8 md:px-12 lg:px-24 flex items-center justify-between">
                     {/* Logo Section */}
                     <Logo
                         logoImage={logoData}
