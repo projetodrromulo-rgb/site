@@ -1,4 +1,5 @@
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
+import { env } from "@/env";
 
 export async function LocalBusinessSEO() {
     const locations = await getLocationsContent();
@@ -10,7 +11,7 @@ export async function LocalBusinessSEO() {
         "image": "https://www.drromulocoluna.com.br/images/image-profile.png",
         "description": "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento humanizado em Belo Horizonte, Betim e Contagem.",
         "url": "http://drromulocoluna.com.br/",
-        "telephone": `+${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5531996689572").replace(/^\+/, "")}`,
+        "telephone": `${(env().whatsAppNumber)}`,
         "medicalSpecialty": "OrthopedicSurgery",
         "address": {
             "@type": "PostalAddress",

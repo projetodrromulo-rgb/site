@@ -1,4 +1,5 @@
 import { HeroContent } from "../types";
+import { env } from "@/env";
 
 export async function getHeroContent(): Promise<HeroContent> {
     return {
@@ -21,7 +22,7 @@ export async function getHeroContent(): Promise<HeroContent> {
         description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
         cta: {
             text: "Descubra como podemos ajudar",
-            whatsAppNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5531996689572"
+            whatsAppNumber: env().whatsAppNumber
         },
 
         logoImage: {
