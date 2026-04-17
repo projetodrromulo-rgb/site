@@ -65,7 +65,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     <div className="space-y-4 [transform:translateZ(50px)]">
                         <header className="space-y-1">
                             <motion.span
-                                className="block text-[12px] text-white/90 italic font-normal mb-2 drop-shadow-md"
+                                className="block text-[12px] text-white italic font-medium mb-2 drop-shadow-md"
                                 initial={{ opacity: 1 }}
                             >
                                 {unit.subtitle}
@@ -78,15 +78,15 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         {/* Detalhes Extra (Melhoria de Legibilidade) */}
                         <div className="transition-all duration-700 ease-in-out">
                             <address className="not-italic space-y-3 md:space-y-4 pt-2 md:pt-4 pb-2 md:pb-3">
-                                <p className="text-white/90 font-medium text-[10px] md:text-xs leading-relaxed flex items-start gap-2 md:gap-3 drop-shadow-md">
-                                    <MapPin size={14} className="text-accent shrink-0 mt-0.5" />
+                                <p className="text-white font-medium text-[10px] md:text-xs leading-relaxed flex items-start gap-2 md:gap-3 drop-shadow-md">
+                                    <MapPin size={14} color="#d1e6f5ff" className="text-accent shrink-0 mt-0.5" />
                                     {unit.address}
                                 </p>
                                 <div className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs">
-                                    <Phone size={14} className="text-accent shrink-0" />
-                                    <a href={`tel:${unit.phone}`} className="text-white font-black hover:text-accent transition-colors drop-shadow-md">
+                                    <Phone size={14} color="#d1e6f5ff" className="text-accent shrink-0" />
+                                    <span className="text-white font-medium transition-colors drop-shadow-md">
                                         {unit.phone}
-                                    </a>
+                                    </span>
                                 </div>
                             </address>
 

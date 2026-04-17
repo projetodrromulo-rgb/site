@@ -18,7 +18,7 @@ export async function getLocationsContent(): Promise<LocationsContent> {
             {
                 id: "materdei-betim",
                 title: "Mater Dei Betim",
-                subtitle: "Duque de Caxias - Betim/MG",
+                subtitle: "Duque de Caxias - Betim - MG",
                 address: "Via Expressa de Betim, 15500 - Duque de Caxias - Betim",
                 phone: "(31) 3339-9000",
                 mapUrl: "https://www.google.com/maps/place/Hospital+Mater+Dei+Betim-Contagem/@-19.9408634,-44.1501398,17z/data=!3m1!4b1!4m6!3m5!1s0xa6c1cabee6c259:0x7d294aaad7d86fd6!8m2!3d-19.9408634!4d-44.1475649!16s%2Fg%2F11gh86_kn_?entry=ttu&g_ep=EgoyMDI2MDMzMS4wIKXMDSoASAFQAw%3D%3D",
