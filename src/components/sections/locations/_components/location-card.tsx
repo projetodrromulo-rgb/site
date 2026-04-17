@@ -70,7 +70,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                             >
                                 {unit.subtitle}
                             </motion.span>
-                            <h4 className="text-lg md:text-xl font-black text-white leading-[0.9] uppercase tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+                            <h4 className="text-lg md:text-xl font-normal text-white leading-[0.9] uppercase tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
                                 {unit.title}
                             </h4>
                         </header>

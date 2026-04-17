@@ -2,8 +2,10 @@
 
 import { CTAContent } from "./types";
 import { useCTA } from "./hooks/use-cta";
-import { ActionButton, TrustSignalCard, CTADescription, CTATitle } from "./_components";
+import { TrustSignalCard, CTADescription, CTATitle } from "./_components";
 import { TypingText } from "@/components/shared";
+import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
+import { env } from "@/env";
 
 interface CTAProps {
     content: CTAContent;
@@ -13,11 +15,17 @@ export default function CTA({ content }: CTAProps) {
     const { containerRef } = useCTA();
     const { typingPhrases, headline, description, whatsappUrl, trustSignals, id } = content;
 
+
+
+    const cta = {
+        whatsAppNumber: env().whatsAppNumber,
+        text: "Chamar no WhatsApp",
+    }
     return (
         <section
             id={id}
             ref={containerRef}
-            className="relative overflow-hidden bg-[#0A192F] py-24 px-4 sm:px-6 lg:px-8"
+            className="relative overflow-hidden  py-24 px-4 sm:px-6 lg:px-8"
         >
             <div
                 className="absolute inset-0 pointer-events-none"
@@ -42,11 +50,10 @@ export default function CTA({ content }: CTAProps) {
                     {description}
                 </CTADescription>
 
-                <ActionButton
-                    href={whatsappUrl}
-                    text="Chamar no WhatsApp"
-                    className="cta-animate-item"
+                <CtaWhatsApp
+                    cta={cta}
                 />
+
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pt-16 border-t border-white/10">
                     {trustSignals.map((signal, idx) => (
