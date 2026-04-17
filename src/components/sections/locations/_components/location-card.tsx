@@ -28,16 +28,16 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         src={unit.image}
                         alt={unit.title}
                         fill
-                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110 opacity-90"
+                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                         priority={index < 6}
                         quality={100}
                     />
                     {/* Overlay de Gradiente Suavizado (Melhor Visibilidade) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-85" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 </div>
 
                 {/* 2. Conteúdo Flutuante */}
-                <div className="relative z-10 flex flex-col h-full p-5 md:p-8 justify-end [transform-style:preserve-3d]">
+                <div className="relative z-10 flex flex-col h-full p-4 md:p-6 justify-end [transform-style:preserve-3d]">
 
                     {/* Elementos Superiores - GPS PULSANTE */}
                     <div className="absolute top-5 right-5 md:top-6 md:right-6 [transform:translateZ(60px)] z-30 group/gps">

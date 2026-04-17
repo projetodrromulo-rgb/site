@@ -24,17 +24,17 @@ export default function Locations({ content }: LocationsProps) {
         const handleResize = () => {
             const w = window.innerWidth;
             if (w < 480) { // Mobile Pequeno
-                setCardWidth(280);
-                setCardHeight(380);
+                setCardWidth(200);
+                setCardHeight(300);
             } else if (w < 768) { // Mobile / Tablet
-                setCardWidth(320);
-                setCardHeight(420);
+                setCardWidth(240);
+                setCardHeight(340);
             } else if (w < 1024) { // Laptop Pequeno
-                setCardWidth(360);
-                setCardHeight(440);
+                setCardWidth(280);
+                setCardHeight(360);
             } else { // Desktop
-                setCardWidth(400);
-                setCardHeight(450);
+                setCardWidth(320);
+                setCardHeight(380);
             }
         };
 
@@ -70,7 +70,7 @@ export default function Locations({ content }: LocationsProps) {
             className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center"
         >
             {/* Elementos Decorativos de Fundo */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] grayscale invert mix-blend-multiply bg-[url('/images/bg-hero-poster.jpg')] bg-cover bg-fixed -z-10" />
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] grayscale invert mix-blend-multiply bg-[url('/images/bg-hero-poster.png')] bg-cover bg-fixed -z-10" />
 
             <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 mb-20">
                 <header className="flex flex-col items-center text-center space-y-6">
@@ -130,9 +130,9 @@ export default function Locations({ content }: LocationsProps) {
                             >
                                 <motion.div
                                     animate={{
-                                        opacity: activeIndex === index ? 1 : 0.25,
+                                        opacity: 1,
                                         scale: activeIndex === index ? 1.05 : 0.85,
-                                        filter: activeIndex === index ? "blur(0px)" : "blur(4px)",
+                                        filter: "blur(0px)",
                                         z: activeIndex === index ? 50 : 0
                                     }}
                                     transition={{ duration: 0.3, ease: "easeOut" }}

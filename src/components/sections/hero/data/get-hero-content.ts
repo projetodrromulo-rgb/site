@@ -31,7 +31,7 @@ export async function getHeroContent(): Promise<HeroContent> {
         },
         backgroundVideo: {
             src: "/video/video-hero.webm",
-            poster: "/images/bg-hero-poster.jpg"
+            poster: "/images/bg-hero-poster.png"
         }
 
 
