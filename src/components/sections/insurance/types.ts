@@ -8,6 +8,7 @@ export interface Plan {
 export interface Hospital {
     name: string;
     plans: Plan[];
+    speed?: number;
 }
 
 export interface InsuranceContent {

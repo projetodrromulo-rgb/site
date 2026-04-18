@@ -21,14 +21,14 @@ export const InsuranceMarquee = forwardRef<HTMLDivElement, MarqueeRowProps>(
         return (
             <div
                 ref={ref}
-                className={cn("overflow-hidden whitespace-nowrap relative py-2 group/marquee w-full", className)}
+                className={cn("overflow-hidden whitespace-nowrap relative py-4 md:py-8 group/marquee w-full", className)}
             >
-                <div 
+                <div
                     className={cn(
                         "flex gap-6 w-max",
                         direction === "left" ? "animate-marquee-left" : "animate-marquee-right"
                     )}
-                    style={{ 
+                    style={{
                         animationDuration: `${speed}s`,
                     }}
                 >
@@ -37,7 +37,7 @@ export const InsuranceMarquee = forwardRef<HTMLDivElement, MarqueeRowProps>(
                             key={`${plan.name}-${idx}`}
                             src={plan.src}
                             alt={plan.name}
-                            className="w-44 shrink-0"
+                            className="w-44 h-28 shrink-0"
                         />
                     ))}
                 </div>

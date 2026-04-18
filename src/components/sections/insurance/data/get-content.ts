@@ -1,13 +1,15 @@
+
 import { InsuranceContent, Plan } from "../types";
+import { getCeofPlains } from "./get-ceof-plains";
+import { getMaterDeiBetimPlains } from "./get-mater-dei-betim-plains";
+import { getNumaiPlains } from "./get-numai-plains";
+import { getplains } from "./get-plans";
 
 export async function getInsuranceContent(): Promise<InsuranceContent> {
+    const ceofPlains = getCeofPlains();
+    const materDeiBetimPlains = getMaterDeiBetimPlains();
+    const numaiPlains = getNumaiPlains();
 
-    const BASE_PATH = "/images/Convenios";
-    // Definindo as marcas disponíveis
-    const unimed = { name: "Unimed", src: `${BASE_PATH}/Unimed.png` };
-    const sulamerica = { name: "Sulamérica", src: `${BASE_PATH}/sulamerica.png` };
-    const cemig = { name: "CEMIG", src: `${BASE_PATH}/CEMIG.png` };
-    const copasa = { name: "Copasa", src: `${BASE_PATH}/Copasa.png` };
 
     return {
         id: "insurance-section",
@@ -26,21 +28,22 @@ export async function getInsuranceContent(): Promise<InsuranceContent> {
         description: "Trabalhamos com as principais operadoras do mercado para garantir agilidade, conforto e excelência no seu atendimento especializado em patologias da coluna.",
         hospitals: [
             {
-                name: "Hospital Mater Dei",
-                plans: [unimed, sulamerica, cemig, copasa, unimed, sulamerica]
+                name: "CEOFE - Contagem",
+                plans: ceofPlains,
+                speed: 10
             },
             {
-                name: "Hospital Vila da Serra",
-                plans: [unimed, sulamerica, copasa, unimed]
+                name: "Mater Dei Betim",
+                plans: materDeiBetimPlains,
+                speed: 30
             },
             {
-                name: "Hospital Lifecenter",
-                plans: [unimed, cemig, sulamerica, copasa, cemig]
-            },
-            {
-                name: "Hospital Biocor",
-                plans: [unimed, sulamerica, cemig]
+                name: "NUMAI",
+                plans: numaiPlains,
+                speed: 10
             }
+
+
         ]
     };
 }
