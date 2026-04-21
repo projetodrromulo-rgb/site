@@ -35,6 +35,7 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased bg-primary-dark text-neutral-light`}
+        suppressHydrationWarning
       >
         <SmoothScrolling>
           <div className="noise-bg"></div>

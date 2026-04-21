@@ -50,9 +50,13 @@ export default function CTA({ content }: CTAProps) {
                     {description}
                 </CTADescription>
 
-                <CtaWhatsApp
-                    cta={cta}
-                />
+                <div className="flex justify-center mt-10 mb-16">
+                    <CtaWhatsApp
+                        cta={cta}
+                        className="max-w-md mx-auto"
+                        fullWidth
+                    />
+                </div>
 
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pt-16 border-t border-white/10">

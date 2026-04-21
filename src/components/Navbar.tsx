@@ -1,14 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Phone, Menu, X, Home, Stethoscope, User, MapPin, ShieldCheck, Newspaper, Star } from "lucide-react";
 import { Logo } from "./sections/hero/_components/logo";
 
 export default function Navbar() {
+    const pathname = usePathname();
     const { scrollY } = useScroll();
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Ocultar a Navbar global em páginas do blog para usar o header local
+    const isBlogPage = pathname?.startsWith("/blog");
 
     // Dados do logo - idealmente viriam de um provider ou props, mas usaremos os do hero por enquanto
     const logoData = {
@@ -24,6 +29,8 @@ export default function Navbar() {
         }
     });
 
+    if (isBlogPage) return null;
+
     const navLinks = [
         { label: "Início", href: "/", icon: Home },
         { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
@@ -37,7 +44,6 @@ export default function Navbar() {
     return (
         <>
             <div
-
                 className={`fixed top-0 left-0 w-full z-[150]   ${hasScrolled
                     ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
                     : "bg-transparent py-4"

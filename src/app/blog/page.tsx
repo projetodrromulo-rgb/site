@@ -75,7 +75,7 @@ export default function BlogPage() {
                         Blog e Artigos
                     </h2>
                     <div className="flex w-12 items-center justify-end">
-                        {/* Space reserved for symmetry */}
+                        {/* Space reserved for symmetry */}dasdas
                     </div>
                 </div>
             </header>
@@ -124,7 +124,7 @@ export default function BlogPage() {
                                 layout
                             >
                                 {paginatedPosts.map((post) => (
-                                    <Link key={post.slug} href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+                                    <Link key={post.slug} href={`/blog/${post.slug}`}>
                                         <motion.article
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             animate={{ opacity: 1, scale: 1 }}
@@ -201,8 +201,8 @@ export default function BlogPage() {
                                     setCurrentPage(page);
                                 }}
                                 className={`size-10 rounded-lg font-bold transition-all active:scale-95 ${currentPage === page
-                                        ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
-                                        : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 shadow-sm"
+                                    ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
+                                    : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 shadow-sm"
                                     }`}
                             >
                                 {page}

@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-export default function WhatsAppButton() {
+type WhatsAppButtonProps = {
+    message?: string;
+}
+
+export default function WhatsAppButton({ message = "Descubra como podemos ajudar você" }: WhatsAppButtonProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -48,7 +52,7 @@ export default function WhatsAppButton() {
 
                     {/* Subtle Tooltip/Label */}
                     <span className="absolute right-full mr-4 px-4 py-2 bg-primary-dark/80 backdrop-blur-md border border-white/10 text-white text-sm font-semibold rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap translate-x-2 group-hover:translate-x-0">
-                        Descubra como podemos ajudar você
+                        {message}
                     </span>
                 </motion.a>
             )}

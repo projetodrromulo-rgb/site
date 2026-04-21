@@ -68,8 +68,6 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                         <div className="relative z-10 mt-auto pt-4 border-t border-white/5 flex items-center justify-end">
                             <Link 
                                 href={`/blog/${post.slug}`} 
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 text-[#0db9f2] text-sm font-bold tracking-tight hover:text-white transition-all group/link underline-offset-4 hover:underline"
                             >
                                 Ler artigo
