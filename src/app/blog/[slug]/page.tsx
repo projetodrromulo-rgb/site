@@ -3,13 +3,8 @@
 import { motion } from "framer-motion";
 import {
     ArrowLeft,
-    Calendar,
     Clock,
-    Share2,
-    User,
-    ChevronRight,
-    ArrowRight,
-    MessageCircle
+
 } from "lucide-react";
 import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
@@ -17,10 +12,14 @@ import { allPosts } from "@/components/sections/blog/data/posts";
 import { Logo } from "@/components/sections/hero/_components/logo";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
+import Image from "next/image";
 
 export default function PostDetailPage() {
     const { slug } = useParams();
     const post = allPosts.find((p) => p.slug === slug);
+
+    const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.";
+    const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
 
     if (!post) {
         notFound();
@@ -30,10 +29,13 @@ export default function PostDetailPage() {
         .filter((p) => p.slug !== slug && p.category === post.category)
         .slice(0, 2);
 
+
     const logoData = {
         src: "/images/logo.svg",
         alt: "Dr. Rômulo Oliveira Logo"
     };
+
+
 
     return (
         <div className="bg-[#f5f8f8] dark:bg-[#0a191e] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900 dark:text-slate-100">
@@ -44,13 +46,13 @@ export default function PostDetailPage() {
                         <span className="text-sm font-bold uppercase tracking-wider hidden md:block">Voltar</span>
                     </Link>
 
-                    <div className="flex-1 flex justify-center">
+                    <Link href="/" className="flex-1 flex justify-center">
                         <Logo
                             logoImage={logoData}
                             scrolled={true}
                             className="scale-75 md:scale-90"
                         />
-                    </div>
+                    </Link>
 
                     <div className="w-24 hidden md:flex items-center justify-end" aria-hidden="true" />
                 </div>
@@ -74,7 +76,12 @@ export default function PostDetailPage() {
                         {/* Author & Meta */}
                         <div className="flex items-center gap-4 py-6 border-y border-slate-200 dark:border-[#223f49]">
                             <div className="size-12 rounded-full bg-[#0db9f2]/10 flex items-center justify-center border border-[#0db9f2]/20">
-                                <User className="text-[#0db9f2]" size={24} />
+                                <Image
+                                    src={"/images/avatar.png"}
+                                    alt={logoData.alt}
+                                    width={50}
+                                    height={50}
+                                />
                             </div>
                             <div className="flex-1">
                                 <p className="text-slate-900 dark:text-slate-100 font-bold text-sm md:text-base">
@@ -131,9 +138,9 @@ export default function PostDetailPage() {
                     <div className="absolute top-0 right-0 w-64 h-64 bg-[#0db9f2]/10 blur-[100px] rounded-full -mr-20 -mt-20" />
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left flex-1">
-                            <h3 className="text-2xl md:text-3xl font-bold mb-3">Sente dores frequentes?</h3>
+                            <h3 className="text-2xl md:text-3xl font-bold mb-3">{post.ctaTitle}</h3>
                             <p className="text-[#0db9f2] text-lg font-medium opacity-90">
-                                Agende uma avaliação especializada com o Dr. Rômulo.
+                                {post.ctaDescription} |
                             </p>
                         </div>
                         <CtaWhatsApp cta={{ text: "Agendar Consulta", whatsAppNumber: " 5531996689572" }} />

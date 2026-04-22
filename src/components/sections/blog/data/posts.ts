@@ -19,6 +19,8 @@ export interface Post {
     image: string;
     author: string;
     authorRole: string;
+    ctaTitle?: string;
+    ctaDescription?: string;
 }
 
 export const allPosts: Post[] = [

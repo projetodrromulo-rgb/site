@@ -75,7 +75,7 @@ export default function BlogPage() {
                         Blog e Artigos
                     </h2>
                     <div className="flex w-12 items-center justify-end">
-                        {/* Space reserved for symmetry */}dasdas
+                        {/* Space reserved for symmetry */}
                     </div>
                 </div>
             </header>

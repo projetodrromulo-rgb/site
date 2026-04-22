@@ -31,5 +31,7 @@ export const post: Post = {
     readTime: "4 min",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200",
     author: "Dr. Rômulo Oliveira",
-    authorRole: "Ortopedista e Cirurgião de Coluna"
+    authorRole: "Ortopedista e Cirurgião de Coluna",
+    ctaTitle: "Recupere sua qualidade de vida",
+    ctaDescription: "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.",
 };

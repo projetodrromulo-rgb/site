@@ -1,9 +1,15 @@
-export function IconWhatsApp() {
+
+type IconWhatsAppProps = {
+    width?: number;
+    height?: number;
+}
+
+export function IconWhatsApp({ width = 24, height = 24 }: IconWhatsAppProps) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width={width}
+            height={height}
             viewBox="0 0 24 24"
             fill="currentColor"
         >
