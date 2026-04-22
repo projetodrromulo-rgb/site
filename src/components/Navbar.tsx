@@ -12,8 +12,8 @@ export default function Navbar() {
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // Ocultar a Navbar global em páginas do blog para usar o header local
-    const isBlogPage = pathname?.startsWith("/blog");
+    // Ocultar a Navbar global em páginas do blog e procedimentos para usar o header local
+    const isSpecialPage = pathname?.startsWith("/blog") || pathname?.startsWith("/procedimentos");
 
     // Dados do logo - idealmente viriam de um provider ou props, mas usaremos os do hero por enquanto
     const logoData = {
@@ -29,7 +29,7 @@ export default function Navbar() {
         }
     });
 
-    if (isBlogPage) return null;
+    if (isSpecialPage) return null;
 
     const navLinks = [
         { label: "Início", href: "/", icon: Home },

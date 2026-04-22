@@ -1,11 +1,12 @@
 import { getProceduresContent } from "@/components/sections/procedures/data/get-content";
-import { notFound } from "next/navigation";
+import { ArrowLeft, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, MessageCircle } from "lucide-react";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Footer from "@/components/sections/footer";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
+import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
+import { Logo } from "@/components/sections/hero/_components/logo";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -43,20 +44,36 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
 
     const footerContent = await getFooterContent();
 
+    const logoData = {
+        src: "/images/logo.svg",
+        alt: "Dr. Rômulo Oliveira Logo"
+    };
+
     return (
         <div className="min-h-screen bg-[#0A192F] text-white flex flex-col">
-            <main className="flex-1 container mx-auto px-6 py-12 md:py-24 max-w-6xl">
-                <Link
-                    href="/#procedimentos"
-                    className="inline-flex items-center gap-2 text-[#0db9f2] mb-12 hover:translate-x-1 transition-all font-medium group"
-                >
-                    <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-                    Voltar para procedimentos
-                </Link>
+            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F]/95 backdrop-blur-md border-b border-white/5">
+                <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
+                    <Link href="/#procedimentos" className="text-[#0db9f2] flex items-center gap-2 px-4 py-2 hover:bg-white/10 rounded-xl transition-all active:scale-95 group">
+                        <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+                        <span className="text-sm font-bold uppercase tracking-wider hidden md:block">Voltar</span>
+                    </Link>
 
+                    <Link href="/" className="flex-1 flex justify-center">
+                        <Logo
+                            logoImage={logoData}
+                            scrolled={true}
+                            className="scale-75 md:scale-90"
+                        />
+                    </Link>
+
+                    <div className="w-24 hidden md:flex items-center justify-end" aria-hidden="true" />
+                </div>
+            </header>
+
+            <main className="flex-1 container mx-auto px-6 pt-32 pb-24 md:pt-48 max-w-6xl">
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                     {/* Background Image for Mobile */}
-                    <div className="lg:hidden absolute inset-0 -mx-6 -my-12 overflow-hidden pointer-events-none">
+                    <div className="lg:hidden absolute inset-0 -mx-6 -my-12 overflow-hidden pointer-events-none max-h-screen">
                         {procedure.imageUrl && (
                             <>
                                 <Image
@@ -83,20 +100,29 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                             {procedure.description}
                         </p>
 
-                        <div className="space-y-6 pt-8">
-                            <h2 className="text-2xl font-bold text-[#0db9f2]">Sobre este tratamento</h2>
-                            {procedure.content.map((paragraph, index) => (
-                                <p key={index} className="text-white/60 leading-relaxed text-lg italic">
-                                    {paragraph}
-                                </p>
-                            ))}
-                        </div>
+                        <div
+
+                            className="prose prose-slate dark:prose-invert max-w-none 
+                        prose-headings:font-display prose-headings:font-black prose-headings:tracking-tight prose-headings:text-white
+                        prose-p:text-white/90 prose-p:leading-relaxed prose-p:text-lg prose-p:my-8
+                        prose-strong:text-[#FFFF] prose-strong:font-black
+                        prose-h2:text-3xl md:text-4xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:leading-tight
+                        prose-blockquote:border-l-4 prose-blockquote:border-[#FFF] prose-blockquote:bg-[#FFF]/5 
+                        prose-blockquote:py-4 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:italic
+                        prose-blockquote:text-xl prose-blockquote:font-medium prose-blockquote:text-white/80
+                        prose-ul:list-none prose-ul:pl-0
+                        prose-li:text-white/90 prose-li:text-lg prose-li:relative prose-li:pl-8
+                        prose-li:before:content-[''] prose-li:before:absolute prose-li:before:left-0 prose-li:before:top-[0.6em]
+                        prose-li:before:size-2 prose-li:before:rounded-full prose-li:before:bg-[#FFF]
+                        prose-img:rounded-3xl"
+                            dangerouslySetInnerHTML={{ __html: procedure.content }}
+                        />
                     </div>
 
                     {/* Image Sidebar for Desktop */}
-                    <div className="hidden lg:block relative sticky top-24">
+                    <div className="hidden lg:block relative sticky top-24 h-fit">
                         <div className="absolute -inset-4 bg-[#0db9f2]/20 blur-3xl rounded-full opacity-50 transition-opacity" />
-                        <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
+                        <div className="relative aspect-[4/5] max-h-[75vh] w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
                             {procedure.imageUrl ? (
                                 <Image
                                     src={procedure.imageUrl}
@@ -131,17 +157,9 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                             <p className="text-white/60 text-lg md:text-xl max-w-2xl">
                                 Entre em contato conosco para tirar suas dúvidas e agendar uma consulta presencial com o Dr. Romulo.
                             </p>
-                        </div>
 
-                        <a
-                            href={`https://wa.me/5511999999999?text=Olá, vim do site e gostaria de agendar uma avaliação para o procedimento: ${procedure.title}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative inline-flex items-center gap-4 bg-[#25D366] text-white px-12 py-6 rounded-full font-black text-xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(37,211,102,0.3)] hover:shadow-[0_30px_60px_rgba(37,211,102,0.5)] relative z-10"
-                        >
-                            <MessageCircle size={28} className="group-hover:rotate-12 transition-transform" />
-                            Agendar via WhatsApp
-                        </a>
+                            <CtaWhatsApp cta={{ text: "Agendar minha consulta", whatsAppNumber: "+5531996689572" }} className="mx-auto" />
+                        </div>
                     </div>
                 </div>
             </main>
@@ -162,7 +180,6 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                 }}
             />
 
-            <Footer content={footerContent} />
         </div>
     );
 }

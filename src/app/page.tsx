@@ -38,8 +38,10 @@ export default async function Home() {
       <CTA content={ctaContent} />
       <Insurance content={insuranceContent} />
       <Procedures content={proceduresContent} />
-      <BlogSection content={blogContent} />
-      <TestimonialsSection content={testimonialsContent} />
+      {/**
+        <BlogSection content={blogContent} />
+        <TestimonialsSection content={testimonialsContent} />
+       */}
       <Footer content={footerContent} />
     </main>
   );
