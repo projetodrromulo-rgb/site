@@ -30,7 +30,7 @@ export default function Hero({ content }: HeroProps) {
         <section
             id="hero"
             ref={containerRef}
-            className="relative w-full min-h-screen flex items-center px-6 md:px-12 lg:px-24  overflow-hidden"
+            className="relative w-full min-h-screen flex items-center px-6 md:px-12 lg:px-24 -mt-20 sm:mt-2 overflow-hidden"
         >
 
             <div

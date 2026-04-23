@@ -26,7 +26,7 @@ export const AboutProfile = forwardRef<HTMLDivElement, AboutProfileProps>(
                                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 sizes="(max-width: 768px) 350px, 480px"
                                 priority
-                                unoptimized
+                                quality={85}
                             />
 
                             {/* Overlay sutil de gradiente (Interior) */}

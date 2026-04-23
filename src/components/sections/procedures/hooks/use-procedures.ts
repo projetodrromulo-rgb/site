@@ -16,8 +16,8 @@ export function useProceduresAnimation() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 80%",
-                toggleActions: "play none none none"
+                start: "top 85%",
+                toggleActions: "play none none reverse"
             }
         });
 

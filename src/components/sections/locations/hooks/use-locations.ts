@@ -7,30 +7,25 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-export const useCTA = () => {
+export const useLocationsAnimation = () => {
     const containerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        const tl = gsap.timeline({
+        gsap.from(containerRef.current.children, {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top 85%",
                 toggleActions: "play none none reverse"
-            }
-        });
-
-        tl.from(".cta-animate-item", {
+            },
             y: 40,
             opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
+            duration: 1,
+            stagger: 0.1,
             ease: "power3.out"
         });
     }, { scope: containerRef });
 
-    return {
-        containerRef
-    };
+    return { containerRef };
 };

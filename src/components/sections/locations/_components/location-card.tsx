@@ -30,7 +30,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         fill
                         className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                         priority={index < 6}
-                        quality={100}
+                        quality={80}
                     />
                     {/* Overlay de Gradiente Suavizado (Melhor Visibilidade) */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

@@ -7,30 +7,24 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-export const useCTA = () => {
+export const useFooterAnimation = () => {
     const containerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        const tl = gsap.timeline({
+        gsap.from(containerRef.current.querySelector(".max-w-7xl"), {
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 85%",
+                start: "top 95%",
                 toggleActions: "play none none reverse"
-            }
-        });
-
-        tl.from(".cta-animate-item", {
-            y: 40,
+            },
+            y: 30,
             opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out"
+            duration: 1,
+            ease: "power2.out"
         });
     }, { scope: containerRef });
 
-    return {
-        containerRef
-    };
+    return { containerRef };
 };

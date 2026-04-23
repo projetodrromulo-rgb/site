@@ -30,8 +30,7 @@ export async function getHeroContent(): Promise<HeroContent> {
             alt: "Dr. Rômulo Oliveira Logo"
         },
         backgroundVideo: {
-            src: "/video/video-hero.webm",
-            poster: "/images/bg-hero-poster.png"
+            src: "/video/video-hero.webm"
         }
 
 

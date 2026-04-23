@@ -6,6 +6,7 @@ import { LocationCard } from "./_components";
 import { LocationsContent } from "./types";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLocationsAnimation } from "./hooks/use-locations";
 
 interface LocationsProps {
     content: LocationsContent;
@@ -13,6 +14,7 @@ interface LocationsProps {
 
 export default function Locations({ content }: LocationsProps) {
     const { subtitle, headline, description, units } = content;
+    const { containerRef } = useLocationsAnimation();
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -66,6 +68,7 @@ export default function Locations({ content }: LocationsProps) {
     return (
         <motion.section
             id="locations"
+            ref={containerRef as any}
             initial={{ opacity: 1 }}
             className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center"
         >

@@ -20,7 +20,10 @@ const WhatsappIcon = ({ size = 18 }: { size?: number }) => (
     </svg>
 );
 
+import { useFooterAnimation } from "./hooks/use-footer";
+
 export default function Footer({ content }: FooterProps) {
+    const { containerRef } = useFooterAnimation();
     const currentYear = new Date().getFullYear();
 
     const logoData = {
@@ -38,7 +41,7 @@ export default function Footer({ content }: FooterProps) {
     };
 
     return (
-        <footer className="bg-primary-dark border-t border-accent/20 pt-20 pb-10 px-6 md:px-12 lg:px-24">
+        <footer ref={containerRef} className="bg-primary-dark border-t border-accent/20 pt-20 pb-10 px-6 md:px-12 lg:px-24">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Section */}

@@ -8,17 +8,20 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 const fontSans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const fontSerif = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const fontMono = Space_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {

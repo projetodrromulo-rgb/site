@@ -30,8 +30,8 @@ export const useInsurance = (dependencies: any[] = []) => {
                 ease: "power4.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 90%",
-                    toggleActions: "play none none none",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse",
                     // markers: true, // DEBUG
                 }
             }
