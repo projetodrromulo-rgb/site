@@ -72,8 +72,6 @@ export default function Locations({ content }: LocationsProps) {
             initial={{ opacity: 1 }}
             className="relative py-16 bg-neutral-light text-primary-dark overflow-hidden min-h-[90vh] flex flex-col justify-center"
         >
-            {/* Elementos Decorativos de Fundo */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] grayscale invert mix-blend-multiply bg-[url('/images/bg-hero-poster.png')] bg-cover bg-fixed -z-10" />
 
             <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-8 xl:px-16 2xl:px-20 mb-20">
                 <header className="flex flex-col items-center text-center space-y-6">
