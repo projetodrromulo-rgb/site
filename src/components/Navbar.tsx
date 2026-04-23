@@ -22,7 +22,7 @@ export default function Navbar() {
     };
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 50) {
+        if (latest > 90) {
             setHasScrolled(true);
         } else {
             setHasScrolled(false);

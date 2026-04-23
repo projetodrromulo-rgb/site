@@ -41,13 +41,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
 
                     {/* Elementos Superiores - GPS PULSANTE */}
                     <div className="absolute top-5 right-5 md:top-6 md:right-6 [transform:translateZ(60px)] z-30 group/gps">
-                        {/* Anel de Pulso Animado (Chama Atenção) */}
-                        <motion.div
-                            className="absolute inset-0 rounded-xl bg-accent opacity-60"
-                            animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            style={{ willChange: "transform, opacity" }}
-                        />
+
 
                         <a
                             href={unit.mapUrl}

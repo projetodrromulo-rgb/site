@@ -2,7 +2,7 @@ import { Procedure } from "../../types";
 
 export const artrodese: Procedure = {
     title: "Artrodese",
-    description: "Estabilização definitiva de segmentos da coluna.",
+    description: "Procedimento para fundir uma vértebra à outra, com o propósito de estabilização do segmento.",
     icon: "check",
     slug: "artrodese-de-coluna",
     imageUrl: "/images/procedures/arthrodesis.png",

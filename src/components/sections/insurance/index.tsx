@@ -20,7 +20,7 @@ export function Insurance({ content }: InsuranceProps) {
 
     return (
         <section
-            id={id}
+            id="Insurance"
             ref={containerRef}
             className="py-24 bg-white relative z-20 w-full"
         >

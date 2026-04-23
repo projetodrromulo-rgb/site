@@ -15,7 +15,7 @@ export default function WhatsAppButton({ message = "Descubra como podemos ajudar
     useEffect(() => {
         const toggleVisibility = () => {
             // Mostra o botão após rolar 80% da altura da janela (fim da Hero)
-            if (window.scrollY > window.innerHeight * 1) {
+            if (window.scrollY > window.innerHeight * 0.1) {
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
