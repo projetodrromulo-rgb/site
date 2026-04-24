@@ -15,7 +15,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
             <div ref={ref} className="text-center max-w-3xl mx-auto mb-16 space-y-4">
 
 
-                <TypingText phrases={[badge]} />
+                <TypingText phrases={[badge]} className="procedures-animate-badge opacity-0" />
 
 
                 <h2 className="procedures-animate-title text-4xl md:text-5xl font-black text-white leading-tight mt-4 opacity-0">

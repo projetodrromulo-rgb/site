@@ -49,36 +49,48 @@ export const useHero = () => {
                 ease: "power3.out",
                 clearProps: "all" // Garante que estilos inline do GSAP não atrapalhem após a animação
             }
-        ).fromTo(
-            mediaContainerRef.current,
-            { opacity: 0, scale: 1.05 },
-            {
-                opacity: 0.9,
-                scale: 1,
-                duration: 2.5,
-                ease: "power2.inOut"
-            },
-            "-=0.6"
-        ).from(
-            spotlightRef.current,
-            {
-                opacity: 0,
-                y: 50,
-                duration: 1.2,
-                ease: "power3.out"
-            },
-            "-=1.0"
-        ).fromTo(
-            scrollRef.current,
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out"
-            },
-            "-=0.5"
         );
+
+        if (mediaContainerRef.current) {
+            tl.fromTo(
+                mediaContainerRef.current,
+                { opacity: 0, scale: 1.05 },
+                {
+                    opacity: 0.9,
+                    scale: 1,
+                    duration: 2.5,
+                    ease: "power2.inOut"
+                },
+                "-=0.6"
+            );
+        }
+
+        if (spotlightRef.current) {
+            tl.from(
+                spotlightRef.current,
+                {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1.2,
+                    ease: "power3.out"
+                },
+                "-=1.0"
+            );
+        }
+
+        if (scrollRef.current) {
+            tl.fromTo(
+                scrollRef.current,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                },
+                "-=0.5"
+            );
+        }
     }, { scope: containerRef });
 
     // Move interaction logic to event handler (Vercel Best Practices 5.8)

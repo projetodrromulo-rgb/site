@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { IconWhatsApp } from "./icon-whats-app";
+import { env } from "@/env";
 
 type WhatsAppButtonProps = {
     message?: string;
@@ -30,7 +31,7 @@ export default function WhatsAppButton({ message = "Descubra como podemos ajudar
         <AnimatePresence>
             {isVisible && (
                 <motion.a
-                    href="https://wa.me/5511999999999"
+                    href={`https://wa.me/${env().whatsAppNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ scale: 0, opacity: 0, y: 20 }}

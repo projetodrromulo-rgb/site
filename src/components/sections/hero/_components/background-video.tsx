@@ -34,7 +34,6 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
 
     return (
         <div
-            ref={mediaContainerRef}
             aria-hidden="true"
         >
             {shouldLoadVideo && (

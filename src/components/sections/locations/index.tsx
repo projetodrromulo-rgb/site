@@ -47,8 +47,6 @@ export default function Locations({ content }: LocationsProps) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    if (!isMounted) return null;
-
     const angleStep = 360 / units.length;
     // Raio otimizado para a largura dinâmica com respiro generoso
     const radius = useMemo(() => {
