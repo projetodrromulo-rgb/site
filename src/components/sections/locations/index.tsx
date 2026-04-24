@@ -17,6 +17,7 @@ export default function Locations({ content }: LocationsProps) {
     const { containerRef } = useLocationsAnimation();
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     // Configurações Responsivas do Carrossel 3D
     const [cardWidth, setCardWidth] = useState(400);
@@ -41,9 +42,12 @@ export default function Locations({ content }: LocationsProps) {
         };
 
         handleResize();
+        setIsMounted(true);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    if (!isMounted) return null;
 
     const angleStep = 360 / units.length;
     // Raio otimizado para a largura dinâmica com respiro generoso
@@ -85,18 +89,24 @@ export default function Locations({ content }: LocationsProps) {
 
             {/* PALCO 3D REAL (Responsivo) */}
             <div
-                className="relative w-full flex items-center justify-center [perspective:2500px]"
-                style={{ height: cardHeight + 120 }}
+                className="relative w-full flex items-center justify-center"
+                style={{ 
+                    height: cardHeight + 120,
+                    perspective: "2500px",
+                    WebkitPerspective: "2500px"
+                }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
                 {/* Carrrossel Central Draggable */}
                 <motion.div
-                    className="relative [transform-style:preserve-3d] cursor-grab active:cursor-grabbing"
+                    className="relative cursor-grab active:cursor-grabbing"
                     style={{
                         width: cardWidth,
                         height: cardHeight,
-                        willChange: "transform"
+                        willChange: "transform",
+                        transformStyle: "preserve-3d",
+                        WebkitTransformStyle: "preserve-3d"
                     }}
                     drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
@@ -153,7 +163,7 @@ export default function Locations({ content }: LocationsProps) {
 
             {/* BARRA DE NAVEGAÇÃO INFERIOR */}
             <div
-                className="max-w-8xl mx-auto px-6 md:px-20 mt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-30"
+                className="max-w-8xl mx-auto px-6 md:px-20 mt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-30 locations-nav"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >

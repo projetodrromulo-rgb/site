@@ -14,8 +14,13 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         return (
             <motion.div
                 ref={ref}
-                className="group relative flex flex-col h-full w-full rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl [perspective:2000px] border border-white/5 will-change-transform"
-                style={{ transformStyle: "preserve-3d" }}
+                className="group relative flex flex-col h-full w-full rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl border border-white/5 will-change-transform"
+                style={{ 
+                    transformStyle: "preserve-3d",
+                    WebkitTransformStyle: "preserve-3d",
+                    perspective: "2000px",
+                    WebkitPerspective: "2000px"
+                }}
                 whileHover={{
                     scale: 1.02,
                     zIndex: 10,
