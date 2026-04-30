@@ -59,13 +59,17 @@ export function InsuranceModal({ isOpen, onClose, plans, hospitalName }: Insuran
         if (isOpen) {
             setPage(0);
             setDirection(0);
+            document.body.classList.add("insurance-modal-open");
+        } else {
+            document.body.classList.remove("insurance-modal-open");
         }
+        return () => document.body.classList.remove("insurance-modal-open");
     }, [isOpen, itemsPerPage]);
 
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-hidden  ">
+                <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-6 overflow-hidden  ">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}

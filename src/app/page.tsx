@@ -43,6 +43,8 @@ import { getTestimonialsContent } from "@/components/sections/testimonials/data/
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 
+import ParallaxSection from "@/components/sections/parallax";
+
 export default async function Home() {
   const heroContent = await getHeroContent();
   const aboutContent = await getAboutContent();
@@ -59,6 +61,7 @@ export default async function Home() {
       <LocalBusinessSEO />
       <Hero content={heroContent} />
       <About content={aboutContent} />
+      <ParallaxSection />
       <Locations content={locationsContent} />
       <CTA content={ctaContent} />
       <Insurance content={insuranceContent} />

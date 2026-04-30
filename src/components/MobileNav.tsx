@@ -107,7 +107,7 @@ export default function MobileNav() {
                             </div>
 
                             <a
-                                href="https://wa.me/5511999999999"
+                                href="https://wa.me/5511999999999?text=Vim do site do Dr. Romulo. Gostaria de mais informações"
                                 target="_blank"
                                 className="flex items-center justify-center gap-3 w-full py-5 bg-accent text-primary-dark font-black rounded-2xl shadow-lg shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all mb-8"
                             >

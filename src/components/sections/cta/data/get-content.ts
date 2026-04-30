@@ -7,7 +7,7 @@ export async function getCTAContent(): Promise<CTAContent> {
         id: "contato",
         headline: "Agende sua Avaliação",
         description: "E descubra como as técnicas minimamente invasivas podem restaurar sua qualidade de vida com segurança e rapidez.",
-        whatsappUrl: "https://wa.me/5511999999999?text=Olá, Vim do site doDr. Romulo. Gostaria de agendar uma consulta especializada.",
+        whatsappUrl: "https://wa.me/5511999999999?text=Vim do site do Dr. Romulo. Gostaria de mais informações",
         trustSignals: [
             {
                 icon: React.createElement(ShieldCheck, { className: "w-8 h-8 md:w-10 md:h-10 text-[#0db9f2]" }),

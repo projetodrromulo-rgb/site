@@ -1,3 +1,5 @@
+import { SrcAlphaFactor } from "three";
+
 const BASE_PATH = "/images/Convenios";
 
 export function getplains() {
@@ -6,6 +8,7 @@ export function getplains() {
 
     const plans = [
         { name: "Abertta", src: `${IMG_BASE_2019}/Abertta.jpg` },
+        { name: "ABSPMC (CAIXINHA)", src: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVjpd3Y5yyV7mnI7nUm9IqUuJtE8F51DSHoA&s` },
         { name: "Alice", src: `https://unicooper.coop.br/wp-content/uploads/2025/12/Alice.png` },
         { name: "Allianz", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Allianz-.jpg` },
         { name: "Amagis", src: `${IMG_BASE_2019}/Amagissa%C3%BAde-.jpg` },
@@ -13,7 +16,8 @@ export function getplains() {
         { name: "Ammp", src: `${IMG_BASE_2019}/AMMP.jpg` },
         { name: "ASSEFAZ", src: `https://unicooper.coop.br/wp-content/uploads/2023/05/assefaz-logo-F3190A13AF-seeklogo.com_.png` },
         { name: "Assembleia Legislativa", src: `https://unicooper.coop.br/wp-content/uploads/2019/07/assembleialegislativa.jpg` },
-        { name: "Assis Card", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/assiscard.jpg` },
+        { name: "Assist Card", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/assiscard.jpg` },
+        { name: "Aurora Saude", src: `https://th.bing.com/th/id/OIP.5w4cyQIwZZCjOF38ar-dKgHaHa?w=156&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3` },
         { name: "Bacen", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Bacen.jpg` },
         { name: "Banco Central", src: `${IMG_BASE_2019}/Banco-Central.jpg` },
         { name: "Blue Med Saúde", src: `https://unicooper.coop.br/wp-content/uploads/2022/08/2325ca641f02dc9e87ef41ac9e4c631b.png` },
@@ -23,29 +27,39 @@ export function getplains() {
         { name: "Camed Saúde", src: `${IMG_BASE_2019}/Camed.jpg` },
         { name: "Care Plus", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Care-Plus.jpg` },
         { name: "Cassi", src: `${IMG_BASE_2019}/Cassi.jpg` },
+        { name: "Casu", src: `https://tse3.mm.bing.net/th/id/OIP.0k4VFsQ1TydvwRXIljhb4AAAAA?rs=1&pid=ImgDetMain&o=7&rm=3` },
         { name: "Cemig", src: `${IMG_BASE_2019}/Cemigsa%C3%BAde-.jpg` },
         { name: "Cenibra", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Cenibra-.jpg` },
         { name: "Centauro", src: `https://unicooper.coop.br/wp-content/uploads/2024/04/Centauro.png` },
         { name: "Copasa", src: `${IMG_BASE_2019}/Copass.jpg` },
         { name: "Correios", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/CORREIOS.jpg` },
         { name: "Desban", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Desban.jpg` },
+        { name: "Esaude Assist", src: `https://www.clinicacentra.com.br/assets/images/convenant/e-sa%C3%BAde-assistencial.jpg` },
+        { name: "Esaude Card", src: `https://www.clinicacentra.com.br/assets/images/convenant/E-saude-Card.jpg` },
         { name: "Euro Center", src: `https://unicooper.coop.br/wp-content/uploads/2024/06/Logo-euro-center.jpg` },
         { name: "FSFX", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/FSFX-.jpg` },
         { name: "Fundafemg", src: `${IMG_BASE_2019}/Fundaffemg-.jpg` },
         { name: "fundação Fiat", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Fiat-Sa%C3%BAde.jpg` },
+        { name: "fundação Libertas", src: `https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/sma9poduap8gmamgkyaw` },
+        { name: "Fusex", src: `data:image/jpeg;base64,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` },
         { name: "Gama Saúde", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/gama-saude.jpg` },
+        { name: "Geap", src: `https://www.clinicacentra.com.br/assets/images/convenant/geap.jpg` },
         { name: "Hasten", src: `${IMG_BASE_2019}/Hasten.jpg` },
         { name: "Itau", src: `${IMG_BASE_2019}/fundacao-saude-itau.jpg` },
         { name: "Mapfre", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Mapfre-.jpg` },
         { name: "Mater Dei", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Mater-Dei.jpg` },
         { name: "Mediservice", src: `${BASE_PATH}/mediservice.avif` },
+        { name: "Medi Service", src: `https://www.clinicacentra.com.br/assets/images/convenant/Medservice.jpg` },
+        { name: "MedPrev", src: `https://www.clinicacentra.com.br/assets/images/convenant/Medprev.jpg` },
+        { name: "MedSenior", src: `https://www.clinicacentra.com.br/assets/images/convenant/Medsenior.jpg` },
+        { name: "Medgold saúde", src: `https://www.clinicacentra.com.br/assets/images/convenant/Medgold.jpg` },
         { name: "Mondial", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Mondial.jpg` },
         { name: "Omint", src: `${IMG_BASE_2019}/Omint.jpg` },
         { name: "PLAN CNEN", src: `https://www.clinicanumai.com.br/wp-content/uploads/2022/03/plan-cnen.jpeg` },
         { name: "Petrobras", src: `${IMG_BASE_2019}/petrob-regap.jpg` },
         { name: "Plan Assiste", src: `https://unicooper.coop.br/wp-content/uploads/2022/06/logo-Plan-Assiste.png` },
         { name: "Porto Seguro", src: `${IMG_BASE_2019}/Porto-Seguro.jpg` },
-        { name: "Postal Saúde", src: `${IMG_BASE_2019}/Postal-Saude.jpg` },
+        { name: "Postal Saúde", src: `https://www.perinity.com.br/wp-content/uploads/2025/05/logo_postal.png` },
         { name: "Prestige Internacional", src: `https://unicooper.coop.br/wp-content/uploads/2020/09/Prestige.png` },
         { name: "Pró Social", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Pr%C3%B3-social-.jpg` },
         { name: "Proasa", src: `${IMG_BASE_2019}/Proasa.jpg` },
@@ -54,6 +68,7 @@ export function getplains() {
         { name: "Select Operadora", src: `https://unicooper.coop.br/wp-content/uploads/2025/09/Design-sem-nome.png` },
         { name: "Sindifisco", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Sindifisco-.jpg` },
         { name: "Sistema Paulista", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/Sistema-Paulista.jpg` },
+        { name: "Stellantis", src: `https://www.clinicacentra.com.br/assets/images/convenant/Stellantis.jpg` },
         { name: "SOS Assistance", src: `https://unicooper.coop.br/wp-content/uploads/2019/02/SOS-Assistance.jpg` },
         { name: "Sulamerica", src: `${IMG_BASE_2019}/SULAMERICA.jpg` },
         { name: "TRF1", src: `${IMG_BASE_2019}/TRF1.jpg` },
@@ -62,6 +77,9 @@ export function getplains() {
         { name: "Unimed Seguros", src: `${IMG_BASE_2019}/unimed.png` },
         { name: "Usisaude", src: `${IMG_BASE_2019}/Usisa%C3%BAde.jpg` },
         { name: "Vale", src: `${IMG_BASE_2019}/CVRD-Vale.jpg` },
+
+
+
     ]
     return plans;
 }

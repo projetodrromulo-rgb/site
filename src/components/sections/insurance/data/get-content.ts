@@ -1,6 +1,8 @@
 
 import { InsuranceContent, Plan } from "../types";
+import { getCentraPlains } from "./get-centra-plains";
 import { getCeofPlains } from "./get-ceof-plains";
+import { getElcenterPlains } from "./get-elcenter-plains";
 import { getMaterDeiBetimPlains } from "./get-mater-dei-betim-plains";
 import { getNumaiPlains } from "./get-numai-plains";
 import { getplains } from "./get-plans";
@@ -9,6 +11,8 @@ export async function getInsuranceContent(): Promise<InsuranceContent> {
     const ceofPlains = getCeofPlains();
     const materDeiBetimPlains = getMaterDeiBetimPlains();
     const numaiPlains = getNumaiPlains();
+    const centraPlains = getCentraPlains();
+    const elcenterPlains = getElcenterPlains();
 
 
     return {
@@ -38,8 +42,18 @@ export async function getInsuranceContent(): Promise<InsuranceContent> {
                 speed: 30
             },
             {
-                name: "NUMAI",
+                name: "Clinica Numai",
                 plans: numaiPlains,
+                speed: 10
+            },
+            {
+                name: "Clinica Centra",
+                plans: centraPlains,
+                speed: 10
+            },
+            {
+                name: "Clinica Elcenter",
+                plans: elcenterPlains,
                 speed: 10
             }
 

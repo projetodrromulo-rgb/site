@@ -93,8 +93,11 @@ export const useHero = () => {
         }
     }, { scope: containerRef });
 
+    const [isVideoEnded, setIsVideoEnded] = useState(false);
+
     // Move interaction logic to event handler (Vercel Best Practices 5.8)
     const handleVideoEnded = useCallback(() => {
+        setIsVideoEnded(true);
         // Clareia a sobreposição no vídeo (aumentando opacidade visual do vídeo)
         gsap.to(overlayRef.current, {
             backgroundColor: "rgba(15, 23, 42, 0.9)",
@@ -119,6 +122,7 @@ export const useHero = () => {
         spotlightRef,
         overlayRef,
         scrollRef,
-        handleVideoEnded
+        handleVideoEnded,
+        isVideoEnded
     };
 };

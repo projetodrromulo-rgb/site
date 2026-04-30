@@ -21,7 +21,8 @@ export default function Hero({ content }: HeroProps) {
         spotlightRef,
         overlayRef,
         scrollRef,
-        handleVideoEnded
+        handleVideoEnded,
+        isVideoEnded,
     } = useHero();
 
     const { typingPhrases, headline, description, cta, logoImage, backgroundVideo } = content;
@@ -50,7 +51,9 @@ export default function Hero({ content }: HeroProps) {
             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center h-full pb-8 lg:py-0">
 
                 <div ref={contentRef} className="relative flex flex-col items-center text-center drop-shadow-2xl z-20 pointer-events-auto">
-                    <div className="hero-animate-item"><TypingText phrases={typingPhrases} /></div>
+                    <div className="hero-animate-item">
+                        {isVideoEnded && <TypingText phrases={typingPhrases} />}
+                    </div>
                     <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} /></div>
                     <div className="hero-animate-item w-full flex justify-center"><Description description={description} /></div>
                     <div className="hero-animate-item mt-8">
