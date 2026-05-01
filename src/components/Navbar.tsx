@@ -6,6 +6,8 @@ import { env } from "@/env";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Phone, Menu, X, Home, Stethoscope, User, MapPin, ShieldCheck, Newspaper, Star } from "lucide-react";
 import { Logo } from "./sections/hero/_components/logo";
+import { WhatsAppLink } from "./shared/whasapp-link";
+import { IconWhatsApp } from "./icon-whats-app";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -38,8 +40,8 @@ export default function Navbar() {
         { label: "Sobre", href: "/#sobre", icon: User },
         { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
         { label: "Convênios", href: "/#insurance-section", icon: ShieldCheck },
-        { label: "Blog", href: "/#blog", icon: Newspaper },
-        { label: "Depoimentos", href: "/#testimonials", icon: Star },
+        /// { label: "Blog", href: "/#blog", icon: Newspaper },
+        // { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 
     return (
@@ -139,14 +141,14 @@ export default function Navbar() {
                                     transition={{ delay: 0.6 }}
                                     className="mt-16 w-full max-w-md"
                                 >
-                                    <a
-                                        href={`https://wa.me/${env().whatsAppNumber}?text=${env().ctaWhatsappText}`}
-                                        target="_blank"
-                                        className="flex items-center justify-center gap-3 md:gap-4 py-4 md:py-5 bg-accent text-primary-dark font-black text-lg md:text-xl rounded-2xl shadow-2xl shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all"
+
+                                    <WhatsAppLink className="flex text-white items-center justify-center gap-3 md:gap-4 py-4 md:py-5 bg-accent text-primary-dark font-black text-lg md:text-xl rounded-2xl shadow-2xl shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all"
                                     >
-                                        <Phone className="w-5 h-5 md:w-6 md:h-6" />
+                                        <IconWhatsApp />
                                         AGENDAR MINHA CONSULTA
-                                    </a>
+
+                                    </WhatsAppLink>
+
                                 </motion.div>
                             </div>
                         </motion.div>

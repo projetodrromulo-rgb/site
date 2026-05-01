@@ -51,7 +51,7 @@ export default function Hero({ content }: HeroProps) {
             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center h-full pb-8 lg:py-0">
 
                 <div ref={contentRef} className="relative flex flex-col items-center text-center drop-shadow-2xl z-20 pointer-events-auto">
-                    <div className="hero-animate-item">
+                    <div className="hero-animate-item min-h-[40px] mb-4 lg:mb-6 flex items-center justify-center">
                         {isVideoEnded && <TypingText phrases={typingPhrases} />}
                     </div>
                     <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} as="h1" /></div>

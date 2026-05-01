@@ -45,7 +45,7 @@ export const TypingText = forwardRef<HTMLDivElement, TypingTextProps>(
         return (
             <div
                 ref={ref}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0db9f2]/10 border border-[#0db9f2]/20 mb-4 lg:mb-6 drop-shadow-sm ${className || ""}`}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0db9f2]/10 border border-[#0db9f2]/20 drop-shadow-sm ${className || ""}`}
             >
                 <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0db9f2] opacity-75"></span>
