@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/shared/SmoothScrolling";
@@ -93,6 +94,7 @@ export default function RootLayout({
           <Navbar />
           <WhatsAppButton />
         </SmoothScrolling>
+        <SpeedInsights />
       </body>
     </html>
   );
