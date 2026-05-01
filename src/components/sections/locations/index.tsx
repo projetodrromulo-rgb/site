@@ -88,7 +88,7 @@ export default function Locations({ content }: LocationsProps) {
             {/* PALCO 3D REAL (Responsivo) */}
             <div
                 className="relative w-full flex items-center justify-center"
-                style={{ 
+                style={{
                     height: cardHeight + 120,
                     perspective: "2500px",
                     WebkitPerspective: "2500px"
@@ -211,6 +211,13 @@ export default function Locations({ content }: LocationsProps) {
                         <span>{String(units.length).padStart(2, '0')}</span>
                     </div>
                 </div>
+
+
+            </div>
+            <div className="max-w-8xl mx-auto px-6 md:px-20 w-full mt-10">
+                <span className="text-[10px] text-primary-dark/30 uppercase tracking-widest font-bold">
+                    * Imagens meramente ilustrativas
+                </span>
             </div>
         </motion.section>
     );

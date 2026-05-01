@@ -15,7 +15,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             <motion.div
                 ref={ref}
                 className="group relative flex flex-col h-full w-full rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl border border-white/5 will-change-transform"
-                style={{ 
+                style={{
                     transformStyle: "preserve-3d",
                     WebkitTransformStyle: "preserve-3d",
                     perspective: "2000px",
@@ -35,14 +35,14 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         fill
                         className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                         priority={index < 6}
-                        quality={80}
+                        quality={50}
                     />
                     {/* Overlay de Gradiente Suavizado (Melhor Visibilidade) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent" />
                 </div>
 
                 {/* 2. Conteúdo Flutuante */}
-                <div className="relative z-10 flex flex-col h-full p-4 md:p-6 justify-end [transform-style:preserve-3d]">
+                <div className="relative z-10 flex flex-col h-full p-4 md:p-6 justify-end [transform-style:preserve-3d] backdrop-blur-[0.5px]">
 
                     {/* Elementos Superiores - GPS PULSANTE */}
                     <div className="absolute top-5 right-5 md:top-6 md:right-6 [transform:translateZ(60px)] z-30 group/gps">
@@ -52,11 +52,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                             href={unit.mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative px-4 h-10 rounded-xl bg-accent flex items-center justify-center gap-2 text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
+                            className="relative px-4 h-10 rounded-xl bg-primary-dark flex items-center justify-center gap-2 text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
                             title="Abrir no Google Maps"
                         >
                             <Navigation size={18} className="group-hover/gps:rotate-12 transition-transform" />
-                            <span className="text-[11px] font-black uppercase tracking-wider">Como Chegar</span>
+                            <span className="text-[11px]  uppercase tracking-wider">Como Chegar</span>
                         </a>
                     </div>
 
@@ -64,7 +64,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                     <div className="space-y-4 [transform:translateZ(50px)]">
                         <header className="space-y-1">
                             <motion.span
-                                className="block text-[12px] text-white italic font-medium mb-2 drop-shadow-md"
+                                className="block text-[12px] text-white italic mb-2 drop-shadow-md"
                                 initial={{ opacity: 1 }}
                             >
                                 {unit.subtitle}
@@ -77,25 +77,24 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         {/* Detalhes Extra (Melhoria de Legibilidade) */}
                         <div className="transition-all duration-700 ease-in-out">
                             <address className="not-italic space-y-3 md:space-y-4 pt-2 md:pt-4 pb-2 md:pb-3">
-                                <p className="text-white font-medium text-[10px] md:text-xs leading-relaxed flex items-start gap-2 md:gap-3 drop-shadow-md">
-                                    <MapPin size={14} color="#d1e6f5ff" className="text-accent shrink-0 mt-0.5" />
+                                <p className="text-white font-normal text-[10px] md:text-xs leading-relaxed flex items-start gap-2 md:gap-3 drop-shadow-md">
+                                    <MapPin size={24} color="#d1e6f5ff" className="text-accent shrink-0 mt-0.5" />
                                     {unit.address}
                                 </p>
                                 <div className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs">
-                                    <Phone size={14} color="#d1e6f5ff" className="text-accent shrink-0" />
-                                    <span className="text-white font-medium transition-colors drop-shadow-md">
+                                    <Phone size={24} color="#d1e6f5ff" className="text-accent shrink-0" />
+                                    <span className="text-white font-normal transition-colors drop-shadow-md">
                                         {unit.phone}
                                     </span>
                                 </div>
                             </address>
 
-                            {/* ACESSO AO SITE (Premium Button Design) */}
-                            <footer className="pt-2 md:pt-4">
+                            <footer className="pt-2 md:pt-4 flex flex-col gap-3">
                                 <a
                                     href={unit.websiteUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group/btn relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-8 h-10 md:h-12 overflow-hidden bg-white/10 backdrop-blur-md border border-accent/40 rounded-2xl text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500 hover:bg-accent hover:border-accent hover:scale-[1.02] active:scale-95 shadow-2xl"
+                                    className="group/btn relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-8 h-10 md:h-12 overflow-hidden bg-white/10 backdrop-blur-md border border-accent/40 rounded-2xl text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500 hover:bg-accent hover:border-accent hover:scale-[1.02] active:scale-95 shadow-2xl w-fit"
                                     title="Visitar Site Oficial"
                                 >
                                     {/* Efeito de Brilho Interno (Shimmer) */}
@@ -104,6 +103,8 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                                     <Globe size={16} className="text-accent group-hover/btn:text-white group-hover/btn:rotate-[20deg] transition-all duration-500" />
                                     <span className="relative z-10">Visitar Site</span>
                                 </a>
+
+
                             </footer>
                         </div>
                     </div>
