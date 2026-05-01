@@ -24,6 +24,7 @@ export interface Post {
 }
 
 export const allPosts: Post[] = [
+    /*
     ciaticoPost,
     tumoresPost,
     artrosePost,
@@ -32,5 +33,5 @@ export const allPosts: Post[] = [
     escoliosePost,
     lombalgiaPost,
     herniaPost,
-    estenosePost
+    estenosePost*/
 ];

@@ -3,14 +3,16 @@ import { SharedComponentsTypes } from "./types";
 interface TitleProps {
     headline: SharedComponentsTypes['headline'];
     className?: string;
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 export function Title({
     headline,
-    className = ""
+    className = "",
+    as: Tag = 'h2'
 
 }: TitleProps) {
     return (
-        <h2
+        <Tag
             aria-label={`${headline.textTop} ${headline.textHighlight} ${headline.textBottom || ""}`}
             className={`flex flex-col gap-1 lg:gap-2 mb-4 lg:mb-6 tracking-tight drop-shadow-lg font-inter ${className}`}
             style={{ color: headline.styles?.textColorTitle }}
@@ -34,6 +36,6 @@ export function Title({
                     {headline.textBottom}
                 </span>
             )}
-        </h2>
+        </Tag>
     );
 }

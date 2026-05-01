@@ -54,7 +54,7 @@ export default function Hero({ content }: HeroProps) {
                     <div className="hero-animate-item">
                         {isVideoEnded && <TypingText phrases={typingPhrases} />}
                     </div>
-                    <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} /></div>
+                    <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} as="h1" /></div>
                     <div className="hero-animate-item w-full flex justify-center"><Description description={description} /></div>
                     <div className="hero-animate-item mt-8">
                         <CtaWhatsApp cta={cta} fullWidth className="max-w-md mx-auto" />
