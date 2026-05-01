@@ -36,7 +36,7 @@ export function getplains() {
         { name: "Fundafemg", src: `${IMG_BASE_URL}/fundafemg.jpg` },
         { name: "fundação Fiat", src: `${IMG_BASE_URL}/fundacao-fiat.jpg` },
         { name: "fundação Libertas", src: `${IMG_BASE_URL}/fundacao-libertas.jpg` },
-        { name: "Fusex", src: `${IMG_BASE_URL}/fusex.jpg` },
+        { name: "Fusex", src: `${IMG_BASE_URL}/fuxex.avif` },
         { name: "Gama Saúde", src: `${IMG_BASE_URL}/gama-saude.jpg` },
         { name: "Geap", src: `${IMG_BASE_URL}/geap.jpg` },
         { name: "Hasten", src: `${IMG_BASE_URL}/hasten.jpg` },

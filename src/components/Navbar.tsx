@@ -48,7 +48,7 @@ export default function Navbar() {
         <>
             <div
                 id="global-navbar"
-                className={`fixed top-0 left-0 w-full z-[150]   ${hasScrolled
+                className={`fixed top-0 left-0 w-full z-[150] ${hasScrolled
                     ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
                     : "bg-transparent py-4"
                     }`}

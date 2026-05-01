@@ -6,7 +6,7 @@ export async function LocalBusinessSEO() {
 
     const jsonLd = {
         "@context": "https://schema.org",
-        "@type": "Physician",
+        "@type": "MedicalBusiness",
         "name": "Dr. Rômulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.png",
         "description": "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento humanizado em Belo Horizonte, Betim e Contagem.",
