@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Home, User, Stethoscope, MessageCircle, Menu, X, MapPin, ShieldCheck, Newspaper, Star, Phone } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { WhatsAppLink } from "./shared/whasapp-link";
 
 export default function MobileNav() {
     const pathname = usePathname();
@@ -106,14 +107,14 @@ export default function MobileNav() {
                                 ))}
                             </div>
 
-                            <a
-                                href="https://wa.me/5511999999999?text=Vim do site do Dr. Romulo. Gostaria de mais informações"
-                                target="_blank"
-                                className="flex items-center justify-center gap-3 w-full py-5 bg-accent text-primary-dark font-black rounded-2xl shadow-lg shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all mb-8"
+                            <WhatsAppLink className="flex items-center justify-center gap-3 w-full py-5 bg-accent text-primary-dark font-black rounded-2xl shadow-lg shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all mb-8"
                             >
                                 <Phone size={20} />
                                 AGENDAR CONSULTA
-                            </a>
+                            </WhatsAppLink>
+
+
+
 
                             {/* iOS Indicator Spacing */}
                             <div className="h-6" />

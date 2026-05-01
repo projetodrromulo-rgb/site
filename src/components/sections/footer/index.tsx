@@ -21,6 +21,7 @@ const WhatsappIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 import { useFooterAnimation } from "./hooks/use-footer";
+import { WhatsAppLink } from "@/components/shared/whasapp-link";
 
 export default function Footer({ content }: FooterProps) {
     const { containerRef } = useFooterAnimation();
@@ -46,7 +47,12 @@ export default function Footer({ content }: FooterProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Section */}
                     <div className="space-y-4">
-                        <Logo logoImage={logoData} scrolled={true} className="lg:-ml-8" />
+                        <div>
+                            <Logo logoImage={logoData} scrolled={true} className="lg:-ml-8" />
+                            <p className="text-neutral-light/60 text-[12px] leading-relaxed">CRM 73889 | RQE 59057 | TEOT 19406</p>
+
+                        </div>
+
                         <p className="text-neutral-light/60 text-sm leading-relaxed max-w-xs">
                             {content.brandDescription}
                         </p>
@@ -110,16 +116,25 @@ export default function Footer({ content }: FooterProps) {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="pt-8 border-t border-accent/10 flex flex-col gap-2">
                     <p className="text-neutral-light/40 text-[10px] uppercase tracking-[0.2em] font-medium text-center md:text-left leading-relaxed">
-                        © {currentYear} Dr. Rômulo - CRM {content.crm}. <br className="md:hidden" /> todos os direitos reservados.
+                        © {currentYear} Dr. Rômulo Oliveira.  Todos os direitos reservados. <br className="md:hidden" />
                     </p>
-                    <div className="flex items-center gap-6">
-                        <a href="#" className="text-neutral-light/30 hover:text-accent text-[10px] uppercase tracking-widest transition-colors font-bold">Privacidade</a>
-                        <a href="#" className="text-neutral-light/30 hover:text-accent text-[10px] uppercase tracking-widest transition-colors font-bold">Termos</a>
-                    </div>
+                    <p className="text-neutral-light/40 text-[10px] uppercase tracking-[0.2em] font-medium text-center md:text-left leading-relaxed">
+                        Site Desenvolvido por{" "}
+                        <WhatsAppLink
+                            className="font-bold hover:text-accent transition-colors underline-offset-4 hover:underline"
+                            message="Olá! Gostaria de saber mais informações dos serviços da Daya Gestão Médica"
+                            ariaLabel="Conversar com Daya Gestão Médica pelo WhatsApp">
+                            Daya Gestão Médica
+                        </WhatsAppLink>
+
+
+                    </p>
                 </div>
             </div>
         </footer>
     );
 }
+
+

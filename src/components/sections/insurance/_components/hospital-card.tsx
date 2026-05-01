@@ -46,7 +46,7 @@ export const HospitalCard = forwardRef<HTMLDivElement, HospitalCardProps>(
                         </div>
 
                         {/* Infinite Scrolling Inside Card */}
-                        <div className="space-y-0 relative overflow-visible">
+                        <div className="space-y-0 relative overflow-visible ">
                             <InsuranceMarquee
                                 plans={row1}
                                 direction="left"

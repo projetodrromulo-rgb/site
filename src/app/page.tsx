@@ -61,10 +61,10 @@ export default async function Home() {
       <LocalBusinessSEO />
       <Hero content={heroContent} />
       <About content={aboutContent} />
-      <ParallaxSection />
       <Locations content={locationsContent} />
       <CTA content={ctaContent} />
       <Insurance content={insuranceContent} />
+      <ParallaxSection />
       <Procedures content={proceduresContent} />
       <Footer content={footerContent} />
     </main>

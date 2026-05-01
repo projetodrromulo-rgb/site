@@ -140,7 +140,7 @@ export default function Navbar() {
                                     className="mt-16 w-full max-w-md"
                                 >
                                     <a
-                                        href={`https://wa.me/${env().whatsAppNumber}?text=Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento`}
+                                        href={`https://wa.me/${env().whatsAppNumber}?text=${env().ctaWhatsappText}`}
                                         target="_blank"
                                         className="flex items-center justify-center gap-3 md:gap-4 py-4 md:py-5 bg-accent text-primary-dark font-black text-lg md:text-xl rounded-2xl shadow-2xl shadow-accent/20 hover:scale-[1.02] active:scale-95 transition-all"
                                     >

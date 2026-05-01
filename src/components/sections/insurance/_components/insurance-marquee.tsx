@@ -37,7 +37,7 @@ export const InsuranceMarquee = forwardRef<HTMLDivElement, MarqueeRowProps>(
                             key={`${plan.name}-${idx}`}
                             src={plan.src}
                             alt={plan.name}
-                            className="w-44 h-28 shrink-0"
+                            className="w-44 h-28 shrink-0 "
                         />
                     ))}
                 </div>

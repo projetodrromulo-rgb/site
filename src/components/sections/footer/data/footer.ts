@@ -16,7 +16,7 @@ export const navLinks: NavLink[] = [
 
 
 export const socialLinks: SocialLink[] = [
-    { platform: "whatsapp", href: `https://wa.me/${whatsAppNumber}?text=Vim do site do Dr. Romulo. Gostaria de mais informações` },
+    { platform: "whatsapp", href: `https://wa.me/${whatsAppNumber}?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento` },
     { platform: "instagram", href: `${instagramUrl}` },
     //  { platform: "linkedin", href: "#" },
 ];

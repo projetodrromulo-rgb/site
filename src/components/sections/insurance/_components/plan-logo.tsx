@@ -15,7 +15,7 @@ export const PlanLogo = forwardRef<HTMLDivElement, PlanLogoProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "relative bg-white/10 backdrop-blur-md rounded-xl p-4 flex items-center justify-center border border-white/10 hover:bg-white/20 transition-all duration-300 h-24 hover:shadow-lg group/logo z-[99] hover:z-[110]",
+                    "relative bg-white/10 backdrop-blur-md rounded-xl p-4 flex items-center justify-center border border-white/10 hover:bg-white/20 transition-all duration-300 h-24 hover:shadow-lg group/logo z-[99] hover:z-[110] ",
                     className
                 )}
             >
@@ -33,7 +33,7 @@ export const PlanLogo = forwardRef<HTMLDivElement, PlanLogoProps>(
                         src={src}
                         alt={alt}
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                         unoptimized
                     />
                 </div>

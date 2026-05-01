@@ -31,7 +31,7 @@ export default function WhatsAppButton({ message = "Descubra como podemos ajudar
         <AnimatePresence>
             {isVisible && (
                 <motion.a
-                    href={`https://wa.me/${env().whatsAppNumber}?text=Vim do site do Dr. Romulo. Gostaria de mais informações`}
+                    href={`https://wa.me/${env().whatsAppNumber}?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento`}
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ scale: 0, opacity: 0, y: 20 }}
