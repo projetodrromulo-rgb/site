@@ -3,7 +3,7 @@ import { allProcedures } from '@/components/sections/procedures/data/procedures'
 import { allPosts } from '@/components/sections/blog/data/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://drromulocoluna.com.br';
+  const baseUrl = 'https://www.drromulocoluna.com.br';
 
   const procedureUrls = allProcedures.map((procedure) => ({
     url: `${baseUrl}/procedimentos/${procedure.slug}`,

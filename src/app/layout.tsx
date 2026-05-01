@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
     description: "Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação.",
-    url: "https://drromulocoluna.com.br",
+    url: "https://www.drromulocoluna.com.br",
     siteName: "Dr. Rômulo Oliveira",
     locale: "pt_BR",
     type: "website",

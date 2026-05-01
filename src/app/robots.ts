@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://drromulocoluna.com.br/sitemap.xml',
+    sitemap: 'https://www.drromulocoluna.com.br/sitemap.xml',
   };
 }
