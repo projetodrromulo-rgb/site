@@ -4,6 +4,8 @@ import { HeroContent } from "../types";
 import { Ref, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+import Image from "next/image";
+
 interface BackgroundVideoProps {
     backgroundVideo: HeroContent['backgroundVideo'];
     mediaContainerRef: Ref<HTMLDivElement> | undefined;
@@ -17,14 +19,33 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
     useEffect(() => {
-        // Removemos o atraso artificial para melhorar o LCP
-        setShouldLoadVideo(true);
-    }, []);
+        const checkMobile = window.innerWidth < 768;
+        // Carrega o vídeo apenas se for desktop
+        setShouldLoadVideo(!checkMobile);
+        
+        // No mobile, o vídeo não vai tocar, então chamamos o "ended" logo de cara
+        // para garantir que qualquer lógica dependente seja destravada (se houver)
+        if (checkMobile) {
+            handleVideoEnded();
+        }
+    }, [handleVideoEnded]);
 
     return (
         <div
             aria-hidden="true"
         >
+            {/* Imagem estática para Mobile (LCP Otimizado) */}
+            <div className="block md:hidden absolute inset-0 w-full h-full">
+                <Image 
+                    src="/images/hero-mobile.png" 
+                    alt="Dr. Rômulo - Especialista em Coluna" 
+                    fill 
+                    className="object-cover"
+                    priority
+                />
+            </div>
+
+            {/* Vídeo para Desktop */}
             {shouldLoadVideo && (
                 <motion.video
                     ref={videoRef}
@@ -39,7 +60,7 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
                     preload="auto"
                     onPlaying={() => setIsVideoPlaying(true)}
                     onEnded={handleVideoEnded}
-                    className="absolute inset-0 w-full h-full object-cover transform-gpu"
+                    className="hidden md:block absolute inset-0 w-full h-full object-cover transform-gpu"
                 />
             )}
             <div ref={overlayRef} className="absolute inset-0 bg-background/70"></div>
