@@ -17,19 +17,8 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
     useEffect(() => {
-        // Detectar se é dispositivo móvel
-        const isMobile = window.innerWidth < 768;
-
-        if (isMobile) {
-            // No mobile, aguarda 2 segundos antes de começar a carregar o vídeo
-            const timer = setTimeout(() => {
-                setShouldLoadVideo(true);
-            }, 2000);
-            return () => clearTimeout(timer);
-        } else {
-            // No desktop carrega imediatamente
-            setShouldLoadVideo(true);
-        }
+        // Removemos o atraso artificial para melhorar o LCP
+        setShouldLoadVideo(true);
     }, []);
 
     return (

@@ -6,11 +6,11 @@ export async function LocalBusinessSEO() {
 
     const jsonLd = {
         "@context": "https://schema.org",
-        "@type": "MedicalBusiness",
+        "@type": ["Physician", "MedicalClinic"],
         "name": "Dr. Rômulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.png",
         "description": "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento humanizado em Belo Horizonte, Betim e Contagem.",
-        "url": "http://drromulocoluna.com.br/",
+        "url": "https://www.drromulocoluna.com.br/",
         "telephone": `${(env().whatsAppNumber)}`,
         "medicalSpecialty": "OrthopedicSurgery",
         "address": {

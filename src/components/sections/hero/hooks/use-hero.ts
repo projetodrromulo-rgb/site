@@ -42,8 +42,7 @@ export const useHero = () => {
         tl.from(
             ".hero-animate-item",
             {
-                y: 30,
-                opacity: 0,
+                y: 15,
                 duration: 0.8,
                 stagger: 0.15,
                 ease: "power3.out",
