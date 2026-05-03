@@ -4,7 +4,6 @@ import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/shared/SmoothScrolling";
 import Navbar from "@/components/Navbar";
-import WhatsAppButton from "@/components/WhatsAppButton";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -86,6 +85,12 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://www.drromulocoluna.com.br" />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-mobile.webp"
+          media="(max-width: 767px)"
+        />
       </head>
       <body
         className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased bg-primary-dark text-neutral-light -mt-2`}
@@ -95,7 +100,6 @@ export default function RootLayout({
           <div className="noise-bg"></div>
           {children}
           <Navbar />
-          <WhatsAppButton />
         </SmoothScrolling>
         <SpeedInsights />
       </body>
