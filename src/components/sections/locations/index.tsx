@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Title, TypingText } from "@/components/shared";
 import { LocationCard } from "./_components";
 import { LocationsContent } from "./types";
@@ -86,21 +86,38 @@ export default function Locations({ content }: LocationsProps) {
                 </header>
             </div>
 
-            {/* PALCO 3D (Desktop) vs SCROLL NATIVO (Mobile) */}
-            <div className="relative w-full">
-                {/* Mobile View: Native Scroll */}
-                <div className="flex md:hidden overflow-x-auto px-6 pb-8 gap-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
-                    {units.map((unit, index) => (
-                        <div 
-                            key={unit.id} 
-                            className="flex-shrink-0 w-[85vw] snap-center first:ml-0 last:mr-0"
-                        >
-                            <LocationCard
-                                unit={unit}
-                                index={index}
-                            />
-                        </div>
-                    ))}
+            {/* CARROSSEL MOBILE (Drag) vs 3D (Desktop) */}
+            <div className="relative w-full overflow-hidden">
+                {/* Mobile View: Framer Motion Slider (Swipeable) */}
+                <div className="flex md:hidden px-6 pb-8">
+                    <motion.div 
+                        className="flex gap-6 cursor-grab active:cursor-grabbing"
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={(e, info) => {
+                            const threshold = 50;
+                            if (info.offset.x < -threshold) {
+                                next();
+                            } else if (info.offset.x > threshold) {
+                                prev();
+                            }
+                        }}
+                        animate={{ x: `calc(-${activeIndex} * (85vw + 24px))` }}
+                        transition={{ type: "spring", damping: 25, stiffness: 150 }}
+                    >
+                        {units.map((unit, index) => (
+                            <div 
+                                key={unit.id} 
+                                className="flex-shrink-0 w-[85vw]"
+                            >
+                                <LocationCard
+                                    unit={unit}
+                                    index={index}
+                                />
+                            </div>
+                        ))}
+                    </motion.div>
                 </div>
 
                 {/* Desktop View: 3D Carousel Stage */}
@@ -179,7 +196,7 @@ export default function Locations({ content }: LocationsProps) {
 
             {/* BARRA DE NAVEGAÇÃO INFERIOR */}
             <div
-                className="hidden md:flex max-w-8xl mx-auto px-6 md:px-20 mt-12 flex-col md:flex-row items-center justify-between gap-8 relative z-30 locations-nav"
+                className="flex max-w-8xl mx-auto px-6 md:px-20 mt-12 flex-col md:flex-row items-center justify-between gap-8 relative z-30 locations-nav"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >

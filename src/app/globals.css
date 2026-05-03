@@ -96,3 +96,10 @@ body.insurance-modal-open #global-navbar {
   pointer-events: none;
   transition: all 0.4s ease;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
