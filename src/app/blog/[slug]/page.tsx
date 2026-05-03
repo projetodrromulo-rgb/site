@@ -105,10 +105,11 @@ export default function PostDetailPage() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-3xl mb-12 shadow-2xl shadow-[#0db9f2]/10"
                 >
-                    <img
+                    <Image
                         src={post.image}
                         alt={post.title}
                         className="w-full h-full object-cover"
+
                     />
                 </motion.div>
 
@@ -160,7 +161,7 @@ export default function PostDetailPage() {
                                 <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group">
                                     <div className="flex flex-col gap-4">
                                         <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-200 dark:bg-[#162a31]">
-                                            <img
+                                            <Image
                                                 src={rp.image}
                                                 alt={rp.title}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

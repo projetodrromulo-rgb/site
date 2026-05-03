@@ -42,6 +42,7 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
                     fill 
                     className="object-cover"
                     priority
+                    fetchPriority="high"
                 />
             </div>
 

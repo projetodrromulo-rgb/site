@@ -34,8 +34,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         alt={unit.title}
                         fill
                         className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                        priority={index < 6}
-                        quality={50}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                        priority={index < 3}
+                        quality={80}
                     />
                     {/* Overlay de Gradiente Suavizado (Melhor Visibilidade) */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent" />
@@ -69,9 +70,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                             >
                                 {unit.subtitle}
                             </motion.span>
-                            <h4 className="text-lg md:text-xl font-normal text-white leading-[0.9] uppercase tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+                            <h3 className="text-lg md:text-xl font-normal text-white leading-[0.9] uppercase tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
                                 {unit.title}
-                            </h4>
+                            </h3>
                         </header>
 
                         {/* Detalhes Extra (Melhoria de Legibilidade) */}

@@ -84,6 +84,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://www.drromulocoluna.com.br" />
+      </head>
       <body
         className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased bg-primary-dark text-neutral-light -mt-2`}
         suppressHydrationWarning

@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 import Link from "next/link";
 import { Calendar, ArrowRight, Clock } from "lucide-react";
 import { BlogPost } from "../types";
+import Image from "next/image";
 
 interface BlogPostCardProps {
     post: BlogPost;
@@ -23,10 +24,10 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                     {/* Image Container - Always Colorful */}
                     <div className="aspect-video w-full relative overflow-hidden bg-slate-800">
                         <div className="absolute inset-0 bg-transparent z-10" />
-                        <img
+                        <Image
                             src={post.image}
                             alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                         />
                         <div className="absolute top-3 left-3 z-20">
                             <span className="px-3 py-1.5 rounded-md bg-[#0db9f2] text-white text-[10px] font-black uppercase tracking-wider shadow-md">

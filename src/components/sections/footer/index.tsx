@@ -63,6 +63,7 @@ export default function Footer({ content }: FooterProps) {
                                     href={social.href}
                                     target={social.platform === "whatsapp" ? "_blank" : undefined}
                                     rel={social.platform === "whatsapp" ? "noopener noreferrer" : undefined}
+                                    aria-label={social.platform === "whatsapp" ? "Conversar pelo WhatsApp" : "Seguir no Instagram"}
                                     className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300"
                                 >
                                     {getIcon(social.platform)}
@@ -73,10 +74,10 @@ export default function Footer({ content }: FooterProps) {
 
                     {/* Navigation */}
                     <div className="space-y-6">
-                        <h4 className="text-neutral-light font-bold flex items-center gap-2">
+                        <h3 className="text-neutral-light font-bold flex items-center gap-2">
                             <ChevronRight size={16} className="text-accent" />
                             Navegação
-                        </h4>
+                        </h3>
                         <ul className="space-y-3">
                             {content.navLinks.map((link) => (
                                 <li key={link.label}>
@@ -91,14 +92,14 @@ export default function Footer({ content }: FooterProps) {
 
                     {/* Locations */}
                     <div className="space-y-6 lg:col-span-2">
-                        <h4 className="text-neutral-light font-bold flex items-center gap-2">
+                        <h3 className="text-neutral-light font-bold flex items-center gap-2">
                             <ChevronRight size={16} className="text-accent" />
                             Nossas Unidades
-                        </h4>
+                        </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {content.clinics.map((clinic) => (
                                 <div key={clinic.name} className="space-y-3">
-                                    <h5 className="text-accent font-semibold text-sm uppercase tracking-wider">{clinic.name}</h5>
+                                    <h4 className="text-accent font-semibold text-sm uppercase tracking-wider">{clinic.name}</h4>
                                     <div className="space-y-2">
                                         <p className="text-neutral-light/50 text-sm flex items-start gap-2 leading-snug">
                                             <MapPin size={14} className="text-accent mt-0.5 shrink-0" />
