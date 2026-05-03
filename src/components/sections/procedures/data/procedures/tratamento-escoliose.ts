@@ -5,7 +5,7 @@ export const tratamentoEscoliose: Procedure = {
     description: "Correção das curvas anormais patológicas.",
     icon: "check",
     slug: "tratamento-escoliose",
-    imageUrl: "/images/procedures/scoliosis_2.png",
+    imageUrl: "/images/procedures/scoliosis_2.webp",
     metaTitle: "Tratamento de Escoliose e Correção de Deformidade | Dr. Romulo",
     metaDescription: "Correção cirúrgica de escoliose com técnicas modernas de fixação tridimensional. Melhore sua postura e qualidade de vida.",
     content: `

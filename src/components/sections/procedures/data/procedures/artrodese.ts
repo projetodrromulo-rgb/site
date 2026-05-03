@@ -5,7 +5,7 @@ export const artrodese: Procedure = {
     description: "Procedimento para fundir uma vértebra à outra, com o propósito de estabilização do segmento.",
     icon: "check",
     slug: "artrodese-de-coluna",
-    imageUrl: "/images/procedures/arthrodesis.png",
+    imageUrl: "/images/procedures/arthrodesis.webp",
     metaTitle: "Artrodese de Coluna e Fusão Vertebral | Dr. Romulo",
     metaDescription: "Procedimento de artrodese para estabilização de vértebras e tratamento de instabilidade. Excelência em cirurgia de coluna.",
     content: `

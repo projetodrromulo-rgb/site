@@ -5,7 +5,7 @@ export const artroplastiaCervical: Procedure = {
     description: "Substituição do disco cervical por uma prótese que reduz dor e mantém a mobilidade natural da coluna",
     icon: "check",
     slug: "artroplastia-cervical",
-    imageUrl: "/images/procedures/cervical-arthroplasty.png",
+    imageUrl: "/images/procedures/cervical-arthroplasty.webp",
     metaTitle: "Artroplastia Cervical e Prótese de Disco | Dr. Romulo",
     metaDescription: "Mantenha a mobilidade do pescoço com a artroplastia cervical. Saiba mais sobre a substituição de disco por prótese com o Dr. Romulo.",
     content: `

@@ -15,7 +15,7 @@ export async function getAboutContent(): Promise<AboutContent> {
 
         },
         image: {
-            src: "/images/about-image-bg-none.svg",
+            src: "/images/about-image.webp",
             alt: "Dr. Rômulo Oliveira"
         },
         paragraphs: [

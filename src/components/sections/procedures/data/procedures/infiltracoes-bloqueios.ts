@@ -5,7 +5,7 @@ export const infiltracoesBloqueios: Procedure = {
     description: "Injeção de medicação diretamente no foco da dor, auxiliando no diagnóstico e tratamento.",
     icon: "check",
     slug: "infiltracoes-e-bloqueios",
-    imageUrl: "/images/procedures/injections.png",
+    imageUrl: "/images/procedures/injections.webp",
     metaTitle: "Infiltrações e Bloqueios na Coluna | Dr. Romulo",
     metaDescription: "Alivie a dor na coluna com infiltrações e bloqueios. Saiba como esses procedimentos minimamente invasivos podem ajudar no diagnóstico e tratamento.",
     content: `

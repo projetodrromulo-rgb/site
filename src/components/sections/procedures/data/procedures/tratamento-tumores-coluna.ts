@@ -5,7 +5,7 @@ export const tratamentoTumoresColuna: Procedure = {
     description: "Intervenção cirúrgica para garantir estabilidade e proteger as estruturas neurológicas.",
     icon: "check",
     slug: "tratamento-tumores-coluna",
-    imageUrl: "/images/procedures/spine-tumor.png",
+    imageUrl: "/images/procedures/spine-tumor.webp",
     metaTitle: "Cirurgia de Tumores na Coluna | Dr. Romulo",
     metaDescription: "Tratamento cirúrgico especializado para tumores vertebrais. Segurança neurológica e estabilização da coluna.",
     content: `

@@ -46,15 +46,28 @@ import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 import ParallaxSection from "@/components/sections/parallax";
 
 export default async function Home() {
-  const heroContent = await getHeroContent();
-  const aboutContent = await getAboutContent();
-  const locationsContent = await getLocationsContent();
-  const ctaContent = await getCTAContent();
-  const insuranceContent = await getInsuranceContent();
-  const proceduresContent = await getProceduresContent();
-  const blogContent = await getBlogContent();
-  const testimonialsContent = await getTestimonialsContent();
-  const footerContent = await getFooterContent();
+  // Busca todos os conteúdos em paralelo para otimizar o TTFB e evitar timeouts
+  const [
+    heroContent,
+    aboutContent,
+    locationsContent,
+    ctaContent,
+    insuranceContent,
+    proceduresContent,
+    blogContent,
+    testimonialsContent,
+    footerContent
+  ] = await Promise.all([
+    getHeroContent(),
+    getAboutContent(),
+    getLocationsContent(),
+    getCTAContent(),
+    getInsuranceContent(),
+    getProceduresContent(),
+    getBlogContent(),
+    getTestimonialsContent(),
+    getFooterContent()
+  ]);
 
   return (
     <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">

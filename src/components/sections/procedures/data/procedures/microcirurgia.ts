@@ -5,7 +5,7 @@ export const microcirurgia: Procedure = {
     description: "Utilizada para tratamento de hérnia de disco por pequenas incisões, auxiliadas por microscópio ou lupas cirúrgicas.",
     icon: "check",
     slug: "microcirurgia",
-    imageUrl: "/images/procedures/microsurgery.png",
+    imageUrl: "/images/procedures/microsurgery.webp",
     metaTitle: "Microcirurgia de Coluna: Hérnia de Disco | Dr. Romulo",
     metaDescription: "Saiba mais sobre a microcirurgia de coluna, um procedimento seguro e preciso para o tratamento de hérnias de disco. Agende sua consulta.",
     content: `

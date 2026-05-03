@@ -5,7 +5,7 @@ export const cirurgiaMinimamenteInvasiva: Procedure = {
     description: "procedimentos cirúrgicos mais modernos, com menor tempo e trauma operatório.",
     icon: "check",
     slug: "cirurgia-minimamente-invasiva",
-    imageUrl: "/images/procedures/minimally-invasive_2.png",
+    imageUrl: "/images/procedures/minimally-invasive_2.webp",
     metaTitle: "Cirurgia Minimamente Invasiva de Coluna | Dr. Romulo",
     metaDescription: "Saiba como a cirurgia minimamente invasiva da coluna permite uma recuperação mais rápida e menos dor pós-operatória. Agende sua consulta.",
     content: `

@@ -5,7 +5,7 @@ export const endoscopiaDeColuna: Procedure = {
     description: "Permite menor tempo cirúrgico e melhor visualização pelo aumento da câmera e tela de vídeo.",
     icon: "check",
     slug: "endoscopia-de-coluna",
-    imageUrl: "/images/procedures/endoscopy.png",
+    imageUrl: "/images/procedures/endoscopy.webp",
     metaTitle: "Endoscopia de Coluna: Hernia de Disco e Descompressão | Dr. Romulo",
     metaDescription: "Tratamento moderno para hérnia de disco via endoscopia. Procedimento minimamente invasivo com alta precisão e rápida recuperação.",
     content: `

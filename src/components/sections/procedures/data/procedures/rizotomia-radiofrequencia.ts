@@ -5,7 +5,7 @@ export const rizotomiaRadiofrequencia: Procedure = {
     description: "Utiliza calor gerado por corrente elétrica para diminuir a dor crônica em articulações da coluna.",
     icon: "check",
     slug: "rizotomia-por-radiofrequencia",
-    imageUrl: "/images/procedures/rhizotomy.png",
+    imageUrl: "/images/procedures/rhizotomy.webp",
     metaTitle: "Rizotomia por Radiofrequência na Coluna | Dr. Romulo",
     metaDescription: "Tratamento eficaz para dores crônicas na coluna. Saiba como a rizotomia por radiofrequência pode ajudar a melhorar sua qualidade de vida.",
     content: `
