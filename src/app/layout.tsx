@@ -28,7 +28,7 @@ const fontMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
   description: "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento em Belo Horizonte, Betim e Contagem. Recupere sua qualidade de vida.",
-  keywords: ["Cirurgia de Coluna", "Minimamente Invasiva", "Dr. Rômulo Oliveira", "Ortopedista Belo Horizonte", "Hérnia de Disco", "Dor nas Costas"],
+  keywords: ["Cirurgia de Coluna BH", "Cirurgia Minimamente Invasiva", "Dr. Rômulo Oliveira", "Especialista em Coluna Belo Horizonte", "Tratamento de Hérnia de Disco BH", "Cirurgia Endoscópica de Coluna", "Ortopedista em Betim", "Médico de Coluna Contagem"],
   authors: [{ name: "Dr. Rômulo Oliveira" }],
   creator: "Dr. Rômulo Oliveira",
   publisher: "Dr. Rômulo Oliveira",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/image-profile.png",
+        url: "/images/image-profile.webp",
         width: 1200,
         height: 630,
         alt: "Dr. Rômulo Oliveira - Especialista em Coluna",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
     description: "Recupere sua qualidade de vida com procedimentos modernos e minimamente invasivos.",
-    images: ["/images/image-profile.png"],
+    images: ["/images/image-profile.webp"],
   },
   robots: {
     index: true,

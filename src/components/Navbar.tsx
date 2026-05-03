@@ -69,6 +69,7 @@ export default function Navbar() {
                                 ? "bg-primary-dark text-white border border-white/10 shadow-lg"
                                 : "bg-white/10 backdrop-blur-md text-white border border-white/20"
                                 }`}
+                            aria-label="Abrir menu de navegação"
                         >
                             <span className="hidden md:block text-sm uppercase tracking-wider">Menu</span>
                             <div className={`p-1 rounded-full ${hasScrolled ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
@@ -95,6 +96,7 @@ export default function Navbar() {
                                 <button
                                     onClick={() => setIsMenuOpen(false)}
                                     className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:text-primary-dark transition-all hover:rotate-90"
+                                    aria-label="Fechar menu de navegação"
                                 >
                                     <X className="w-6 h-6 md:w-8 md:h-8" />
                                 </button>

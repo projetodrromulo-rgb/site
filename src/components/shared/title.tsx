@@ -13,7 +13,6 @@ export function Title({
 }: TitleProps) {
     return (
         <Tag
-            aria-label={`${headline.textTop} ${headline.textHighlight} ${headline.textBottom || ""}`}
             className={`flex flex-col gap-1 lg:gap-2 mb-4 lg:mb-6 tracking-tight drop-shadow-lg font-inter ${className}`}
             style={{ color: headline.styles?.textColorTitle }}
         >

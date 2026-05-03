@@ -37,7 +37,7 @@ export function BackgroundVideo({ backgroundVideo, mediaContainerRef, videoRef, 
             {/* Imagem estática para Mobile (LCP Otimizado) */}
             <div className="block md:hidden absolute inset-0 w-full h-full">
                 <Image 
-                    src="/images/hero-mobile.png" 
+                    src="/images/hero-mobile.webp" 
                     alt="Dr. Rômulo - Especialista em Coluna" 
                     fill 
                     className="object-cover"

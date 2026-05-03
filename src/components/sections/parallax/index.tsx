@@ -41,7 +41,7 @@ export default function ParallaxSection() {
                 className="absolute inset-0 w-full h-[140%] -top-[20%]"
             >
                 <Image
-                    src="/images/parallax.png"
+                    src="/images/parallax.webp"
                     alt="Arthrodesis Parallax Background"
                     fill
                     className="object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
