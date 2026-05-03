@@ -56,9 +56,10 @@ export default function Locations({ content }: LocationsProps) {
     const next = () => setActiveIndex((prev) => (prev + 1) % units.length);
     const prev = () => setActiveIndex((prev) => (prev - 1 + units.length) % units.length);
 
-    // Giro Automático com Velocidade Aumentada
+    // Giro Automático: Apenas em Desktop (md) para economizar recursos no mobile
     useEffect(() => {
-        if (isPaused) return;
+        const isMobile = window.innerWidth < 768;
+        if (isPaused || isMobile) return;
 
         const timer = setInterval(() => {
             next();
@@ -85,78 +86,95 @@ export default function Locations({ content }: LocationsProps) {
                 </header>
             </div>
 
-            {/* PALCO 3D REAL (Responsivo) */}
-            <div
-                className="relative w-full flex items-center justify-center"
-                style={{
-                    height: cardHeight + 120,
-                    perspective: "2500px",
-                    WebkitPerspective: "2500px"
-                }}
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-            >
-                {/* Carrrossel Central Draggable */}
-                <motion.div
-                    className="relative cursor-grab active:cursor-grabbing"
+            {/* PALCO 3D (Desktop) vs SCROLL NATIVO (Mobile) */}
+            <div className="relative w-full">
+                {/* Mobile View: Native Scroll */}
+                <div className="flex md:hidden overflow-x-auto px-6 pb-8 gap-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
+                    {units.map((unit, index) => (
+                        <div 
+                            key={unit.id} 
+                            className="flex-shrink-0 w-[85vw] snap-center first:ml-0 last:mr-0"
+                        >
+                            <LocationCard
+                                unit={unit}
+                                index={index}
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop View: 3D Carousel Stage */}
+                <div
+                    className="hidden md:flex relative w-full items-center justify-center"
                     style={{
-                        width: cardWidth,
-                        height: cardHeight,
-                        willChange: "transform",
-                        transformStyle: "preserve-3d",
-                        WebkitTransformStyle: "preserve-3d"
+                        height: cardHeight + 120,
+                        perspective: "2500px",
+                        WebkitPerspective: "2500px"
                     }}
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.1}
-                    onDragStart={() => setIsPaused(true)}
-                    onDragEnd={(e, info) => {
-                        const threshold = 50;
-                        if (info.offset.x < -threshold) {
-                            next();
-                        } else if (info.offset.x > threshold) {
-                            prev();
-                        }
-                        setIsPaused(false);
-                    }}
-                    initial={{ rotateY: -360 }}
-                    animate={{ rotateY: -activeIndex * angleStep }}
-                    transition={{
-                        rotateY: { type: "tween", duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-                        default: { duration: 0.1 }
-                    }}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
                 >
-                    {units.map((unit, index) => {
-                        const angle = index * angleStep;
-                        return (
-                            <div
-                                key={unit.id}
-                                className="absolute inset-0 [transform-style:preserve-3d] backface-hidden"
-                                style={{
-                                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                                    opacity: 1,
-                                }}
-                            >
-                                <motion.div
-                                    animate={{
+                    <motion.div
+                        className="relative cursor-grab active:cursor-grabbing"
+                        style={{
+                            width: cardWidth,
+                            height: cardHeight,
+                            willChange: "transform",
+                            transformStyle: "preserve-3d",
+                            WebkitTransformStyle: "preserve-3d"
+                        }}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.1}
+                        onDragStart={() => setIsPaused(true)}
+                        onDragEnd={(e, info) => {
+                            const threshold = 50;
+                            if (info.offset.x < -threshold) {
+                                next();
+                            } else if (info.offset.x > threshold) {
+                                prev();
+                            }
+                            setIsPaused(false);
+                        }}
+                        initial={{ rotateY: -360 }}
+                        animate={{ rotateY: -activeIndex * angleStep }}
+                        transition={{
+                            rotateY: { type: "tween", duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                            default: { duration: 0.1 }
+                        }}
+                    >
+                        {units.map((unit, index) => {
+                            const angle = index * angleStep;
+                            return (
+                                <div
+                                    key={unit.id}
+                                    className="absolute inset-0 [transform-style:preserve-3d] backface-hidden"
+                                    style={{
+                                        transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                                         opacity: 1,
-                                        scale: activeIndex === index ? 1.05 : 0.85,
-                                        filter: "blur(0px)",
-                                        z: activeIndex === index ? 50 : 0
                                     }}
-                                    transition={{ duration: 0.3, ease: "easeOut" }}
-                                    className="h-full w-full will-change-transform"
-                                    style={{ transformStyle: "preserve-3d" }}
                                 >
-                                    <LocationCard
-                                        unit={unit}
-                                        index={index}
-                                    />
-                                </motion.div>
-                            </div>
-                        );
-                    })}
-                </motion.div>
+                                    <motion.div
+                                        animate={{
+                                            opacity: 1,
+                                            scale: activeIndex === index ? 1.05 : 0.85,
+                                            filter: "blur(0px)",
+                                            z: activeIndex === index ? 50 : 0
+                                        }}
+                                        transition={{ duration: 0.3, ease: "easeOut" }}
+                                        className="h-full w-full will-change-transform"
+                                        style={{ transformStyle: "preserve-3d" }}
+                                    >
+                                        <LocationCard
+                                            unit={unit}
+                                            index={index}
+                                        />
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
+                    </motion.div>
+                </div>
             </div>
 
             {/* BARRA DE NAVEGAÇÃO INFERIOR */}
