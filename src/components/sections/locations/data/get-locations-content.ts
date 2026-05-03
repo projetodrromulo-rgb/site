@@ -33,7 +33,7 @@ export async function getLocationsContent(): Promise<LocationsContent> {
                 phone: "(31) 2571-0321",
                 mapUrl: "https://www.google.com/maps/place/Cl%C3%ADnica+Centra/@-19.9670843,-44.2010491,17z/data=!3m1!4b1!4m6!3m5!1s0xa6c3849b4451ab:0xba4aefe70f87d6fb!8m2!3d-19.9670894!4d-44.1984742!16s%2Fg%2F11b77qmtys?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D",
                 websiteUrl: "https://clinicacentra.com.br/",
-                image: "/images/location/clinica-02.png"
+                image: "/images/location/clinica-02.webp"
             },
             {
                 id: "clinica-elcenter-barreiro",

@@ -179,7 +179,7 @@ export default function Locations({ content }: LocationsProps) {
 
             {/* BARRA DE NAVEGAÇÃO INFERIOR */}
             <div
-                className="max-w-8xl mx-auto px-6 md:px-20 mt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-30 locations-nav"
+                className="hidden md:flex max-w-8xl mx-auto px-6 md:px-20 mt-12 flex-col md:flex-row items-center justify-between gap-8 relative z-30 locations-nav"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >

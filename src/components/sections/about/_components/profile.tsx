@@ -14,7 +14,7 @@ export const AboutProfile = forwardRef<HTMLDivElement, AboutProfileProps>(
                 <div className="absolute top-10 left-10 -right-6 -bottom-6 bg-accent/5 rounded-[2.5rem] -z-20 group-hover:bg-accent/10 transition-all duration-700 ease-out blur-[2px] group-hover:translate-x-4 group-hover:translate-y-4" />
 
 
-                <div className="relative h-[500px] md:h-[650px] w-[350px] md:w-[480px] bg-white/10 p-[5px] rounded-[2.8rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.10)] transition-all duration-700 ease-out group-hover:[transform:rotateX(6deg)_rotateY(-12deg)_translateZ(40px)] border-b-[6px] border-r-[6px] border-black/10 overflow-hidden group/card shadow-accent/5">
+                <div className="relative h-[450px] sm:h-[500px] md:h-[650px] w-full max-w-[320px] sm:max-w-[350px] md:max-w-[480px] bg-white/10 p-[5px] rounded-[2.8rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.10)] transition-all duration-700 ease-out group-hover:[transform:rotateX(6deg)_rotateY(-12deg)_translateZ(40px)] border-b-[6px] border-r-[6px] border-black/10 overflow-hidden group/card shadow-accent/5">
 
 
                     <div className="relative w-full h-full bg-white rounded-[2.7rem] p-3 flex items-center justify-center">
