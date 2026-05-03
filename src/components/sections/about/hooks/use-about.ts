@@ -43,17 +43,12 @@ export const useAbout = () => {
                 }
             });
 
-            tlContent.from(profileRef.current, {
-                x: -60,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power4.out"
-            }).from(bioRef.current, {
+            tlContent.from(bioRef.current, {
                 x: 60,
                 opacity: 0,
                 duration: 1.2,
                 ease: "power4.out"
-            }, "-=1.0");
+            });
         }
 
         // 3. Features Staggered Entry
