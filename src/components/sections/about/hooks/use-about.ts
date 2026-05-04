@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
 export const useAbout = () => {
     const containerRef = useRef<HTMLElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
-    const profileRef = useRef<HTMLDivElement>(null);
+    const profileRef = useRef<HTMLElement>(null);
     const bioRef = useRef<HTMLDivElement>(null);
     const featuresRef = useRef<HTMLDivElement>(null);
 
@@ -43,12 +43,17 @@ export const useAbout = () => {
                 }
             });
 
-            tlContent.from(bioRef.current, {
+            tlContent.from(profileRef.current, {
+                x: -60,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            }).from(bioRef.current, {
                 x: 60,
                 opacity: 0,
                 duration: 1.2,
                 ease: "power4.out"
-            });
+            }, "-=1.0");
         }
 
         // 3. Features Staggered Entry
