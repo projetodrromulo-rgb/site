@@ -29,15 +29,44 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             >
                 {/* 1. Imagem de Fundo Imersiva */}
                 <div className="absolute inset-0 z-0">
-                    <Image
-                        src={unit.image}
-                        alt={unit.title}
-                        fill
-                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                        priority={index < 3}
-                        quality={80}
-                    />
+                    {unit.mobileImage ? (
+                        <>
+                            {/* Versão Otimizada para Mobile */}
+                            <div className="block sm:hidden absolute inset-0 w-full h-full">
+                                <Image
+                                    src={unit.mobileImage}
+                                    alt={unit.title}
+                                    fill
+                                    className="object-cover"
+                                    sizes="100vw"
+                                    priority={index < 3}
+                                    quality={80}
+                                />
+                            </div>
+                            {/* Versão Original para Desktop */}
+                            <div className="hidden sm:block absolute inset-0 w-full h-full">
+                                <Image
+                                    src={unit.image}
+                                    alt={unit.title}
+                                    fill
+                                    className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                                    sizes="(max-width: 1024px) 50vw, 400px"
+                                    priority={index < 3}
+                                    quality={80}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <Image
+                            src={unit.image}
+                            alt={unit.title}
+                            fill
+                            className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                            priority={index < 3}
+                            quality={80}
+                        />
+                    )}
                     {/* Overlay de Gradiente Suavizado (Melhor Visibilidade) */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent" />
                 </div>

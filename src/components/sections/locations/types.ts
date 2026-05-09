@@ -9,6 +9,7 @@ export interface LocationUnit {
     mapUrl: string;
     websiteUrl: string;
     image: string;
+    mobileImage?: string;
 }
 
 export interface LocationsContent {
