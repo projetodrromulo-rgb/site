@@ -4,7 +4,7 @@ import { env } from "@/env";
 export async function LocalBusinessSEO() {
     const locations = await getLocationsContent();
 
-    const jsonLd = {
+    const physicianJsonLd = {
         "@context": "https://schema.org",
         "@type": "Physician",
         "name": "Dr. Rômulo Oliveira",
@@ -55,10 +55,24 @@ export async function LocalBusinessSEO() {
         }))
     };
 
+    const websiteJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Dr. Rômulo Oliveira",
+        "alternateName": ["Dr. Rômulo de Oliveira", "Dr. Rômulo Coluna"],
+        "url": "https://www.drromulocoluna.com.br/"
+    };
+
     return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+            />
+        </>
     );
 }
