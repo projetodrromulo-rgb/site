@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/image-profile.webp",
+        url: "/images/og-profile.webp",
         width: 1200,
         height: 630,
         alt: "Dr. Rômulo Oliveira - Especialista em Coluna",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
     description: "Recupere sua qualidade de vida com procedimentos modernos e minimamente invasivos.",
-    images: ["/images/image-profile.webp"],
+    images: ["/images/og-profile.webp"],
   },
   robots: {
     index: true,
@@ -74,7 +74,14 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    apple: "/images/favicon.png",
+    icon: [
+      { url: "/icon.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
