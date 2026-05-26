@@ -360,6 +360,192 @@ async function main() {
         const heroResult = await writeClient.createOrReplace(heroDoc);
         console.log(`\n🎉 Sucesso! Documento 'hero-content' integrado/sobrescrito no Sanity. ID: ${heroResult._id}\n`);
 
+        // 7. Seeding plans (convênios)
+        console.log("\n📦 Iniciando seeding dos planos de saúde...");
+        const planList = [
+            { name: "Abertta", filename: "abertta.webp" },
+            { name: "ABSPMC (CAIXINHA)", filename: "abspmc-caixinha.webp" },
+            { name: "Alice", filename: "alice.webp" },
+            { name: "Allianz", filename: "allianz.webp" },
+            { name: "Amagis", filename: "amagis.webp" },
+            { name: "Amil", filename: "amil.webp" },
+            { name: "Ammp", filename: "ammp.webp" },
+            { name: "ASSEFAZ", filename: "assefaz.webp" },
+            { name: "Assembleia Legislativa", filename: "assembleia-legislativa.webp" },
+            { name: "Assist Card", filename: "assist-card.webp" },
+            { name: "Aurora Saude", filename: "aurora-saude.webp" },
+            { name: "Bacen", filename: "bacen.webp" },
+            { name: "Banco Central", filename: "banco-central.webp" },
+            { name: "Blue Med Saúde", filename: "blue-med-saude.webp" },
+            { name: "Bradesco", filename: "bradesco.webp" },
+            { name: "Brasil Assistência", filename: "brasil-assistencia.webp" },
+            { name: "Cabesp", filename: "cabesp.webp" },
+            { name: "Camed Saúde", filename: "camed-saude.webp" },
+            { name: "Care Plus", filename: "care-plus.webp" },
+            { name: "Cassi", filename: "cassi.webp" },
+            { name: "Casu", filename: "casu.webp" },
+            { name: "Cemig", filename: "cemig.webp" },
+            { name: "Cenibra", filename: "cenibra.webp" },
+            { name: "Centauro", filename: "centauro.webp" },
+            { name: "Copasa", filename: "copasa.webp" },
+            { name: "Correios", filename: "correios.webp" },
+            { name: "Desban", filename: "desban.webp" },
+            { name: "Esaude Assist", filename: "esaude-assist.webp" },
+            { name: "Esaude Card", filename: "esaude-card.webp" },
+            { name: "Euro Center", filename: "euro-center.webp" },
+            { name: "FSFX", filename: "fsfx.webp" },
+            { name: "Fundafemg", filename: "fundafemg.webp" },
+            { name: "fundação Fiat", filename: "fundacao-fiat.webp" },
+            { name: "fundação Libertas", filename: "fundacao-libertas.webp" },
+            { name: "Fusex", filename: "fuxex.webp" },
+            { name: "Gama Saúde", filename: "gama-saude.webp" },
+            { name: "Geap", filename: "geap.webp" },
+            { name: "Hasten", filename: "hasten.webp" },
+            { name: "Itau", filename: "itau.webp" },
+            { name: "Mapfre", filename: "mapfre.webp" },
+            { name: "Mater Dei", filename: "mater-dei.webp" },
+            { name: "Mediservice", filename: "Medservice.webp" },
+            { name: "MedPrev", filename: "medprev.webp" },
+            { name: "MedSenior", filename: "medsenior.webp" },
+            { name: "Medgold saúde", filename: "medgold-saude.webp" },
+            { name: "Mondial", filename: "mondial.webp" },
+            { name: "Omint", filename: "omint.webp" },
+            { name: "PLAN CNEN", filename: "plan-cnen.webp" },
+            { name: "Petrobras", filename: "petrobras.webp" },
+            { name: "Plan Assiste", filename: "plan-assiste.webp" },
+            { name: "Porto Seguro", filename: "porto-seguro.webp" },
+            { name: "Postal Saúde", filename: "postal-saude.webp" },
+            { name: "Prestige Internacional", filename: "prestige-internacional.webp" },
+            { name: "Pró Social", filename: "pro-social.webp" },
+            { name: "Proasa", filename: "proasa.webp" },
+            { name: "Saude Caixa", filename: "saude-caixa.webp" },
+            { name: "Seias", filename: "seias.webp" },
+            { name: "Select Operadora", filename: "select-operadora.webp" },
+            { name: "Sindifisco", filename: "sindifisco.webp" },
+            { name: "Sistema Paulista", filename: "sistema-paulista.webp" },
+            { name: "Stellantis", filename: "stellantis.webp" },
+            { name: "SOS Assistance", filename: "sos-assistance.webp" },
+            { name: "Sulamerica", filename: "sulamerica.webp" },
+            { name: "TRF1", filename: "trf1.webp" },
+            { name: "Unafisco MG", filename: "unafisco-mg.webp" },
+            { name: "Unimed", filename: "unimed.webp" },
+            { name: "Unimed Seguros", filename: "unimed-seguros.webp" },
+            { name: "Usisaude", filename: "usisaude.webp" },
+            { name: "Vale", filename: "vale.webp" }
+        ];
+
+        const planMap: Record<string, string> = {};
+
+        for (const plan of planList) {
+            const planDocId = `plan-${plan.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+            planMap[plan.name] = planDocId;
+
+            const existing = await writeClient.fetch(`*[_type == "plan" && _id == $id][0]`, { id: planDocId });
+            if (existing) {
+                continue;
+            }
+
+            const imgPath = path.join(process.cwd(), "public", "images", "health-plans", plan.filename);
+            if (fs.existsSync(imgPath)) {
+                console.log(`📂 Carregando logo do plano: ${plan.name}...`);
+                const buffer = fs.readFileSync(imgPath);
+                const asset = await writeClient.assets.upload("image", buffer, { filename: plan.filename });
+                
+                await writeClient.createOrReplace({
+                    _type: "plan",
+                    _id: planDocId,
+                    name: plan.name,
+                    image: {
+                        _type: "image",
+                        asset: {
+                            _type: "reference",
+                            _ref: asset._id
+                        },
+                        alt: `Logo ${plan.name}`
+                    }
+                });
+                console.log(`✅ Plano '${plan.name}' criado.`);
+            }
+        }
+
+        // 8. Seeding the Insurance document
+        const ceofTextPlans = ["Amil", "Abertta", "Bradesco", "Saude Caixa", "Cemig", "Copasa", "Fundafemg", "Itau", "Mediservice", "Petrobras", "Sulamerica", "Usisaude", "Vale", "Unimed"];
+        const materDeiBetimPlains = [
+            "Amil", "Abertta", "Allianz", "Alice", "Amagis", "Ammp", "ASSEFAZ", "Assembleia Legislativa", "Assis Card", "Bacen",
+            "Blue Med Saúde", "Bradesco", "Brasil Assistência", "Cabesp", "Camed Saúde", "Care Plus", "Cassi", "Saude Caixa",
+            "Cemig", "Cenibra", "Centauro", "Copasa", "Correios", "Desban", "Euro Center", "fundação Fiat", "FSFX", "Itau",
+            "Fundafemg", "Gama Saúde", "Mapfre", "Mater Dei", "Mondial", "Omint", "Plan Assiste", "Porto Seguro", "Prestige Internacional",
+            "Pró Social", "Proasa", "Petrobras", "Select Operadora", "Sindifisco", "Sistema Paulista", "SOS Assistance", "Sulamerica",
+            "Unafisco MG", "Unimed Seguros", "Usisaude", "Vale"
+        ];
+        const numaiTextPlans = ["Amil", "Abertta", "Cassi", "Cemig", "Copasa", "fundação Fiat", "Fundação Libertas", "PLAN CNEN", "Unimed Seguros", "Sulamerica", "Usisaude", "Vale"];
+        const centraTextPlans = ["Amil", "Abertta", "Bradesco", "Cassi", "Cemig", "Copasa", "Esaude Assist", "Esaude Card", "fundação Fiat", "Gama Saúde", "Geap", "Medgold saúde", "MedPrev", "MedSenior", "Medi Service", "Saude Caixa", "Stellantis", "Sulamerica", "Usisaude", "Vale"];
+        const elcenterTextPlans = ["Abertta", "ABSPMC (CAIXINHA)", "Amagis", "Aurora Saude", "Bradesco", "Cassi", "Casu", "Cemig", "Copasa", "Stellantis", "Fundafemg", "fundação Libertas", "Fusex", "Geap", "Mediservice", "Postal Saúde", "Saude Caixa", "Sulamerica", "Vale"];
+
+        const makePlanRefs = (planNames: string[]) => {
+            return planNames
+                .map(name => {
+                    const id = planMap[name];
+                    if (!id) return null;
+                    return {
+                        _type: "reference",
+                        _ref: id,
+                        _key: `ref-${id}`
+                    };
+                })
+                .filter(Boolean);
+        };
+
+        const insuranceDoc = {
+            _type: "insurance",
+            _id: "insurance-content",
+            id: "insurance-section",
+            badge: "Planos de Saúde e Convênio",
+            headline: {
+                _type: "object",
+                textTop: "Convênios",
+                textHighlight: "Aceitos",
+                textBottom: "",
+            },
+            description: "Trabalhamos com as principais operadoras do mercado para garantir agilidade, conforto e excelência no seu atendimento especializado em patologias da coluna.",
+            hospitals: [
+                {
+                    _key: "hosp-1",
+                    name: "CEOFE - Contagem",
+                    speed: 10,
+                    plans: makePlanRefs(ceofTextPlans)
+                },
+                {
+                    _key: "hosp-2",
+                    name: "Mater Dei Betim",
+                    speed: 30,
+                    plans: makePlanRefs(materDeiBetimPlains)
+                },
+                {
+                    _key: "hosp-3",
+                    name: "Clinica Numai",
+                    speed: 10,
+                    plans: makePlanRefs(numaiTextPlans)
+                },
+                {
+                    _key: "hosp-4",
+                    name: "Clinica Centra",
+                    speed: 10,
+                    plans: makePlanRefs(centraTextPlans)
+                },
+                {
+                    _key: "hosp-5",
+                    name: "Clinica Elcenter",
+                    speed: 10,
+                    plans: makePlanRefs(elcenterTextPlans)
+                }
+            ]
+        };
+
+        console.log("📤 Enviando documento 'insurance' para o Sanity...");
+        const insResult = await writeClient.createOrReplace(insuranceDoc);
+        console.log(`\n🎉 Sucesso! Documento 'insurance-content' integrado/sobrescrito no Sanity. ID: ${insResult._id}\n`);
+
 
 
 
