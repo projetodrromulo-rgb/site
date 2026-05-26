@@ -32,6 +32,9 @@ export default function Navbar() {
         }
     });
 
+    const isStudioPage = pathname?.startsWith("/studio");
+    const showSolidNavbar = hasScrolled || isStudioPage;
+
     if (isSpecialPage) return null;
 
     const navLinks = [
@@ -48,35 +51,39 @@ export default function Navbar() {
         <>
             <div
                 id="global-navbar"
-                className={`fixed top-0 left-0 w-full z-[150] ${hasScrolled
-                    ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
-                    : "bg-transparent py-4"
+                className={`fixed top-0 left-0 w-full z-[150] ${isStudioPage
+                    ? "bg-[#0B2B40] shadow-xl border-b border-white/5 py-2"
+                    : showSolidNavbar
+                        ? "bg-primary-dark/70 backdrop-blur-xl shadow-xl border-b border-white/5 py-2"
+                        : "bg-transparent py-4"
                     }`}
             >
                 <div className="w-full px-8 md:px-12 lg:px-24 flex items-center justify-between">
                     {/* Logo Section */}
                     <Logo
                         logoImage={logoData}
-                        scrolled={hasScrolled}
+                        scrolled={showSolidNavbar}
                         className="scale-75 md:scale-90 origin-left"
                     />
 
                     {/* Menu Button Container */}
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => setIsMenuOpen(true)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${hasScrolled
-                                ? "bg-primary-dark text-white border border-white/10 shadow-lg"
-                                : "bg-white/10 backdrop-blur-md text-white border border-white/20"
-                                }`}
-                            aria-label="Abrir menu de navegação"
-                        >
-                            <span className="hidden md:block text-sm uppercase tracking-wider">Menu</span>
-                            <div className={`p-1 rounded-full ${hasScrolled ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
-                                <Menu size={20} />
-                            </div>
-                        </button>
-                    </div>
+                    {!isStudioPage && (
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={() => setIsMenuOpen(true)}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${showSolidNavbar
+                                    ? "bg-primary-dark text-white border border-white/10 shadow-lg"
+                                    : "bg-white/10 backdrop-blur-md text-white border border-white/20"
+                                    }`}
+                                aria-label="Abrir menu de navegação"
+                            >
+                                <span className="hidden md:block text-sm uppercase tracking-wider">Menu</span>
+                                <div className={`p-1 rounded-full ${showSolidNavbar ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
+                                    <Menu size={20} />
+                                </div>
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 

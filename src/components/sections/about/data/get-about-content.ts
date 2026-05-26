@@ -1,55 +1,106 @@
 import { AboutContent } from "../types";
+import { client, projectId } from "../../../../lib/sanity";
+
+const localAboutContent: AboutContent = {
+    subtitle: "Sobre o Especialista",
+    headline: {
+        textTop: "Comprometido com sua",
+        textHighlight: "Saúde e bem estar",
+        styles: {
+            textColorTitle: "var(--color-title-secondary)",
+            textColorHighlightTo: "var(--color-title-secondary-highlight-to)",
+            textColorHighlightFrom: "var(--color-title-secondary-highlight-from)",
+            textColorBottom: "var(--color-title-secondary-bottom)"
+        }
+    },
+    image: {
+        src: "/images/about-image.webp",
+        alt: "Dr. Rômulo Oliveira"
+    },
+    paragraphs: [
+        "O Dr. Rômulo Oliveira dedica sua trajetória profissional ao tratamento avançado de patologias da coluna vertebral, unindo tecnologia de ponta e um olhar humano e individualizado.",
+        "Especialista reconhecido em cirurgias minimamente invasivas, seu foco principal é reduzir o tempo de recuperação, permitindo que o paciente retorne às suas atividades diárias com o máximo de conforto e segurança.",
+        "Sua abordagem prioriza técnicas que preservam a musculatura e estabilidade da coluna, sempre buscando a solução menos agressiva e mais eficaz para cada caso clínico."
+    ],
+    formation: [
+        "Membro da Sociedade Brasileira de Coluna - SBC",
+        "Fellowship em cirurgia de coluna - Hospital da Baleia - Belo Horizonte MG",
+        "Residência Médica em Ortopedia e Traumatologia pelo Hospital Municipal - Governador Valadares - MG",
+        "Médico pela UNEC - Caratinga MG"
+    ],
+    features: [
+        {
+            icon: "Award",
+            title: "Especialista em Coluna",
+            description: "RQE 59057 | TEOT 19406"
+        },
+        {
+            icon: "Zap",
+            title: "Tecnologia de Ponta",
+            description: "Técnicas Minimamente Invasivas"
+        },
+        {
+            icon: "Activity",
+            title: "Recuperação Rápida",
+            description: "Foco no retorno às atividades"
+        },
+        {
+            icon: "ShieldCheck",
+            title: "Segurança e Ética",
+            description: "Procedimentos Certificados"
+        }
+    ]
+};
 
 export async function getAboutContent(): Promise<AboutContent> {
-    return {
-        subtitle: "Sobre o Especialista",
-        headline: {
-            textTop: "Comprometido com sua",
-            textHighlight: "Saúde e bem estar",
-            styles: {
-                textColorTitle: "var(--color-title-secondary)",
-                textColorHighlightTo: "var(--color-title-secondary-highlight-to)",
-                textColorHighlightFrom: "var(--color-title-secondary-highlight-from)",
-                textColorBottom: "var(--color-title-secondary-bottom)"
-            }
+    if (!projectId || projectId === "placeholder") {
+        return localAboutContent;
+    }
 
-        },
-        image: {
-            src: "/images/about-image.webp",
-            alt: "Dr. Rômulo Oliveira"
-        },
-        paragraphs: [
-            "O Dr. Rômulo Oliveira dedica sua trajetória profissional ao tratamento avançado de patologias da coluna vertebral, unindo tecnologia de ponta e um olhar humano e individualizado.",
-            "Especialista reconhecido em cirurgias minimamente invasivas, seu foco principal é reduzir o tempo de recuperação, permitindo que o paciente retorne às suas atividades diárias com o máximo de conforto e segurança.",
-            "Sua abordagem prioriza técnicas que preservam a musculatura e estabilidade da coluna, sempre buscando a solução menos agressiva e mais eficaz para cada caso clínico."
-        ],
-        formation: [
-            "Membro da Sociedade Brasileira de Coluna - SBC",
-            "Fellowship em cirurgia de coluna - Hospital da Baleia - Belo Horizonte MG",
-            "Residência Médica em Ortopedia e Traumatologia pelo Hospital Municipal - Governador Valadares - MG",
-            "Médico pela UNEC - Caratinga MG"
-        ],
-        features: [
-            {
-                icon: "Award",
-                title: "Especialista em Coluna",
-                description: "RQE 59057 | TEOT 19406"
+    try {
+        const query = `*[_type == "about"][0] {
+            subtitle,
+            headline {
+                textTop,
+                textHighlight,
+                textBottom
             },
-            {
-                icon: "Zap",
-                title: "Tecnologia de Ponta",
-                description: "Técnicas Minimamente Invasivas"
+            image {
+                "src": coalesce(asset->url, ""),
+                "alt": coalesce(alt, "")
             },
-            {
-                icon: "Activity",
-                title: "Recuperação Rápida",
-                description: "Foco no retorno às atividades"
-            },
-            {
-                icon: "ShieldCheck",
-                title: "Segurança e Ética",
-                description: "Procedimentos Certificados"
+            paragraphs,
+            formation,
+            features[] {
+                icon,
+                title,
+                description
             }
-        ]
-    };
-};
+        }`;
+        
+        const data = await client.fetch<any>(query);
+        
+        if (data) {
+            return {
+                subtitle: data.subtitle || localAboutContent.subtitle,
+                headline: {
+                    textTop: data.headline?.textTop || localAboutContent.headline.textTop,
+                    textHighlight: data.headline?.textHighlight || localAboutContent.headline.textHighlight,
+                    textBottom: data.headline?.textBottom || localAboutContent.headline.textBottom || "",
+                    styles: localAboutContent.headline.styles
+                },
+                image: {
+                    src: data.image?.src || localAboutContent.image.src,
+                    alt: data.image?.alt || localAboutContent.image.alt
+                },
+                paragraphs: data.paragraphs && data.paragraphs.length > 0 ? data.paragraphs : localAboutContent.paragraphs,
+                formation: data.formation && data.formation.length > 0 ? data.formation : localAboutContent.formation,
+                features: data.features && data.features.length > 0 ? data.features : localAboutContent.features
+            };
+        }
+    } catch (error) {
+        console.error("Error fetching about content from Sanity, falling back to local data:", error);
+    }
+
+    return localAboutContent;
+}

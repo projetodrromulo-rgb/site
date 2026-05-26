@@ -11,6 +11,8 @@ export interface CTAContent {
     headline: string;
     description: string;
     whatsappUrl: string;
+    whatsappButtonText: string;
+    whatsappMessage: string;
     trustSignals: TrustSignal[];
     typingPhrases: string[];
 

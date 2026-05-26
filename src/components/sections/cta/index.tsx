@@ -13,13 +13,14 @@ interface CTAProps {
 
 export default function CTA({ content }: CTAProps) {
     const { containerRef } = useCTA();
-    const { typingPhrases, headline, description, whatsappUrl, trustSignals, id } = content;
+    const { typingPhrases, headline, description, whatsappUrl, whatsappButtonText, whatsappMessage, trustSignals, id } = content;
 
 
 
     const cta = {
         whatsAppNumber: env().whatsAppNumber,
-        text: "Chamar no WhatsApp",
+        text: whatsappButtonText || "Chamar no WhatsApp",
+        message: whatsappMessage,
     }
     return (
         <section
