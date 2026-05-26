@@ -44,6 +44,24 @@ async function main() {
             console.warn("⚠️ Imagem local não encontrada em:", localImagePath);
         }
 
+        // 1b. Read and upload the local logo image from the public folder
+        const localLogoPath = path.join(process.cwd(), "public", "images", "logo.svg");
+        let logoAssetId = "";
+
+        if (fs.existsSync(localLogoPath)) {
+            console.log("📂 Lendo logo local: logo.svg...");
+            const logoBuffer = fs.readFileSync(localLogoPath);
+            
+            console.log("📤 Fazendo upload da logo para os assets do Sanity...");
+            const logoAsset = await writeClient.assets.upload("image", logoBuffer, {
+                filename: "logo.svg",
+            });
+            logoAssetId = logoAsset._id;
+            console.log(`✅ Upload da logo concluído! Asset ID: ${logoAssetId}`);
+        } else {
+            console.warn("⚠️ Logo local não encontrada em:", localLogoPath);
+        }
+
         // 2. Prepare the About Document structure
         const doc = {
             _type: "about",
@@ -168,7 +186,18 @@ async function main() {
                 { _key: "soc-1", platform: "whatsapp", href: "https://wa.me/5531996689572?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento" },
                 { _key: "soc-2", platform: "instagram", href: "https://www.instagram.com/dr.romulo.oliveira/" }
             ]
-        };
+        } as any;
+
+        if (logoAssetId) {
+            footerDoc.logo = {
+                _type: "image",
+                asset: {
+                    _type: "reference",
+                    _ref: logoAssetId
+                },
+                alt: "Dr. Rômulo Oliveira Logo"
+            };
+        }
 
         console.log("📤 Enviando documento 'footer' para o Sanity...");
         const footerResult = await writeClient.createOrReplace(footerDoc);

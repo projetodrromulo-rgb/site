@@ -27,11 +27,6 @@ export default function Footer({ content }: FooterProps) {
     const { containerRef } = useFooterAnimation();
     const currentYear = new Date().getFullYear();
 
-    const logoData = {
-        src: "/images/logo.svg",
-        alt: "Dr. Rômulo Oliveira Logo"
-    };
-
     const getIcon = (platform: string) => {
         switch (platform) {
             case "whatsapp": return <WhatsappIcon size={18} />;
@@ -48,7 +43,7 @@ export default function Footer({ content }: FooterProps) {
                     {/* Brand Section */}
                     <div className="space-y-4">
                         <div>
-                            <Logo logoImage={logoData} scrolled={true} className="lg:-ml-8" />
+                            <Logo logoImage={content.logo} scrolled={true} className="lg:-ml-8" />
                             <p className="text-neutral-light/60 text-[12px] leading-relaxed">{content.crm}</p>
 
                         </div>

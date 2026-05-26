@@ -15,6 +15,10 @@ export interface SocialLink {
 }
 
 export interface FooterContent {
+    logo: {
+        src: string;
+        alt: string;
+    };
     brandDescription: string;
     navLinks: NavLink[];
     clinics: Clinic[];

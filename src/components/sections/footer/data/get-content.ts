@@ -19,6 +19,10 @@ const defaultSocialLinks: SocialLink[] = [
 ];
 
 const localFooterContent: FooterContent = {
+    logo: {
+        src: "/images/logo.svg",
+        alt: "Dr. Rômulo Oliveira Logo"
+    },
     brandDescription: "Excelência e precisão em cirurgia de coluna. Focado em devolver a qualidade de vida e mobilidade aos nossos pacientes através de técnicas modernas e humanizadas.",
     navLinks: defaultNavLinks,
     clinics: [],
@@ -43,6 +47,10 @@ export async function getFooterContent(): Promise<FooterContent> {
 
     try {
         const query = `*[_type == "footer"][0] {
+            logo {
+                "src": coalesce(asset->url, ""),
+                "alt": coalesce(alt, "")
+            },
             brandDescription,
             crm,
             navLinks[] {
@@ -59,6 +67,7 @@ export async function getFooterContent(): Promise<FooterContent> {
 
         if (data) {
             return {
+                logo: data.logo?.src ? { src: data.logo.src, alt: data.logo.alt || "" } : localFooterContent.logo,
                 brandDescription: data.brandDescription || localFooterContent.brandDescription,
                 crm: data.crm || localFooterContent.crm,
                 navLinks: data.navLinks && data.navLinks.length > 0 ? data.navLinks : localFooterContent.navLinks,

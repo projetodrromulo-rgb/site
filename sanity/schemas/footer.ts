@@ -6,6 +6,23 @@ export const footerType = defineType({
     type: "document",
     fields: [
         defineField({
+            name: "logo",
+            title: "Logo do Rodapé",
+            type: "image",
+            options: {
+                hotspot: true,
+            },
+            fields: [
+                defineField({
+                    name: "alt",
+                    title: "Descrição do Logo (Acessibilidade/SEO)",
+                    type: "string",
+                    validation: (Rule: any) => Rule.required(),
+                }),
+            ],
+            validation: (Rule: any) => Rule.required(),
+        }),
+        defineField({
             name: "brandDescription",
             title: "Descrição da Marca (Brand Description)",
             type: "text",
