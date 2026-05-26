@@ -49,7 +49,7 @@ export default function Footer({ content }: FooterProps) {
                     <div className="space-y-4">
                         <div>
                             <Logo logoImage={logoData} scrolled={true} className="lg:-ml-8" />
-                            <p className="text-neutral-light/60 text-[12px] leading-relaxed">CRM 73889 | RQE 59057 | TEOT 19406</p>
+                            <p className="text-neutral-light/60 text-[12px] leading-relaxed">{content.crm}</p>
 
                         </div>
 

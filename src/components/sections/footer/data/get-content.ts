@@ -23,7 +23,7 @@ const localFooterContent: FooterContent = {
     navLinks: defaultNavLinks,
     clinics: [],
     socialLinks: defaultSocialLinks,
-    crm: "CRM-MG 59.057"
+    crm: "CRM 73889 | RQE 59057 | TEOT 19406"
 };
 
 export async function getFooterContent(): Promise<FooterContent> {

@@ -156,7 +156,7 @@ async function main() {
             _type: "footer",
             _id: "footer-content",
             brandDescription: "Excelência e precisão em cirurgia de coluna. Focado em devolver a qualidade de vida e mobilidade aos nossos pacientes através de técnicas modernas e humanizadas.",
-            crm: "CRM-MG 59.057",
+            crm: "CRM 73889 | RQE 59057 | TEOT 19406",
             navLinks: [
                 { _key: "nav-1", label: "Início", href: "#" },
                 { _key: "nav-2", label: "Sobre", href: "#sobre" },
