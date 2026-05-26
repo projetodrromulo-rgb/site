@@ -4,6 +4,7 @@ loadEnvConfig(process.cwd());
 import { createClient } from "next-sanity";
 import fs from "fs";
 import path from "path";
+import { allProcedures } from "../src/components/sections/procedures/data/procedures";
 
 async function main() {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -580,6 +581,75 @@ async function main() {
         console.log("📤 Enviando documento 'parallax' para o Sanity...");
         const pxResult = await writeClient.createOrReplace(parallaxDoc);
         console.log(`\n🎉 Sucesso! Documento 'parallax-content' integrado/sobrescrito no Sanity. ID: ${pxResult._id}\n`);
+
+        // 10. Seeding the Procedures documents
+        console.log("\n📦 Iniciando seeding dos tratamentos/procedimentos...");
+        const procedureRefs: any[] = [];
+
+        for (const proc of allProcedures) {
+            const procDocId = `procedure-${proc.slug}`;
+            
+            const existing = await writeClient.fetch(`*[_type == "procedure" && _id == $id][0]`, { id: procDocId });
+            let procImgAssetId = "";
+
+            if (!existing && proc.imageUrl) {
+                const imgPath = path.join(process.cwd(), "public", proc.imageUrl);
+                if (fs.existsSync(imgPath)) {
+                    console.log(`📂 Carregando imagem do procedimento: ${proc.title}...`);
+                    const buffer = fs.readFileSync(imgPath);
+                    const asset = await writeClient.assets.upload("image", buffer, { filename: `${proc.slug}.webp` });
+                    procImgAssetId = asset._id;
+                }
+            } else if (existing && existing.image?.asset?._ref) {
+                procImgAssetId = existing.image.asset._ref;
+            }
+
+            const procDoc = {
+                _type: "procedure",
+                _id: procDocId,
+                title: proc.title,
+                description: proc.description,
+                icon: proc.icon,
+                slug: {
+                    _type: "slug",
+                    current: proc.slug
+                },
+                content: proc.content,
+                metaTitle: proc.metaTitle || `${proc.title} | Dr. Romulo`,
+                metaDescription: proc.metaDescription || proc.description,
+                image: procImgAssetId ? {
+                    _type: "image",
+                    asset: {
+                        _type: "reference",
+                        _ref: procImgAssetId
+                    },
+                    alt: `Imagem do procedimento ${proc.title}`
+                } : undefined
+            };
+
+            await writeClient.createOrReplace(procDoc);
+            console.log(`✅ Procedimento '${proc.title}' cadastrado/sincronizado.`);
+
+            procedureRefs.push({
+                _type: "reference",
+                _ref: procDocId,
+                _key: `ref-${procDocId}`
+            });
+        }
+
+        // Seeding the Procedures Section
+        const proceduresSectionDoc = {
+            _type: "procedures-section",
+            _id: "procedures-section-content",
+            badge: "Nossas Especialidades",
+            title: "Tratamentos Especializados",
+            description: "Oferecemos tratamentos personalizados para diversas patologias da coluna, utilizando as técnicas mais modernas da medicina.",
+            items: procedureRefs
+        };
+
+        console.log("📤 Enviando documento 'procedures-section' para o Sanity...");
+        const procSecResult = await writeClient.createOrReplace(proceduresSectionDoc);
+        console.log(`\n🎉 Sucesso! Documento 'procedures-section-content' integrado/sobrescrito no Sanity. ID: ${procSecResult._id}\n`);
 
 
 

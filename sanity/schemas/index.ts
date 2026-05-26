@@ -6,8 +6,10 @@ import { heroType } from "./hero";
 import { planType } from "./plan";
 import { insuranceType } from "./insurance";
 import { parallaxType } from "./parallax";
+import { procedureType } from "./procedure";
+import { proceduresSectionType } from "./procedures-section";
 
-export const schemaTypes = [aboutType, ctaType, footerType, locationsType, heroType, planType, insuranceType, parallaxType];
+export const schemaTypes = [aboutType, ctaType, footerType, locationsType, heroType, planType, insuranceType, parallaxType, procedureType, proceduresSectionType];
 
 
 
