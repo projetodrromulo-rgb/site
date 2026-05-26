@@ -151,6 +151,30 @@ async function main() {
         const ctaResult = await writeClient.createOrReplace(ctaDoc);
         console.log(`\n🎉 Sucesso! Documento 'secao-cto-content' integrado/sobrescrito no Sanity. ID: ${ctaResult._id}\n`);
 
+        // 4. Prepare the Footer Document structure
+        const footerDoc = {
+            _type: "footer",
+            _id: "footer-content",
+            brandDescription: "Excelência e precisão em cirurgia de coluna. Focado em devolver a qualidade de vida e mobilidade aos nossos pacientes através de técnicas modernas e humanizadas.",
+            crm: "CRM-MG 59.057",
+            navLinks: [
+                { _key: "nav-1", label: "Início", href: "#" },
+                { _key: "nav-2", label: "Sobre", href: "#sobre" },
+                { _key: "nav-3", label: "Onde Atendemos", href: "#locations" },
+                { _key: "nav-4", label: "Convênios", href: "#Insurance" },
+                { _key: "nav-5", label: "Especialidades", href: "#procedimentos" }
+            ],
+            socialLinks: [
+                { _key: "soc-1", platform: "whatsapp", href: "https://wa.me/5531996689572?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento" },
+                { _key: "soc-2", platform: "instagram", href: "https://www.instagram.com/dr.romulo.oliveira/" }
+            ]
+        };
+
+        console.log("📤 Enviando documento 'footer' para o Sanity...");
+        const footerResult = await writeClient.createOrReplace(footerDoc);
+        console.log(`\n🎉 Sucesso! Documento 'footer-content' integrado/sobrescrito no Sanity. ID: ${footerResult._id}\n`);
+
+
 
     } catch (error: any) {
         console.error("\n❌ Erro durante a exportação:", error.message || error);
