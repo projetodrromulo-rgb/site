@@ -82,6 +82,24 @@ async function main() {
         const imgCeofe = await uploadLocationImage("clinica-03.webp", "images/location/clinica-03.webp");
         const imgBiocor = await uploadLocationImage("hospital-02.webp", "images/location/hospital-02.webp");
 
+        // 1d. Read and upload the local background video from the public folder
+        const localVideoPath = path.join(process.cwd(), "public", "video", "video-hero.webm");
+        let videoAssetId = "";
+
+        if (fs.existsSync(localVideoPath)) {
+            console.log("📂 Lendo vídeo local: video-hero.webm...");
+            const videoBuffer = fs.readFileSync(localVideoPath);
+            
+            console.log("📤 Fazendo upload do vídeo para os assets do Sanity (isso pode levar alguns segundos)...");
+            const videoAsset = await writeClient.assets.upload("file", videoBuffer, {
+                filename: "video-hero.webm",
+            });
+            videoAssetId = videoAsset._id;
+            console.log(`✅ Upload do vídeo concluído! Asset ID: ${videoAssetId}`);
+        } else {
+            console.warn("⚠️ Vídeo local não encontrado em:", localVideoPath);
+        }
+
         // 2. Prepare the About Document structure
         const doc = {
             _type: "about",
@@ -307,6 +325,41 @@ async function main() {
         console.log("📤 Enviando documento 'locations' para o Sanity...");
         const locResult = await writeClient.createOrReplace(locationsDoc);
         console.log(`\n🎉 Sucesso! Documento 'locations-content' integrado/sobrescrito no Sanity. ID: ${locResult._id}\n`);
+
+        // 6. Prepare the Hero Document structure
+        const heroDoc = {
+            _type: "hero",
+            _id: "hero-content",
+            typingPhrases: [
+                "Ortopedia e Cirurgia de Coluna",
+                "Cirurgia Minimamente Invasiva",
+                "Recuperação Rápida e Segura"
+            ],
+            headline: {
+                _type: "object",
+                textTop: "Sua jornada para uma",
+                textHighlight: "vida sem dor",
+                textBottom: "começa aqui",
+            },
+            description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
+            ctaText: "Descubra como podemos ajudar",
+        } as any;
+
+
+        if (videoAssetId) {
+            heroDoc.backgroundVideo = {
+                _type: "file",
+                asset: {
+                    _type: "reference",
+                    _ref: videoAssetId
+                }
+            };
+        }
+
+        console.log("📤 Enviando documento 'hero' para o Sanity...");
+        const heroResult = await writeClient.createOrReplace(heroDoc);
+        console.log(`\n🎉 Sucesso! Documento 'hero-content' integrado/sobrescrito no Sanity. ID: ${heroResult._id}\n`);
+
 
 
 

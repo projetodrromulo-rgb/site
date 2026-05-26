@@ -3,7 +3,10 @@ import { HeroContent } from "../types";
 import Image from "next/image";
 
 interface LogoProps {
-    logoImage: HeroContent['logoImage'];
+    logoImage: {
+        src: string;
+        alt: string;
+    };
     className?: string;
     scrolled?: boolean;
 }

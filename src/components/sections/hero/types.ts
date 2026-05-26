@@ -8,10 +8,6 @@ export type HeroContent = {
     description: string;
     cta: WhatsAppButtonType
 
-    logoImage: {
-        src: string;
-        alt: string;
-    };
 
     backgroundVideo: {
         src: string;
