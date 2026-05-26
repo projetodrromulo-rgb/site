@@ -5,6 +5,7 @@ import { createClient } from "next-sanity";
 import fs from "fs";
 import path from "path";
 import { allProcedures } from "../src/components/sections/procedures/data/procedures";
+import { allTestimonials } from "../src/components/sections/testimonials/data/testimonials";
 
 async function main() {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -650,6 +651,46 @@ async function main() {
         console.log("📤 Enviando documento 'procedures-section' para o Sanity...");
         const procSecResult = await writeClient.createOrReplace(proceduresSectionDoc);
         console.log(`\n🎉 Sucesso! Documento 'procedures-section-content' integrado/sobrescrito no Sanity. ID: ${procSecResult._id}\n`);
+
+        // 11. Seeding the Testimonials documents
+        console.log("\n📦 Iniciando seeding dos depoimentos (testimonials)...");
+        const testimonialRefs: any[] = [];
+
+        for (const t of allTestimonials) {
+            const testimonialDocId = `testimonial-${t.id}`;
+            
+            const testimonialDoc = {
+                _type: "testimonial",
+                _id: testimonialDocId,
+                id: t.id,
+                name: t.name,
+                text: t.text,
+                rating: t.rating,
+                location: t.location
+            };
+
+            await writeClient.createOrReplace(testimonialDoc);
+            console.log(`✅ Depoimento de '${t.name}' cadastrado/sincronizado.`);
+
+            testimonialRefs.push({
+                _type: "reference",
+                _ref: testimonialDocId,
+                _key: `ref-${testimonialDocId}`
+            });
+        }
+
+        // Seeding the Testimonials Section
+        const testimonialsSectionDoc = {
+            _type: "testimonials-section",
+            _id: "testimonials-section-content",
+            badge: "Experiências Reais",
+            title: "O que dizem nossos Pacientes",
+            testimonials: testimonialRefs
+        };
+
+        console.log("📤 Enviando documento 'testimonials-section' para o Sanity...");
+        const testSecResult = await writeClient.createOrReplace(testimonialsSectionDoc);
+        console.log(`\n🎉 Sucesso! Documento 'testimonials-section-content' integrado/sobrescrito no Sanity. ID: ${testSecResult._id}\n`);
 
 
 
