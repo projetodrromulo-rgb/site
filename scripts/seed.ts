@@ -546,6 +546,41 @@ async function main() {
         const insResult = await writeClient.createOrReplace(insuranceDoc);
         console.log(`\n🎉 Sucesso! Documento 'insurance-content' integrado/sobrescrito no Sanity. ID: ${insResult._id}\n`);
 
+        // 9. Seeding the Parallax document
+        const localParallaxPath = path.join(process.cwd(), "public", "images", "parallax.webp");
+        let parallaxAssetId = "";
+
+        if (fs.existsSync(localParallaxPath)) {
+            console.log("📂 Lendo imagem de fundo local: parallax.webp...");
+            const parallaxBuffer = fs.readFileSync(localParallaxPath);
+            console.log("📤 Fazendo upload da imagem do parallax para o Sanity...");
+            const parallaxAsset = await writeClient.assets.upload("image", parallaxBuffer, {
+                filename: "parallax.webp",
+            });
+            parallaxAssetId = parallaxAsset._id;
+            console.log(`✅ Upload do parallax concluído! Asset ID: ${parallaxAssetId}`);
+        } else {
+            console.warn("⚠️ Imagem do parallax local não encontrada em:", localParallaxPath);
+        }
+
+        const parallaxDoc = {
+            _type: "parallax",
+            _id: "parallax-content",
+            title: "Tecnologia & Precisão",
+            backgroundImage: parallaxAssetId ? {
+                _type: "image",
+                asset: {
+                    _type: "reference",
+                    _ref: parallaxAssetId
+                },
+                alt: "Arthrodesis Parallax Background"
+            } : undefined
+        };
+
+        console.log("📤 Enviando documento 'parallax' para o Sanity...");
+        const pxResult = await writeClient.createOrReplace(parallaxDoc);
+        console.log(`\n🎉 Sucesso! Documento 'parallax-content' integrado/sobrescrito no Sanity. ID: ${pxResult._id}\n`);
+
 
 
 

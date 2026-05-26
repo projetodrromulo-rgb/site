@@ -41,6 +41,7 @@ import { getBlogContent } from "@/components/sections/blog/data/get-content";
 import { getProceduresContent } from "@/components/sections/procedures/data/get-content";
 import { getTestimonialsContent } from "@/components/sections/testimonials/data/get-content";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
+import { getParallaxContent } from "@/components/sections/parallax/data/get-content";
 import { LocalBusinessSEO } from "@/components/seo/LocalBusinessSEO";
 
 import ParallaxSection from "@/components/sections/parallax";
@@ -56,7 +57,8 @@ export default async function Home() {
     proceduresContent,
     blogContent,
     testimonialsContent,
-    footerContent
+    footerContent,
+    parallaxContent
   ] = await Promise.all([
     getHeroContent(),
     getAboutContent(),
@@ -66,7 +68,8 @@ export default async function Home() {
     getProceduresContent(),
     getBlogContent(),
     getTestimonialsContent(),
-    getFooterContent()
+    getFooterContent(),
+    getParallaxContent()
   ]);
 
   return (
@@ -77,7 +80,7 @@ export default async function Home() {
       <Locations content={locationsContent} />
       <CTA content={ctaContent} />
       <Insurance content={insuranceContent} />
-      <ParallaxSection />
+      <ParallaxSection content={parallaxContent} />
       <Procedures content={proceduresContent} />
       <Footer content={footerContent} />
     </main>

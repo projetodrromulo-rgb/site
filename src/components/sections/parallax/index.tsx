@@ -5,10 +5,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import { ParallaxContent } from "./types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ParallaxSection() {
+interface ParallaxSectionProps {
+    content: ParallaxContent;
+}
+
+export default function ParallaxSection({ content }: ParallaxSectionProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +36,9 @@ export default function ParallaxSection() {
         );
     }, { scope: containerRef });
 
+    if (!content) return null;
+    const { backgroundImage, title } = content;
+
     return (
         <section
             ref={containerRef}
@@ -41,8 +49,8 @@ export default function ParallaxSection() {
                 className="absolute inset-0 w-full h-[140%] -top-[20%]"
             >
                 <Image
-                    src="/images/parallax.webp"
-                    alt="Arthrodesis Parallax Background"
+                    src={backgroundImage.src}
+                    alt={backgroundImage.alt}
                     fill
                     className="object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
                     priority
@@ -53,7 +61,7 @@ export default function ParallaxSection() {
 
             <div className="relative z-10 text-center px-6">
                 <h2 className="text-3xl md:text-5xl font-black text-white/20 italic tracking-tighter uppercase">
-                    Tecnologia & Precisão
+                    {title}
                 </h2>
             </div>
         </section>
