@@ -6,6 +6,8 @@ import fs from "fs";
 import path from "path";
 import { allProcedures } from "../src/components/sections/procedures/data/procedures";
 import { allTestimonials } from "../src/components/sections/testimonials/data/testimonials";
+import { allPosts } from "../src/components/sections/blog/data/posts";
+
 
 async function main() {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -691,6 +693,87 @@ async function main() {
         console.log("📤 Enviando documento 'testimonials-section' para o Sanity...");
         const testSecResult = await writeClient.createOrReplace(testimonialsSectionDoc);
         console.log(`\n🎉 Sucesso! Documento 'testimonials-section-content' integrado/sobrescrito no Sanity. ID: ${testSecResult._id}\n`);
+
+        // 12. Seeding the Blog documents
+        console.log("\n📦 Iniciando seeding dos artigos do blog (posts)...");
+        const postRefs: any[] = [];
+
+        for (const p of allPosts) {
+            const postDocId = `post-${p.slug}`;
+            
+            // Check if we need to upload the image
+            let postImgAssetId = "";
+            const existing = await writeClient.fetch(`*[_type == "post" && _id == $id][0]`, { id: postDocId });
+
+            if (!existing && p.image) {
+                try {
+                    console.log(`📥 Fazendo upload da imagem do artigo: ${p.title} (${p.image})...`);
+                    const res = await fetch(p.image);
+                    if (res.ok) {
+                        const buffer = Buffer.from(await res.arrayBuffer());
+                        const asset = await writeClient.assets.upload("image", buffer, { filename: `${p.slug}.jpg` });
+                        postImgAssetId = asset._id;
+                        console.log(`✅ Upload da imagem do artigo concluído: ${postImgAssetId}`);
+                    }
+                } catch (imgError) {
+                    console.warn(`⚠️ Não foi possível fazer upload da imagem para o artigo ${p.title}:`, imgError);
+                }
+            } else if (existing && existing.image?.asset?._ref) {
+                postImgAssetId = existing.image.asset._ref;
+            }
+
+            const postDoc = {
+                _type: "post",
+                _id: postDocId,
+                title: p.title,
+                slug: {
+                    _type: "slug",
+                    current: p.slug
+                },
+                date: p.date,
+                readTime: p.readTime,
+                category: p.category,
+                excerpt: p.excerpt,
+                image: postImgAssetId ? {
+                    _type: "image",
+                    asset: {
+                        _type: "reference",
+                        _ref: postImgAssetId
+                    },
+                    alt: `Imagem do artigo ${p.title}`
+                } : undefined
+            };
+
+            await writeClient.createOrReplace(postDoc);
+            console.log(`✅ Artigo '${p.title}' cadastrado/sincronizado.`);
+
+            postRefs.push({
+                _type: "reference",
+                _ref: postDocId,
+                _key: `ref-${postDocId}`
+            });
+        }
+
+        // Seeding the Blog Section
+        const blogSectionDoc = {
+            _type: "blog-section",
+            _id: "blog-section-content",
+            badge: "Educação e Saúde",
+            headline: {
+                _type: "object",
+                textTop: "Blog da Saúde",
+                textHighlight: "Vertebral",
+                textBottom: ""
+            },
+            description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
+            viewAllCta: "Ver Todos os Artigos",
+            posts: postRefs
+        };
+
+        console.log("📤 Enviando documento 'blog-section' para o Sanity...");
+        const blogSecResult = await writeClient.createOrReplace(blogSectionDoc);
+        console.log(`\n🎉 Sucesso! Documento 'blog-section-content' integrado/sobrescrito no Sanity. ID: ${blogSecResult._id}\n`);
+
 
 
 

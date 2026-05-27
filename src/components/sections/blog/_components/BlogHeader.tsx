@@ -14,14 +14,17 @@ export const BlogHeader = forwardRef<HTMLDivElement, BlogHeaderProps>(
     ({ badge, headline, description }, ref) => {
 
         return (
-            <div ref={ref} className="blog-animate-header mb-16 text-center lg:text-left opacity-0">
-                <div className="max-w-4xl">
-                    <TypingText phrases={[badge]} />
+            <div ref={ref} className="mb-16 text-center lg:text-left">
+                <div className="max-w-4xl space-y-4">
+                    <div className="blog-animate-badge opacity-0">
+                        <TypingText phrases={[badge]} />
+                    </div>
 
-                    <Title headline={headline} />
+                    <div className="blog-animate-title opacity-0">
+                        <Title headline={headline} />
+                    </div>
 
-
-                    <p className="text-slate-600 text-lg max-w-2xl">
+                    <p className="blog-animate-desc text-slate-600 text-lg max-w-2xl opacity-0">
                         {description}
                     </p>
                 </div>
@@ -31,3 +34,4 @@ export const BlogHeader = forwardRef<HTMLDivElement, BlogHeaderProps>(
 );
 
 BlogHeader.displayName = "BlogHeader";
+

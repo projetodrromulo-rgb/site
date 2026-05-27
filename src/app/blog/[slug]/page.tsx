@@ -108,8 +108,10 @@ export default function PostDetailPage() {
                     <Image
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-full object-cover"
-
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                        className="object-cover"
                     />
                 </motion.div>
 
@@ -164,7 +166,9 @@ export default function PostDetailPage() {
                                             <Image
                                                 src={rp.image}
                                                 alt={rp.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
                                             />
                                         </div>
                                         <h5 className="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-[#0db9f2] transition-colors leading-snug">

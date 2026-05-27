@@ -1,25 +1,23 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { BlogSectionContent } from "./types";
 import { BlogHeader, BlogPostCard } from "./_components";
-import { useBlog } from "./hooks/use-blog";
+import { useBlogAnimation } from "./hooks/use-blog";
 
 interface BlogSectionProps {
     content: BlogSectionContent;
 }
 
 export default function BlogSection({ content }: BlogSectionProps) {
-    const containerRef = useRef<HTMLElement>(null);
+    const { containerRef } = useBlogAnimation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleItems, setVisibleItems] = useState(3.5);
     const posts = content.posts;
     const postsCount = posts.length;
-
-    useBlog(containerRef);
 
     // Sync visible items with JS for boundary logic
     useEffect(() => {
@@ -53,7 +51,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
     return (
         <section
             id="blog"
-            ref={containerRef}
+            ref={containerRef as any}
             className="py-24 bg-[#f5f8f8] relative overflow-hidden"
         >
             {/* Light Pattern Texture */}
@@ -137,3 +135,4 @@ export default function BlogSection({ content }: BlogSectionProps) {
         </section>
     );
 }
+

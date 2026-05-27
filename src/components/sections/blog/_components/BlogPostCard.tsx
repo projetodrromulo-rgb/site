@@ -27,7 +27,9 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                         <Image
                             src={post.image}
                             alt={post.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-all duration-700"
                         />
                         <div className="absolute top-3 left-3 z-20">
                             <span className="px-3 py-1.5 rounded-md bg-[#0db9f2] text-white text-[10px] font-black uppercase tracking-wider shadow-md">

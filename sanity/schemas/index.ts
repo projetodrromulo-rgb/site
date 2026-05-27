@@ -10,8 +10,26 @@ import { procedureType } from "./procedure";
 import { proceduresSectionType } from "./procedures-section";
 import { testimonialType } from "./testimonial";
 import { testimonialsSectionType } from "./testimonials-section";
+import { postType } from "./post";
+import { blogSectionType } from "./blog-section";
 
-export const schemaTypes = [aboutType, ctaType, footerType, locationsType, heroType, planType, insuranceType, parallaxType, procedureType, proceduresSectionType, testimonialType, testimonialsSectionType];
+export const schemaTypes = [
+    aboutType,
+    ctaType,
+    footerType,
+    locationsType,
+    heroType,
+    planType,
+    insuranceType,
+    parallaxType,
+    procedureType,
+    proceduresSectionType,
+    testimonialType,
+    testimonialsSectionType,
+    postType,
+    blogSectionType
+];
+
 
 
 
