@@ -30,7 +30,7 @@ export const post: Post = {
     date: "09 Abr, 2026",
     category: "Patologias",
     readTime: "5 min",
-    image: "https://images.unsplash.com/photo-1579154261221-4202c9848264?auto=format&fit=crop&q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=1200",
     author: "Dr. Rômulo Oliveira",
     authorRole: "Ortopedista e Cirurgião de Coluna"
 };
