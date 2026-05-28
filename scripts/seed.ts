@@ -711,7 +711,7 @@ async function main() {
                     _type: "slug",
                     current: proc.slug
                 },
-                content: proc.content,
+                content: htmlToPortableText(proc.content as string),
                 metaTitle: proc.metaTitle || `${proc.title} | Dr. Romulo`,
                 metaDescription: proc.metaDescription || proc.description,
                 image: procImgAssetId ? {

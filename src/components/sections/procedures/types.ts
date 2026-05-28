@@ -3,7 +3,7 @@ export interface Procedure {
     description: string;
     icon: string;
     slug: string;
-    content: string
+    content: string | any[];
     imageUrl?: string;
     metaTitle?: string;
     metaDescription?: string;

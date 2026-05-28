@@ -7,6 +7,26 @@ import { Metadata } from "next";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import { Logo } from "@/components/sections/hero/_components/logo";
+import { PortableText } from "@portabletext/react";
+import { urlFor } from "@/lib/sanity";
+
+const ptComponents = {
+    types: {
+        image: ({ value }: any) => {
+            if (!value?.asset) return null;
+            const imageUrl = urlFor(value).url();
+            return (
+                <div className="relative w-full aspect-video overflow-hidden rounded-3xl my-12 shadow-xl border border-slate-100 dark:border-neutral-800">
+                    <img
+                        src={imageUrl}
+                        alt={value.alt || 'Imagem do Procedimento'}
+                        className="object-cover w-full h-full"
+                    />
+                </div>
+            );
+        }
+    }
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -101,7 +121,6 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                         </p>
 
                         <div
-
                             className="prose prose-slate dark:prose-invert max-w-none 
                         prose-headings:font-display prose-headings:font-black prose-headings:tracking-tight prose-headings:text-white
                         prose-p:text-white/90 prose-p:leading-relaxed prose-p:text-lg prose-p:my-8
@@ -115,8 +134,13 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                         prose-li:before:content-[''] prose-li:before:absolute prose-li:before:left-0 prose-li:before:top-[0.6em]
                         prose-li:before:size-2 prose-li:before:rounded-full prose-li:before:bg-[#FFF]
                         prose-img:rounded-3xl"
-                            dangerouslySetInnerHTML={{ __html: procedure.content }}
-                        />
+                        >
+                            {Array.isArray(procedure.content) ? (
+                                <PortableText value={procedure.content} components={ptComponents} />
+                            ) : (
+                                <div dangerouslySetInnerHTML={{ __html: procedure.content }} />
+                            )}
+                        </div>
                     </div>
 
                     {/* Image Sidebar for Desktop */}
