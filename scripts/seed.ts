@@ -734,6 +734,7 @@ async function main() {
                 readTime: p.readTime,
                 category: p.category,
                 excerpt: p.excerpt,
+                content: p.content,
                 image: postImgAssetId ? {
                     _type: "image",
                     asset: {

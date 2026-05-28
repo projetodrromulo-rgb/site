@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import { allPosts } from "@/components/sections/blog/data/posts";
+import { client, projectId } from "@/lib/sanity";
 
 const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
@@ -25,16 +26,50 @@ export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState("Todos");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [posts, setPosts] = useState<any[]>(allPosts);
     const postsPerPage = 9;
 
+    useEffect(() => {
+        if (!projectId || projectId === "placeholder") return;
+
+        const fetchPosts = async () => {
+            try {
+                const query = `*[_type == "post"] | order(_createdAt desc) {
+                    title,
+                    "slug": slug.current,
+                    date,
+                    readTime,
+                    category,
+                    excerpt,
+                    "image": coalesce(image.asset->url, "")
+                }`;
+                const data = await client.fetch<any[]>(query);
+                if (data && data.length > 0) {
+                    const merged = data.map((post) => {
+                        const local = allPosts.find((p) => p.slug === post.slug) || {};
+                        return {
+                            ...local,
+                            ...post,
+                            image: post.image || local.image
+                        };
+                    });
+                    setPosts(merged);
+                }
+            } catch (err) {
+                console.error("Error fetching posts from Sanity:", err);
+            }
+        };
+        fetchPosts();
+    }, []);
+
     const filteredPosts = useMemo(() => {
-        return allPosts.filter(post => {
+        return posts.filter(post => {
             const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
             const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [selectedCategory, searchQuery]);
+    }, [posts, selectedCategory, searchQuery]);
 
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
     const paginatedPosts = useMemo(() => {

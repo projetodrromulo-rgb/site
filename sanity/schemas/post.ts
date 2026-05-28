@@ -47,6 +47,12 @@ export const postType = defineType({
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({
+            name: "content",
+            title: "Conteúdo do Artigo (HTML)",
+            type: "text",
+            validation: (Rule: any) => Rule.required(),
+        }),
+        defineField({
             name: "image",
             title: "Imagem de Destaque",
             type: "image",

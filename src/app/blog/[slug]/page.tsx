@@ -14,9 +14,49 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import Image from "next/image";
 
+import { useState, useEffect } from "react";
+import { client, projectId } from "@/lib/sanity";
+
 export default function PostDetailPage() {
     const { slug } = useParams();
-    const post = allPosts.find((p) => p.slug === slug);
+    const [sanityPost, setSanityPost] = useState<any>(null);
+
+    useEffect(() => {
+        if (!projectId || projectId === "placeholder") return;
+
+        const fetchPost = async () => {
+            try {
+                const query = `*[_type == "post" && slug.current == $slug][0] {
+                    title,
+                    "slug": slug.current,
+                    date,
+                    readTime,
+                    category,
+                    excerpt,
+                    "image": coalesce(image.asset->url, ""),
+                    content,
+                    author,
+                    authorRole,
+                    ctaTitle,
+                    ctaDescription
+                }`;
+                const data = await client.fetch(query, { slug });
+                if (data) {
+                    setSanityPost(data);
+                }
+            } catch (err) {
+                console.error("Error fetching post from Sanity:", err);
+            }
+        };
+        fetchPost();
+    }, [slug]);
+
+    const localPost = allPosts.find((p) => p.slug === slug);
+    const post = sanityPost ? {
+        ...localPost,
+        ...sanityPost,
+        image: sanityPost.image || localPost?.image
+    } : localPost;
 
     const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.";
     const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
@@ -30,10 +70,33 @@ export default function PostDetailPage() {
         .slice(0, 2);
 
 
-    const logoData = {
+    const [logoData, setLogoData] = useState({
         src: "/images/logo.svg",
         alt: "Dr. Rômulo Oliveira Logo"
-    };
+    });
+
+    useEffect(() => {
+        if (!projectId || projectId === "placeholder") return;
+
+        const fetchLogo = async () => {
+            try {
+                const query = `*[_type == "footer"][0].logo {
+                    "src": coalesce(asset->url, ""),
+                    "alt": coalesce(alt, "")
+                }`;
+                const data = await client.fetch<any>(query);
+                if (data && data.src) {
+                    setLogoData({
+                        src: data.src,
+                        alt: data.alt || "Dr. Rômulo Oliveira Logo"
+                    });
+                }
+            } catch (err) {
+                console.error("Error fetching logo from Sanity:", err);
+            }
+        };
+        fetchLogo();
+    }, []);
 
 
 
@@ -155,8 +218,7 @@ export default function PostDetailPage() {
                 {relatedPosts.length > 0 && (
                     <section className="mt-24 border-t border-slate-200 dark:border-[#223f49] pt-16">
                         <h4 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mb-10 flex items-center gap-3">
-                            Artigos Relacionados
-                            <div className="h-px flex-1 bg-slate-200 dark:bg-[#223f49]" />
+                            Veja também
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {relatedPosts.map((rp) => (
