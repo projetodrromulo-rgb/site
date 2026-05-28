@@ -45,8 +45,8 @@ export default function BlogPage() {
                 }`;
                 const data = await client.fetch<any[]>(query);
                 if (data && data.length > 0) {
-                    const merged = data.map((post) => {
-                        const local = allPosts.find((p) => p.slug === post.slug) || {};
+                    const merged = data.map((post: any) => {
+                        const local = (allPosts.find((p) => p.slug === post.slug) || {}) as any;
                         return {
                             ...local,
                             ...post,

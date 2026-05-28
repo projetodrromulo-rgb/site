@@ -48,8 +48,42 @@ export const postType = defineType({
         }),
         defineField({
             name: "content",
-            title: "Conteúdo do Artigo (HTML)",
-            type: "text",
+            title: "Conteúdo do Artigo",
+            type: "array",
+            of: [
+                {
+                    type: "block",
+                    styles: [
+                        { title: "Normal", value: "normal" },
+                        { title: "H2", value: "h2" },
+                        { title: "H3", value: "h3" },
+                        { title: "Quote", value: "blockquote" },
+                    ],
+                    lists: [
+                        { title: "Bullet", value: "bullet" },
+                        { title: "Numbered", value: "number" },
+                    ],
+                    marks: {
+                        decorators: [
+                            { title: "Strong", value: "strong" },
+                            { title: "Emphasis", value: "em" },
+                            { title: "Underline", value: "underline" },
+                        ],
+                    },
+                },
+                {
+                    type: "image",
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: "alt",
+                            title: "Descrição da Imagem (Acessibilidade)",
+                            type: "string",
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                    ],
+                },
+            ],
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({

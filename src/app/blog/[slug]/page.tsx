@@ -15,7 +15,26 @@ import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import Image from "next/image";
 
 import { useState, useEffect } from "react";
-import { client, projectId } from "@/lib/sanity";
+import { client, projectId, urlFor } from "@/lib/sanity";
+import { PortableText } from "@portabletext/react";
+
+const ptComponents = {
+    types: {
+        image: ({ value }: any) => {
+            if (!value?.asset) return null;
+            const imageUrl = urlFor(value).url();
+            return (
+                <div className="relative w-full aspect-video overflow-hidden rounded-3xl my-12 shadow-xl border border-slate-100 dark:border-neutral-800">
+                    <img
+                        src={imageUrl}
+                        alt={value.alt || 'Imagem do Artigo'}
+                        className="object-cover w-full h-full"
+                    />
+                </div>
+            );
+        }
+    }
+};
 
 export default function PostDetailPage() {
     const { slug } = useParams();
@@ -196,8 +215,13 @@ export default function PostDetailPage() {
                         prose-li:before:content-[''] prose-li:before:absolute prose-li:before:left-0 prose-li:before:top-[0.6em]
                         prose-li:before:size-2 prose-li:before:rounded-full prose-li:before:bg-[#0db9f2]
                         prose-img:rounded-3xl"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                />
+                >
+                    {Array.isArray(post.content) ? (
+                        <PortableText value={post.content} components={ptComponents} />
+                    ) : (
+                        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                    )}
+                </motion.div>
 
                 {/* CTA Card Section */}
                 <section className="mt-20 p-8 rounded-3xl bg-gradient-to-br from-[#0A192F] to-[#112240] text-white relative overflow-hidden group shadow-2xl">

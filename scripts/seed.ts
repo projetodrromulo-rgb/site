@@ -9,6 +9,100 @@ import { allTestimonials } from "../src/components/sections/testimonials/data/te
 import { allPosts } from "../src/components/sections/blog/data/posts";
 
 
+function htmlToPortableText(html: string): any[] {
+    const blocks: any[] = [];
+    
+    // Split by block tags but keep the tags to identify them
+    const matches = html.split(/(<\/?(?:p|h2|h3|ul|ol|li|blockquote|strong)[^>]*>)/gi);
+    
+    let currentStyle = "normal";
+    let currentChildren: any[] = [];
+    let isList = false;
+    let listType = "bullet";
+    
+    // Very simple stateful parser for standard formatting
+    for (let i = 0; i < matches.length; i++) {
+        const token = matches[i];
+        if (!token) continue;
+        
+        const lowerToken = token.toLowerCase();
+        if (lowerToken.startsWith("<h2")) {
+            currentStyle = "h2";
+        } else if (lowerToken.startsWith("<h3")) {
+            currentStyle = "h3";
+        } else if (lowerToken.startsWith("<p")) {
+            currentStyle = "normal";
+        } else if (lowerToken.startsWith("<blockquote")) {
+            currentStyle = "blockquote";
+        } else if (lowerToken.startsWith("<ul")) {
+            isList = true;
+            listType = "bullet";
+        } else if (lowerToken.startsWith("<ol")) {
+            isList = true;
+            listType = "number";
+        } else if (lowerToken.startsWith("</ul") || lowerToken.startsWith("</ol")) {
+            isList = false;
+        } else if (lowerToken.startsWith("<li")) {
+            currentStyle = "normal";
+        } else if (lowerToken.startsWith("</h2") || lowerToken.startsWith("</h3") || lowerToken.startsWith("</p") || lowerToken.startsWith("</li") || lowerToken.startsWith("</blockquote")) {
+            // End of block: push to blocks
+            if (currentChildren.length > 0) {
+                const block: any = {
+                    _type: "block",
+                    _key: `block-${blocks.length}-${Math.random().toString(36).substr(2, 9)}`,
+                    style: currentStyle,
+                    children: currentChildren
+                };
+                if (isList) {
+                    block.listItem = listType;
+                    block.level = 1;
+                }
+                blocks.push(block);
+                currentChildren = [];
+            }
+            currentStyle = "normal";
+        } else if (lowerToken.startsWith("<strong")) {
+            // Handle bold text next
+            i++;
+            const textContent = matches[i] ? matches[i].replace(/<[^>]*>/g, "") : "";
+            if (textContent) {
+                currentChildren.push({
+                    _type: "span",
+                    _key: `span-${currentChildren.length}-${Math.random().toString(36).substr(2, 9)}`,
+                    text: textContent,
+                    marks: ["strong"]
+                });
+            }
+            // Skip the next token if it is the closing </strong>
+            if (matches[i+1] && matches[i+1].toLowerCase().startsWith("</strong")) {
+                i++;
+            }
+        } else if (!token.startsWith("<")) {
+            // Plain text
+            const textContent = token.trim();
+            if (textContent) {
+                currentChildren.push({
+                    _type: "span",
+                    _key: `span-${currentChildren.length}-${Math.random().toString(36).substr(2, 9)}`,
+                    text: textContent,
+                    marks: []
+                });
+            }
+        }
+    }
+    
+    // Fallback if no blocks were parsed
+    if (blocks.length === 0) {
+        blocks.push({
+            _type: "block",
+            style: "normal",
+            children: [{ _type: "span", text: html.replace(/<[^>]*>/g, ""), marks: [] }]
+        });
+    }
+    
+    return blocks;
+}
+
 async function main() {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
     const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -734,7 +828,7 @@ async function main() {
                 readTime: p.readTime,
                 category: p.category,
                 excerpt: p.excerpt,
-                content: p.content,
+                content: htmlToPortableText(p.content),
                 image: postImgAssetId ? {
                     _type: "image",
                     asset: {
