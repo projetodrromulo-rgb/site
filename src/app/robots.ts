@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/private/', '/studio/', '/studio'],
     },
     sitemap: 'https://www.drromulocoluna.com.br/sitemap.xml',
   };
