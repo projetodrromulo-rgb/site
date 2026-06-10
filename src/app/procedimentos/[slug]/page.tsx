@@ -38,6 +38,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: procedure.metaTitle || `${procedure.title} | Dr. Romulo`,
         description: procedure.metaDescription || procedure.description,
+        alternates: {
+            canonical: `/procedimentos/${slug}`,
+        },
         openGraph: {
             title: procedure.metaTitle || procedure.title,
             description: procedure.metaDescription || procedure.description,
