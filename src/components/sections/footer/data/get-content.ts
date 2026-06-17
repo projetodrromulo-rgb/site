@@ -15,7 +15,7 @@ const defaultNavLinks: NavLink[] = [
 
 const defaultSocialLinks: SocialLink[] = [
     { platform: "whatsapp", href: `https://wa.me/${whatsAppNumber}?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento` },
-    { platform: "instagram", href: `${instagramUrl || "https://www.instagram.com/dr.romulo.oliveira/"}` },
+    { platform: "instagram", href: `${instagramUrl || "https://www.instagram.com/drromulooliveiracoluna/"}` },
 ];
 
 const localFooterContent: FooterContent = {

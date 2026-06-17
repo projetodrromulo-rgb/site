@@ -9,6 +9,7 @@ import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import { Logo } from "@/components/sections/hero/_components/logo";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const ptComponents = {
     types: {
@@ -73,8 +74,8 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
     };
 
     return (
-        <div className="min-h-screen bg-[#0A192F] text-white flex flex-col">
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F]/95 backdrop-blur-md border-b border-white/5">
+        <div className="min-h-screen bg-[#f5f8f8] dark:bg-[#0A192F] text-slate-900 dark:text-white flex flex-col">
+            <header className="fixed top-0 left-0 right-0 z-50 bg-[#f5f8f8]/95 dark:bg-[#0A192F]/95 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5">
                 <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
                     <Link href="/#procedimentos" className="text-[#0db9f2] flex items-center gap-2 px-4 py-2 hover:bg-white/10 rounded-xl transition-all active:scale-95 group">
                         <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
@@ -89,7 +90,9 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                         />
                     </Link>
 
-                    <div className="w-24 hidden md:flex items-center justify-end" aria-hidden="true" />
+                    <div className="flex w-24 items-center justify-end">
+                        <ThemeToggle />
+                    </div>
                 </div>
             </header>
 

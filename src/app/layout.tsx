@@ -91,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className="dark">
       <head>
         <link rel="preconnect" href="https://www.drromulocoluna.com.br" />
         <link
@@ -99,6 +99,24 @@ export default function RootLayout({
           as="image"
           href="/images/hero-mobile.webp"
           media="(max-width: 767px)"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const stored = localStorage.getItem('theme');
+                  if (stored === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                  }
+                } catch (_) {}
+              })();
+            `
+          }}
         />
       </head>
       <body

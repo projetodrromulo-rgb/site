@@ -9,6 +9,8 @@ import { Logo } from "./sections/hero/_components/logo";
 import { WhatsAppLink } from "./shared/whasapp-link";
 import { IconWhatsApp } from "./icon-whats-app";
 
+import ThemeToggle from "./ThemeToggle";
+
 export default function Navbar() {
     const pathname = usePathname();
     const { scrollY } = useScroll();
@@ -69,6 +71,7 @@ export default function Navbar() {
                     {/* Menu Button Container */}
                     {!isStudioPage && (
                         <div className="flex items-center gap-4">
+                            <ThemeToggle />
                             <button
                                 onClick={() => setIsMenuOpen(true)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${showSolidNavbar

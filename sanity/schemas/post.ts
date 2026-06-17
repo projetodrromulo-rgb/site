@@ -101,5 +101,18 @@ export const postType = defineType({
             ],
             validation: (Rule: any) => Rule.required(),
         }),
+        defineField({
+            name: "ctaTitle",
+            title: "Título do CTA do Post",
+            type: "string",
+            description: "Título exibido no card de agendamento ao final do post (Ex: Recupere sua qualidade de vida)",
+        }),
+        defineField({
+            name: "ctaDescription",
+            title: "Descrição do CTA do Post",
+            type: "text",
+            rows: 3,
+            description: "Descrição exibida no card de agendamento ao final do post",
+        }),
     ],
 });

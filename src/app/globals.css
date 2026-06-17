@@ -2,23 +2,19 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-primary-dark: #0B2B40;
-  --color-primary-medium: #1F4E6B;
-  --color-accent: #3D8EB9;
-  --color-neutral-light: #F0F4F8;
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-medium: var(--primary-medium);
+  --color-accent: var(--accent);
+  --color-neutral-light: var(--neutral-light);
 
+  --color-title-primary: var(--title-primary);
+  --color-title-primary-highlight-from: var(--title-primary-highlight-from);
+  --color-title-primary-highlight-to: var(--title-primary-highlight-to);
 
-
-  --color-title-primary: #F0F4F8;
-  --color-title-primary-highlight-from: #F0F4F8;
-  --color-title-primary-highlight-to: #0db9f2;
-
-  --color-title-secondary: #0B2B40;
-  --color-title-secondary-highlight-to: #0db9f2;
-  --color-title-secondary-highlight-from: #1F4E6B;
-  --color-title-secondary-bottom: #0B2B40;
-
-
+  --color-title-secondary: var(--title-secondary);
+  --color-title-secondary-highlight-to: var(--title-secondary-highlight-to);
+  --color-title-secondary-highlight-from: var(--title-secondary-highlight-from);
+  --color-title-secondary-bottom: var(--title-secondary-bottom);
 
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
@@ -28,8 +24,41 @@
 }
 
 :root {
+  --primary-dark: #0B2B40;
+  --primary-medium: #1F4E6B;
+  --accent: #3D8EB9;
+  --neutral-light: #F0F4F8;
+
+  --title-primary: #F0F4F8;
+  --title-primary-highlight-from: #F0F4F8;
+  --title-primary-highlight-to: #0db9f2;
+
+  --title-secondary: #0B2B40;
+  --title-secondary-highlight-to: #0db9f2;
+  --title-secondary-highlight-from: #1F4E6B;
+  --title-secondary-bottom: #0B2B40;
+
   --background: #0B2B40;
   --foreground: #F0F4F8;
+}
+
+html.light {
+  --primary-dark: #F0F4F8;
+  --primary-medium: #E2E8F0;
+  --accent: #0db9f2;
+  --neutral-light: #0B2B40;
+
+  --title-primary: #0B2B40;
+  --title-primary-highlight-from: #0B2B40;
+  --title-primary-highlight-to: #0A192F;
+
+  --title-secondary: #F0F4F8;
+  --title-secondary-highlight-to: #0db9f2;
+  --title-secondary-highlight-from: #E2E8F0;
+  --title-secondary-bottom: #F0F4F8;
+
+  --background: #F0F4F8;
+  --foreground: #0B2B40;
 }
 
 body {
@@ -38,6 +67,7 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .noise-bg {
