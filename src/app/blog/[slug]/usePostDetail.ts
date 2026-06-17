@@ -244,6 +244,22 @@ export function usePostDetail() {
         });
     }
 
+    if (faqItems.length > 0) {
+        headings.push({
+            text: "FAQ – Perguntas Frequentes",
+            style: "h2",
+            id: "faq"
+        });
+    }
+
+    if (referencesContent || processedReferencesHtml) {
+        headings.push({
+            text: "Referências Fundamentais",
+            style: "h2",
+            id: "referencias"
+        });
+    }
+
     // Format headings with proper numbers for H2
     let h2Counter = 0;
     const tocItems = headings.map((heading) => {

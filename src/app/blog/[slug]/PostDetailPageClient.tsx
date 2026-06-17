@@ -174,7 +174,7 @@ function ReferencesSection({ referencesContent, processedReferencesHtml }: Refer
     return (
         <section className="mt-16 border-t border-slate-200 dark:border-neutral-800 pt-12">
             <div className="mb-10 pb-4 border-b border-slate-200 dark:border-neutral-800">
-                <h2 className="text-3xl font-serif font-semibold text-slate-900 dark:text-slate-100">
+                <h2 id="referencias" className="text-3xl font-serif font-semibold text-slate-900 dark:text-slate-100 scroll-mt-24">
                     Referências Fundamentais
                 </h2>
             </div>
@@ -588,7 +588,7 @@ export default function PostDetailPageClient() {
                         {/* Interactive Accordion FAQ Section */}
                         {faqItems.length > 0 && (
                             <section className="mt-16 border-t border-slate-200 dark:border-neutral-800 pt-12">
-                                <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-8 flex items-center gap-2.5 font-display">
+                                <h2 id="faq" className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-8 flex items-center gap-2.5 font-display scroll-mt-24">
                                     <HelpCircle className="text-[#0db9f2]" size={28} />
                                     Perguntas Frequentes
                                 </h2>
