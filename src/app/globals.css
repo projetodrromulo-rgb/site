@@ -16,6 +16,10 @@
   --color-title-secondary-highlight-from: var(--title-secondary-highlight-from);
   --color-title-secondary-bottom: var(--title-secondary-bottom);
 
+  --color-title-fixed-dark: var(--title-fixed-dark);
+  --color-title-fixed-dark-highlight-from: var(--title-fixed-dark-highlight-from);
+  --color-title-fixed-dark-highlight-to: var(--title-fixed-dark-highlight-to);
+
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
@@ -38,6 +42,10 @@
   --title-secondary-highlight-from: #1F4E6B;
   --title-secondary-bottom: #0B2B40;
 
+  --title-fixed-dark: #0B2B40;
+  --title-fixed-dark-highlight-from: #1F4E6B;
+  --title-fixed-dark-highlight-to: #0db9f2;
+
   --background: #0B2B40;
   --foreground: #F0F4F8;
 }
@@ -52,10 +60,10 @@ html.light {
   --title-primary-highlight-from: #0B2B40;
   --title-primary-highlight-to: #0A192F;
 
-  --title-secondary: #0B2B40;
+  --title-secondary: #F0F4F8;
   --title-secondary-highlight-to: #0db9f2;
-  --title-secondary-highlight-from: #1F4E6B;
-  --title-secondary-bottom: #0B2B40;
+  --title-secondary-highlight-from: #E2E8F0;
+  --title-secondary-bottom: #F0F4F8;
 
   --background: #F0F4F8;
   --foreground: #0B2B40;

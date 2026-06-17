@@ -14,10 +14,10 @@ const localInsuranceContent: InsuranceContent = {
         textHighlight: "Aceitos",
         textBottom: "",
         styles: {
-            textColorTitle: "var(--color-title-secondary)",
-            textColorHighlightFrom: "var(--color-title-secondary-highlight-from)",
-            textColorHighlightTo: "var(--color-title-secondary-highlight-to)",
-            textColorBottom: "var(--color-title-secondary)"
+            textColorTitle: "var(--color-title-fixed-dark)",
+            textColorHighlightFrom: "var(--color-title-fixed-dark-highlight-from)",
+            textColorHighlightTo: "var(--color-title-fixed-dark-highlight-to)",
+            textColorBottom: "var(--color-title-fixed-dark)"
         }
     },
     description: "Trabalhamos com as principais operadoras do mercado para garantir agilidade, conforto e excelência no seu atendimento especializado em patologias da coluna.",

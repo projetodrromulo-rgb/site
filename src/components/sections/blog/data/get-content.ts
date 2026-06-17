@@ -9,10 +9,10 @@ const localBlogContent: BlogSectionContent = {
         textHighlight: "Vertebral",
         textBottom: "",
         styles: {
-            textColorTitle: "var(--color-title-secondary)",
-            textColorHighlightFrom: "var(--color-title-secondary-highlight-from)",
-            textColorHighlightTo: "var(--color-title-secondary-highlight-to)",
-            textColorBottom: "var(--color-title-secondary)"
+            textColorTitle: "var(--color-title-fixed-dark)",
+            textColorHighlightFrom: "var(--color-title-fixed-dark-highlight-from)",
+            textColorHighlightTo: "var(--color-title-fixed-dark-highlight-to)",
+            textColorBottom: "var(--color-title-fixed-dark)"
         }
     },
     description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
