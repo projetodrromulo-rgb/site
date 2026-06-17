@@ -260,6 +260,12 @@ export function usePostDetail() {
         });
     }
 
+    headings.push({
+        text: "Agendar Consulta",
+        style: "h2",
+        id: "agendamento"
+    });
+
     // Format headings with proper numbers for H2
     let h2Counter = 0;
     const tocItems = headings.map((heading) => {

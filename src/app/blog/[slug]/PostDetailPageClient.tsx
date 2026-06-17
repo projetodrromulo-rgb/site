@@ -655,7 +655,7 @@ export default function PostDetailPageClient() {
                 {/* CTA & Related Articles Section (Full Width Centered) */}
                 <div className="max-w-5xl mx-auto mt-20">
                     {/* CTA Card Section */}
-                    <section className="p-8 rounded-3xl bg-gradient-to-br from-[#0A192F] to-[#112240] text-white relative overflow-hidden group shadow-2xl">
+                    <section id="agendamento" className="p-8 rounded-3xl bg-gradient-to-br from-[#0A192F] to-[#112240] text-white relative overflow-hidden group shadow-2xl scroll-mt-24">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-[#0db9f2]/10 blur-[100px] rounded-full -mr-20 -mt-20" />
                         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                             <div className="text-center md:text-left flex-1">
