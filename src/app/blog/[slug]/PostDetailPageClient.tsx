@@ -360,13 +360,6 @@ export default function PostDetailPageClient() {
                                     )}
                                     <a
                                         href={`#${item.id}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            const el = document.getElementById(item.id);
-                                            if (el) {
-                                                el.scrollIntoView({ behavior: "smooth" });
-                                            }
-                                        }}
                                         className="hover:text-[#0db9f2] hover:underline transition-colors"
                                     >
                                         {item.text}

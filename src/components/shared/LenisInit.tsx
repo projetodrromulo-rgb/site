@@ -39,11 +39,19 @@ export default function LenisInit() {
                         duration: 1.5,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                     });
-                } else if (hash.length > 1 && document.querySelector(hash)) {
-                    lenis.scrollTo(hash, {
-                        duration: 1.5,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                    });
+                } else if (hash.length > 1) {
+                    const el = document.querySelector(hash);
+                    if (el) {
+                        const styles = window.getComputedStyle(el);
+                        const scrollMarginTop = parseInt(styles.scrollMarginTop, 10) || 0;
+                        const offset = scrollMarginTop > 0 ? -scrollMarginTop : -110;
+
+                        lenis.scrollTo(hash, {
+                            duration: 1.5,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                            offset: offset,
+                        });
+                    }
                 }
             }
         };
