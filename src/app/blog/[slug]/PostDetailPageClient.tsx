@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles } from "lucide-react";
+import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles, Sun, Moon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Logo } from "@/components/sections/hero/_components/logo";
@@ -313,6 +313,54 @@ export default function PostDetailPageClient() {
     } = usePostDetail();
 
     const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [activeId, setActiveId] = useState<string>("");
+    const [isDark, setIsDark] = useState<boolean>(true);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        if (isDark) {
+            root.classList.add("dark");
+            root.classList.remove("light");
+        } else {
+            root.classList.remove("dark");
+            root.classList.add("light");
+        }
+    }, [isDark]);
+
+    useEffect(() => {
+        return () => {
+            const root = document.documentElement;
+            root.classList.add("dark");
+            root.classList.remove("light");
+        };
+    }, []);
+
+    useEffect(() => {
+        if (tocItems.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                // Find all entries that are intersecting the rootMargin area
+                const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+                if (visibleEntries.length > 0) {
+                    // Use the first intersecting one from the top
+                    setActiveId(visibleEntries[0].target.id);
+                }
+            },
+            {
+                // Check if element is in the top/middle section of the viewport (accounting for header)
+                rootMargin: "-120px 0px -60% 0px",
+                threshold: 0,
+            }
+        );
+
+        tocItems.forEach((item) => {
+            const el = document.getElementById(item.id);
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, [tocItems]);
 
     if (loading) {
         return (
@@ -351,16 +399,28 @@ export default function PostDetailPageClient() {
                                 <div
                                     key={item.id}
                                     className={`flex items-start gap-1.5 text-sm leading-relaxed transition-all ${item.isH3
-                                        ? "pl-6 text-slate-500 dark:text-slate-400 text-xs mt-1.5 mb-2 border-l border-slate-200 dark:border-neutral-800 ml-1.5"
-                                        : "font-semibold text-slate-800 dark:text-slate-200 mt-2.5"
+                                        ? `pl-6 text-xs mt-1.5 mb-2 border-l ml-1.5 ${
+                                            activeId === item.id
+                                                ? "border-[#0db9f2] text-[#0db9f2] font-semibold"
+                                                : "border-slate-200 dark:border-neutral-800 text-slate-500 dark:text-slate-400"
+                                          }`
+                                        : `font-semibold mt-2.5 ${
+                                            activeId === item.id
+                                                ? "text-[#0db9f2]"
+                                                : "text-slate-800 dark:text-slate-200"
+                                          }`
                                         }`}
                                 >
                                     {item.numberPrefix && (
-                                        <span className="text-[#0db9f2] font-bold shrink-0">{item.numberPrefix}</span>
+                                        <span className={`font-bold shrink-0 transition-colors ${
+                                            activeId === item.id ? "text-[#0db9f2]" : "text-[#0db9f2]/70"
+                                        }`}>{item.numberPrefix}</span>
                                     )}
                                     <a
                                         href={`#${item.id}`}
-                                        className="hover:text-[#0db9f2] hover:underline transition-colors"
+                                        className={`hover:text-[#0db9f2] hover:underline transition-colors ${
+                                            activeId === item.id ? "text-[#0db9f2] font-bold" : ""
+                                        }`}
                                     >
                                         {item.text}
                                     </a>
@@ -448,6 +508,14 @@ export default function PostDetailPageClient() {
                     </Link>
 
                     <div className="flex w-24 items-center justify-end">
+                        <button
+                            onClick={() => setIsDark(!isDark)}
+                            className="p-2.5 rounded-xl bg-white/10 dark:bg-white/5 text-[#0db9f2] hover:bg-white/20 dark:hover:bg-white/10 transition-all active:scale-95"
+                            aria-label="Alternar tema"
+                            title={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
+                        >
+                            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
                     </div>
                 </div>
             </header>
