@@ -12,7 +12,6 @@ import { PortableText } from "@portabletext/react";
 import { usePostDetail } from "./usePostDetail";
 import { useState, useEffect } from "react";
 import Footer from "@/components/sections/footer";
-import ThemeToggle from "@/components/ThemeToggle";
 
 function slugify(text: string) {
     return text
@@ -456,7 +455,6 @@ export default function PostDetailPageClient() {
                     </Link>
 
                     <div className="flex w-24 items-center justify-end">
-                        <ThemeToggle />
                     </div>
                 </div>
             </header>

@@ -9,7 +9,6 @@ import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import { Logo } from "@/components/sections/hero/_components/logo";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const ptComponents = {
     types: {
@@ -91,7 +90,6 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
                     </Link>
 
                     <div className="flex w-24 items-center justify-end">
-                        <ThemeToggle />
                     </div>
                 </div>
             </header>

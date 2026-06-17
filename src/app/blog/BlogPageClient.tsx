@@ -19,9 +19,6 @@ import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import { allPosts } from "@/components/sections/blog/data/posts";
 import { client, projectId } from "@/lib/sanity";
-
-import ThemeToggle from "@/components/ThemeToggle";
-
 const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
 export default function BlogPageClient() {
@@ -112,7 +109,6 @@ export default function BlogPageClient() {
                         Blog e Artigos
                     </h2>
                     <div className="flex w-12 items-center justify-end">
-                        <ThemeToggle />
                     </div>
                 </div>
             </header>
