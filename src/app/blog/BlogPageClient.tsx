@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import { allPosts } from "@/components/sections/blog/data/posts";
 import { client, projectId } from "@/lib/sanity";
 const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
@@ -25,7 +24,7 @@ export default function BlogPageClient() {
     const [selectedCategory, setSelectedCategory] = useState("Todos");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [posts, setPosts] = useState<any[]>(allPosts);
+    const [posts, setPosts] = useState<any[]>([]);
     const postsPerPage = 9;
 
     useEffect(() => {
@@ -44,15 +43,7 @@ export default function BlogPageClient() {
                 }`;
                 const data = await client.fetch<any[]>(query);
                 if (data && data.length > 0) {
-                    const merged = data.map((post: any) => {
-                        const local = (allPosts.find((p) => p.slug === post.slug) || {}) as any;
-                        return {
-                            ...local,
-                            ...post,
-                            image: post.image || local.image
-                        };
-                    });
-                    setPosts(merged);
+                    setPosts(data);
                 }
             } catch (err) {
                 console.error("Error fetching posts from Sanity:", err);

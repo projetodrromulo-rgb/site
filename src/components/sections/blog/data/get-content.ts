@@ -1,4 +1,3 @@
-import { allPosts } from "./posts";
 import { BlogSectionContent } from "../types";
 import { client, projectId } from "../../../../lib/sanity";
 
@@ -17,15 +16,7 @@ const localBlogContent: BlogSectionContent = {
     },
     description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
     viewAllCta: "Ver Todos os Artigos",
-    posts: allPosts.slice(0, 6).map(post => ({
-        title: post.title,
-        slug: post.slug,
-        date: post.date,
-        readTime: post.readTime,
-        category: post.category,
-        excerpt: post.excerpt,
-        image: post.image,
-    }))
+    posts: []
 };
 
 export async function getBlogContent(): Promise<BlogSectionContent> {
@@ -68,19 +59,16 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                 description: data.description || localBlogContent.description,
                 viewAllCta: data.viewAllCta || localBlogContent.viewAllCta,
                 posts: data.posts && data.posts.length > 0
-                    ? data.posts.map((post: any, idx: number) => {
-                        const fallbackPost = localBlogContent.posts[idx] || {};
-                        return {
-                            title: post.title || fallbackPost.title,
-                            slug: post.slug || fallbackPost.slug,
-                            date: post.date || fallbackPost.date,
-                            readTime: post.readTime || fallbackPost.readTime,
-                            category: post.category || fallbackPost.category,
-                            excerpt: post.excerpt || fallbackPost.excerpt,
-                            image: post.image || fallbackPost.image,
-                        };
-                    })
-                    : localBlogContent.posts
+                    ? data.posts.map((post: any) => ({
+                        title: post.title,
+                        slug: post.slug,
+                        date: post.date,
+                        readTime: post.readTime,
+                        category: post.category,
+                        excerpt: post.excerpt,
+                        image: post.image,
+                    }))
+                    : []
             };
         }
     } catch (error) {

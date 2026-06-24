@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 import { allProcedures } from "../src/components/sections/procedures/data/procedures";
 import { allTestimonials } from "../src/components/sections/testimonials/data/testimonials";
-import { allPosts } from "../src/components/sections/blog/data/posts";
+import { allPosts } from "./data/posts";
 
 
 function htmlToPortableText(html: string): any[] {
@@ -790,6 +790,19 @@ async function main() {
 
         // 12. Seeding the Blog documents
         console.log("\n📦 Iniciando seeding dos artigos do blog (posts)...");
+
+        console.log("🧹 Removendo referências de artigos do blog-section...");
+        try {
+            await writeClient.patch("blog-section-content").set({ posts: [] }).commit();
+            console.log("✅ Referências de posts limpas.");
+        } catch (err: any) {
+            console.warn("⚠️ Não foi possível limpar as referências (pode não existir ainda):", err.message || err);
+        }
+
+        console.log("🧹 Deletando todos os artigos do blog do Sanity...");
+        await writeClient.delete({ query: '*[_type == "post"]' });
+        console.log("✅ Limpeza de artigos concluída.");
+
         const postRefs: any[] = [];
 
         for (const p of allPosts) {

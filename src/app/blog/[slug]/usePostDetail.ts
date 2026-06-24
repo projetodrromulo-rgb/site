@@ -1,6 +1,5 @@
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { allPosts } from "@/components/sections/blog/data/posts";
 import { client, projectId } from "@/lib/sanity";
 
 function slugify(text: string) {
@@ -46,7 +45,16 @@ export function usePostDetail() {
                     author,
                     authorRole,
                     ctaTitle,
-                    ctaDescription
+                    ctaDescription,
+                    "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(_createdAt desc)[0...2] {
+                        title,
+                        "slug": slug.current,
+                        date,
+                        readTime,
+                        category,
+                        excerpt,
+                        "image": coalesce(image.asset->url, "")
+                    }
                 }`;
                 const data = await client.fetch(query, { slug });
                 if (data) {
@@ -97,19 +105,12 @@ export function usePostDetail() {
         fetchFooter();
     }, []);
  
-    const localPost = allPosts.find((p) => p.slug === slug);
-    const post = sanityPost ? {
-        ...localPost,
-        ...sanityPost,
-        image: sanityPost.image || localPost?.image
-    } : localPost;
+    const post = sanityPost;
 
     const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.";
     const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
 
-    const relatedPosts = post
-        ? allPosts.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 2)
-        : [];
+    const relatedPosts = post?.related || [];
 
     // Extract FAQ and References, and clean content
     const faqItems: any[] = [];

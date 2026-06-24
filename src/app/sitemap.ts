@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
 import { getProceduresContent } from '@/components/sections/procedures/data/get-content';
-import { allPosts } from '@/components/sections/blog/data/posts';
 import { client, projectId } from '@/lib/sanity';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -44,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 2. Fetch blog posts (dynamically from Sanity with local fallback)
+  // 2. Fetch blog posts (dynamically from Sanity)
   let posts: Array<{ slug: string; lastModified: Date }> = [];
   if (projectId && projectId !== 'placeholder') {
     try {
@@ -59,13 +58,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     } catch (error) {
       console.error('Error fetching sitemap posts from Sanity:', error);
     }
-  }
-
-  if (posts.length === 0) {
-    posts = allPosts.map((post) => ({
-      slug: post.slug,
-      lastModified: new Date('2026-06-10'), // Fixed baseline date for static fallback
-    }));
   }
 
   const blogUrls = posts.map((post) => ({
