@@ -89,14 +89,14 @@ export default function BlogPageClient() {
     }, [selectedCategory, searchQuery]);
 
     return (
-        <div className="bg-[#f5f8f8] dark:bg-[#0a191e] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900 dark:text-slate-100">
+        <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900">
             {/* Header Section - Fixed Positioning */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F] dark:bg-[#0a191e]/90 backdrop-blur-md border-b border-white/5 dark:border-[#223f49]">
+            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F] backdrop-blur-md border-b border-white/5">
                 <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
                     <Link href="/#blog" className="text-[#0db9f2] flex size-12 shrink-0 items-center justify-center hover:bg-white/10 rounded-xl transition-all active:scale-95">
                         <ArrowLeft size={28} />
                     </Link>
-                    <h2 className="text-white dark:text-slate-100 text-lg md:text-xl font-bold leading-tight tracking-tight flex-1 text-center font-display">
+                    <h2 className="text-white text-lg md:text-xl font-bold leading-tight tracking-tight flex-1 text-center font-display">
                         Blog e Artigos
                     </h2>
                     <div className="flex w-12 items-center justify-end">
@@ -108,12 +108,12 @@ export default function BlogPageClient() {
                 {/* Search Bar */}
                 <div className="py-6">
                     <label className="flex flex-col w-full group">
-                        <div className="flex w-full items-stretch rounded-xl h-14 bg-slate-100 dark:bg-[#162a31] border border-transparent focus-within:border-[#0db9f2] transition-all shadow-sm">
-                            <div className="text-slate-400 dark:text-[#0db9f2]/60 flex items-center justify-center pl-4">
+                        <div className="flex w-full items-stretch rounded-xl h-14 bg-slate-100 border border-slate-200 focus-within:border-[#0db9f2] transition-all shadow-sm">
+                            <div className="text-slate-400 flex items-center justify-center pl-4">
                                 <Search size={22} />
                             </div>
                             <input
-                                className="flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-slate-400 dark:placeholder:text-[#0db9f2]/40 px-4 text-base font-normal leading-normal text-slate-900 dark:text-slate-100"
+                                className="flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-slate-400 px-4 text-base font-normal leading-normal text-slate-900"
                                 placeholder="Pesquisar artigos médicos..."
                                 type="text"
                                 value={searchQuery}
@@ -131,7 +131,7 @@ export default function BlogPageClient() {
                             onClick={() => setSelectedCategory(cat)}
                             className={`flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-semibold transition-all shadow-sm ${selectedCategory === cat
                                 ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
-                                : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 font-medium hover:bg-[#0db9f2]/20"
+                                : "bg-slate-200 text-slate-700 font-medium hover:bg-[#0db9f2]/20"
                                 }`}
                         >
                             {cat}
@@ -158,7 +158,7 @@ export default function BlogPageClient() {
                                             layout
                                         >
                                             {/* Image Container with Stitch logic */}
-                                            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-slate-200 dark:bg-[#162a31]">
+                                            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-slate-100">
                                                 <div
                                                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                                                     style={{ backgroundImage: `url("${post.image}")` }}
@@ -169,16 +169,16 @@ export default function BlogPageClient() {
                                                     </span>
                                                 </div>
                                             </div>
-
+ 
                                             {/* Content Treatment */}
                                             <div className="flex flex-col gap-2 px-1">
-                                                <p className="text-slate-500 dark:text-[#0db9f2]/60 text-[11px] font-bold uppercase tracking-[0.1em]">
+                                                <p className="text-slate-500 text-[11px] font-bold uppercase tracking-[0.1em]">
                                                     {post.date} • {post.readTime} LEITURA
                                                 </p>
-                                                <h3 className="text-slate-900 dark:text-slate-100 text-lg font-bold leading-snug group-hover:text-[#0db9f2] transition-colors line-clamp-2">
+                                                <h3 className="text-slate-900 text-lg font-bold leading-snug group-hover:text-[#0db9f2] transition-colors line-clamp-2">
                                                     {post.title}
                                                 </h3>
-                                                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-2">
+                                                <p className="text-slate-600 text-sm leading-relaxed line-clamp-2">
                                                     {post.excerpt}
                                                 </p>
                                             </div>
@@ -192,13 +192,13 @@ export default function BlogPageClient() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="flex flex-col items-center justify-center py-20 text-center"
                             >
-                                <div className="bg-slate-100 dark:bg-[#162a31] p-6 rounded-full mb-4">
-                                    <SearchX size={48} className="text-slate-400 dark:text-[#0db9f2]/40" />
+                                <div className="bg-slate-100 p-6 rounded-full mb-4">
+                                    <SearchX size={48} className="text-slate-400" />
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                                <h3 className="text-xl font-bold text-slate-900 mb-2">
                                     Nenhum artigo encontrado
                                 </h3>
-                                <p className="text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
+                                <p className="text-slate-500 max-w-xs mx-auto">
                                     Não encontramos resultados para sua busca ou categoria selecionada.
                                 </p>
                                 <button
@@ -226,7 +226,7 @@ export default function BlogPageClient() {
                                 }}
                                 className={`size-10 rounded-lg font-bold transition-all active:scale-95 ${currentPage === page
                                     ? "bg-[#0db9f2] text-white shadow-lg shadow-[#0db9f2]/20"
-                                    : "bg-slate-200 dark:bg-[#223f49] text-slate-700 dark:text-slate-200 hover:bg-[#0db9f2]/20 shadow-sm"
+                                    : "bg-slate-200 text-slate-700 hover:bg-[#0db9f2]/20 shadow-sm"
                                     }`}
                             >
                                 {page}
