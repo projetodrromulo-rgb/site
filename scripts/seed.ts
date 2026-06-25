@@ -8,12 +8,11 @@ import { allProcedures } from "../src/components/sections/procedures/data/proced
 import { allTestimonials } from "../src/components/sections/testimonials/data/testimonials";
 import { allPosts } from "./data/posts";
 
-
-function htmlToPortableText(html: string): any[] {
+async function htmlToPortableText(html: string, writeClient?: any): Promise<any[]> {
     const blocks: any[] = [];
     
-    // Split by block tags but keep the tags to identify them
-    const matches = html.split(/(<\/?(?:p|h2|h3|ul|ol|li|blockquote|strong)[^>]*>)/gi);
+    // Split by block tags and img tags but keep the tags to identify them
+    const matches = html.split(/(<\/?(?:p|h2|h3|ul|ol|li|blockquote|strong|img)[^>]*>)/gi);
     
     let currentStyle = "normal";
     let currentChildren: any[] = [];
@@ -44,6 +43,60 @@ function htmlToPortableText(html: string): any[] {
             isList = false;
         } else if (lowerToken.startsWith("<li")) {
             currentStyle = "normal";
+        } else if (lowerToken.startsWith("<img")) {
+            // If we have some buffered text, flush it first
+            if (currentChildren.length > 0) {
+                const block: any = {
+                    _type: "block",
+                    _key: `block-${blocks.length}-${Math.random().toString(36).substr(2, 9)}`,
+                    style: currentStyle,
+                    children: currentChildren
+                };
+                if (isList) {
+                    block.listItem = listType;
+                    block.level = 1;
+                }
+                blocks.push(block);
+                currentChildren = [];
+            }
+            
+            // Now handle the image
+            if (writeClient) {
+                try {
+                    const srcMatch = token.match(/src="([^"]+)"/i);
+                    if (srcMatch) {
+                        const src = srcMatch[1];
+                        const altMatch = token.match(/alt="([^"]+)"/i);
+                        const alt = altMatch ? altMatch[1] : "Imagem do artigo";
+                        
+                        let buffer: Buffer | null = null;
+                        const filename = path.basename(src);
+                        if (src.startsWith("/") || src.startsWith("images/")) {
+                            const fullPath = path.join(process.cwd(), "public", src);
+                            if (fs.existsSync(fullPath)) {
+                                buffer = fs.readFileSync(fullPath);
+                            }
+                        }
+                        
+                        if (buffer) {
+                            console.log(`📤 Fazendo upload de imagem inline: ${filename}...`);
+                            const asset = await writeClient.assets.upload("image", buffer, { filename });
+                            blocks.push({
+                                _type: "image",
+                                _key: `image-${blocks.length}-${Math.random().toString(36).substr(2, 9)}`,
+                                asset: {
+                                    _type: "reference",
+                                    _ref: asset._id
+                                },
+                                alt
+                            });
+                            console.log(`✅ Imagem inline enviada: ${asset._id}`);
+                        }
+                    }
+                } catch (err) {
+                    console.warn("⚠️ Falha ao fazer upload de imagem inline:", err);
+                }
+            }
         } else if (lowerToken.startsWith("</h2") || lowerToken.startsWith("</h3") || lowerToken.startsWith("</p") || lowerToken.startsWith("</li") || lowerToken.startsWith("</blockquote")) {
             // End of block: push to blocks
             if (currentChildren.length > 0) {
@@ -711,7 +764,7 @@ async function main() {
                     _type: "slug",
                     current: proc.slug
                 },
-                content: htmlToPortableText(proc.content as string),
+                content: await htmlToPortableText(proc.content as string, writeClient),
                 metaTitle: proc.metaTitle || `${proc.title} | Dr. Romulo`,
                 metaDescription: proc.metaDescription || proc.description,
                 image: procImgAssetId ? {
@@ -841,7 +894,7 @@ async function main() {
                 readTime: p.readTime,
                 category: p.category,
                 excerpt: p.excerpt,
-                content: htmlToPortableText(p.content),
+                content: await htmlToPortableText(p.content, writeClient),
                 image: postImgAssetId ? {
                     _type: "image",
                     asset: {
