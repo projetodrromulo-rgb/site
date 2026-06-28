@@ -31,7 +31,8 @@ export default function BlogSection({ content }: BlogSectionProps) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const maxIndex = Math.max(0, postsCount - Math.floor(visibleItems));
+    const itemsToScroll = visibleItems > 1 ? visibleItems - 1 : 1;
+    const maxIndex = Math.max(0, Math.ceil((postsCount - visibleItems) / itemsToScroll));
 
     const nextStep = () => {
         if (currentIndex < maxIndex) {
@@ -94,13 +95,13 @@ export default function BlogSection({ content }: BlogSectionProps) {
                     <div className="overflow-hidden -mx-4 px-12 py-4 lg:mx-0 lg:px-1">
                         <motion.div
                             className="flex gap-4 md:gap-6 [--visible-items:1] md:[--visible-items:2.5] lg:[--visible-items:3.5]"
-                            animate={{ 
-                                x: `calc(-${currentIndex * 100}% - ${currentIndex * (visibleItems === 1 ? 16 : 24)}px)` 
+                            animate={{
+                                x: `calc(-${((currentIndex * itemsToScroll) / visibleItems) * 100}% - ${((currentIndex * itemsToScroll) / visibleItems) * (visibleItems === 1 ? 16 : 24)}px)`
                             }}
-                            transition={{ 
-                                type: "spring", 
-                                stiffness: 200, 
-                                damping: 25, 
+                            transition={{
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 25,
                                 mass: 0.8
                             }}
                         >

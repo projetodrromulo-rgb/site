@@ -32,9 +32,10 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                             className="object-cover group-hover:scale-105 transition-all duration-700"
                         />
                         <div className="absolute top-3 left-3 z-20">
-                            <span className="px-3 py-1.5 rounded-md bg-[#0db9f2] text-white text-[10px] font-black uppercase tracking-wider shadow-md">
+                            {/** <span className="px-3 py-1.5 rounded-md bg-[#0db9f2] text-white text-[10px] font-black uppercase tracking-wider shadow-md">
                                 {post.category}
                             </span>
+                             */}
                         </div>
                     </div>
 
@@ -50,11 +51,7 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
 
                         {/* Content inside the light */}
                         <div className="relative z-10 space-y-4">
-                            <h3 className="text-white text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500">
-                                {post.title}
-                            </h3>
-
-                            <div className="flex items-center gap-3 text-white/50 text-xs font-semibold">
+                            <div className="flex items-center justify-between text-white/50 text-xs font-semibold">
                                 <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
                                     <Calendar size={12} className="text-[#0db9f2]/70" /> {post.date}
                                 </span>
@@ -62,6 +59,10 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                                     <Clock size={12} className="text-[#0db9f2]/70" /> {post.readTime}
                                 </span>
                             </div>
+
+                            <h3 className="text-white text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500">
+                                {post.title}
+                            </h3>
                         </div>
 
                         <p className="relative z-10 mt-6 text-white/60 text-sm leading-relaxed mb-6 line-clamp-2 italic font-light">
@@ -69,8 +70,8 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                         </p>
 
                         <div className="relative z-10 mt-auto pt-4 border-t border-white/5 flex items-center justify-end">
-                            <Link 
-                                href={`/blog/${post.slug}`} 
+                            <Link
+                                href={`/blog/${post.slug}`}
                                 className="flex items-center gap-2 text-[#0db9f2] text-sm font-bold tracking-tight hover:text-white transition-all group/link underline-offset-4 hover:underline"
                             >
                                 Ler artigo

@@ -10,20 +10,20 @@ import { allPosts } from "./data/posts";
 
 async function htmlToPortableText(html: string, writeClient?: any): Promise<any[]> {
     const blocks: any[] = [];
-    
+
     // Split by block tags and img tags but keep the tags to identify them
     const matches = html.split(/(<\/?(?:p|h2|h3|ul|ol|li|blockquote|strong|img)[^>]*>)/gi);
-    
+
     let currentStyle = "normal";
     let currentChildren: any[] = [];
     let isList = false;
     let listType = "bullet";
-    
+
     // Very simple stateful parser for standard formatting
     for (let i = 0; i < matches.length; i++) {
         const token = matches[i];
         if (!token) continue;
-        
+
         const lowerToken = token.toLowerCase();
         if (lowerToken.startsWith("<h2")) {
             currentStyle = "h2";
@@ -59,7 +59,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
                 blocks.push(block);
                 currentChildren = [];
             }
-            
+
             // Now handle the image
             if (writeClient) {
                 try {
@@ -68,7 +68,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
                         const src = srcMatch[1];
                         const altMatch = token.match(/alt="([^"]+)"/i);
                         const alt = altMatch ? altMatch[1] : "Imagem do artigo";
-                        
+
                         let buffer: Buffer | null = null;
                         const filename = path.basename(src);
                         if (src.startsWith("/") || src.startsWith("images/")) {
@@ -77,7 +77,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
                                 buffer = fs.readFileSync(fullPath);
                             }
                         }
-                        
+
                         if (buffer) {
                             console.log(`📤 Fazendo upload de imagem inline: ${filename}...`);
                             const asset = await writeClient.assets.upload("image", buffer, { filename });
@@ -127,7 +127,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
                 });
             }
             // Skip the next token if it is the closing </strong>
-            if (matches[i+1] && matches[i+1].toLowerCase().startsWith("</strong")) {
+            if (matches[i + 1] && matches[i + 1].toLowerCase().startsWith("</strong")) {
                 i++;
             }
         } else if (!token.startsWith("<")) {
@@ -143,7 +143,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
             }
         }
     }
-    
+
     // Fallback if no blocks were parsed
     if (blocks.length === 0) {
         blocks.push({
@@ -152,7 +152,7 @@ async function htmlToPortableText(html: string, writeClient?: any): Promise<any[
             children: [{ _type: "span", text: html.replace(/<[^>]*>/g, ""), marks: [] }]
         });
     }
-    
+
     return blocks;
 }
 
@@ -184,7 +184,7 @@ async function main() {
         if (fs.existsSync(localImagePath)) {
             console.log("📂 Lendo imagem local: about-image.webp...");
             const imageBuffer = fs.readFileSync(localImagePath);
-            
+
             console.log("📤 Fazendo upload da imagem para os assets do Sanity...");
             const imageAsset = await writeClient.assets.upload("image", imageBuffer, {
                 filename: "about-image.webp",
@@ -202,7 +202,7 @@ async function main() {
         if (fs.existsSync(localLogoPath)) {
             console.log("📂 Lendo logo local: logo.svg...");
             const logoBuffer = fs.readFileSync(localLogoPath);
-            
+
             console.log("📤 Fazendo upload da logo para os assets do Sanity...");
             const logoAsset = await writeClient.assets.upload("image", logoBuffer, {
                 filename: "logo.svg",
@@ -240,7 +240,7 @@ async function main() {
         if (fs.existsSync(localVideoPath)) {
             console.log("📂 Lendo vídeo local: video-hero.webm...");
             const videoBuffer = fs.readFileSync(localVideoPath);
-            
+
             console.log("📤 Fazendo upload do vídeo para os assets do Sanity (isso pode levar alguns segundos)...");
             const videoAsset = await writeClient.assets.upload("file", videoBuffer, {
                 filename: "video-hero.webm",
@@ -373,7 +373,7 @@ async function main() {
             ],
             socialLinks: [
                 { _key: "soc-1", platform: "whatsapp", href: "https://wa.me/5531996689572?text=Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento" },
-                { _key: "soc-2", platform: "instagram", href: "https://www.instagram.com/dr.romulo.oliveira/" }
+                { _key: "soc-2", platform: "instagram", href: "https://www.instagram.com/drromulooliveiracoluna/" }
             ]
         } as any;
 
@@ -601,7 +601,7 @@ async function main() {
                 console.log(`📂 Carregando logo do plano: ${plan.name}...`);
                 const buffer = fs.readFileSync(imgPath);
                 const asset = await writeClient.assets.upload("image", buffer, { filename: plan.filename });
-                
+
                 await writeClient.createOrReplace({
                     _type: "plan",
                     _id: planDocId,
@@ -738,7 +738,7 @@ async function main() {
 
         for (const proc of allProcedures) {
             const procDocId = `procedure-${proc.slug}`;
-            
+
             const existing = await writeClient.fetch(`*[_type == "procedure" && _id == $id][0]`, { id: procDocId });
             let procImgAssetId = "";
 
@@ -807,7 +807,7 @@ async function main() {
 
         for (const t of allTestimonials) {
             const testimonialDocId = `testimonial-${t.id}`;
-            
+
             const testimonialDoc = {
                 _type: "testimonial",
                 _id: testimonialDocId,
@@ -860,7 +860,7 @@ async function main() {
 
         for (const p of allPosts) {
             const postDocId = `post-${p.slug}`;
-            
+
             // Check if we need to upload the image
             let postImgAssetId = "";
             const existing = await writeClient.fetch(`*[_type == "post" && _id == $id][0]`, { id: postDocId });
