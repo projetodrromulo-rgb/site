@@ -27,7 +27,12 @@ export async function getProceduresContent(): Promise<ProceduresSectionContent> 
                 content,
                 "imageUrl": coalesce(image.asset->url, ""),
                 metaTitle,
-                metaDescription
+                metaDescription,
+                faq[] {
+                    question,
+                    answer
+                },
+                references
             }
         }`;
 
@@ -48,7 +53,9 @@ export async function getProceduresContent(): Promise<ProceduresSectionContent> 
                         content: item.content,
                         imageUrl: item.imageUrl || fallbackItem.imageUrl || "",
                         metaTitle: item.metaTitle || fallbackItem.metaTitle || "",
-                        metaDescription: item.metaDescription || fallbackItem.metaDescription || ""
+                        metaDescription: item.metaDescription || fallbackItem.metaDescription || "",
+                        faq: item.faq || [],
+                        references: item.references || []
                     };
                 })
             };

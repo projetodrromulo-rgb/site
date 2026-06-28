@@ -114,5 +114,46 @@ export const postType = defineType({
             rows: 3,
             description: "Descrição exibida no card de agendamento ao final do post",
         }),
+        defineField({
+            name: "faq",
+            title: "Perguntas Frequentes (FAQ)",
+            type: "array",
+            of: [
+                {
+                    type: "object",
+                    name: "faqItem",
+                    title: "Item de FAQ",
+                    fields: [
+                        {
+                            name: "question",
+                            title: "Pergunta",
+                            type: "string",
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                        {
+                            name: "answer",
+                            title: "Resposta",
+                            type: "text",
+                            rows: 4,
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                    ],
+                },
+            ],
+        }),
+        defineField({
+            name: "references",
+            title: "Referências Bibliográficas",
+            type: "array",
+            of: [{ type: "string" }],
+        }),
+        defineField({
+            name: "disclaimer",
+            title: "Aviso / Disclaimer",
+            type: "text",
+            rows: 3,
+            description: "Mensagem de aviso exibida logo abaixo da imagem do post. Deixe em branco para usar o texto padrão.",
+            initialValue: "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar algum sintoma preocupante.",
+        }),
     ],
 });

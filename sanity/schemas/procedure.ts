@@ -98,5 +98,38 @@ export const procedureType = defineType({
             title: "Meta Descrição (SEO)",
             type: "string",
         }),
+        defineField({
+            name: "faq",
+            title: "Perguntas Frequentes (FAQ)",
+            type: "array",
+            of: [
+                {
+                    type: "object",
+                    name: "faqItem",
+                    title: "Item de FAQ",
+                    fields: [
+                        {
+                            name: "question",
+                            title: "Pergunta",
+                            type: "string",
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                        {
+                            name: "answer",
+                            title: "Resposta",
+                            type: "text",
+                            rows: 4,
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                    ],
+                },
+            ],
+        }),
+        defineField({
+            name: "references",
+            title: "Referências Bibliográficas",
+            type: "array",
+            of: [{ type: "string" }],
+        }),
     ],
 });

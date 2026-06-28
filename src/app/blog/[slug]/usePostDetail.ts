@@ -46,6 +46,12 @@ export function usePostDetail() {
                     authorRole,
                     ctaTitle,
                     ctaDescription,
+                    faq[] {
+                        question,
+                        answer
+                    },
+                    references,
+                    disclaimer,
                     "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(_createdAt desc)[0...2] {
                         title,
                         "slug": slug.current,
@@ -120,6 +126,18 @@ export function usePostDetail() {
     let processedReferencesHtml = "";
 
     if (post) {
+        const hasStructuredFaq = Array.isArray(post.faq) && post.faq.length > 0;
+        if (hasStructuredFaq) {
+            post.faq.forEach((item: any) => {
+                faqItems.push({
+                    question: item.question,
+                    answerText: item.answer
+                });
+            });
+        }
+
+        const hasStructuredReferences = Array.isArray(post.references) && post.references.length > 0;
+
         if (Array.isArray(post.content)) {
             let inFaq = false;
             let inReferences = false;
@@ -151,20 +169,22 @@ export function usePostDetail() {
                         return;
                     }
 
-                    // Check if block is a question
-                    const isStrong = block.children && block.children.some((c: any) => c.marks && c.marks.includes("strong"));
-                    if (isStrong && text.endsWith("?")) {
-                        if (currentQuestion && currentAnswerBlocks.length > 0) {
-                            faqItems.push({
-                                question: currentQuestion,
-                                answerBlocks: currentAnswerBlocks
-                            });
-                        }
-                        currentQuestion = text;
-                        currentAnswerBlocks = [];
-                    } else {
-                        if (currentQuestion) {
-                            currentAnswerBlocks.push(block);
+                    if (!hasStructuredFaq) {
+                        // Check if block is a question
+                        const isStrong = block.children && block.children.some((c: any) => c.marks && c.marks.includes("strong"));
+                        if (isStrong && text.endsWith("?")) {
+                            if (currentQuestion && currentAnswerBlocks.length > 0) {
+                                faqItems.push({
+                                    question: currentQuestion,
+                                    answerBlocks: currentAnswerBlocks
+                                });
+                            }
+                            currentQuestion = text;
+                            currentAnswerBlocks = [];
+                        } else {
+                            if (currentQuestion) {
+                                currentAnswerBlocks.push(block);
+                            }
                         }
                     }
                 } else if (inReferences) {
@@ -175,7 +195,7 @@ export function usePostDetail() {
             });
 
             // Push last FAQ
-            if (currentQuestion && currentAnswerBlocks.length > 0) {
+            if (!hasStructuredFaq && currentQuestion && currentAnswerBlocks.length > 0) {
                 faqItems.push({
                     question: currentQuestion,
                     answerBlocks: currentAnswerBlocks
@@ -183,7 +203,7 @@ export function usePostDetail() {
             }
 
             cleanedContent = tempContent;
-            referencesContent = tempReferences.length > 0 ? tempReferences : null;
+            referencesContent = hasStructuredReferences ? post.references : (tempReferences.length > 0 ? tempReferences : null);
         } else if (typeof post.content === "string") {
             let workingHtml = post.content;
 
@@ -194,15 +214,17 @@ export function usePostDetail() {
                 const faqHtml = faqMatch[1];
                 workingHtml = workingHtml.replace(faqRegex, "");
 
-                const itemRegex = /<p[^>]*><strong>(.*?)<\/strong><\/p>([\s\S]*?)(?=<p[^>]*><strong>|$)/g;
-                let itemMatch;
-                while ((itemMatch = itemRegex.exec(faqHtml)) !== null) {
-                    const question = itemMatch[1].replace(/<[^>]*>/g, "");
-                    const answer = itemMatch[2].trim();
-                    faqItems.push({
-                        question,
-                        answerHTML: answer
-                    });
+                if (!hasStructuredFaq) {
+                    const itemRegex = /<p[^>]*><strong>(.*?)<\/strong><\/p>([\s\S]*?)(?=<p[^>]*><strong>|$)/g;
+                    let itemMatch;
+                    while ((itemMatch = itemRegex.exec(faqHtml)) !== null) {
+                        const question = itemMatch[1].replace(/<[^>]*>/g, "");
+                        const answer = itemMatch[2].trim();
+                        faqItems.push({
+                            question,
+                            answerHTML: answer
+                        });
+                    }
                 }
             }
 
@@ -210,7 +232,11 @@ export function usePostDetail() {
             const refRegex = /<h2[^>]*>[^<]*referencia.*?<\/h2>([\s\S]*)/i;
             const refMatch = workingHtml.match(refRegex);
             if (refMatch) {
-                processedReferencesHtml = refMatch[1].trim();
+                if (hasStructuredReferences) {
+                    referencesContent = post.references;
+                } else {
+                    processedReferencesHtml = refMatch[1].trim();
+                }
                 workingHtml = workingHtml.replace(refRegex, "");
             }
 
@@ -255,7 +281,7 @@ export function usePostDetail() {
 
     if (referencesContent || processedReferencesHtml) {
         headings.push({
-            text: "Referências Fundamentais",
+            text: "Referências",
             style: "h2",
             id: "referencias"
         });
@@ -298,6 +324,7 @@ export function usePostDetail() {
         faqItems,
         referencesContent,
         processedReferencesHtml,
+        disclaimer: post?.disclaimer ?? null,
         footerContent
     };
 }

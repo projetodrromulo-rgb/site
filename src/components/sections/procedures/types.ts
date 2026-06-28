@@ -7,6 +7,8 @@ export interface Procedure {
     imageUrl?: string;
     metaTitle?: string;
     metaDescription?: string;
+    faq?: { question: string; answer: string }[];
+    references?: string[];
 }
 
 export interface ProceduresSectionContent {

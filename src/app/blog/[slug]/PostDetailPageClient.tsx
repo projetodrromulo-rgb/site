@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles } from "lucide-react";
+import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles, Book } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Logo } from "@/components/sections/hero/_components/logo";
@@ -72,8 +72,10 @@ interface ReferencesSectionProps {
 }
 
 function ReferencesSection({ referencesContent, processedReferencesHtml }: ReferencesSectionProps) {
+    const isStructured = Array.isArray(referencesContent) && typeof referencesContent[0] === "string";
+
     const parsedPortableTextGroups = (() => {
-        if (!referencesContent || !Array.isArray(referencesContent)) return null;
+        if (isStructured || !referencesContent || !Array.isArray(referencesContent)) return null;
         const groups: { title: string; blocks: any[] }[] = [];
         let currentGroup: { title: string; blocks: any[] } | null = null;
 
@@ -171,95 +173,100 @@ function ReferencesSection({ referencesContent, processedReferencesHtml }: Refer
 
     const isFlatHtml = htmlGroups.length <= 1 && (htmlGroups[0]?.title === "Referências Fundamentais" || htmlGroups[0]?.title === "Referências Científicas");
 
-    return (
-        <section className="mt-16 border-t border-slate-200 dark:border-neutral-800 pt-12">
-            <div className="mb-10 pb-4 border-b border-slate-200 dark:border-neutral-800">
-                <h2 id="referencias" className="text-3xl font-serif font-semibold text-slate-900 dark:text-slate-100 scroll-mt-24">
-                    Referências Fundamentais
-                </h2>
-            </div>
-
+    if (isStructured) {
+        return (
             <div className="grid grid-cols-1 gap-6">
-                {/* 1. PortableText groups */}
-                {parsedPortableTextGroups && !isFlatPortableText && parsedPortableTextGroups.map((group, index) => {
-                    const itemsContent = group.blocks.map((block, bIdx) => (
-                        <div key={bIdx} className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
-                            <PortableText
-                                value={[block]}
-                                components={{
-                                    block: {
-                                        normal: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
-                                    },
-                                    listItem: {
-                                        bullet: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>,
-                                        number: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
-                                    },
-                                    marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
-                                        em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-450">{children}</span>
-                                    }
-                                }}
-                            />
-                        </div>
-                    ));
-                    return renderCard(group.title, itemsContent, index);
-                })}
-
-                {/* 2. Flat PortableText items (each item is a card) */}
-                {parsedPortableTextGroups && isFlatPortableText && parsedPortableTextGroups[0].blocks.map((block, index) => {
-                    const textContent = block.children ? block.children.map((c: any) => c.text).join("") : "";
-                    const title = getFlatCardTitle(textContent);
-                    const itemsContent = (
-                        <div className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
-                            <PortableText
-                                value={[block]}
-                                components={{
-                                    block: {
-                                        normal: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
-                                    },
-                                    listItem: {
-                                        bullet: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>,
-                                        number: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
-                                    },
-                                    marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
-                                        em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-450">{children}</span>
-                                    }
-                                }}
-                            />
-                        </div>
-                    );
-                    return renderCard(title, itemsContent, index);
-                })}
-
-                {/* 3. HTML groups */}
-                {!parsedPortableTextGroups && !isFlatHtml && htmlGroups.map((group, index) => {
-                    const itemsContent = group.items.map((itemHtml, iIdx) => (
-                        <div
-                            key={iIdx}
-                            className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
-                            dangerouslySetInnerHTML={{ __html: itemHtml }}
-                        />
-                    ));
-                    return renderCard(group.title, itemsContent, index);
-                })}
-
-                {/* 4. Flat HTML items (each item is a card) */}
-                {!parsedPortableTextGroups && isFlatHtml && htmlGroups[0]?.items.map((itemHtml, index) => {
-                    const tempDiv = typeof window !== "undefined" ? document.createElement("div") : null;
-                    if (tempDiv) tempDiv.innerHTML = itemHtml;
-                    const plainText = tempDiv ? tempDiv.textContent || "" : "";
-                    const title = getFlatCardTitle(plainText);
-                    const itemsContent = (
-                        <div
-                            className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
-                            dangerouslySetInnerHTML={{ __html: itemHtml }}
-                        />
-                    );
-                    return renderCard(title, itemsContent, index);
-                })}
+                {(referencesContent as string[]).map((ref: string, idx: number) => (
+                    <div
+                        key={idx}
+                        className="bg-white dark:bg-[#0c1a20] rounded-[2rem] p-8 border border-slate-100 dark:border-neutral-800/80 border-t-4 border-t-primary-dark shadow-md flex flex-col items-start hover:shadow-lg transition-shadow duration-300 w-full text-slate-655 dark:text-slate-300 text-sm leading-relaxed font-sans text-left"
+                    >
+                        {ref}
+                    </div>
+                ))}
             </div>
-        </section>
+        );
+    }
+
+    return (
+        <div className="grid grid-cols-1 gap-6">
+            {/* 1. PortableText groups */}
+            {parsedPortableTextGroups && !isFlatPortableText && parsedPortableTextGroups.map((group, index) => {
+                const itemsContent = group.blocks.map((block, bIdx) => (
+                    <div key={bIdx} className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
+                        <PortableText
+                            value={[block]}
+                            components={{
+                                block: {
+                                    normal: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
+                                },
+                                listItem: {
+                                    bullet: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>,
+                                    number: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
+                                },
+                                marks: {
+                                    strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
+                                    em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-455">{children}</span>
+                                }
+                            }}
+                        />
+                    </div>
+                ));
+                return renderCard(group.title, itemsContent, index);
+            })}
+
+            {/* 2. Flat PortableText items (each item is a card) */}
+            {parsedPortableTextGroups && isFlatPortableText && parsedPortableTextGroups[0].blocks.map((block, index) => {
+                const textContent = block.children ? block.children.map((c: any) => c.text).join("") : "";
+                const title = getFlatCardTitle(textContent);
+                const itemsContent = (
+                    <div className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
+                        <PortableText
+                            value={[block]}
+                            components={{
+                                block: {
+                                    normal: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
+                                },
+                                listItem: {
+                                    bullet: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>,
+                                    number: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
+                                },
+                                marks: {
+                                    strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
+                                    em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-455">{children}</span>
+                                }
+                            }}
+                        />
+                    </div>
+                );
+                return renderCard(title, itemsContent, index);
+            })}
+
+            {/* 3. HTML groups */}
+            {!parsedPortableTextGroups && !isFlatHtml && htmlGroups.map((group, index) => {
+                const itemsContent = group.items.map((itemHtml, iIdx) => (
+                    <div
+                        key={iIdx}
+                        className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
+                        dangerouslySetInnerHTML={{ __html: itemHtml }}
+                    />
+                ));
+                return renderCard(group.title, itemsContent, index);
+            })}
+
+            {/* 4. Flat HTML items (each item is a card) */}
+            {!parsedPortableTextGroups && isFlatHtml && htmlGroups[0]?.items.map((itemHtml, index) => {
+                const plainText = itemHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+                const title = getFlatCardTitle(plainText);
+                const itemsContent = (
+                    <div
+                        className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
+                        dangerouslySetInnerHTML={{ __html: itemHtml }}
+                    />
+                );
+                return renderCard(title, itemsContent, index);
+            })}
+        </div>
     );
 }
 
@@ -309,8 +316,12 @@ export default function PostDetailPageClient() {
         faqItems,
         referencesContent,
         processedReferencesHtml,
+        disclaimer,
         footerContent
     } = usePostDetail();
+
+    const DISCLAIMER_DEFAULT = "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar dores persistentes ou que se irradiam para as pernas.";
+    const disclaimerText = disclaimer ?? DISCLAIMER_DEFAULT;
 
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [activeId, setActiveId] = useState<string>("");
@@ -444,6 +455,9 @@ export default function PostDetailPageClient() {
         if (item.answerHTML) {
             return item.answerHTML.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
         }
+        if (item.answerText) {
+            return item.answerText;
+        }
         return "";
     };
 
@@ -572,6 +586,11 @@ export default function PostDetailPageClient() {
                     />
                 </motion.div>
 
+                {/* Global Warning / Disclaimer Box (Below hero image) */}
+                <div className="max-w-5xl mx-auto mb-10 p-5 bg-amber-500/5 border-l-4 border-amber-500 rounded-r-2xl text-slate-600 text-sm leading-relaxed italic">
+                    <span className="font-bold text-amber-600 not-italic">⚠️ Aviso:</span> {disclaimerText}
+                </div>
+
                 {/* Grid Container starting where the text body starts */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mt-12 w-full">
 
@@ -596,7 +615,7 @@ export default function PostDetailPageClient() {
                             className="prose prose-slate max-w-none 
                                 prose-headings:font-display prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
                                 prose-p:text-slate-700 prose-p:leading-relaxed prose-p:text-lg prose-p:my-8
-                                prose-strong:text-[#0db9f2] prose-strong:font-black
+                                prose-strong:text-inherit prose-strong:font-black
                                 prose-h2:text-3xl md:text-4xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:leading-tight
                                 prose-blockquote:border-l-4 prose-blockquote:border-[#0db9f2] prose-blockquote:bg-[#0db9f2]/5 
                                 prose-blockquote:py-4 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:italic
@@ -646,16 +665,18 @@ export default function PostDetailPageClient() {
                                                     className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-[1000px] border-t border-slate-100" : "max-h-0"
                                                         }`}
                                                 >
-                                                    <div className="p-6 text-slate-600 text-sm md:text-base leading-relaxed bg-white">
+                                                    <div className="p-6 text-slate-650 text-sm md:text-base leading-relaxed bg-white">
                                                         {item.answerBlocks ? (
                                                             <div className="prose prose-slate max-w-none prose-p:my-2 prose-p:text-slate-650">
                                                                 <PortableText value={item.answerBlocks} components={ptComponents} />
                                                             </div>
-                                                        ) : (
+                                                        ) : item.answerHTML ? (
                                                             <div
                                                                 className="prose prose-slate max-w-none prose-p:my-2 prose-p:text-slate-650"
                                                                 dangerouslySetInnerHTML={{ __html: item.answerHTML }}
                                                             />
+                                                        ) : (
+                                                            <p className="text-slate-600 leading-relaxed">{item.answerText}</p>
                                                         )}
                                                     </div>
                                                 </div>
@@ -666,17 +687,20 @@ export default function PostDetailPageClient() {
                             </section>
                         )}
 
-                        {/* Global Warning / Disclaimer Box (Always displayed below post body / FAQ) */}
-                        <div className="my-10 p-5 bg-amber-500/5 border-l-4 border-amber-500 rounded-r-2xl text-slate-600 text-sm leading-relaxed italic">
-                            <span className="font-bold text-amber-600 not-italic">⚠️ Aviso:</span> Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar dores persistentes ou que se irradiam para as pernas.
-                        </div>
 
                         {/* References Section */}
                         {hasReferences && (
-                            <ReferencesSection
-                                referencesContent={referencesContent}
-                                processedReferencesHtml={processedReferencesHtml}
-                            />
+                            <section className="mt-16">
+                                <h2 id="referencias" className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-8 flex items-center gap-2.5 font-display scroll-mt-24">
+                                    <Book className="text-[#0db9f2]" size={28} />
+                                    Referências Bibliográficas
+                                </h2>
+
+                                <ReferencesSection
+                                    referencesContent={referencesContent}
+                                    processedReferencesHtml={processedReferencesHtml}
+                                />
+                            </section>
                         )}
                     </div>
                 </div>
