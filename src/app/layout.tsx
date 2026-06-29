@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/shared/SmoothScrolling";
@@ -111,6 +112,9 @@ export default function RootLayout({
           <Navbar />
         </SmoothScrolling>
         <SpeedInsights />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );
