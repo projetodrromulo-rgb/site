@@ -34,7 +34,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
             },
             description,
             viewAllCta,
-            posts[]-> {
+            posts[]-> | order(date desc) {
                 title,
                 "slug": slug.current,
                 date,

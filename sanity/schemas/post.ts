@@ -24,7 +24,10 @@ export const postType = defineType({
         defineField({
             name: "date",
             title: "Data de Publicação",
-            type: "string",
+            type: "date",
+            options: {
+                dateFormat: "DD/MM/YYYY",
+            },
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({

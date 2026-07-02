@@ -6,6 +6,14 @@ import { Calendar, ArrowRight, Clock } from "lucide-react";
 import { BlogPost } from "../types";
 import Image from "next/image";
 
+// Converte data ISO do Sanity ("2026-07-02") para DD-MM-AAAA
+function formatDate(isoDate: string): string {
+    if (!isoDate) return "";
+    if (!/^\d{4}-\d{2}-\d{2}/.test(isoDate)) return isoDate;
+    const [year, month, day] = isoDate.split("-");
+    return `${day}-${month}-${year}`;
+}
+
 interface BlogPostCardProps {
     post: BlogPost;
     index: number;
@@ -53,7 +61,7 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                         <div className="relative z-10 space-y-4">
                             <div className="flex items-center justify-between text-white/50 text-xs font-semibold">
                                 <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
-                                    <Calendar size={12} className="text-[#0db9f2]/70" /> {post.date}
+                                    <Calendar size={12} className="text-[#0db9f2]/70" /> {formatDate(post.date)}
                                 </span>
                                 <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
                                     <Clock size={12} className="text-[#0db9f2]/70" /> {post.readTime}
