@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import { client, projectId } from "@/lib/sanity";
 import BlogPageClient from "./BlogPageClient";
 
-// ISR: regenera a página em background conforme SANITY_REVALIDATE_TIME.
-// Isso gera HTML estático (ótimo para SEO e performance) e atualiza
-// automaticamente sem precisar de rebuild ou reinicialização do servidor.
-export const revalidate = Number(process.env.SANITY_REVALIDATE_TIME) || 3600;
+// ISR: página regenerada em background a cada 1 hora (3600s).
+// Next.js exige valor ESTÁTICO aqui — não aceita process.env ou expressões dinâmicas.
+// Para alterar, edite este número diretamente.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Blog | Dr. Rômulo Oliveira",
