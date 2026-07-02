@@ -17,49 +17,35 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import { client, projectId } from "@/lib/sanity";
+
+// Converte data ISO do Sanity ("2026-07-02") para DD-MM-AAAA
+// Usa manipulação direta de string para evitar dependência de ICU/locale do Node.js
+function formatDate(isoDate: string): string {
+    if (!isoDate) return "";
+    if (!/^\d{4}-\d{2}-\d{2}/.test(isoDate)) return isoDate;
+    const [year, month, day] = isoDate.split("-");
+    return `${day}-${month}-${year}`;
+}
 const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
 
-export default function BlogPageClient() {
+interface BlogPageClientProps {
+    initialPosts: any[];
+}
+
+export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
     const [selectedCategory, setSelectedCategory] = useState("Todos");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [posts, setPosts] = useState<any[]>([]);
     const postsPerPage = 9;
 
-    useEffect(() => {
-        if (!projectId || projectId === "placeholder") return;
-
-        const fetchPosts = async () => {
-            try {
-                const query = `*[_type == "post"] | order(_createdAt desc) {
-                    title,
-                    "slug": slug.current,
-                    date,
-                    readTime,
-                    category,
-                    excerpt,
-                    "image": coalesce(image.asset->url, "")
-                }`;
-                const data = await client.fetch<any[]>(query);
-                if (data && data.length > 0) {
-                    setPosts(data);
-                }
-            } catch (err) {
-                console.error("Error fetching posts from Sanity:", err);
-            }
-        };
-        fetchPosts();
-    }, []);
-
     const filteredPosts = useMemo(() => {
-        return posts.filter(post => {
+        return initialPosts.filter(post => {
             const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
             const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [posts, selectedCategory, searchQuery]);
+    }, [initialPosts, selectedCategory, searchQuery]);
 
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
     const paginatedPosts = useMemo(() => {
@@ -173,7 +159,7 @@ export default function BlogPageClient() {
                                             {/* Content Treatment */}
                                             <div className="flex flex-col gap-2 px-1">
                                                 <p className="text-slate-500 text-[11px] font-bold uppercase tracking-[0.1em]">
-                                                    {post.date} • {post.readTime} LEITURA
+                                                    {formatDate(post.date)} • {post.readTime} LEITURA
                                                 </p>
                                                 <h3 className="text-slate-900 text-lg font-bold leading-snug group-hover:text-[#0db9f2] transition-colors line-clamp-2">
                                                     {post.title}

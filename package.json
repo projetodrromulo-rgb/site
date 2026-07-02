@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint",
-    "seed": "npx -y tsx scripts/seed.ts"
+    "seed": "npx -y tsx scripts/seed.ts",
+    "sync:prod": "npx -y tsx scripts/sync-dev-to-prod.ts"
+
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
