@@ -9,7 +9,6 @@ import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
-import { usePostDetail } from "./usePostDetail";
 import { useState, useEffect } from "react";
 import Footer from "@/components/sections/footer";
 
@@ -300,26 +299,28 @@ const ptComponents = {
     }
 };
 
-export default function PostDetailPageClient() {
+interface PostDetailPageClientProps {
+    initialData: any;
+}
+
+export default function PostDetailPageClient({ initialData }: PostDetailPageClientProps) {
     const {
         post,
-        loading,
         logoData,
         relatedPosts,
         ctaTitle,
         ctaDescription,
         tocItems,
         processedHtml,
-        tocExpanded,
-        setTocExpanded,
         cleanedContent,
         faqItems,
         referencesContent,
         processedReferencesHtml,
         disclaimer,
         footerContent
-    } = usePostDetail();
+    } = initialData;
 
+    const [tocExpanded, setTocExpanded] = useState(true);
     const DISCLAIMER_DEFAULT = "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar dores persistentes ou que se irradiam para as pernas.";
     const disclaimerText = disclaimer ?? DISCLAIMER_DEFAULT;
 
@@ -345,25 +346,13 @@ export default function PostDetailPageClient() {
             }
         );
 
-        tocItems.forEach((item) => {
+        tocItems.forEach((item: any) => {
             const el = document.getElementById(item.id);
             if (el) observer.observe(el);
         });
 
         return () => observer.disconnect();
     }, [tocItems]);
-
-    if (loading) {
-        return (
-            <div className="bg-[#f5f8f8] min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0db9f2]"></div>
-            </div>
-        );
-    }
-
-    if (!post) {
-        notFound();
-    }
 
     const toggleFaq = (index: number) => {
         setOpenFaq(openFaq === index ? null : index);
