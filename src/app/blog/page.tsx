@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { client, projectId } from "@/lib/sanity";
 import BlogPageClient from "./BlogPageClient";
-import { env } from "@/env";
 
 // ISR: página regenerada em background a cada 1 hora (3600s).
-// Next.js exige valor ESTÁTICO aqui — não aceita process.env ou expressões dinâmicas.
-// Para alterar, edite este número diretamente.
-export const revalidate = env().revalidate;
+// ⚠️ Next.js EXIGE literal estático aqui. Nenhuma expressão dinâmica funciona:
+// process.env, funções, imports — tudo falha no static analysis do SWC.
+// Para alterar o tempo, edite este número diretamente.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Blog | Dr. Rômulo Oliveira",
