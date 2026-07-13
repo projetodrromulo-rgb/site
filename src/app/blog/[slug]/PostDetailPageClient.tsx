@@ -375,7 +375,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                 {tocExpanded && (
                     <div className="p-5 bg-slate-50/30 max-h-[70vh] overflow-y-auto">
                         <div className="flex flex-col">
-                            {tocItems.map((item) => (
+                            {tocItems.map((item: any) => (
                                 <div
                                     key={item.id}
                                     className={`flex items-start gap-1.5 text-sm leading-relaxed transition-all ${item.isH3
@@ -453,7 +453,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     const faqSchema = faqItems.length > 0 ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": faqItems.map((item) => ({
+        "mainEntity": faqItems.map((item: any) => ({
             "@type": "Question",
             "name": item.question,
             "acceptedAnswer": {
@@ -631,7 +631,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 </h2>
 
                                 <div className="space-y-4">
-                                    {faqItems.map((item, index) => {
+                                    {faqItems.map((item: any, index: number) => {
                                         const isOpen = openFaq === index;
                                         return (
                                             <div

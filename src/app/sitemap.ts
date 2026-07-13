@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getProceduresContent } from '@/components/sections/procedures/data/get-content';
 import { client, projectId } from '@/lib/sanity';
+import { citiesData } from './cidades/data/cities';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.drromulocoluna.com.br';
@@ -78,6 +79,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
   const rootLastModified = new Date(Math.max(latestPostDate.getTime(), latestProcedureDate.getTime()));
 
+  const cityUrls = Object.values(citiesData).map((city) => ({
+    url: `${baseUrl}/cidades/${city.slug}`,
+    lastModified: new Date('2026-07-12'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -93,6 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...procedureUrls,
     ...blogUrls,
+    ...cityUrls,
   ];
 }
 

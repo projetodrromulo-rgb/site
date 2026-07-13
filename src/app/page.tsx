@@ -5,7 +5,7 @@ const About = dynamic(() => import("@/components/sections/about"), {
   loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
 
-const Locations = dynamic(() => import("@/components/sections/locations"), {
+const LocationsGrid = dynamic(() => import("@/components/sections/locations/locations-grid"), {
   loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
 
@@ -77,9 +77,9 @@ export default async function Home() {
       <LocalBusinessSEO />
       <Hero content={heroContent} />
       <About content={aboutContent} />
-      <Locations content={locationsContent} />
+      <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
       <CTA content={ctaContent} />
-      <Insurance content={insuranceContent} />
+      {/*<Insurance content={insuranceContent} />*/}
       <ParallaxSection content={parallaxContent} />
       <Procedures content={proceduresContent} />
       <BlogSection content={blogContent} />

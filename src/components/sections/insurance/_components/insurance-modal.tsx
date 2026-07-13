@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Plan } from "../types";
 import { PlanLogo } from "./plan-logo";
 import { cn } from "@/lib/utils";
+import { env } from "@/env";
 
 interface InsuranceModalProps {
     isOpen: boolean;
@@ -109,6 +110,32 @@ export function InsuranceModal({ isOpen, onClose, plans, hospitalName }: Insuran
                                 <X className="size-5 transition-transform group-hover:rotate-90" />
                             </button>
                         </div>
+
+                        {hospitalName.toLowerCase().includes("biocor") ? (
+                            <div className="px-6 py-4 md:px-8 bg-[#0db9f2]/10 border-b border-white/5 text-xs md:text-sm text-white/90 flex flex-col sm:flex-row items-center justify-center gap-2 text-center relative z-2">
+                                <span>Para a validação dos demais convênios acesse o link:</span>
+                                <a
+                                    href="https://www.rededorsaoluiz.com.br/o-grupo/planos-convenios"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#0db9f2] hover:text-[#0db9f2]/80 hover:underline font-bold transition-colors"
+                                >
+                                    Planos e Convênios Rede D'Or
+                                </a>
+                            </div>
+                        ) : (
+                            <div className="px-6 py-4 md:px-8 bg-[#0db9f2]/10 border-b border-white/5 text-xs md:text-sm text-white/90 flex flex-col sm:flex-row items-center justify-center gap-2 text-center relative z-2">
+                                <span>Para a validação dos demais convênios fala com nossa equipe</span>
+                                <a
+                                    href={`https://wa.me/${env().whatsAppNumber}?text=${encodeURIComponent(`Atende meu plano no ${hospitalName}`)}?`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#0db9f2] hover:text-[#0db9f2]/80 hover:underline font-bold transition-colors"
+                                >
+                                    clicando aqui
+                                </a>
+                            </div>
+                        )}
 
                         {/* Plans Grid Area */}
                         <div className="flex-1 relative overflow-hidden px-12 md:px-32 pt-12 md:pt-16 pb-8">
