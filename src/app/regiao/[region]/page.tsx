@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { citiesData } from "../data/cities";
-import CityHero from "./_components/CityHero";
+import { regionsData } from "../data/regions";
+import CityHero from "@/app/cidades/[city]/_components/CityHero";
 import { getAboutContent } from "@/components/sections/about/data/get-about-content";
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
 import { getCTAContent } from "@/components/sections/cta/data/get-content";
@@ -26,10 +26,6 @@ const CTA = dynamic(() => import("@/components/sections/cta"), {
     loading: () => <div className="min-h-[30vh] animate-pulse bg-white/5" />
 });
 
-const Insurance = dynamic(() => import("@/components/sections/insurance").then(m => m.Insurance), {
-    loading: () => <div className="min-h-[20vh] animate-pulse bg-white/5" />
-});
-
 const Procedures = dynamic(() => import("@/components/sections/procedures").then(m => m.Procedures), {
     loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
@@ -42,9 +38,9 @@ const Footer = dynamic(() => import("@/components/sections/footer"), {
     loading: () => <div className="min-h-[20vh] animate-pulse bg-white/5" />
 });
 
-export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
-    const { city } = await params;
-    const data = citiesData[city.toLowerCase()];
+export async function generateMetadata({ params }: { params: Promise<{ region: string }> }): Promise<Metadata> {
+    const { region } = await params;
+    const data = regionsData[region.toLowerCase()];
 
     if (!data) return {};
 
@@ -53,12 +49,12 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
         description: data.metaDescription,
         keywords: data.keywords,
         alternates: {
-            canonical: `/cidades/${data.slug}`,
+            canonical: `/regiao/${data.slug}`,
         },
         openGraph: {
             title: data.title,
             description: data.metaDescription,
-            url: `https://www.drromulocoluna.com.br/cidades/${data.slug}`,
+            url: `https://www.drromulocoluna.com.br/regiao/${data.slug}`,
             images: [
                 {
                     url: "/images/og-profile.webp",
@@ -72,14 +68,14 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 }
 
 export async function generateStaticParams() {
-    return Object.keys(citiesData).map((cityKey) => ({
-        city: cityKey,
+    return Object.keys(regionsData).map((regionKey) => ({
+        region: regionKey,
     }));
 }
 
-export default async function CityPage({ params }: { params: Promise<{ city: string }> }) {
-    const { city } = await params;
-    const data = citiesData[city.toLowerCase()];
+export default async function RegionPage({ params }: { params: Promise<{ region: string }> }) {
+    const { region } = await params;
+    const data = regionsData[region.toLowerCase()];
 
     if (!data) {
         notFound();
@@ -115,7 +111,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         "name": "Dr. Rômulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
-        "url": `https://www.drromulocoluna.com.br/cidades/${data.slug}`,
+        "url": `https://www.drromulocoluna.com.br/regiao/${data.slug}`,
         "telephone": "+5531999675665",
         "medicalSpecialty": "OrthopedicSurgery",
         "priceRange": "$$$",
@@ -177,7 +173,6 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <About content={aboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
             <CTA content={ctaContent} />
-            {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
             <Procedures content={proceduresContent} />
             <BlogSection content={blogContent} />

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { IconWhatsApp } from "./icon-whats-app";
 import { env } from "@/env";
+import { sendGAEvent } from "@next/third-parties/google";
 
 type WhatsAppButtonProps = {
     message?: string;
@@ -34,6 +35,7 @@ export default function WhatsAppButton({ message = "Descubra como podemos ajudar
                     href={`https://wa.me/${env().whatsAppNumber}?text=Olá! Vim do site do Dr. Romulo Oliveira. Gostaria de mais informações sobre o atendimento`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => sendGAEvent('event', 'click_whatsapp', { value: 'botao_flutuante' })}
                     initial={{ scale: 0, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0, opacity: 0, y: 20 }}

@@ -706,7 +706,10 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                     {ctaDescription}
                                 </p>
                             </div>
-                            <CtaWhatsApp cta={{ text: "Agendar Avaliação Especializada", whatsAppNumber: "5531996689572" }} />
+                            <CtaWhatsApp 
+                                cta={{ text: "Agendar Avaliação Especializada", whatsAppNumber: "5531996689572" }} 
+                                analyticsLabel={`blog_cta_${slugify(post.title)}`}
+                            />
                         </div>
                     </section>
                 </div>

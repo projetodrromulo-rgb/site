@@ -14,6 +14,7 @@ interface CityHeroProps {
     description: string;
     ctaText: string;
     whatsAppNumber: string;
+    bgImage?: string;
 }
 
 export default function CityHero({
@@ -21,7 +22,8 @@ export default function CityHero({
     headline,
     description,
     ctaText,
-    whatsAppNumber
+    whatsAppNumber,
+    bgImage
 }: CityHeroProps) {
     const containerRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
@@ -66,7 +68,7 @@ export default function CityHero({
                 className="absolute inset-0 w-full h-full z-0 pointer-events-none select-none"
             >
                 <Image
-                    src="/images/operating_room_spine.png"
+                    src={bgImage || "/images/operating_room_spine.png"}
                     alt={`Especialista em Coluna em ${cityName}`}
                     fill
                     priority

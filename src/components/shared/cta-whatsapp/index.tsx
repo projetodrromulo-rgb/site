@@ -1,15 +1,19 @@
+"use client";
+
 import { IconWhatsApp } from "@/components/icon-whats-app";
 import { WhatsAppButtonType } from "./type";
 import { cn } from "@/lib/utils";
+import { sendGAEvent } from "@next/third-parties/google";
 
 
 type WhatsAppButtonProps = {
     cta: WhatsAppButtonType
     className?: string
     fullWidth?: boolean
+    analyticsLabel?: string
 }
 
-export function CtaWhatsApp({ cta, className, fullWidth = false }: WhatsAppButtonProps) {
+export function CtaWhatsApp({ cta, className, fullWidth = false, analyticsLabel }: WhatsAppButtonProps) {
 
     return (
         <div className={cn(fullWidth ? "w-full" : "w-fit", className)}>
@@ -22,6 +26,7 @@ export function CtaWhatsApp({ cta, className, fullWidth = false }: WhatsAppButto
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Falar com Dr. Rômulo Oliveira pelo WhatsApp"
+                onClick={() => sendGAEvent('event', 'click_whatsapp', { value: analyticsLabel ? analyticsLabel : `cta_${cta.text.toLowerCase().replace(/\s+/g, '_')}` })}
             >
                 {cta.text}
                 <div className="flex items-center justify-center transition-all duration-300 group-hover:animate-pulse">

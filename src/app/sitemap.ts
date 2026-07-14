@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { getProceduresContent } from '@/components/sections/procedures/data/get-content';
 import { client, projectId } from '@/lib/sanity';
 import { citiesData } from './cidades/data/cities';
+import { regionsData } from './regiao/data/regions';
+import { bairrosData } from './bairros/data/bairros';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.drromulocoluna.com.br';
@@ -86,6 +88,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const regionUrls = Object.values(regionsData).map((region) => ({
+    url: `${baseUrl}/regiao/${region.slug}`,
+    lastModified: new Date('2026-07-12'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const bairroUrls = Object.values(bairrosData).map((bairro) => ({
+    url: `${baseUrl}/bairros/${bairro.slug}`,
+    lastModified: new Date('2026-07-12'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -102,6 +118,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...procedureUrls,
     ...blogUrls,
     ...cityUrls,
+    ...regionUrls,
+    ...bairroUrls,
   ];
 }
 

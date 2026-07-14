@@ -226,7 +226,11 @@ export default function ProcedurePageClient({ procedure, footerContent }: Proced
                                 Entre em contato conosco para tirar suas dúvidas e agendar uma consulta presencial com o Dr. Romulo.
                             </p>
 
-                            <CtaWhatsApp cta={{ text: "Agendar minha consulta", whatsAppNumber: "+5531996689572" }} className="mx-auto" />
+                            <CtaWhatsApp 
+                                cta={{ text: "Agendar minha consulta", whatsAppNumber: "+5531996689572" }} 
+                                className="mx-auto" 
+                                analyticsLabel={`procedimento_cta_${procedure.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '_')}`}
+                            />
                         </div>
                     </div>
                 </div>
