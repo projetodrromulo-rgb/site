@@ -168,7 +168,8 @@ export default async function BairroPage({ params }: { params: Promise<{ bairro:
                 description={data.heroContent.description}
                 ctaText={data.heroContent.ctaText.endsWith(" em ") ? `${data.heroContent.ctaText}${data.name}` : data.heroContent.ctaText}
                 whatsAppNumber={whatsAppNumber}
-                bgImage={data.bgImage}
+                bgImages={data.bgImage ? [data.bgImage] : undefined}
+                trustLocations={data.locations}
             />
             <About content={aboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
