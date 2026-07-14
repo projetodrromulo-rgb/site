@@ -106,6 +106,23 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         getParallaxContent()
     ]);
 
+    // Merge city-specific about override (SEO local) on top of the generic content
+    const cityAboutContent = data.aboutOverride
+        ? {
+            ...aboutContent,
+            ...(data.aboutOverride.subtitle && { subtitle: data.aboutOverride.subtitle }),
+            ...(data.aboutOverride.paragraphs && { paragraphs: data.aboutOverride.paragraphs }),
+          }
+        : aboutContent;
+
+    // Merge city-specific cta override
+    const cityCtaContent = data.ctaOverride
+        ? {
+            ...ctaContent,
+            ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
+        }
+        : ctaContent;
+
     const whatsAppNumber = env().whatsAppNumber;
 
     // Dynamic physician and local business JSON-LD schema
@@ -175,9 +192,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 bgImages={data.bgImages}
                 trustLocations={data.locations}
             />
-            <About content={aboutContent} />
+            <About content={cityAboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
-            <CTA content={ctaContent} />
+            <CTA content={cityCtaContent} />
             {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
             <Procedures content={proceduresContent} />

@@ -23,6 +23,13 @@ export interface CityData {
     telephone: string;
   }>;
   bgImages?: string[];
+  aboutOverride?: {
+    subtitle?: string;
+    paragraphs?: string[];
+  };
+  ctaOverride?: {
+    description?: string;
+  };
 }
 
 export const citiesData: Record<string, CityData> = {
@@ -93,7 +100,17 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_03.jpg",
       "/images/dr_romulo_surgery_04.jpg",
       "/images/dr_romulo_surgery_05.jpg"
-    ]
+    ],
+    aboutOverride: {
+      subtitle: "Especialista em Coluna em Betim",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Betim, referência no tratamento de doenças da coluna vertebral na região. Com atendimento no Hospital Mater Dei Betim e na Clínica Centra, oferece às pessoas de Betim e cidades vizinhas acesso a cirurgia de coluna minimamente invasiva de alto nível, sem precisar se deslocar para grandes centros.",
+        "Como especialista em coluna em Betim, o Dr. Rômulo é experiente no diagnóstico e tratamento de hérnia de disco, estenose do canal lombar, escoliose, espondilolistese e dor crônica nas costas — condições que impactam diretamente a qualidade de vida dos pacientes. Suas técnicas endoscópicas e de acesso mínimo proporcionam recuperação rápida e menos riscos cirúrgicos."
+      ]
+    },
+    ctaOverride: {
+      description: "Se você busca um ortopedista especialista em coluna em Betim com formação sólida, tecnologia de ponta e atendimento humanizado, o Dr. Rômulo Oliveira está disponível para avaliação presencial no Mater Dei Betim e na Clínica Centra, no centro da cidade."
+    }
   },
   "belo-horizonte": {
     slug: "belo-horizonte",
