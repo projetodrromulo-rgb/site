@@ -61,7 +61,7 @@ export const bairrosData: Record<string, BairroData> = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna no Vila da Serra. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco no Hospital Biocor - Rede D'Or.",
-      ctaText: "Agendar no Vila da Serra",
+      ctaText: "Agendar minha consulta no Vila da Serra",
       backgroundVideo: {
         src: "/video/video-hero.webm"
       }
@@ -81,6 +81,6 @@ export const bairrosData: Record<string, BairroData> = {
         telephone: "(31) 3289-5000"
       }
     ],
-    bgImage: "/images/blurred_hospital_bg.png"
+    bgImage: "/images/vila-da-serra-hero.png"
   }
 };
