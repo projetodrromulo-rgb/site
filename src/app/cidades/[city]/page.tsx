@@ -172,7 +172,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 description={data.heroContent.description}
                 ctaText={data.heroContent.ctaText.endsWith(" em ") ? `${data.heroContent.ctaText}${data.name}` : data.heroContent.ctaText}
                 whatsAppNumber={whatsAppNumber}
-                bgImage={data.bgImage}
+                bgImages={data.bgImages}
+                trustLocations={data.locations}
             />
             <About content={aboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />

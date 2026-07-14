@@ -22,7 +22,7 @@ export interface CityData {
     streetAddress: string;
     telephone: string;
   }>;
-  bgImage?: string;
+  bgImages?: string[];
 }
 
 export const citiesData: Record<string, CityData> = {
@@ -87,7 +87,13 @@ export const citiesData: Record<string, CityData> = {
         telephone: "(31) 2571-0321"
       }
     ],
-    bgImage: "/images/operating_room_spine.png"
+    bgImages: [
+      "/images/dr_romulo_surgery_01.jpg",
+      "/images/dr_romulo_surgery_02.jpg",
+      "/images/dr_romulo_surgery_03.jpg",
+      "/images/dr_romulo_surgery_04.jpg",
+      "/images/dr_romulo_surgery_05.jpg"
+    ]
   },
   "belo-horizonte": {
     slug: "belo-horizonte",
@@ -150,7 +156,13 @@ export const citiesData: Record<string, CityData> = {
         telephone: "(31) 3370-3600"
       }
     ],
-    bgImage: "/images/hospital_background_premium.png"
+    bgImages: [
+      "/images/dr_romulo_surgery_02.jpg",
+      "/images/dr_romulo_surgery_03.jpg",
+      "/images/dr_romulo_surgery_04.jpg",
+      "/images/dr_romulo_surgery_05.jpg",
+      "/images/dr_romulo_surgery_01.jpg"
+    ]
   },
   contagem: {
     slug: "contagem",
@@ -207,7 +219,13 @@ export const citiesData: Record<string, CityData> = {
         telephone: "(31) 99967-5665"
       }
     ],
-    bgImage: "/images/hospital_lobby_spine.png"
+    bgImages: [
+      "/images/dr_romulo_surgery_03.jpg",
+      "/images/dr_romulo_surgery_04.jpg",
+      "/images/dr_romulo_surgery_05.jpg",
+      "/images/dr_romulo_surgery_01.jpg",
+      "/images/dr_romulo_surgery_02.jpg"
+    ]
   },
   "nova-lima": {
     slug: "nova-lima",
@@ -264,6 +282,12 @@ export const citiesData: Record<string, CityData> = {
         telephone: "(31) 3289-5000"
       }
     ],
-    bgImage: "/images/hospital_corridor_spine.png"
+    bgImages: [
+      "/images/dr_romulo_surgery_04.jpg",
+      "/images/dr_romulo_surgery_05.jpg",
+      "/images/dr_romulo_surgery_01.jpg",
+      "/images/dr_romulo_surgery_02.jpg",
+      "/images/dr_romulo_surgery_03.jpg"
+    ]
   }
 };
