@@ -102,6 +102,23 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
         getParallaxContent()
     ]);
 
+    // Merge location-specific about override (SEO local)
+    const localAboutContent = data.aboutOverride
+        ? {
+            ...aboutContent,
+            ...(data.aboutOverride.subtitle && { subtitle: data.aboutOverride.subtitle }),
+            ...(data.aboutOverride.paragraphs && { paragraphs: data.aboutOverride.paragraphs }),
+          }
+        : aboutContent;
+
+    // Merge location-specific cta override
+    const localCtaContent = data.ctaOverride
+        ? {
+            ...ctaContent,
+            ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
+        }
+        : ctaContent;
+
     const whatsAppNumber = env().whatsAppNumber;
 
     // Dynamic physician and local business JSON-LD schema
@@ -171,9 +188,9 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
                 bgImages={data.bgImage ? [data.bgImage] : undefined}
                 trustLocations={data.locations}
             />
-            <About content={aboutContent} />
+            <About content={localAboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
-            <CTA content={ctaContent} />
+            <CTA content={localCtaContent} />
             <ParallaxSection content={parallaxContent} />
             <Procedures content={proceduresContent} />
             <BlogSection content={blogContent} />

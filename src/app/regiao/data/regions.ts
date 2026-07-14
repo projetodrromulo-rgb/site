@@ -23,6 +23,13 @@ export interface RegionData {
     telephone: string;
   }>;
   bgImage?: string;
+  aboutOverride?: {
+    subtitle?: string;
+    paragraphs?: string[];
+  };
+  ctaOverride?: {
+    description?: string;
+  };
 }
 
 export const regionsData: Record<string, RegionData> = {
@@ -81,6 +88,16 @@ export const regionsData: Record<string, RegionData> = {
         telephone: "(31) 3504-0045"
       }
     ],
-    bgImage: "/images/mri_room_spine.png"
+    bgImage: "/images/mri_room_spine.png",
+    aboutOverride: {
+      subtitle: "Especialista em Coluna na Pampulha",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna na Pampulha, Belo Horizonte, oferecendo cuidado de alto padrão no tratamento de condições da coluna vertebral. Com atendimento na Clínica NUMAI, entrega à população da região opções avançadas em cirurgia de coluna minimamente invasiva, priorizando a segurança.",
+        "Como respeitado especialista em coluna na Pampulha, o Dr. Rômulo é habilitado para realizar diagnósticos precisos e tratamentos para hérnia de disco, estenose do canal lombar, escoliose e dor nas costas. A aplicação de técnicas modernas, como a endoscopia da coluna, proporciona aos pacientes um processo de recuperação acelerado."
+      ]
+    },
+    ctaOverride: {
+      description: "Em busca de um ortopedista especialista em coluna na Pampulha com foco em tratamentos resolutivos? O Dr. Rômulo Oliveira realiza avaliações detalhadas na Clínica NUMAI, perto de você."
+    }
   }
 };

@@ -23,6 +23,13 @@ export interface BairroData {
     telephone: string;
   }>;
   bgImage?: string;
+  aboutOverride?: {
+    subtitle?: string;
+    paragraphs?: string[];
+  };
+  ctaOverride?: {
+    description?: string;
+  };
 }
 
 export const bairrosData: Record<string, BairroData> = {
@@ -81,6 +88,16 @@ export const bairrosData: Record<string, BairroData> = {
         telephone: "(31) 3289-5000"
       }
     ],
-    bgImage: "/images/vila-da-serra-hero.png"
+    bgImage: "/images/vila-da-serra-hero.png",
+    aboutOverride: {
+      subtitle: "Especialista em Coluna no Vila da Serra",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna no Vila da Serra, Nova Lima, com foco na excelência do cuidado às doenças da coluna vertebral. Com atendimento no Hospital Biocor (Rede D'Or), disponibiliza aos moradores da região opções seguras e inovadoras em cirurgia de coluna minimamente invasiva.",
+        "Experiente especialista em coluna no Vila da Serra, o Dr. Rômulo domina técnicas modernas para o tratamento de hérnia de disco, estenose do canal lombar, escoliose e dores na coluna. Seu foco em métodos endoscópicos garante aos pacientes menos dor pós-operatória e um retorno mais rápido à qualidade de vida."
+      ]
+    },
+    ctaOverride: {
+      description: "Precisando de um ortopedista especialista em coluna no Vila da Serra que seja experiente e atualizado? O Dr. Rômulo Oliveira atende no Hospital Biocor e está pronto para avaliar a melhor abordagem para o seu caso."
+    }
   }
 };

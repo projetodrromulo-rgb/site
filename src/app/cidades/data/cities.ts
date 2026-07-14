@@ -179,7 +179,17 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_04.jpg",
       "/images/dr_romulo_surgery_05.jpg",
       "/images/dr_romulo_surgery_01.jpg"
-    ]
+    ],
+    aboutOverride: {
+      subtitle: "Especialista em Coluna em Belo Horizonte",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Belo Horizonte, referência no tratamento de doenças da coluna vertebral. Com atendimento na Clínica NUMAI (Pampulha) e Clínica Elcenter (Barreiro), oferece às pessoas de Belo Horizonte e região acesso a cirurgia de coluna minimamente invasiva de excelência.",
+        "Como especialista em coluna em Belo Horizonte, o Dr. Rômulo possui ampla experiência no diagnóstico e tratamento de hérnia de disco, estenose do canal lombar, escoliose, espondilolistese e dor crônica nas costas — condições que limitam a qualidade de vida. Suas abordagens endoscópicas proporcionam uma recuperação mais ágil e segura."
+      ]
+    },
+    ctaOverride: {
+      description: "Se você busca um ortopedista especialista em coluna em Belo Horizonte focado em procedimentos modernos e atendimento atencioso, o Dr. Rômulo Oliveira está disponível para consultas presenciais na Clínica NUMAI e Elcenter Barreiro."
+    }
   },
   contagem: {
     slug: "contagem",
@@ -242,7 +252,17 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_05.jpg",
       "/images/dr_romulo_surgery_01.jpg",
       "/images/dr_romulo_surgery_02.jpg"
-    ]
+    ],
+    aboutOverride: {
+      subtitle: "Especialista em Coluna em Contagem",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Contagem, dedicado ao tratamento moderno e resolutivo das patologias da coluna vertebral. Com atendimento no CEOFE Contagem, a população local tem acesso facilitado a cirurgia de coluna minimamente invasiva sem precisar se deslocar para a capital.",
+        "Reconhecido como especialista em coluna em Contagem, o Dr. Rômulo conduz tratamentos eficazes para hérnia de disco, estenose do canal lombar, escoliose e dores crônicas, priorizando o bem-estar e o rápido retorno do paciente à sua rotina através de técnicas avançadas de endoscopia da coluna."
+      ]
+    },
+    ctaOverride: {
+      description: "Se você procura por um ortopedista especialista em coluna em Contagem que alia tecnologia e humanização, o Dr. Rômulo Oliveira está à disposição para avaliar seu caso presencialmente no CEOFE, região do Eldorado."
+    }
   },
   "nova-lima": {
     slug: "nova-lima",
@@ -305,6 +325,16 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_01.jpg",
       "/images/dr_romulo_surgery_02.jpg",
       "/images/dr_romulo_surgery_03.jpg"
-    ]
+    ],
+    aboutOverride: {
+      subtitle: "Especialista em Coluna em Nova Lima",
+      paragraphs: [
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Nova Lima, sendo referência em tratamentos cirúrgicos e conservadores de alta complexidade. Com atendimento especializado no renomado Hospital Biocor (Rede D'Or), proporciona o que há de mais moderno em cirurgia de coluna minimamente invasiva.",
+        "Atuando como especialista em coluna em Nova Lima, o Dr. Rômulo é altamente experiente no manejo de condições desafiadoras como hérnia de disco, estenose do canal lombar, escoliose e dor nas costas. A aplicação de técnicas endoscópicas visa preservar a musculatura e garantir aos pacientes uma recuperação com muito mais conforto."
+      ]
+    },
+    ctaOverride: {
+      description: "Se você necessita de um ortopedista especialista em coluna em Nova Lima, agende sua avaliação com o Dr. Rômulo Oliveira no Hospital Biocor. Obtenha o diagnóstico preciso e as melhores opções de tratamento para o seu caso."
+    }
   }
 };
