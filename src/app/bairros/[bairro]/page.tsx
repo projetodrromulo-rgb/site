@@ -115,7 +115,7 @@ export default async function BairroPage({ params }: { params: Promise<{ bairro:
     const localCtaContent = data.ctaOverride
         ? {
             ...ctaContent,
-            ...(data.ctaOverride.title && { title: data.ctaOverride.title }),
+            ...(data.ctaOverride.title && { headline: data.ctaOverride.title }),
             ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
         }
         : ctaContent;
