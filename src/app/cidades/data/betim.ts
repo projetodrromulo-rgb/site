@@ -36,10 +36,7 @@ export const betimData: CityData = {
       }
     },
     description: "Médico Ortopedista Especialista em Coluna em Betim. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado. Avaliações disponíveis no Hospital Mater Dei Betim e na Clínica Centra.",
-    ctaText: "Agendar Consulta em Betim",
-    backgroundVideo: {
-      src: "/video/video-hero.webm"
-    }
+    ctaText: "Agendar Consulta em Betim"
   },
   address: {
     streetAddress: "Via Expressa de Betim, 15500 - Duque de Caxias",

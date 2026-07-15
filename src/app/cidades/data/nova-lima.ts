@@ -35,10 +35,7 @@ export const novaLimaData: CityData = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna em Nova Lima. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Consultas e procedimentos no Hospital Biocor - Rede D'Or.",
-      ctaText: "Agendar Consulta em Nova Lima",
-      backgroundVideo: {
-        src: "/video/video-hero.webm"
-      }
+      ctaText: "Agendar Consulta em Nova Lima"
     },
     address: {
       streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",

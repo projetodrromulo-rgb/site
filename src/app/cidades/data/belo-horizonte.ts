@@ -36,10 +36,7 @@ export const beloHorizonteData: CityData = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna em Belo Horizonte. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Atendimento nas Clínicas NUMAI (Pampulha) e Elcenter (Barreiro).",
-      ctaText: "Agendar Consulta em BH",
-      backgroundVideo: {
-        src: "/video/video-hero.webm"
-      }
+      ctaText: "Agendar Consulta em BH"
     },
     address: {
       streetAddress: "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",

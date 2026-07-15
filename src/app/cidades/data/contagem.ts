@@ -35,10 +35,7 @@ export const contagemData: CityData = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna em Contagem. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Atendimento no CEOFE Contagem.",
-      ctaText: "Agendar Consulta em Contagem",
-      backgroundVideo: {
-        src: "/video/video-hero.webm"
-      }
+      ctaText: "Agendar Consulta em Contagem"
     },
     address: {
       streetAddress: "Av. José faria da Rocha, 4458, Eldorado",

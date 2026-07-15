@@ -6,7 +6,7 @@ export interface BairroData {
   title: string;
   metaDescription: string;
   keywords: string[];
-  heroContent: Omit<HeroContent, "cta"> & {
+  heroContent: Omit<HeroContent, "cta" | "backgroundVideo"> & {
     ctaText: string;
   };
   address?: {
@@ -69,10 +69,7 @@ export const bairrosData: Record<string, BairroData> = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna no Vila da Serra. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco no Hospital Biocor - Rede D'Or.",
-      ctaText: "Agendar minha consulta no Vila da Serra",
-      backgroundVideo: {
-        src: "/video/video-hero.webm"
-      }
+      ctaText: "Agendar Consulta"
     },
     address: {
       streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",

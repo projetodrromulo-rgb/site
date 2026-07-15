@@ -6,7 +6,7 @@ export interface CityData {
   title: string;
   metaDescription: string;
   keywords: string[];
-  heroContent: Omit<HeroContent, "cta"> & {
+  heroContent: Omit<HeroContent, "cta" | "backgroundVideo"> & {
     ctaText: string;
   };
   address?: {

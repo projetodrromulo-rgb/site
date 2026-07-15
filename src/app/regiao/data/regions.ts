@@ -6,7 +6,7 @@ export interface RegionData {
   title: string;
   metaDescription: string;
   keywords: string[];
-  heroContent: Omit<HeroContent, "cta"> & {
+  heroContent: Omit<HeroContent, "cta" | "backgroundVideo"> & {
     ctaText: string;
   };
   address?: {
@@ -69,10 +69,7 @@ export const regionsData: Record<string, RegionData> = {
         }
       },
       description: "Médico Ortopedista Especialista em Coluna na Pampulha. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Atendimento na Clínica NUMAI.",
-      ctaText: "Agendar Consulta na Pampulha",
-      backgroundVideo: {
-        src: "/video/video-hero.webm"
-      }
+      ctaText: "Agendar Consulta na Pampulha"
     },
     address: {
       streetAddress: "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
