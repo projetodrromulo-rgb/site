@@ -99,11 +99,7 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_02.jpg",
       "/images/dr_romulo_surgery_03.jpg",
       "/images/dr_romulo_surgery_04.jpg",
-      "/images/dr_romulo_surgery_05.jpg",
-      "/images/dr_romulo_surgery_06.jpg",
-      "/images/dr_romulo_surgery_07.jpg",
-      "/images/dr_romulo_surgery_08.jpg",
-      "/images/dr_romulo_surgery_09.jpg"
+      "/images/dr_romulo_surgery_05.jpg"
     ],
     aboutOverride: {
       subtitle: "Especialista em Coluna em Betim",
@@ -182,10 +178,6 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_03.jpg",
       "/images/dr_romulo_surgery_04.jpg",
       "/images/dr_romulo_surgery_05.jpg",
-      "/images/dr_romulo_surgery_06.jpg",
-      "/images/dr_romulo_surgery_07.jpg",
-      "/images/dr_romulo_surgery_08.jpg",
-      "/images/dr_romulo_surgery_09.jpg",
       "/images/dr_romulo_surgery_01.jpg"
     ],
     aboutOverride: {
@@ -258,10 +250,6 @@ export const citiesData: Record<string, CityData> = {
       "/images/dr_romulo_surgery_03.jpg",
       "/images/dr_romulo_surgery_04.jpg",
       "/images/dr_romulo_surgery_05.jpg",
-      "/images/dr_romulo_surgery_06.jpg",
-      "/images/dr_romulo_surgery_07.jpg",
-      "/images/dr_romulo_surgery_08.jpg",
-      "/images/dr_romulo_surgery_09.jpg",
       "/images/dr_romulo_surgery_01.jpg",
       "/images/dr_romulo_surgery_02.jpg"
     ],
@@ -334,10 +322,6 @@ export const citiesData: Record<string, CityData> = {
     bgImages: [
       "/images/dr_romulo_surgery_04.jpg",
       "/images/dr_romulo_surgery_05.jpg",
-      "/images/dr_romulo_surgery_06.jpg",
-      "/images/dr_romulo_surgery_07.jpg",
-      "/images/dr_romulo_surgery_08.jpg",
-      "/images/dr_romulo_surgery_09.jpg",
       "/images/dr_romulo_surgery_01.jpg",
       "/images/dr_romulo_surgery_02.jpg",
       "/images/dr_romulo_surgery_03.jpg"
