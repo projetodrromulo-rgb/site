@@ -28,6 +28,7 @@ export interface BairroData {
     paragraphs?: string[];
   };
   ctaOverride?: {
+    title?: string;
     description?: string;
   };
 }

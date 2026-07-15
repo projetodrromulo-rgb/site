@@ -28,6 +28,7 @@ export interface RegionData {
     paragraphs?: string[];
   };
   ctaOverride?: {
+    title?: string;
     description?: string;
   };
 }

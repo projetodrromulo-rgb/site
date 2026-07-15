@@ -115,6 +115,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
     const localCtaContent = data.ctaOverride
         ? {
             ...ctaContent,
+            ...(data.ctaOverride.title && { title: data.ctaOverride.title }),
             ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
         }
         : ctaContent;

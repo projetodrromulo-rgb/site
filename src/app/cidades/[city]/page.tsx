@@ -119,6 +119,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     const cityCtaContent = data.ctaOverride
         ? {
             ...ctaContent,
+            ...(data.ctaOverride.title && { title: data.ctaOverride.title }),
             ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
         }
         : ctaContent;

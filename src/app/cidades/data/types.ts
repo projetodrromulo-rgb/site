@@ -28,6 +28,7 @@ export interface CityData {
     paragraphs?: string[];
   };
   ctaOverride?: {
+    title?: string;
     description?: string;
   };
 }
