@@ -109,7 +109,7 @@ export const citiesData: Record<string, CityData> = {
       ]
     },
     ctaOverride: {
-      description: "Se você busca um ortopedista especialista em coluna em Betim com formação sólida, tecnologia de ponta e atendimento humanizado, o Dr. Rômulo Oliveira está disponível para avaliação presencial no Mater Dei Betim e na Clínica Centra, no centro da cidade."
+      description: "Se você busca um ortopedista especialista em coluna em Betim com formação sólida, tecnologia de ponta e atendimento humanizado, o Dr. Rômulo Oliveira está disponível para avaliação presencial no Mater Dei Betim e na Clínica Centra."
     }
   },
   "belo-horizonte": {
@@ -183,7 +183,7 @@ export const citiesData: Record<string, CityData> = {
     aboutOverride: {
       subtitle: "Especialista em Coluna em Belo Horizonte",
       paragraphs: [
-        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Belo Horizonte, referência no tratamento de doenças da coluna vertebral. Com atendimento na Clínica NUMAI (Pampulha) e Clínica Elcenter (Barreiro), oferece às pessoas de Belo Horizonte e região acesso a cirurgia de coluna minimamente invasiva de excelência.",
+        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Belo Horizonte, referência no tratamento de doenças da coluna vertebral. Com atendimento na Clínica NUMAI (Pampulha) e Clínica Elcenter (Barreiro), oferece aos moradores de Belo Horizonte e região acesso a cirurgia de coluna minimamente invasiva de excelência.",
         "Como especialista em coluna em Belo Horizonte, o Dr. Rômulo possui ampla experiência no diagnóstico e tratamento de hérnia de disco, estenose do canal lombar, escoliose, espondilolistese e dor crônica nas costas — condições que limitam a qualidade de vida. Suas abordagens endoscópicas proporcionam uma recuperação mais ágil e segura."
       ]
     },
