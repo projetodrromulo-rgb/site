@@ -179,6 +179,10 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         })) : []
     };
 
+    const heroDesc = data.heroContent.description || "";
+    const rawCtaText = data.heroContent.ctaText || "";
+    const finalCtaText = rawCtaText.endsWith(" em ") ? `${rawCtaText}${data.name}` : rawCtaText;
+
     return (
         <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
             <script
@@ -188,8 +192,8 @@ export default async function CityPage({ params }: { params: Promise<{ location:
             <CityHero
                 cityName={data.name}
                 headline={data.heroContent.headline}
-                description={data.heroContent.description}
-                ctaText={data.heroContent.ctaText.endsWith(" em ") ? `${data.heroContent.ctaText}${data.name}` : data.heroContent.ctaText}
+                description={heroDesc}
+                ctaText={finalCtaText}
                 whatsAppNumber={whatsAppNumber}
                 bgImages={data.bgImages}
                 trustLocations={data.locations}
