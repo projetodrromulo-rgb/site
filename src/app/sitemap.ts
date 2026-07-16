@@ -79,9 +79,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
   const rootLastModified = new Date(Math.max(latestPostDate.getTime(), latestProcedureDate.getTime()));
 
-  const locationUrls = Object.values(citiesData).map((city) => ({
-    url: `${baseUrl}/ortopedista-especialista-em-coluna/${city.slug}`,
-    lastModified: new Date('2026-07-12'),
+  // 3. Fetch location pages (dynamically from Sanity)
+  let locations: Array<{ slug: string; lastModified: Date }> = [];
+  if (projectId && projectId !== 'placeholder') {
+    try {
+      const query = `*[_type == "locationPage"] { "slug": slug.current, _updatedAt }`;
+      const sanityLocations = await client.fetch<any[]>(query);
+      if (sanityLocations && sanityLocations.length > 0) {
+        locations = sanityLocations.map((loc: any) => ({
+          slug: loc.slug,
+          lastModified: loc._updatedAt ? new Date(loc._updatedAt) : new Date('2026-07-12'),
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching sitemap locations from Sanity:', error);
+    }
+  }
+
+  if (locations.length === 0) {
+    locations = Object.values(citiesData).map((city) => ({
+      slug: city.slug,
+      lastModified: new Date('2026-07-12'),
+    }));
+  }
+
+  const locationUrls = locations.map((loc) => ({
+    url: `${baseUrl}/ortopedista-especialista-em-coluna/${loc.slug}`,
+    lastModified: loc.lastModified,
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }));
