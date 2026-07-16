@@ -1,5 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const vilaDaSerraData: CityData = {
   slug: "vila-da-serra",
@@ -34,9 +33,9 @@ export const vilaDaSerraData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: getHeroDescription("no Vila da Serra", "no Biocor Vila da Serra"),
-    ctaText: getHeroCtaText("no Biocor Vila da Serra")
   },
+  locationPrefix: "no bairro Vila da Serra",
+  clinicName: "Bairro Vila da Serra",
   bgImages: [
     "/images/dr_romulo_surgery_02.jpg",
     "/images/dr_romulo_surgery_03.jpg",
@@ -46,7 +45,5 @@ export const vilaDaSerraData: CityData = {
   ],
   aboutOverride: {
     subtitle: "Especialista em Coluna no Vila da Serra",
-    paragraphs: getAboutParagraphs("no bairro Vila da Serra", "Bairro Vila da Serra")
-  },
-  ctaOverride: getCtaOverride("no bairro Vila da Serra")
+  }
 };

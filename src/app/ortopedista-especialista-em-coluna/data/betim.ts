@@ -1,6 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
-
 export const betimData: CityData = {
   slug: "betim",
   name: "Betim",
@@ -36,9 +34,9 @@ export const betimData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: getHeroDescription("em Betim", "no Hospital Mater Dei Betim e na Clínica Centra"),
-    ctaText: getHeroCtaText("em Betim")
-  },
+    },
+  locationPrefix: "em Betim",
+  clinicName: "no Hospital Mater Dei Betim e na Clínica Centra",
   address: {
     streetAddress: "Via Expressa de Betim, 15500 - Duque de Caxias",
     postalCode: "32673-472"
@@ -67,8 +65,6 @@ export const betimData: CityData = {
     "/images/dr_romulo_surgery_05.jpg"
   ],
   aboutOverride: {
-    subtitle: "Especialista em Coluna em Betim",
-    paragraphs: getAboutParagraphs("em Betim", "Hospital Mater Dei Betim e Clínica Centra")
-  },
-  ctaOverride: getCtaOverride("em Betim")
+    subtitle: "Especialista em Coluna em Betim"
+  }
 };

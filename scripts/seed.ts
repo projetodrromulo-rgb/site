@@ -7,6 +7,7 @@ import path from "path";
 import { allProcedures } from "../src/components/sections/procedures/data/procedures";
 import { allTestimonials } from "../src/components/sections/testimonials/data/testimonials";
 import { allPosts } from "./data/posts";
+import { citiesData } from "../src/app/ortopedista-especialista-em-coluna/data/locations";
 
 async function htmlToPortableText(html: string, writeClient?: any): Promise<any[]> {
     const blocks: any[] = [];
@@ -935,10 +936,77 @@ async function main() {
         const blogSecResult = await writeClient.createOrReplace(blogSectionDoc);
         console.log(`\n🎉 Sucesso! Documento 'blog-section-content' integrado/sobrescrito no Sanity. ID: ${blogSecResult._id}\n`);
 
+        // 12b. Seeding the Location Settings (Templates)
+        console.log("\n📦 Iniciando seeding das Configurações Globais de Localidades...");
+        const locationSettingsDoc = {
+            _type: "locationSettings",
+            _id: "locationSettings",
+            aboutParagraphsTemplate: [
+                "Sou o Dr. Rômulo Oliveira, Médico Ortopedista Especialista em Coluna {{locationPrefix}}. Minha missão é tratar condições como hérnia de disco e ciatalgia, devolvendo sua mobilidade e bem-estar através de medicina baseada em evidências.",
+                "Minha Trajetória e Abordagem:",
+                "✅ Formação Sólida: Especialista pela SBOT com fellowship em Cirurgia da Coluna (Hospital da Baleia).",
+                "✅ Tratamento Moderno: Foco em abordagens conservadoras e cirurgias minimamente invasivas para uma recuperação segura.",
+                "✅ Local de Atendimento: {{clinicName}}."
+            ],
+            ctaTitleTemplate: "Precisa de uma avaliação médica especializada?",
+            ctaDescriptionTemplate: "Agende sua consulta com um especialista em coluna {{locationPrefix}} e dê o primeiro passo para o seu tratamento adequado.",
+            heroDescriptionTemplate: "Médico Ortopedista Especialista em Coluna {{locationPrefix}}. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado. Avaliações disponíveis {{clinicName}}.",
+            heroCtaTextTemplate: "Agendar Consulta {{locationPrefix}}"
+        };
+        await writeClient.createOrReplace(locationSettingsDoc);
+        console.log("✅ Configurações Globais (locationSettings) cadastradas/sincronizadas.");
 
-
-
-
+        // 13. Seeding the Location Pages (SEO)
+        console.log("\n📦 Iniciando seeding das páginas de localidades (SEO)...");
+        for (const [key, city] of Object.entries(citiesData)) {
+            const locPageId = `location-page-${city.slug}`;
+            
+            const bgImageRefs: any[] = [];
+            if (city.bgImages) {
+                for (const imgPath of city.bgImages) {
+                    const fullPath = path.join(process.cwd(), "public", imgPath);
+                    if (fs.existsSync(fullPath)) {
+                        console.log(`📥 Fazendo upload da imagem de fundo para a localidade ${city.name}: ${imgPath}`);
+                        const buffer = fs.readFileSync(fullPath);
+                        const asset = await writeClient.assets.upload("image", buffer, { filename: path.basename(imgPath) });
+                        bgImageRefs.push({
+                            _type: "image",
+                            asset: {
+                                _type: "reference",
+                                _ref: asset._id
+                            },
+                            alt: `Imagem de fundo de ${city.name}`
+                        });
+                    } else {
+                        console.warn(`⚠️ Imagem de fundo não encontrada para ${city.name}: ${fullPath}`);
+                    }
+                }
+            }
+            
+            const locPageDoc = {
+                _type: "locationPage",
+                _id: locPageId,
+                name: city.name,
+                slug: { _type: "slug", current: city.slug },
+                title: city.title,
+                metaDescription: city.metaDescription,
+                keywords: city.keywords,
+                locationPrefix: city.locationPrefix,
+                clinicName: city.clinicName,
+                heroContent: {
+                    headline: city.heroContent.headline,
+                },
+                bgImages: bgImageRefs.length > 0 ? bgImageRefs : undefined,
+                aboutOverride: city.aboutOverride,
+                ctaOverride: city.ctaOverride,
+                address: city.address,
+                geo: city.geo,
+                locations: city.locations
+            };
+            
+            await writeClient.createOrReplace(locPageDoc);
+            console.log(`✅ Página de localidade '${city.name}' cadastrada/sincronizada.`);
+        }
 
     } catch (error: any) {
         console.error("\n❌ Erro durante a exportação:", error.message || error);

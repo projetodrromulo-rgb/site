@@ -1,5 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const beloHorizonteData: CityData = {
     slug: "belo-horizonte",
@@ -35,10 +34,10 @@ export const beloHorizonteData: CityData = {
           textColorHighlightTo: "var(--color-title-primary-highlight-to)",
           textColorBottom: "var(--color-title-primary)"
         }
-      },
-      description: getHeroDescription("em Belo Horizonte", "na Clínica NUMAI e Clínica Elcenter Barreiro"),
-      ctaText: getHeroCtaText("em Belo Horizonte")
+      }
     },
+    locationPrefix: "em Belo Horizonte",
+    clinicName: "na Clínica NUMAI e Clínica Elcenter Barreiro",
     address: {
       streetAddress: "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
       postalCode: "31275-050"
@@ -67,8 +66,6 @@ export const beloHorizonteData: CityData = {
       "/images/dr_romulo_surgery_01.jpg"
     ],
     aboutOverride: {
-      subtitle: "Especialista em Coluna em Belo Horizonte",
-      paragraphs: getAboutParagraphs("em Belo Horizonte", "Clínica NUMAI e Clínica Elcenter Barreiro")
-    },
-    ctaOverride: getCtaOverride("em Belo Horizonte")
+      subtitle: "Especialista em Coluna em Belo Horizonte"
+    }
   };

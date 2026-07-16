@@ -1,5 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const pampulhaData: CityData = {
   slug: "pampulha",
@@ -35,9 +34,9 @@ export const pampulhaData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: getHeroDescription("na Pampulha", "na Clínica NUMAI"),
-    ctaText: getHeroCtaText("na Pampulha")
   },
+  locationPrefix: "na Pampulha",
+  clinicName: "na Clínica NUMAI",
   address: {
     streetAddress: "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
     postalCode: "31275-050"
@@ -62,7 +61,5 @@ export const pampulhaData: CityData = {
   ],
   aboutOverride: {
     subtitle: "Especialista em Coluna na Pampulha",
-    paragraphs: getAboutParagraphs("na Pampulha", "Clínica NUMAI")
-  },
-  ctaOverride: getCtaOverride("na Pampulha")
+  }
 };

@@ -6,9 +6,12 @@ export interface CityData {
   title: string;
   metaDescription: string;
   keywords: string[];
-  heroContent: Omit<HeroContent, "cta" | "backgroundVideo"> & {
-    ctaText: string;
+  heroContent: Omit<HeroContent, "cta" | "backgroundVideo" | "description"> & {
+    description?: string;
+    ctaText?: string;
   };
+  locationPrefix: string;
+  clinicName: string;
   address?: {
     streetAddress: string;
     postalCode: string;

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { citiesData } from "../data/locations";
+import { getAllLocationSlugs, getLocationPageContent } from "../data/get-location-page";
 import CityHero from "./_components/CityHero";
 import { getAboutContent } from "@/components/sections/about/data/get-about-content";
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
@@ -44,7 +44,7 @@ const Footer = dynamic(() => import("@/components/sections/footer"), {
 
 export async function generateMetadata({ params }: { params: Promise<{ location: string }> }): Promise<Metadata> {
     const { location } = await params;
-    const data = citiesData[location.toLowerCase()];
+    const data = await getLocationPageContent(location);
 
     if (!data) return {};
 
@@ -72,14 +72,15 @@ export async function generateMetadata({ params }: { params: Promise<{ location:
 }
 
 export async function generateStaticParams() {
-    return Object.keys(citiesData).map((cityKey) => ({
-        location: cityKey,
+    const slugs = await getAllLocationSlugs();
+    return slugs.map((slug) => ({
+        location: slug,
     }));
 }
 
 export default async function CityPage({ params }: { params: Promise<{ location: string }> }) {
     const { location } = await params;
-    const data = citiesData[location.toLowerCase()];
+    const data = await getLocationPageContent(location);
 
     if (!data) {
         notFound();

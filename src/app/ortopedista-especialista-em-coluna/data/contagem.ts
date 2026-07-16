@@ -1,5 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const contagemData: CityData = {
     slug: "contagem",
@@ -34,10 +33,10 @@ export const contagemData: CityData = {
           textColorHighlightTo: "var(--color-title-primary-highlight-to)",
           textColorBottom: "var(--color-title-primary)"
         }
-      },
-      description: getHeroDescription("em Contagem", "no CEOFE Contagem"),
-      ctaText: getHeroCtaText("em Contagem")
+      }
     },
+    locationPrefix: "em Contagem",
+    clinicName: "no CEOFE Contagem",
     address: {
       streetAddress: "Av. José faria da Rocha, 4458, Eldorado",
       postalCode: "32310-210"
@@ -61,8 +60,6 @@ export const contagemData: CityData = {
       "/images/dr_romulo_surgery_02.jpg"
     ],
     aboutOverride: {
-      subtitle: "Especialista em Coluna em Contagem",
-      paragraphs: getAboutParagraphs("em Contagem", "CEOFE Contagem")
-    },
-    ctaOverride: getCtaOverride("em Contagem")
+      subtitle: "Especialista em Coluna em Contagem"
+    }
   };

@@ -1,5 +1,4 @@
 import { CityData } from "./types";
-import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const novaLimaData: CityData = {
     slug: "nova-lima",
@@ -35,9 +34,9 @@ export const novaLimaData: CityData = {
           textColorBottom: "var(--color-title-primary)"
         }
       },
-      description: getHeroDescription("em Nova Lima", "no Hospital Biocor - Rede D'Or"),
-      ctaText: getHeroCtaText("em Nova Lima")
     },
+    locationPrefix: "em Nova Lima",
+    clinicName: "no Hospital Biocor - Rede D'Or",
     address: {
       streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",
       postalCode: "34006-056"
@@ -62,7 +61,5 @@ export const novaLimaData: CityData = {
     ],
     aboutOverride: {
       subtitle: "Especialista em Coluna em Nova Lima",
-      paragraphs: getAboutParagraphs("em Nova Lima", "Hospital Biocor - Rede D'Or")
-    },
-    ctaOverride: getCtaOverride("em Nova Lima")
+    }
   };
