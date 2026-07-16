@@ -1,4 +1,5 @@
 import { CityData } from "./types";
+import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const contagemData: CityData = {
     slug: "contagem",
@@ -34,8 +35,8 @@ export const contagemData: CityData = {
           textColorBottom: "var(--color-title-primary)"
         }
       },
-      description: "Médico Ortopedista Especialista em Coluna em Contagem. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Atendimento no CEOFE Contagem.",
-      ctaText: "Agendar Consulta em Contagem"
+      description: getHeroDescription("em Contagem", "no CEOFE Contagem"),
+      ctaText: getHeroCtaText("em Contagem")
     },
     address: {
       streetAddress: "Av. José faria da Rocha, 4458, Eldorado",
@@ -61,12 +62,7 @@ export const contagemData: CityData = {
     ],
     aboutOverride: {
       subtitle: "Especialista em Coluna em Contagem",
-      paragraphs: [
-        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Contagem, dedicado ao tratamento moderno e resolutivo das patologias da coluna vertebral. Com atendimento no CEOFE Contagem, a população local tem acesso facilitado a cirurgia de coluna minimamente invasiva sem precisar se deslocar para a capital.",
-        "Reconhecido como especialista em coluna em Contagem, o Dr. Rômulo conduz tratamentos eficazes para hérnia de disco, estenose do canal lombar, escoliose e dores crônicas, priorizando o bem-estar e o rápido retorno do paciente à sua rotina através de técnicas avançadas de endoscopia da coluna."
-      ]
+      paragraphs: getAboutParagraphs("em Contagem", "CEOFE Contagem")
     },
-    ctaOverride: {
-      description: "Se você procura por um ortopedista especialista em coluna em Contagem que alia tecnologia e humanização, o Dr. Rômulo Oliveira está à disposição para avaliar seu caso presencialmente no CEOFE, região do Eldorado."
-    }
+    ctaOverride: getCtaOverride("em Contagem")
   };

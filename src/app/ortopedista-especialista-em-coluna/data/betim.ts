@@ -1,4 +1,5 @@
 import { CityData } from "./types";
+import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const betimData: CityData = {
   slug: "betim",
@@ -35,8 +36,8 @@ export const betimData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: "Médico Ortopedista Especialista em Coluna em Betim. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado. Avaliações disponíveis no Hospital Mater Dei Betim e na Clínica Centra.",
-    ctaText: "Agendar Consulta em Betim"
+    description: getHeroDescription("em Betim", "no Hospital Mater Dei Betim e na Clínica Centra"),
+    ctaText: getHeroCtaText("em Betim")
   },
   address: {
     streetAddress: "Via Expressa de Betim, 15500 - Duque de Caxias",
@@ -67,16 +68,7 @@ export const betimData: CityData = {
   ],
   aboutOverride: {
     subtitle: "Especialista em Coluna em Betim",
-    paragraphs: [
-      `Sou o Dr. Rômulo Oliveira, Médico Ortopedista Especialista em Coluna em Betim. Minha missão é tratar condições como hérnia de disco e ciatalgia, devolvendo sua mobilidade e bem-estar através de medicina baseada em evidências.`,
-      `Minha Trajetória e Abordagem:`,
-      `✅ Formação Sólida: Especialista pela SBOT com fellowship em Cirurgia da Coluna (Hospital da Baleia).`,
-      `✅ Tratamento Moderno: Foco em abordagens conservadoras e cirurgias minimamente invasivas para uma recuperação segura.`,
-      `✅ Local de Atendimento: Hospital Mater Dei Betim e Clínica Centra.`,
-    ]
+    paragraphs: getAboutParagraphs("em Betim", "Hospital Mater Dei Betim e Clínica Centra")
   },
-  ctaOverride: {
-    title: "Precisa de uma avaliação médica especializada?",
-    description: "Agende sua consulta com um especialista em coluna em Betim e dê o primeiro passo para o seu tratamento adequado."
-  }
+  ctaOverride: getCtaOverride("em Betim")
 };

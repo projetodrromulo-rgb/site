@@ -1,4 +1,5 @@
 import { CityData } from "./types";
+import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const beloHorizonteData: CityData = {
     slug: "belo-horizonte",
@@ -35,8 +36,8 @@ export const beloHorizonteData: CityData = {
           textColorBottom: "var(--color-title-primary)"
         }
       },
-      description: "Médico Ortopedista Especialista em Coluna em Belo Horizonte. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Atendimento nas Clínicas NUMAI (Pampulha) e Elcenter (Barreiro).",
-      ctaText: "Agendar Consulta em BH"
+      description: getHeroDescription("em Belo Horizonte", "na Clínica NUMAI e Clínica Elcenter Barreiro"),
+      ctaText: getHeroCtaText("em Belo Horizonte")
     },
     address: {
       streetAddress: "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
@@ -67,12 +68,7 @@ export const beloHorizonteData: CityData = {
     ],
     aboutOverride: {
       subtitle: "Especialista em Coluna em Belo Horizonte",
-      paragraphs: [
-        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Belo Horizonte, referência no tratamento de doenças da coluna vertebral. Com atendimento na Clínica NUMAI (Pampulha) e Clínica Elcenter (Barreiro), oferece aos moradores de Belo Horizonte e região acesso a cirurgia de coluna minimamente invasiva de excelência.",
-        "Como especialista em coluna em Belo Horizonte, o Dr. Rômulo possui ampla experiência no diagnóstico e tratamento de hérnia de disco, estenose do canal lombar, escoliose, espondilolistese e dor crônica nas costas — condições que limitam a qualidade de vida. Suas abordagens endoscópicas proporcionam uma recuperação mais ágil e segura."
-      ]
+      paragraphs: getAboutParagraphs("em Belo Horizonte", "Clínica NUMAI e Clínica Elcenter Barreiro")
     },
-    ctaOverride: {
-      description: "Se você busca um ortopedista especialista em coluna em Belo Horizonte focado em procedimentos modernos e atendimento atencioso, o Dr. Rômulo Oliveira está disponível para consultas presenciais na Clínica NUMAI e Elcenter Barreiro."
-    }
+    ctaOverride: getCtaOverride("em Belo Horizonte")
   };

@@ -1,4 +1,5 @@
 import { CityData } from "./types";
+import { getAboutParagraphs, getCtaOverride, getHeroDescription, getHeroCtaText } from "./helpers";
 
 export const novaLimaData: CityData = {
     slug: "nova-lima",
@@ -34,8 +35,8 @@ export const novaLimaData: CityData = {
           textColorBottom: "var(--color-title-primary)"
         }
       },
-      description: "Médico Ortopedista Especialista em Coluna em Nova Lima. Especialista em cirurgia de coluna minimamente invasiva, endoscopia e tratamento de hérnia de disco. Consultas e procedimentos no Hospital Biocor - Rede D'Or.",
-      ctaText: "Agendar Consulta em Nova Lima"
+      description: getHeroDescription("em Nova Lima", "no Hospital Biocor - Rede D'Or"),
+      ctaText: getHeroCtaText("em Nova Lima")
     },
     address: {
       streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",
@@ -61,12 +62,7 @@ export const novaLimaData: CityData = {
     ],
     aboutOverride: {
       subtitle: "Especialista em Coluna em Nova Lima",
-      paragraphs: [
-        "O Dr. Rômulo Oliveira é médico ortopedista especialista em coluna em Nova Lima, sendo referência em tratamentos cirúrgicos e conservadores de alta complexidade. Com atendimento especializado no renomado Hospital Biocor (Rede D'Or), proporciona o que há de mais moderno em cirurgia de coluna minimamente invasiva.",
-        "Atuando como especialista em coluna em Nova Lima, o Dr. Rômulo é altamente experiente no manejo de condições desafiadoras como hérnia de disco, estenose do canal lombar, escoliose e dor nas costas. A aplicação de técnicas endoscópicas visa preservar a musculatura e garantir aos pacientes uma recuperação com muito mais conforto."
-      ]
+      paragraphs: getAboutParagraphs("em Nova Lima", "Hospital Biocor - Rede D'Or")
     },
-    ctaOverride: {
-      description: "Se você necessita de um ortopedista especialista em coluna em Nova Lima, agende sua avaliação com o Dr. Rômulo Oliveira no Hospital Biocor. Obtenha o diagnóstico preciso e as melhores opções de tratamento para o seu caso."
-    }
+    ctaOverride: getCtaOverride("em Nova Lima")
   };

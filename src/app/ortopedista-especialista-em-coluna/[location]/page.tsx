@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { regionsData } from "../data/regions";
-import CityHero from "@/app/cidades/[city]/_components/CityHero";
+import { citiesData } from "../data/locations";
+import CityHero from "./_components/CityHero";
 import { getAboutContent } from "@/components/sections/about/data/get-about-content";
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
 import { getCTAContent } from "@/components/sections/cta/data/get-content";
@@ -26,6 +26,10 @@ const CTA = dynamic(() => import("@/components/sections/cta"), {
     loading: () => <div className="min-h-[30vh] animate-pulse bg-white/5" />
 });
 
+const Insurance = dynamic(() => import("@/components/sections/insurance").then(m => m.Insurance), {
+    loading: () => <div className="min-h-[20vh] animate-pulse bg-white/5" />
+});
+
 const Procedures = dynamic(() => import("@/components/sections/procedures").then(m => m.Procedures), {
     loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
@@ -38,9 +42,9 @@ const Footer = dynamic(() => import("@/components/sections/footer"), {
     loading: () => <div className="min-h-[20vh] animate-pulse bg-white/5" />
 });
 
-export async function generateMetadata({ params }: { params: Promise<{ region: string }> }): Promise<Metadata> {
-    const { region } = await params;
-    const data = regionsData[region.toLowerCase()];
+export async function generateMetadata({ params }: { params: Promise<{ location: string }> }): Promise<Metadata> {
+    const { location } = await params;
+    const data = citiesData[location.toLowerCase()];
 
     if (!data) return {};
 
@@ -49,12 +53,12 @@ export async function generateMetadata({ params }: { params: Promise<{ region: s
         description: data.metaDescription,
         keywords: data.keywords,
         alternates: {
-            canonical: `/regiao/${data.slug}`,
+            canonical: `/ortopedista-especialista-em-coluna/${data.slug}`,
         },
         openGraph: {
             title: data.title,
             description: data.metaDescription,
-            url: `https://www.drromulocoluna.com.br/regiao/${data.slug}`,
+            url: `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
             images: [
                 {
                     url: "/images/og-profile.webp",
@@ -68,14 +72,14 @@ export async function generateMetadata({ params }: { params: Promise<{ region: s
 }
 
 export async function generateStaticParams() {
-    return Object.keys(regionsData).map((regionKey) => ({
-        region: regionKey,
+    return Object.keys(citiesData).map((cityKey) => ({
+        location: cityKey,
     }));
 }
 
-export default async function RegionPage({ params }: { params: Promise<{ region: string }> }) {
-    const { region } = await params;
-    const data = regionsData[region.toLowerCase()];
+export default async function CityPage({ params }: { params: Promise<{ location: string }> }) {
+    const { location } = await params;
+    const data = citiesData[location.toLowerCase()];
 
     if (!data) {
         notFound();
@@ -102,17 +106,17 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
         getParallaxContent()
     ]);
 
-    // Merge location-specific about override (SEO local)
-    const localAboutContent = data.aboutOverride
+    // Merge city-specific about override (SEO local) on top of the generic content
+    const cityAboutContent = data.aboutOverride
         ? {
             ...aboutContent,
             ...(data.aboutOverride.subtitle && { subtitle: data.aboutOverride.subtitle }),
             ...(data.aboutOverride.paragraphs && { paragraphs: data.aboutOverride.paragraphs }),
-          }
+        }
         : aboutContent;
 
-    // Merge location-specific cta override
-    const localCtaContent = data.ctaOverride
+    // Merge city-specific cta override
+    const cityCtaContent = data.ctaOverride
         ? {
             ...ctaContent,
             ...(data.ctaOverride.title && { headline: data.ctaOverride.title }),
@@ -129,7 +133,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
         "name": "Dr. Rômulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
-        "url": `https://www.drromulocoluna.com.br/regiao/${data.slug}`,
+        "url": `https://www.drromulocoluna.com.br/cidades/${data.slug}`,
         "telephone": "+5531999675665",
         "medicalSpecialty": "OrthopedicSurgery",
         "priceRange": "$$$",
@@ -186,12 +190,13 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
                 description={data.heroContent.description}
                 ctaText={data.heroContent.ctaText.endsWith(" em ") ? `${data.heroContent.ctaText}${data.name}` : data.heroContent.ctaText}
                 whatsAppNumber={whatsAppNumber}
-                bgImages={data.bgImage ? [data.bgImage] : undefined}
+                bgImages={data.bgImages}
                 trustLocations={data.locations}
             />
-            <About content={localAboutContent} />
+            <About content={cityAboutContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
-            <CTA content={localCtaContent} />
+            <CTA content={cityCtaContent} />
+            {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
             <Procedures content={proceduresContent} />
             <BlogSection content={blogContent} />
