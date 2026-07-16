@@ -7,12 +7,14 @@ import { LocationsContent } from "./types";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocationsAnimation } from "./hooks/use-locations";
+import { Hospital } from "@/components/sections/insurance/types";
 
 interface LocationsProps {
     content: LocationsContent;
+    hospitals?: Hospital[];
 }
 
-export default function Locations({ content }: LocationsProps) {
+export default function Locations({ content, hospitals = [] }: LocationsProps) {
     const { subtitle, headline, description, units } = content;
     const { containerRef } = useLocationsAnimation();
     const [activeIndex, setActiveIndex] = useState(0);
@@ -114,6 +116,7 @@ export default function Locations({ content }: LocationsProps) {
                                 <LocationCard
                                     unit={unit}
                                     index={index}
+                                    hospitals={hospitals}
                                 />
                             </div>
                         ))}
@@ -185,6 +188,7 @@ export default function Locations({ content }: LocationsProps) {
                                         <LocationCard
                                             unit={unit}
                                             index={index}
+                                            hospitals={hospitals}
                                         />
                                     </motion.div>
                                 </div>

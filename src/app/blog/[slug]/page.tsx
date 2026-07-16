@@ -1,10 +1,19 @@
-import { client } from "@/lib/sanity";
+import { client, projectId } from "@/lib/sanity";
 import { Metadata } from "next";
 import PostDetailPageClient from "./PostDetailPageClient";
+import { processPostData } from "./utils/process-post";
+import { getFooterContent } from "@/components/sections/footer/data/get-content";
+import { notFound } from "next/navigation";
 
-export const revalidate = 0;
+// ISR: A página do post é gerada em background e cacheada por 1 hora (3600s).
+// Isso fornece tempo de carregamento instantâneo e excelente indexabilidade para SEO.
+export const revalidate = 3600;
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   try {
     const post = await client.fetch(
@@ -35,6 +44,67 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default function PostDetailPage() {
-  return <PostDetailPageClient />;
+export default async function PostDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+
+  if (!projectId || projectId === "placeholder") {
+    notFound();
+  }
+
+  try {
+    // 1. Definição das queries
+    const postQuery = `*[_type == "post" && slug.current == $slug][0] {
+      title,
+      "slug": slug.current,
+      date,
+      readTime,
+      category,
+      excerpt,
+      "image": coalesce(image.asset->url, ""),
+      content,
+      author,
+      authorRole,
+      ctaTitle,
+      ctaDescription,
+      faq[] {
+        question,
+        answer
+      },
+      references,
+      disclaimer,
+      "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(date desc)[0...2] {
+        title,
+        "slug": slug.current,
+        date,
+        readTime,
+        category,
+        excerpt,
+        "image": coalesce(image.asset->url, "")
+      }
+    }`;
+
+    const logoQuery = `*[_type == "footer"][0].logo {
+      "src": coalesce(asset->url, ""),
+      "alt": coalesce(alt, "")
+    }`;
+
+    // 2. Busca paralela de todos os dados necessários no servidor
+    const [post, logoData, footerContent] = await Promise.all([
+      client.fetch(postQuery, { slug }),
+      client.fetch(logoQuery),
+      getFooterContent()
+    ]);
+
+    if (!post) {
+      notFound();
+    }
+
+    // 3. Processamento de dados no servidor
+    const processedData = processPostData(post, logoData, footerContent);
+
+    return <PostDetailPageClient initialData={processedData} />;
+  } catch (error) {
+    console.error("Error loading post page data on server:", error);
+    notFound();
+  }
 }

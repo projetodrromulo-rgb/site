@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from "next/script";
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/shared/SmoothScrolling";
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
+  title: "Dr. Rômulo Oliveira | Medico Ortopedista Especialista em Coluna",
   description: "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento em Belo Horizonte, Betim e Contagem. Recupere sua qualidade de vida.",
   keywords: ["Cirurgia de Coluna BH", "Cirurgia Minimamente Invasiva", "Dr. Rômulo Oliveira", "Especialista em Coluna Belo Horizonte", "Tratamento de Hérnia de Disco BH", "Cirurgia Endoscópica de Coluna", "Ortopedista em Betim", "Médico de Coluna Contagem"],
   authors: [{ name: "Dr. Rômulo Oliveira" }],
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     telephone: true,
   },
   openGraph: {
-    title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
+    title: "Dr. Rômulo Oliveira | Medico Ortopedista Especialista em Coluna",
     description: "Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação.",
     url: "https://www.drromulocoluna.com.br",
     siteName: "Dr. Rômulo Oliveira",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dr. Rômulo Oliveira | Cirurgia de Coluna Minimamente Invasiva",
+    title: "Dr. Rômulo Oliveira | Medico Ortopedista Especialista em Coluna",
     description: "Recupere sua qualidade de vida com procedimentos modernos e minimamente invasivos.",
     images: ["/images/og-profile.webp"],
   },
@@ -114,6 +115,17 @@ export default function RootLayout({
         <SpeedInsights />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+        {process.env.NEXT_PUBLIC_CLARITY_ID && (
+          <Script id="microsoft-clarity" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");
+            `}
+          </Script>
         )}
       </body>
     </html>

@@ -43,7 +43,7 @@ export default function Navbar() {
         { label: "Sobre", href: "/#sobre", icon: User },
         { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
         { label: "Convênios", href: "/#insurance-section", icon: ShieldCheck },
-        /// { label: "Blog", href: "/#blog", icon: Newspaper },
+        { label: "Blog", href: "/blog", icon: Newspaper },
         // { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 

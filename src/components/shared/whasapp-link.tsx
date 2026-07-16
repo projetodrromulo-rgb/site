@@ -1,5 +1,8 @@
+"use client";
+
 import { env } from "@/env";
 import { Phone } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface WhatsAppLinkProps {
     message?: string;
@@ -21,6 +24,7 @@ export function WhatsAppLink({ message: messageProps, children, className, whats
             rel="noopener noreferrer"
             className={`${className}`}
             aria-label={ariaLabel}
+            onClick={() => sendGAEvent('event', 'click_whatsapp', { value: ariaLabel.toLowerCase().replace(/[^a-z0-9]+/g, '_') })}
         >
             {children}
 
