@@ -14,13 +14,15 @@ export const vilaDaSerraData: CityData = {
     "tratamento de hernia de disco no vila da serra",
     "dor nas costas vila da serra",
     "ortopedista no vila da serra",
-    "cirurgiao de coluna vila da serra"
+    "cirurgiao de coluna vila da serra",
+    "biocor vila da serra",
+    "hospital biocor vila da serra"
   ],
   heroContent: {
     typingPhrases: [
       "Especialista em Coluna no Vila da Serra",
-      "Cirurgia Minimamente Invasiva",
-      "Tratamento de Hérnia de Disco"
+      "Consultas no Hospital Biocor",
+      "Cirurgia de Coluna no Vila da Serra"
     ],
     headline: {
       textTop: "",
@@ -35,7 +37,22 @@ export const vilaDaSerraData: CityData = {
     },
   },
   locationPrefix: "no bairro Vila da Serra",
-  clinicName: "Bairro Vila da Serra",
+  clinicName: "no Hospital Biocor - Rede D'Or",
+  address: {
+    streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",
+    postalCode: "34006-056"
+  },
+  geo: {
+    latitude: -19.9814672,
+    longitude: -43.9447964
+  },
+  locations: [
+    {
+      name: "Hospital Biocor - Rede D'Or",
+      streetAddress: "R. Da Paisagem, 290 - Vila Da Serra - Nova Lima - MG",
+      telephone: "(31) 3289-5000"
+    }
+  ],
   bgImages: [
     "/images/dr_romulo_surgery_02.jpg",
     "/images/dr_romulo_surgery_03.jpg",

@@ -89,19 +89,19 @@ export default async function CityPage({ params }: { params: Promise<{ location:
     // Fetch all page section contents in parallel to optimize TTFB
     const [
         aboutContent,
+        proceduresContent,
         locationsContent,
         ctaContent,
         insuranceContent,
-        proceduresContent,
         blogContent,
         footerContent,
         parallaxContent
     ] = await Promise.all([
         getAboutContent(),
+        getProceduresContent(),
         getLocationsContent(),
         getCTAContent(),
         getInsuranceContent(),
-        getProceduresContent(),
         getBlogContent(),
         getFooterContent(),
         getParallaxContent()
@@ -199,11 +199,11 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 trustLocations={data.locations}
             />
             <About content={cityAboutContent} />
+            <Procedures content={proceduresContent} />
             <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
             <CTA content={cityCtaContent} />
             {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
-            <Procedures content={proceduresContent} />
             <BlogSection content={blogContent} />
             <Footer content={footerContent} />
         </main>

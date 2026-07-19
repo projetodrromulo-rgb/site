@@ -30,11 +30,24 @@ export default function LenisInit() {
             const target = (e.target as HTMLElement).closest('a');
             if (!target) return;
 
-            const hash = target.getAttribute("href");
-            if (hash && hash.startsWith("#")) {
+            const href = target.getAttribute("href");
+            if (!href) return;
+
+            const currentPathname = window.location.pathname;
+            // Verifica se o link é uma âncora para a mesma página
+            const isSamePageHash =
+                href.startsWith("#") ||
+                href.startsWith(`${currentPathname}#`) ||
+                (currentPathname === "/" && href.startsWith("/#"));
+
+            if (isSamePageHash) {
+                const hashIndex = href.indexOf("#");
+                if (hashIndex === -1) return;
+                const hash = href.substring(hashIndex);
+
                 e.preventDefault();
 
-                if (hash === "#") {
+                if (hash === "#" || hash === "#hero") {
                     lenis.scrollTo(0, {
                         duration: 1.5,
                         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

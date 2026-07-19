@@ -8,6 +8,48 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocationsAnimation } from "./hooks/use-locations";
 import { Hospital } from "@/components/sections/insurance/types";
+import { PortableText } from "@portabletext/react";
+import Link from "next/link";
+
+const locationsPtComponents = {
+    marks: {
+        link: ({ children, value }: any) => {
+            const href = value?.href || "";
+            const isExternal = /^https?:\/\//.test(href);
+
+            if (isExternal) {
+                return (
+                    <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary-dark font-semibold underline hover:opacity-80 transition-opacity"
+                    >
+                        {children}
+                    </a>
+                );
+            }
+
+            return (
+                <Link
+                    href={href}
+                    className="text-primary-dark font-semibold underline hover:opacity-80 transition-opacity"
+                >
+                    {children}
+                </Link>
+            );
+        },
+    },
+};
+
+function renderDescription(description: any) {
+    if (!description) return null;
+    if (typeof description === "string") {
+        return <p>{description}</p>;
+    }
+    const blocks = Array.isArray(description) ? description : [description];
+    return <PortableText value={blocks} components={locationsPtComponents} />;
+}
 
 interface LocationsProps {
     content: LocationsContent;
@@ -82,9 +124,9 @@ export default function Locations({ content, hospitals = [] }: LocationsProps) {
                 <header className="flex flex-col items-center text-center space-y-6">
                     <TypingText phrases={[subtitle]} />
                     <Title headline={headline} className="max-w-4xl" />
-                    <p className="text-lg md:text-xl text-primary-dark/60 max-w-3xl mx-auto leading-relaxed px-4">
-                        {description}
-                    </p>
+                    <div className="text-lg md:text-xl text-primary-dark/60 max-w-3xl mx-auto leading-relaxed px-4">
+                        {renderDescription(description)}
+                    </div>
                 </header>
             </div>
 

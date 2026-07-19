@@ -38,8 +38,39 @@ export const heroType = defineType({
         defineField({
             name: "description",
             title: "Descrição",
-            type: "text",
-            rows: 2,
+            type: "array",
+            of: [
+                {
+                    type: "block",
+                    styles: [{ title: "Normal", value: "normal" }],
+                    lists: [],
+                    marks: {
+                        decorators: [
+                            { title: "Negrito", value: "strong" },
+                            { title: "Itálico", value: "em" },
+                        ],
+                        annotations: [
+                            {
+                                name: "link",
+                                type: "object",
+                                title: "Link",
+                                fields: [
+                                    {
+                                        name: "href",
+                                        type: "url",
+                                        title: "URL / Destino",
+                                        validation: (Rule: any) =>
+                                            Rule.uri({
+                                                scheme: ["http", "https", "mailto", "tel"],
+                                                allowRelative: true,
+                                            }),
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                },
+            ],
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({

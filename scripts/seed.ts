@@ -403,7 +403,22 @@ async function main() {
                 textTop: "Nossas Unidades de",
                 textHighlight: "Atendimento",
             },
-            description: "Escolha a unidade mais próxima de você para um atendimento especializado.",
+            description: [
+                {
+                    _type: "block",
+                    _key: "loc-desc-block-1",
+                    style: "normal",
+                    markDefs: [],
+                    children: [
+                        {
+                            _type: "span",
+                            _key: "span-1",
+                            text: "Escolha a unidade mais próxima de você para um atendimento especializado.",
+                            marks: []
+                        }
+                    ]
+                }
+            ],
             units: [
                 {
                     _key: "unit-1",
@@ -493,7 +508,91 @@ async function main() {
                 textHighlight: "vida sem dor",
                 textBottom: "começa aqui",
             },
-            description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
+            description: [
+                {
+                    _type: "block",
+                    _key: "hero-desc-block-1",
+                    style: "normal",
+                    markDefs: [
+                        {
+                            _key: "link-bh",
+                            _type: "link",
+                            href: "/ortopedista-especialista-em-coluna/belo-horizonte"
+                        },
+                        {
+                            _key: "link-contagem",
+                            _type: "link",
+                            href: "/ortopedista-especialista-em-coluna/contagem"
+                        },
+                        {
+                            _key: "link-nova-lima",
+                            _type: "link",
+                            href: "/ortopedista-especialista-em-coluna/nova-lima"
+                        },
+                        {
+                            _key: "link-betim",
+                            _type: "link",
+                            href: "/ortopedista-especialista-em-coluna/betim"
+                        }
+                    ],
+                    children: [
+                        {
+                            _type: "span",
+                            _key: "span-1",
+                            text: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação. Atendimento em ",
+                            marks: []
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-2",
+                            text: "Belo Horizonte",
+                            marks: ["link-bh"]
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-3",
+                            text: ", ",
+                            marks: []
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-4",
+                            text: "Contagem",
+                            marks: ["link-contagem"]
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-5",
+                            text: ", ",
+                            marks: []
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-6",
+                            text: "Nova Lima",
+                            marks: ["link-nova-lima"]
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-7",
+                            text: " e ",
+                            marks: []
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-8",
+                            text: "Betim",
+                            marks: ["link-betim"]
+                        },
+                        {
+                            _type: "span",
+                            _key: "span-9",
+                            text: ".",
+                            marks: []
+                        }
+                    ]
+                }
+            ],
             ctaText: "Descubra como podemos ajudar",
         } as any;
 
@@ -843,98 +942,102 @@ async function main() {
         console.log(`\n🎉 Sucesso! Documento 'testimonials-section-content' integrado/sobrescrito no Sanity. ID: ${testSecResult._id}\n`);
 
         // 12. Seeding the Blog documents
-        console.log("\n📦 Iniciando seeding dos artigos do blog (posts)...");
+        if (process.env.SKIP_POSTS === "true") {
+            console.log("\n⏩ SKIP_POSTS=true detectado: Mantendo os artigos do blog existentes no Sanity intactos.");
+        } else {
+            console.log("\n📦 Iniciando seeding dos artigos do blog (posts)...");
 
-        console.log("🧹 Removendo referências de artigos do blog-section...");
-        try {
-            await writeClient.patch("blog-section-content").set({ posts: [] }).commit();
-            console.log("✅ Referências de posts limpas.");
-        } catch (err: any) {
-            console.warn("⚠️ Não foi possível limpar as referências (pode não existir ainda):", err.message || err);
-        }
-
-        console.log("🧹 Deletando todos os artigos do blog do Sanity...");
-        await writeClient.delete({ query: '*[_type == "post"]' });
-        console.log("✅ Limpeza de artigos concluída.");
-
-        const postRefs: any[] = [];
-
-        for (const p of allPosts) {
-            const postDocId = `post-${p.slug}`;
-
-            // Check if we need to upload the image
-            let postImgAssetId = "";
-            const existing = await writeClient.fetch(`*[_type == "post" && _id == $id][0]`, { id: postDocId });
-
-            if (!existing && p.image) {
-                try {
-                    console.log(`📥 Fazendo upload da imagem do artigo: ${p.title} (${p.image})...`);
-                    const res = await fetch(p.image);
-                    if (res.ok) {
-                        const buffer = Buffer.from(await res.arrayBuffer());
-                        const asset = await writeClient.assets.upload("image", buffer, { filename: `${p.slug}.jpg` });
-                        postImgAssetId = asset._id;
-                        console.log(`✅ Upload da imagem do artigo concluído: ${postImgAssetId}`);
-                    }
-                } catch (imgError) {
-                    console.warn(`⚠️ Não foi possível fazer upload da imagem para o artigo ${p.title}:`, imgError);
-                }
-            } else if (existing && existing.image?.asset?._ref) {
-                postImgAssetId = existing.image.asset._ref;
+            console.log("🧹 Removendo referências de artigos do blog-section...");
+            try {
+                await writeClient.patch("blog-section-content").set({ posts: [] }).commit();
+                console.log("✅ Referências de posts limpas.");
+            } catch (err: any) {
+                console.warn("⚠️ Não foi possível limpar as referências (pode não existir ainda):", err.message || err);
             }
 
-            const postDoc = {
-                _type: "post",
-                _id: postDocId,
-                title: p.title,
-                slug: {
-                    _type: "slug",
-                    current: p.slug
-                },
-                date: p.date,
-                readTime: p.readTime,
-                category: p.category,
-                excerpt: p.excerpt,
-                content: await htmlToPortableText(p.content, writeClient),
-                image: postImgAssetId ? {
-                    _type: "image",
-                    asset: {
-                        _type: "reference",
-                        _ref: postImgAssetId
+            console.log("🧹 Deletando todos os artigos do blog do Sanity...");
+            await writeClient.delete({ query: '*[_type == "post"]' });
+            console.log("✅ Limpeza de artigos concluída.");
+
+            const postRefs: any[] = [];
+
+            for (const p of allPosts) {
+                const postDocId = `post-${p.slug}`;
+
+                // Check if we need to upload the image
+                let postImgAssetId = "";
+                const existing = await writeClient.fetch(`*[_type == "post" && _id == $id][0]`, { id: postDocId });
+
+                if (!existing && p.image) {
+                    try {
+                        console.log(`📥 Fazendo upload da imagem do artigo: ${p.title} (${p.image})...`);
+                        const res = await fetch(p.image);
+                        if (res.ok) {
+                            const buffer = Buffer.from(await res.arrayBuffer());
+                            const asset = await writeClient.assets.upload("image", buffer, { filename: `${p.slug}.jpg` });
+                            postImgAssetId = asset._id;
+                            console.log(`✅ Upload da imagem do artigo concluído: ${postImgAssetId}`);
+                        }
+                    } catch (imgError) {
+                        console.warn(`⚠️ Não foi possível fazer upload da imagem para o artigo ${p.title}:`, imgError);
+                    }
+                } else if (existing && existing.image?.asset?._ref) {
+                    postImgAssetId = existing.image.asset._ref;
+                }
+
+                const postDoc = {
+                    _type: "post",
+                    _id: postDocId,
+                    title: p.title,
+                    slug: {
+                        _type: "slug",
+                        current: p.slug
                     },
-                    alt: `Imagem do artigo ${p.title}`
-                } : undefined
+                    date: p.date,
+                    readTime: p.readTime,
+                    category: p.category,
+                    excerpt: p.excerpt,
+                    content: await htmlToPortableText(p.content, writeClient),
+                    image: postImgAssetId ? {
+                        _type: "image",
+                        asset: {
+                            _type: "reference",
+                            _ref: postImgAssetId
+                        },
+                        alt: `Imagem do artigo ${p.title}`
+                    } : undefined
+                };
+
+                await writeClient.createOrReplace(postDoc);
+                console.log(`✅ Artigo '${p.title}' cadastrado/sincronizado.`);
+
+                postRefs.push({
+                    _type: "reference",
+                    _ref: postDocId,
+                    _key: `ref-${postDocId}`
+                });
+            }
+
+            // Seeding the Blog Section
+            const blogSectionDoc = {
+                _type: "blog-section",
+                _id: "blog-section-content",
+                badge: "Educação e Saúde",
+                headline: {
+                    _type: "object",
+                    textTop: "Blog da Saúde",
+                    textHighlight: "Vertebral",
+                    textBottom: ""
+                },
+                description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
+                viewAllCta: "Ver Todos os Artigos",
+                posts: postRefs
             };
 
-            await writeClient.createOrReplace(postDoc);
-            console.log(`✅ Artigo '${p.title}' cadastrado/sincronizado.`);
-
-            postRefs.push({
-                _type: "reference",
-                _ref: postDocId,
-                _key: `ref-${postDocId}`
-            });
+            console.log("📤 Enviando documento 'blog-section' para o Sanity...");
+            const blogSecResult = await writeClient.createOrReplace(blogSectionDoc);
+            console.log(`\n🎉 Sucesso! Documento 'blog-section-content' integrado/sobrescrito no Sanity. ID: ${blogSecResult._id}\n`);
         }
-
-        // Seeding the Blog Section
-        const blogSectionDoc = {
-            _type: "blog-section",
-            _id: "blog-section-content",
-            badge: "Educação e Saúde",
-            headline: {
-                _type: "object",
-                textTop: "Blog da Saúde",
-                textHighlight: "Vertebral",
-                textBottom: ""
-            },
-            description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
-            viewAllCta: "Ver Todos os Artigos",
-            posts: postRefs
-        };
-
-        console.log("📤 Enviando documento 'blog-section' para o Sanity...");
-        const blogSecResult = await writeClient.createOrReplace(blogSectionDoc);
-        console.log(`\n🎉 Sucesso! Documento 'blog-section-content' integrado/sobrescrito no Sanity. ID: ${blogSecResult._id}\n`);
 
         // 12b. Seeding the Location Settings (Templates)
         console.log("\n📦 Iniciando seeding das Configurações Globais de Localidades...");
@@ -960,7 +1063,7 @@ async function main() {
         console.log("\n📦 Iniciando seeding das páginas de localidades (SEO)...");
         for (const [key, city] of Object.entries(citiesData)) {
             const locPageId = `location-page-${city.slug}`;
-            
+
             const bgImageRefs: any[] = [];
             if (city.bgImages) {
                 for (const imgPath of city.bgImages) {
@@ -982,7 +1085,7 @@ async function main() {
                     }
                 }
             }
-            
+
             const locPageDoc = {
                 _type: "locationPage",
                 _id: locPageId,
@@ -1003,7 +1106,7 @@ async function main() {
                 geo: city.geo,
                 locations: city.locations
             };
-            
+
             await writeClient.createOrReplace(locPageDoc);
             console.log(`✅ Página de localidade '${city.name}' cadastrada/sincronizada.`);
         }

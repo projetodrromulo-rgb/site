@@ -38,12 +38,11 @@ export default function Navbar() {
     if (isSpecialPage) return null;
 
     const navLinks = [
-        { label: "Início", href: "/", icon: Home },
-        { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
+        { label: "Início", href: "/#hero", icon: Home },
         { label: "Sobre", href: "/#sobre", icon: User },
+        { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
         { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
-        { label: "Convênios", href: "/#insurance-section", icon: ShieldCheck },
-        { label: "Blog", href: "/blog", icon: Newspaper },
+        { label: "Blog", href: "/#blog", icon: Newspaper },
         // { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 
@@ -66,12 +65,26 @@ export default function Navbar() {
                         className="scale-75 md:scale-90 origin-left"
                     />
 
-                    {/* Menu Button Container */}
+                    {/* Navigation Menu */}
                     {!isStudioPage && (
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 lg:gap-8">
+                            {/* Desktop Navigation Links */}
+                            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+                                {navLinks.map((link) => (
+                                    <a
+                                        key={link.label}
+                                        href={link.href}
+                                        className="text-white/85 hover:text-white text-xs xl:text-sm uppercase tracking-wider font-bold transition-colors duration-300 py-2"
+                                    >
+                                        {link.label}
+                                    </a>
+                                ))}
+                            </nav>
+
+                            {/* Mobile Hamburger Menu Button */}
                             <button
                                 onClick={() => setIsMenuOpen(true)}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${showSolidNavbar
+                                className={`lg:hidden flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group ${showSolidNavbar
                                     ? "bg-primary-dark text-white border border-white/10 shadow-lg"
                                     : "bg-white/10 backdrop-blur-md text-white border border-white/20"
                                     }`}
@@ -133,10 +146,9 @@ export default function Navbar() {
                                                     <link.icon className="w-5 h-5 md:w-7 md:h-7" />
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <span className="text-lg md:text-2xl font-black text-white/90 group-hover:text-accent transition-colors block">
+                                                    <span className="text-lg md:text-2xl font-black text-white/90 transition-colors block">
                                                         {link.label}
                                                     </span>
-                                                    <div className="w-0 h-[2px] bg-accent group-hover:w-full transition-all duration-500" />
                                                 </div>
                                             </a>
                                         </motion.div>

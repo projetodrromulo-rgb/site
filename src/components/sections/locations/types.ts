@@ -15,6 +15,6 @@ export interface LocationUnit {
 export interface LocationsContent {
     subtitle: string;
     headline: SharedComponentsTypes["headline"];
-    description: string;
+    description: string | any[];
     units: LocationUnit[];
 }

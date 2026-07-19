@@ -22,15 +22,15 @@ export function usePostDetail() {
     });
 
     const [footerContent, setFooterContent] = useState<any>(null);
- 
+
     useEffect(() => {
         if (!slug) return;
- 
+
         if (!projectId || projectId === "placeholder") {
             setLoading(false);
             return;
         }
- 
+
         const fetchPost = async () => {
             try {
                 const query = `*[_type == "post" && slug.current == $slug][0] {
@@ -74,10 +74,10 @@ export function usePostDetail() {
         };
         fetchPost();
     }, [slug]);
- 
+
     useEffect(() => {
         if (!projectId || projectId === "placeholder") return;
- 
+
         const fetchLogo = async () => {
             try {
                 const query = `*[_type == "footer"][0].logo {
@@ -110,10 +110,10 @@ export function usePostDetail() {
         };
         fetchFooter();
     }, []);
- 
+
     const post = sanityPost;
 
-    const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.";
+    const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma melhor qualidade de vida.";
     const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
 
     const relatedPosts = post?.related || [];

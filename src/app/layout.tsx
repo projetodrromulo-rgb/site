@@ -113,10 +113,10 @@ export default function RootLayout({
           <Navbar />
         </SmoothScrolling>
         <SpeedInsights />
-        {process.env.NEXT_PUBLIC_GA_ID && (
+        {process.env.NEXT_PUBLIC_GA_ID && process.env.NODE_ENV === "production" && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
-        {process.env.NEXT_PUBLIC_CLARITY_ID && (
+        {process.env.NEXT_PUBLIC_CLARITY_ID && process.env.NODE_ENV === "production" && (
           <Script id="microsoft-clarity" strategy="afterInteractive">
             {`
               (function(c,l,a,r,i,t,y){

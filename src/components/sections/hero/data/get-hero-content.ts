@@ -19,7 +19,91 @@ const localHeroContent: HeroContent = {
             textColorBottom: "var(--color-title-primary)"
         }
     },
-    description: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação.",
+    description: [
+        {
+            _type: "block",
+            _key: "hero-desc-block-1",
+            style: "normal",
+            markDefs: [
+                {
+                    _key: "link-bh",
+                    _type: "link",
+                    href: "/ortopedista-especialista-em-coluna/belo-horizonte"
+                },
+                {
+                    _key: "link-contagem",
+                    _type: "link",
+                    href: "/ortopedista-especialista-em-coluna/contagem"
+                },
+                {
+                    _key: "link-nova-lima",
+                    _type: "link",
+                    href: "/ortopedista-especialista-em-coluna/nova-lima"
+                },
+                {
+                    _key: "link-betim",
+                    _type: "link",
+                    href: "/ortopedista-especialista-em-coluna/betim"
+                }
+            ],
+            children: [
+                {
+                    _type: "span",
+                    _key: "span-1",
+                    text: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação. Atendimento em ",
+                    marks: []
+                },
+                {
+                    _type: "span",
+                    _key: "span-2",
+                    text: "Belo Horizonte",
+                    marks: ["link-bh"]
+                },
+                {
+                    _type: "span",
+                    _key: "span-3",
+                    text: ", ",
+                    marks: []
+                },
+                {
+                    _type: "span",
+                    _key: "span-4",
+                    text: "Contagem",
+                    marks: ["link-contagem"]
+                },
+                {
+                    _type: "span",
+                    _key: "span-5",
+                    text: ", ",
+                    marks: []
+                },
+                {
+                    _type: "span",
+                    _key: "span-6",
+                    text: "Nova Lima",
+                    marks: ["link-nova-lima"]
+                },
+                {
+                    _type: "span",
+                    _key: "span-7",
+                    text: " e ",
+                    marks: []
+                },
+                {
+                    _type: "span",
+                    _key: "span-8",
+                    text: "Betim",
+                    marks: ["link-betim"]
+                },
+                {
+                    _type: "span",
+                    _key: "span-9",
+                    text: ".",
+                    marks: []
+                }
+            ]
+        }
+    ],
     cta: {
         text: "Descubra como podemos ajudar",
         whatsAppNumber: env().whatsAppNumber

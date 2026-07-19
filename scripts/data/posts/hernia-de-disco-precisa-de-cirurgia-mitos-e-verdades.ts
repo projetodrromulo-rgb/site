@@ -64,5 +64,5 @@ export const post: Post = {
     author: "Dr. Rômulo Oliveira",
     authorRole: "Ortopedista e Cirurgião de Coluna",
     ctaTitle: "Recupere sua qualidade de vida",
-    ctaDescription: "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma vida livre das dores.",
-};
+    ctaDescription: "Agende sua consulta com o Dr. Rômulo Oliveira e dê o primeiro passo para uma melhor qualidade de vida"
+}

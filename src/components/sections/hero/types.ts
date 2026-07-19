@@ -5,7 +5,7 @@ export type HeroContent = {
     typingPhrases: string[];
     headline: SharedComponentsTypes['headline']
 
-    description: string;
+    description: string | any[];
     cta: WhatsAppButtonType
 
 
