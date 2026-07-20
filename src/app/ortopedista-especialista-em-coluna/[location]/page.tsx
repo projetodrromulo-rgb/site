@@ -131,7 +131,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
     const physicianJsonLd = {
         "@context": "https://schema.org",
         "@type": "Physician",
-        "name": "Dr. Rômulo Oliveira",
+        "name": "Dr. Romulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
         "url": `https://www.drromulocoluna.com.br/cidades/${data.slug}`,

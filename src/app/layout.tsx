@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Dr. Rômulo Oliveira | Medico Ortopedista Especialista em Coluna",
     description: "Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação.",
     url: "https://www.drromulocoluna.com.br",
-    siteName: "Dr. Rômulo Oliveira",
+    siteName: "Dr. Romulo Oliveira",
     locale: "pt_BR",
     type: "website",
     images: [

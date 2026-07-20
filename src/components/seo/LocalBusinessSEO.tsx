@@ -7,7 +7,7 @@ export async function LocalBusinessSEO() {
     const physicianJsonLd = {
         "@context": "https://schema.org",
         "@type": "Physician",
-        "name": "Dr. Rômulo Oliveira",
+        "name": "Dr. Romulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": "Especialista em cirurgia de coluna minimamente invasiva em Belo Horizonte, Betim e Contagem. Tratamento de hérnia de disco, dor nas costas e deformidades.",
         "url": "https://www.drromulocoluna.com.br/",
@@ -58,7 +58,7 @@ export async function LocalBusinessSEO() {
     const websiteJsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Dr. Rômulo Oliveira",
+        "name": "Dr. Romulo Oliveira",
         "alternateName": ["Dr. Rômulo de Oliveira", "Dr. Rômulo Coluna"],
         "url": "https://www.drromulocoluna.com.br/"
     };
