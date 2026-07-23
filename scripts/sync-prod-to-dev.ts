@@ -1,12 +1,9 @@
 /**
- * sync-dev-to-prod.ts
+ * sync-prod-to-dev.ts
  *
- * Sincroniza o dataset "development" para "production".
+ * Sincroniza o dataset "production" para "development".
  * Copia todos os documentos (conteúdo + assets) usando createOrReplace,
- * garantindo idempotência: executar várias vezes não duplica dados.
- *
- * Uso:
- *   npm run sync:prod
+ * garantindo idempotência e preservando os documentos de produção.
  */
 
 import { createClient } from "next-sanity";
@@ -24,16 +21,8 @@ if (!projectId || !writeToken) {
     process.exit(1);
 }
 
-// Cliente de leitura — dataset development (público, sem token)
-const devClient = createClient({
-    projectId,
-    dataset: "development",
-    apiVersion,
-    useCdn: false,
-});
-
-// Cliente de escrita — dataset production (requer token)
-const prodWriteClient = createClient({
+// Cliente de leitura de Produção
+const prodClient = createClient({
     projectId,
     dataset: "production",
     apiVersion,
@@ -41,71 +30,40 @@ const prodWriteClient = createClient({
     token: writeToken,
 });
 
-// Tipos de sistema do Sanity que não devem ser migrados
-const SKIP_TYPES = ["system.group", "system.retention"];
+// Cliente de escrita em Desenvolvimento
+const devWriteClient = createClient({
+    projectId,
+    dataset: "development",
+    apiVersion,
+    useCdn: false,
+    token: writeToken,
+});
 
+const SKIP_TYPES = ["system.group", "system.retention"];
 const BATCH_SIZE = 50;
 
 async function main() {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log("  🔄  Sync: development → production");
+    console.log("  🔄  Sync: production → development");
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
-    // Artigos a serem excluídos da sincronização para produção (vazio para sincronizar todos os artigos do dev)
-    const EXCLUDE_PROD_POST_SLUGS: string[] = [];
-    const excludedPostIds = EXCLUDE_PROD_POST_SLUGS.map((slug) => `post-${slug}`);
-
-    if (EXCLUDE_PROD_POST_SLUGS.length > 0) {
-        console.log("🧹 Atualizando referências e removendo posts não autorizados do dataset de produção...");
-        try {
-            const prodBlogSection = await prodWriteClient.fetch(`*[_type == "blog-section" && _id == "blog-section-content"][0]`);
-            if (prodBlogSection && Array.isArray(prodBlogSection.posts)) {
-                const cleanPosts = prodBlogSection.posts.filter((ref: any) => !excludedPostIds.includes(ref._ref));
-                await prodWriteClient.patch("blog-section-content").set({ posts: cleanPosts }).commit();
-            }
-        } catch (err: any) {
-            console.warn("⚠️ Não foi possível atualizar referências prévias:", err.message);
-        }
-
-        for (const slug of EXCLUDE_PROD_POST_SLUGS) {
-            await prodWriteClient.delete({ query: `*[_type == "post" && slug.current == "${slug}"]` });
-        }
-        console.log("✅ Limpeza em produção concluída.");
-    }
-
-    // Busca todos os documentos publicados (exclui rascunhos e tipos de sistema)
-    console.log("📥 Lendo documentos do dataset development...");
-    let allDocs = await devClient.fetch<any[]>(
+    console.log("📥 Lendo documentos do dataset production...");
+    const allDocs = await prodClient.fetch<any[]>(
         `*[!(_id in path("drafts.**")) && !(_type in $skipTypes)]`,
         { skipTypes: SKIP_TYPES }
     );
 
-    // Filtra posts não aprovados para produção
-    allDocs = allDocs.filter((d) => !excludedPostIds.includes(d._id));
-
-    // Ajusta as referências do blog-section para não incluir os posts excluídos
-    allDocs = allDocs.map((doc) => {
-        if (doc._type === "blog-section" && Array.isArray(doc.posts)) {
-            return {
-                ...doc,
-                posts: doc.posts.filter((ref: any) => !excludedPostIds.includes(ref._ref))
-            };
-        }
-        return doc;
-    });
-
     if (allDocs.length === 0) {
-        console.log("⚠️  Nenhum documento encontrado no development. Abortando.");
+        console.log("⚠️  Nenhum documento encontrado em production. Abortando.");
         return;
     }
 
-    // Relatório por tipo
     const byType = allDocs.reduce<Record<string, number>>((acc, doc) => {
         acc[doc._type] = (acc[doc._type] || 0) + 1;
         return acc;
     }, {});
 
-    console.log(`\n📊 ${allDocs.length} documentos encontrados:\n`);
+    console.log(`\n📊 ${allDocs.length} documentos encontrados em production:\n`);
     Object.entries(byType)
         .sort(([, a], [, b]) => b - a)
         .forEach(([type, count]) => {
@@ -113,8 +71,6 @@ async function main() {
             console.log(`   ${type.padEnd(30)} ${bar} ${count}`);
         });
 
-    // Separa assets e referências de conteúdo — assets e itens referenciados (posts, procedimentos, planos)
-    // devem ser inseridos PRIMEIRO para que as referências sejam válidas nas seções (blog-section, etc.)
     const assetDocs = allDocs.filter((d) =>
         d._type === "sanity.imageAsset" || d._type === "sanity.fileAsset"
     );
@@ -127,8 +83,7 @@ async function main() {
 
     const orderedDocs = [...assetDocs, ...itemDocs, ...sectionDocs];
 
-    // Migração em lotes
-    console.log(`\n🚀 Enviando para production em lotes de ${BATCH_SIZE}...\n`);
+    console.log(`\n🚀 Enviando para development em lotes de ${BATCH_SIZE}...\n`);
     console.log(`   📎 ${assetDocs.length} assets  →  primeiro`);
     console.log(`   📄 ${itemDocs.length + sectionDocs.length} conteúdo →  depois\n`);
 
@@ -137,7 +92,7 @@ async function main() {
 
     for (let i = 0; i < orderedDocs.length; i += BATCH_SIZE) {
         const batch = orderedDocs.slice(i, i + BATCH_SIZE);
-        const transaction = prodWriteClient.transaction();
+        const transaction = devWriteClient.transaction();
 
         for (const doc of batch) {
             transaction.createOrReplace(doc);
@@ -148,20 +103,19 @@ async function main() {
             processed += batch.length;
             const percent = Math.round((processed / orderedDocs.length) * 100);
             const bar = "█".repeat(Math.floor(percent / 5)).padEnd(20);
-            process.stdout.write(`\r   [${bar}] ${percent}% (${processed}/${orderedDocs.length})`);
+            console.log(`   [${bar}] ${percent}% (${processed}/${orderedDocs.length})`);
         } catch (err: any) {
             errors++;
             console.error(`\n   ⚠️  Erro no lote ${Math.floor(i / BATCH_SIZE) + 1}: ${err.message}`);
         }
     }
 
-
     console.log("\n");
 
     if (errors === 0) {
         console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         console.log("  ✅  Sincronização concluída com sucesso!");
-        console.log(`      ${processed} documentos migrados para production.`);
+        console.log(`      ${processed} documentos copiado(s) de production para development.`);
         console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     } else {
         console.log(`⚠️  Concluído com ${errors} erro(s). Verifique os logs acima.`);

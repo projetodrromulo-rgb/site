@@ -42,3 +42,5 @@ next-env.d.ts
 
 /posts
 production_posts.tar.gz
+prod_export.tar.gz
+import_log.txt

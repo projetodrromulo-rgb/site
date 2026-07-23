@@ -13,6 +13,10 @@ export const post: Post = {
     <p>A coluna vertebral depende de um complexo sistema formado por músculos, ligamentos, discos, articulações e estruturas nervosas para funcionar adequadamente.</p>
     <p>Os músculos paravertebrais, localizados ao redor da coluna, desempenham papel fundamental na sustentação do tronco, na manutenção da postura e na realização dos movimentos do dia a dia.</p>
     <p>Quando esses músculos são submetidos a sobrecarga excessiva ou movimentos inesperados, podem ocorrer pequenas lesões das fibras musculares, gerando inflamação, dor e espasmo muscular reflexo.</p>
+
+    <p><img src="/images/blog/lesoes-musculares-anatomia.png" alt="Ilustração médica anatômica da musculatura paravertebral da coluna lombar evidenciando contratura muscular, espasmo reflexo e microlesões nas fibras musculares" /></p>
+    <p>Figura 1. Ilustração anatômica 3D da musculatura paravertebral e dos músculos eretores da espinha, evidenciando áreas de contratura muscular intensa, espasmo reflexo e microlesões nas fibras decorrentes de sobrecarga na coluna lombar.</p>
+
     <p>É justamente esse espasmo que muitas vezes faz o paciente sentir que a coluna "travou".</p>
     
     <h2>Como essas lesões acontecem?</h2>
@@ -101,7 +105,7 @@ export const post: Post = {
     date: "24 Jun, 2026",
     category: "Saúde da Coluna",
     readTime: "5 min",
-    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=1200",
+    image: "/images/blog/lesoes-musculares-header.png",
     author: "Dr. Rômulo Oliveira",
     authorRole: "Ortopedista e Cirurgião de Coluna",
     ctaTitle: "Coluna travada ou dor muscular persistente?",

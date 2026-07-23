@@ -8,7 +8,8 @@
     "start": "next start -p 3001",
     "lint": "eslint",
     "seed": "npx -y tsx scripts/seed.ts",
-    "sync:prod": "npx -y tsx scripts/sync-dev-to-prod.ts"
+    "sync:prod": "npx -y tsx scripts/sync-dev-to-prod.ts",
+    "sync:dev": "npx -y tsx scripts/sync-prod-to-dev.ts"
 
   },
   "dependencies": {

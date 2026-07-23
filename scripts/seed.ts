@@ -971,10 +971,23 @@ async function main() {
                 if (!existing && p.image) {
                     try {
                         console.log(`📥 Fazendo upload da imagem do artigo: ${p.title} (${p.image})...`);
-                        const res = await fetch(p.image);
-                        if (res.ok) {
-                            const buffer = Buffer.from(await res.arrayBuffer());
-                            const asset = await writeClient.assets.upload("image", buffer, { filename: `${p.slug}.jpg` });
+                        let buffer: Buffer | null = null;
+                        let filename = `${p.slug}.jpg`;
+                        if (p.image.startsWith("/") || p.image.startsWith("images/")) {
+                            const fullPath = path.join(process.cwd(), "public", p.image);
+                            if (fs.existsSync(fullPath)) {
+                                buffer = fs.readFileSync(fullPath);
+                                filename = path.basename(p.image);
+                            }
+                        } else if (p.image.startsWith("http")) {
+                            const res = await fetch(p.image);
+                            if (res.ok) {
+                                buffer = Buffer.from(await res.arrayBuffer());
+                            }
+                        }
+
+                        if (buffer) {
+                            const asset = await writeClient.assets.upload("image", buffer, { filename });
                             postImgAssetId = asset._id;
                             console.log(`✅ Upload da imagem do artigo concluído: ${postImgAssetId}`);
                         }
@@ -1005,7 +1018,9 @@ async function main() {
                             _ref: postImgAssetId
                         },
                         alt: `Imagem do artigo ${p.title}`
-                    } : undefined
+                    } : undefined,
+                    ctaTitle: p.ctaTitle,
+                    ctaDescription: p.ctaDescription
                 };
 
                 await writeClient.createOrReplace(postDoc);
