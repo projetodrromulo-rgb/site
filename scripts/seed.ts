@@ -512,7 +512,7 @@ async function main() {
                 {
                     _type: "block",
                     _key: "hero-desc-block-1",
-                    style: "normal",
+                    style: "h1",
                     markDefs: [
                         {
                             _key: "link-bh",
@@ -539,7 +539,7 @@ async function main() {
                         {
                             _type: "span",
                             _key: "span-1",
-                            text: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação. Atendimento em ",
+                            text: "Dr. Romulo Oliveira, Ortopedista especialista em coluna com atendimentos em ",
                             marks: []
                         },
                         {

@@ -7,6 +7,23 @@ interface DescriptionProps {
 }
 
 const heroPtComponents = {
+    block: {
+        h1: ({ children }: any) => (
+            <h1 className="text-inherit font-inherit text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-relaxed m-0 inline">
+                {children}
+            </h1>
+        ),
+        h2: ({ children }: any) => (
+            <h2 className="text-inherit font-inherit text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-relaxed m-0 inline">
+                {children}
+            </h2>
+        ),
+        normal: ({ children }: any) => (
+            <p className="text-inherit font-inherit leading-relaxed m-0 inline">
+                {children}
+            </p>
+        ),
+    },
     marks: {
         link: ({ children, value }: any) => {
             const href = value?.href || "";
@@ -43,7 +60,7 @@ export function Description({ description }: DescriptionProps) {
             {Array.isArray(description) ? (
                 <PortableText value={description} components={heroPtComponents} />
             ) : (
-                <p>{description}</p>
+                <h1 className="text-inherit font-inherit leading-relaxed m-0">{description}</h1>
             )}
         </div>
     );

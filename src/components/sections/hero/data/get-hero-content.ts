@@ -10,7 +10,7 @@ const localHeroContent: HeroContent = {
     ],
     headline: {
         textTop: "Sua jornada para uma",
-        textHighlight: "vida sem dor",
+        textHighlight: "melhor qualidade de vida",
         textBottom: "começa aqui",
         styles: {
             textColorTitle: "var(--color-title-primary)",
@@ -23,7 +23,7 @@ const localHeroContent: HeroContent = {
         {
             _type: "block",
             _key: "hero-desc-block-1",
-            style: "normal",
+            style: "h1",
             markDefs: [
                 {
                     _key: "link-bh",
@@ -50,7 +50,7 @@ const localHeroContent: HeroContent = {
                 {
                     _type: "span",
                     _key: "span-1",
-                    text: "Cirurgias de coluna minimamente invasiva, de alta precisão com foco em rápida recuperação. Atendimento em ",
+                    text: "Dr. Romulo Oliveira, Ortopedista especialista em coluna com atendimentos em ",
                     marks: []
                 },
                 {

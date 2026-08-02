@@ -51,9 +51,9 @@ export default function Hero({ content }: HeroProps) {
             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center h-full pb-8 lg:py-0">
 
                 <div ref={contentRef} className="relative flex flex-col items-center text-center drop-shadow-2xl z-20 pointer-events-auto">
-                    <div className="hero-animate-item w-full flex justify-center"><Title headline={headline} as="h1" /></div>
-                    <div className="hero-animate-item w-full flex justify-center"><Description description={description} /></div>
-                    <div className="hero-animate-item mt-8">
+                    <div className="hero-animate-item order-2 w-full flex justify-center"><Description description={description} /></div>
+                    <div className="hero-animate-item order-1 w-full flex justify-center"><Title headline={headline} as="h2" /></div>
+                    <div className="hero-animate-item order-3 mt-8">
                         <CtaWhatsApp cta={cta} fullWidth className="max-w-md mx-auto" analyticsLabel="cta_hero" />
                     </div>
                 </div>

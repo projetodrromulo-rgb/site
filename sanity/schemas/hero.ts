@@ -42,7 +42,11 @@ export const heroType = defineType({
             of: [
                 {
                     type: "block",
-                    styles: [{ title: "Normal", value: "normal" }],
+                    styles: [
+                        { title: "Normal", value: "normal" },
+                        { title: "Título 1 (H1)", value: "h1" },
+                        { title: "Título 2 (H2)", value: "h2" },
+                    ],
                     lists: [],
                     marks: {
                         decorators: [

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: "Dr. Rômulo Oliveira | Medico Ortopedista Especialista em Coluna",
-  description: "Especialista em cirurgia de coluna minimamente invasiva, ortopedia e traumatologia. Atendimento em Belo Horizonte, Betim e Contagem. Recupere sua qualidade de vida.",
+  description: "Ortopedista Epecialista em cirurgia de coluna minimamente invasiva. Atendimento em Belo Horizonte, Betim e Contagem. Recupere sua qualidade de vida.",
   keywords: ["Cirurgia de Coluna BH", "Cirurgia Minimamente Invasiva", "Dr. Rômulo Oliveira", "Especialista em Coluna Belo Horizonte", "Tratamento de Hérnia de Disco BH", "Cirurgia Endoscópica de Coluna", "Ortopedista em Betim", "Médico de Coluna Contagem"],
   authors: [{ name: "Dr. Rômulo Oliveira" }],
   creator: "Dr. Rômulo Oliveira",
