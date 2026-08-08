@@ -24,6 +24,9 @@ export interface CityData {
     name: string;
     streetAddress: string;
     telephone: string;
+    mapUrl?: string;
+    websiteUrl?: string;
+    image?: string;
   }>;
   bgImages?: string[];
   aboutOverride?: {

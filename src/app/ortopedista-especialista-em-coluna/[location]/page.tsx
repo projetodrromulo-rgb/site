@@ -18,7 +18,7 @@ const About = dynamic(() => import("@/components/sections/about"), {
     loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
 
-const LocationsGrid = dynamic(() => import("@/components/sections/locations/locations-grid"), {
+const CityLocations = dynamic(() => import("@/components/sections/locations/city-locations"), {
     loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
 });
 
@@ -134,7 +134,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "name": "Dr. Romulo Oliveira",
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
-        "url": `https://www.drromulocoluna.com.br/cidades/${data.slug}`,
+        "url": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
         "telephone": "+5531999675665",
         "medicalSpecialty": "OrthopedicSurgery",
         "priceRange": "$$$",
@@ -183,6 +183,32 @@ export default async function CityPage({ params }: { params: Promise<{ location:
     const rawCtaText = data.heroContent.ctaText || "";
     const finalCtaText = rawCtaText.endsWith(" em ") ? `${rawCtaText}${data.name}` : rawCtaText;
 
+    const cityLocations = (data.locations && data.locations.length > 0)
+        ? data.locations.map((loc) => {
+            const matchingUnit = locationsContent.units.find((u) =>
+                u.title.toLowerCase().includes(loc.name.toLowerCase()) ||
+                loc.name.toLowerCase().includes(u.title.toLowerCase())
+            );
+            return {
+                name: loc.name,
+                streetAddress: loc.streetAddress || matchingUnit?.address || "",
+                telephone: loc.telephone || matchingUnit?.phone || "(31) 99967-5665",
+                mapUrl: loc.mapUrl || matchingUnit?.mapUrl,
+                websiteUrl: loc.websiteUrl || matchingUnit?.websiteUrl,
+                image: loc.image || matchingUnit?.image
+            };
+        })
+        : locationsContent.units.filter((u) =>
+            u.address.toLowerCase().includes(data.name.toLowerCase())
+        ).map((u) => ({
+            name: u.title,
+            streetAddress: u.address,
+            telephone: u.phone,
+            mapUrl: u.mapUrl,
+            websiteUrl: u.websiteUrl,
+            image: u.image
+        }));
+
     return (
         <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
             <script
@@ -198,13 +224,15 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 bgImages={data.bgImages}
                 trustLocations={data.locations}
             />
-            <About content={cityAboutContent} />
+            <CityLocations
+                cityName={data.name}
+                locations={cityLocations}
+                hospitals={insuranceContent.hospitals}
+            />
             <Procedures content={proceduresContent} />
-            <LocationsGrid content={locationsContent} hospitals={insuranceContent.hospitals} />
             <CTA content={cityCtaContent} />
             {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
-            <BlogSection content={blogContent} />
             <Footer content={footerContent} />
         </main>
     );

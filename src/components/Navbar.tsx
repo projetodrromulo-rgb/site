@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { env } from "@/env";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
@@ -59,11 +60,13 @@ export default function Navbar() {
             >
                 <div className="w-full px-8 md:px-12 lg:px-24 flex items-center justify-between">
                     {/* Logo Section */}
-                    <Logo
-                        logoImage={logoData}
-                        scrolled={showSolidNavbar}
-                        className="scale-75 md:scale-90 origin-left"
-                    />
+                    <Link href="/" aria-label="Ir para a página inicial">
+                        <Logo
+                            logoImage={logoData}
+                            scrolled={showSolidNavbar}
+                            className="scale-75 md:scale-90 origin-left"
+                        />
+                    </Link>
 
                     {/* Navigation Menu */}
                     {!isStudioPage && (
