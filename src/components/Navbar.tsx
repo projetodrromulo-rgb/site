@@ -44,7 +44,7 @@ export default function Navbar() {
         { label: "Especialidades", href: "/#procedimentos", icon: Stethoscope },
         { label: "Onde Atendemos", href: "/#locations", icon: MapPin },
         { label: "Blog", href: "/#blog", icon: Newspaper },
-        // { label: "Depoimentos", href: "/#testimonials", icon: Star },
+        { label: "Depoimentos", href: "/#testimonials", icon: Star },
     ];
 
     return (

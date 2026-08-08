@@ -83,7 +83,7 @@ export default async function Home() {
       <ParallaxSection content={parallaxContent} />
       <CTA content={ctaContent} />
       <BlogSection content={blogContent} />
-      {/**  <TestimonialsSection content={testimonialsContent} />*/}
+      <TestimonialsSection content={testimonialsContent} />
       <Footer content={footerContent} />
     </main>
   );

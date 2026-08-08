@@ -11,6 +11,7 @@ import { getBlogContent } from "@/components/sections/blog/data/get-content";
 import { getProceduresContent } from "@/components/sections/procedures/data/get-content";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { getParallaxContent } from "@/components/sections/parallax/data/get-content";
+import { getTestimonialsContent } from "@/components/sections/testimonials/data/get-content";
 import ParallaxSection from "@/components/sections/parallax";
 import { env } from "@/env";
 
@@ -20,6 +21,10 @@ const About = dynamic(() => import("@/components/sections/about"), {
 
 const CityLocations = dynamic(() => import("@/components/sections/locations/city-locations"), {
     loading: () => <div className="min-h-[50vh] animate-pulse bg-white/5" />
+});
+
+const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), {
+    loading: () => <div className="min-h-[40vh] animate-pulse bg-white/5" />
 });
 
 const CTA = dynamic(() => import("@/components/sections/cta"), {
@@ -94,6 +99,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         ctaContent,
         insuranceContent,
         blogContent,
+        testimonialsContent,
         footerContent,
         parallaxContent
     ] = await Promise.all([
@@ -103,6 +109,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         getCTAContent(),
         getInsuranceContent(),
         getBlogContent(),
+        getTestimonialsContent(),
         getFooterContent(),
         getParallaxContent()
     ]);
@@ -229,10 +236,11 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 locations={cityLocations}
                 hospitals={insuranceContent.hospitals}
             />
-            <Procedures content={proceduresContent} />
             <CTA content={cityCtaContent} />
-            {/* <Insurance content={insuranceContent} />*/}
             <ParallaxSection content={parallaxContent} />
+            <TestimonialsSection content={testimonialsContent} />
+            {/* <Procedures content={proceduresContent} />*/}
+            {/* <Insurance content={insuranceContent} />*/}
             <Footer content={footerContent} />
         </main>
     );

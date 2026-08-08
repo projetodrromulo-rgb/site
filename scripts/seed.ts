@@ -903,6 +903,21 @@ async function main() {
 
         // 11. Seeding the Testimonials documents
         console.log("\n📦 Iniciando seeding dos depoimentos (testimonials)...");
+        console.log("🧹 Removendo referências de depoimentos antigos...");
+        try {
+            await writeClient.patch("testimonials-section-content").set({ testimonials: [] }).commit();
+        } catch (err: any) {
+            // Ignora se não existir
+        }
+
+        console.log("🧹 Removendo documentos de depoimentos antigos do Sanity...");
+        try {
+            await writeClient.delete({ query: '*[_type == "testimonial"]' });
+            console.log("✅ Depoimentos antigos removidos do Sanity.");
+        } catch (err: any) {
+            console.warn("⚠️ Aviso ao limpar depoimentos:", err.message || err);
+        }
+
         const testimonialRefs: any[] = [];
 
         for (const t of allTestimonials) {
