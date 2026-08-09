@@ -65,6 +65,24 @@ export const betimData: CityData = {
     "/images/dr_romulo_surgery_05.jpg"
   ],
   aboutOverride: {
-    subtitle: "Especialista em Coluna em Betim"
+    subtitle: "Atendimento Especializado em Betim",
+    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Betim",
+    paragraphs: [
+      "O Dr. Rômulo Oliveira atua como especialista em coluna atendendo pacientes de Betim e toda a região metropolitana, oferecendo medicina ortopédica de alta precisão para alívio de dores nas costas.",
+      "Com atendimentos no Hospital Mater Dei Betim e na Clínica Centra (Centro de Betim), disponibiliza estrutura moderna para consultas, infiltrações e cirurgias de coluna.",
+      "Especializado em cirurgia minimamente invasiva e tratamento preservador da musculatura, garante recuperação célere para pacientes com hérnia de disco e bico de papagaio em Betim."
+    ],
+    neighborhoods: [
+      "Centro de Betim",
+      "Duque de Caxias",
+      "Ingá",
+      "Nossa Senhora das Graças",
+      "Jardim da Cidade",
+      "PTB",
+      "Alvorada",
+      "Betim Industrial",
+      "Alterosas",
+      "Bueno Franco"
+    ]
   }
 };

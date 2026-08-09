@@ -60,6 +60,24 @@ export const pampulhaData: CityData = {
     "/images/dr_romulo_surgery_01.jpg"
   ],
   aboutOverride: {
-    subtitle: "Especialista em Coluna na Pampulha",
+    subtitle: "Ortopedista de Coluna na Pampulha",
+    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna na Pampulha",
+    paragraphs: [
+      "Com consultório localizado na Avenida Coronel José Dias Bicalho (Clínica NUMAI, bairro São Luiz/Pampulha), o Dr. Rômulo Oliveira é referência em ortopedia e cirurgia de coluna na região da Pampulha em BH.",
+      "Oferece diagnósticos precisos e tratamentos avançados para dor lombar, espondilolistese, hérnias de disco e dores cervicais.",
+      "Atendimento humanizado e próximo aos moradores da Pampulha, unindo infraestrutura de clínica boutique com excelência técnica."
+    ],
+    neighborhoods: [
+      "São Luiz",
+      "Jaraguá",
+      "Ouro Preto",
+      "Dona Clara",
+      "Castelo",
+      "Santa Amélia",
+      "Bandeirantes",
+      "Guarani",
+      "Itapoã",
+      "Planalto"
+    ]
   }
 };

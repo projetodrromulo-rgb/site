@@ -15,6 +15,30 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/cidades/:location',
+        destination: '/ortopedista-especialista-em-coluna/:location',
+        permanent: true,
+      },
+      {
+        source: '/cidades',
+        destination: '/ortopedista-especialista-em-coluna/belo-horizonte',
+        permanent: true,
+      },
+      {
+        source: '/cirurgia-minimamente-invasiva',
+        destination: '/procedimentos/cirurgia-minimamente-invasiva-de-coluna',
+        permanent: true,
+      },
+      {
+        source: '/tratamento-de-escoliose',
+        destination: '/procedimentos/tratamento-de-escoliose',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

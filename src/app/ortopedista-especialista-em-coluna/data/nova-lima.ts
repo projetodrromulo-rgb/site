@@ -60,6 +60,22 @@ export const novaLimaData: CityData = {
     "/images/dr_romulo_surgery_03.jpg"
   ],
   aboutOverride: {
-    subtitle: "Especialista em Coluna em Nova Lima",
+    subtitle: "Consultas de Coluna em Nova Lima",
+    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Nova Lima",
+    paragraphs: [
+      "Atendendo a região de Nova Lima e condomínios vizinhos, o Dr. Rômulo Oliveira proporciona cuidado ortopédico altamente especializado para hérnia de disco, dor cervical e patologias vertebrais.",
+      "Com atendimento de referência no Hospital Biocor (Rede D'Or) no Vila da Serra, oferece estrutura hospitalar de ponta para exames avançados e procedimentos cirúrgicos de precisão.",
+      "Sua atuação combina técnicas de última geração em cirurgia de coluna com protocolos de recuperação rápida focados no bem-estar do paciente."
+    ],
+    neighborhoods: [
+      "Vila da Serra",
+      "Vale do Sereno",
+      "Alphaville",
+      "Centro de Nova Lima",
+      "Jardim Canadá",
+      "Bosque da Ribeira",
+      "Quintas do Sol",
+      "Retiro das Pedras"
+    ]
   }
 };

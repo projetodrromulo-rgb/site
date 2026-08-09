@@ -111,6 +111,39 @@ export default function Footer({ content }: FooterProps) {
                     </div>
                 </div>
 
+                {/* Internal Link Silos (SEO Local por Cidade) */}
+                <div className="pt-8 mb-12 border-t border-accent/10">
+                    <h3 className="text-neutral-light text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <MapPin size={14} className="text-accent" />
+                        Atendimento Especializado por Cidade
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                        <a href="/ortopedista-especialista-em-coluna/belo-horizonte" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna em Belo Horizonte
+                        </a>
+                        <span className="text-neutral-light/20 text-xs">•</span>
+                        <a href="/ortopedista-especialista-em-coluna/betim" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna em Betim
+                        </a>
+                        <span className="text-neutral-light/20 text-xs">•</span>
+                        <a href="/ortopedista-especialista-em-coluna/contagem" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna em Contagem
+                        </a>
+                        <span className="text-neutral-light/20 text-xs">•</span>
+                        <a href="/ortopedista-especialista-em-coluna/nova-lima" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna em Nova Lima
+                        </a>
+                        <span className="text-neutral-light/20 text-xs">•</span>
+                        <a href="/ortopedista-especialista-em-coluna/vila-da-serra" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna no Vila da Serra
+                        </a>
+                        <span className="text-neutral-light/20 text-xs">•</span>
+                        <a href="/ortopedista-especialista-em-coluna/pampulha" className="text-neutral-light/60 hover:text-accent text-xs font-medium transition-colors">
+                            Ortopedista Especialista em Coluna na Pampulha
+                        </a>
+                    </div>
+                </div>
+
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-accent/10 flex flex-col gap-2">
                     <p className="text-neutral-light/40 text-[10px] uppercase tracking-[0.2em] font-medium text-center md:text-left leading-relaxed">

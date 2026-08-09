@@ -60,6 +60,24 @@ export const contagemData: CityData = {
     "/images/dr_romulo_surgery_02.jpg"
   ],
   aboutOverride: {
-    subtitle: "Especialista em Coluna em Contagem"
+    subtitle: "Atendimento Ortopédico em Contagem",
+    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Contagem",
+    paragraphs: [
+      "Para os moradores de Contagem que buscam tratamento especializado em dores da coluna e patologias vertebrais, o Dr. Rômulo Oliveira oferece consultas e procedimentos no CEOFE Contagem (Eldorado).",
+      "Combinando microcirurgia, endoscopia de coluna e técnicas minimamente invasivas, o Dr. Rômulo avalia detalhadamente cada queixa de dor lombar, nervo ciático e hérnia de disco.",
+      "Seu compromisso é proporcionar aos pacientes de Contagem um diagnóstico seguro e tratamentos modernos focado no retorno rápido à rotina de trabalho e lazer."
+    ],
+    neighborhoods: [
+      "Eldorado",
+      "Biguaçu",
+      "Riacho das Pedras",
+      "Cabral",
+      "Nossa Senhora do Carmo",
+      "Industrial",
+      "Novo Eldorado",
+      "Fonte Grande",
+      "Inconfidentes",
+      "Alvorada"
+    ]
   }
 };

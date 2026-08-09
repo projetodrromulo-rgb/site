@@ -15,8 +15,10 @@ export default function About({ content }: AboutProps) {
     const {
         subtitle,
         headline,
+        customH2Title,
         image,
         paragraphs,
+        neighborhoods,
         formation,
         features
     } = content;
@@ -28,13 +30,6 @@ export default function About({ content }: AboutProps) {
         bioRef,
         featuresRef
     } = useAbout();
-
-
-    const headlineNew = {
-        top: "Comprometido com sua",
-        highlight: "Saude e Bem Estar",
-    }
-
 
     return (
         <section
@@ -50,10 +45,16 @@ export default function About({ content }: AboutProps) {
                         className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-dark"
                     />
 
-                    <Title
-                        headline={headline}
-                        className="text-2xl md:text-3xl lg:text-4xl font-bold"
-                    />
+                    {customH2Title ? (
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-dark font-serif tracking-tight leading-snug max-w-4xl text-center drop-shadow-sm">
+                            {customH2Title}
+                        </h2>
+                    ) : (
+                        <Title
+                            headline={headline}
+                            className="text-2xl md:text-3xl lg:text-4xl font-bold"
+                        />
+                    )}
                 </header>
 
                 <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20 w-full">
@@ -63,15 +64,14 @@ export default function About({ content }: AboutProps) {
                         alt={image.alt}
                     />
 
-                    <article>
+                    <article className="flex-1">
                         <AboutBio
                             ref={bioRef}
                             paragraphs={paragraphs}
+                            neighborhoods={neighborhoods}
                             formation={formation}
                         />
                     </article>
-
-
                 </div>
             </div>
 
