@@ -1081,7 +1081,7 @@ async function main() {
                 "✅ Tratamento Moderno: Foco em abordagens conservadoras e cirurgias minimamente invasivas para uma recuperação segura.",
                 "✅ Local de Atendimento: {{clinicName}}."
             ],
-            ctaTitleTemplate: "Precisa de uma avaliação médica especializada?",
+            ctaTitleTemplate: "Precisando de um médico especialista em coluna {{locationPrefix}}?",
             ctaDescriptionTemplate: "Agende sua consulta com um especialista em coluna {{locationPrefix}} e dê o primeiro passo para o seu tratamento adequado.",
             heroDescriptionTemplate: "Médico Ortopedista Especialista em Coluna {{locationPrefix}}. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado. Avaliações disponíveis {{clinicName}}.",
             heroCtaTextTemplate: "Agendar Consulta {{locationPrefix}}"

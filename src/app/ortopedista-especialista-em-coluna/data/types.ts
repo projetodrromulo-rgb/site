@@ -39,4 +39,14 @@ export interface CityData {
     title?: string;
     description?: string;
   };
+  conditionsTitle?: string;
+  conditions?: Array<{
+    title: string;
+    description: string;
+  }>;
+  faqsTitle?: string;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
 }

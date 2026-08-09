@@ -24,11 +24,17 @@ export async function getAllLocationSlugs(): Promise<string[]> {
     return Object.keys(citiesData);
 }
 
-function replacePlaceholders(text: string, prefix: string, clinic: string): string {
+function replacePlaceholders(text: string, prefix: string, clinic: string, cityName?: string): string {
     if (!text) return "";
-    return text
+    let result = text
         .replace(/\{\{locationPrefix\}\}/g, prefix)
         .replace(/\{\{clinicName\}\}/g, clinic);
+    if (cityName) {
+        result = result
+            .replace(/\{\{cityName\}\}/g, cityName)
+            .replace(/\{Cidade\}/g, cityName);
+    }
+    return result;
 }
 
 function resolveParagraphs(paragraphs: string[] | undefined, prefix: string, clinic: string, fallbackTemplate: string[]): string[] {
@@ -48,7 +54,7 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
             "✅ Tratamento Moderno: Foco em abordagens conservadoras e cirurgias minimamente invasivas para uma recuperação segura.",
             "✅ Local de Atendimento: {{clinicName}}."
         ],
-        ctaTitleTemplate: "Precisa de uma avaliação médica especializada?",
+        ctaTitleTemplate: "Precisando de um médico especialista em coluna {{locationPrefix}}?",
         ctaDescriptionTemplate: "Agende sua consulta com um especialista em coluna {{locationPrefix}} e dê o primeiro passo para o seu tratamento adequado.",
         heroDescriptionTemplate: "Médico Ortopedista Especialista em Coluna {{locationPrefix}}. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado. Avaliações disponíveis {{clinicName}}.",
         heroCtaTextTemplate: "Agendar Consulta {{locationPrefix}}"
@@ -63,8 +69,8 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 ...localData,
                 heroContent: {
                     ...localData.heroContent,
-                    description: localData.heroContent.description || replacePlaceholders(defaultSettings.heroDescriptionTemplate, prefix, clinic),
-                    ctaText: localData.heroContent.ctaText || replacePlaceholders(defaultSettings.heroCtaTextTemplate, prefix, clinic)
+                    description: localData.heroContent.description || replacePlaceholders(defaultSettings.heroDescriptionTemplate, prefix, clinic, localData.name),
+                    ctaText: localData.heroContent.ctaText || replacePlaceholders(defaultSettings.heroCtaTextTemplate, prefix, clinic, localData.name)
                 },
                 aboutOverride: {
                     ...localData.aboutOverride,
@@ -72,8 +78,8 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 },
                 ctaOverride: {
                     ...localData.ctaOverride,
-                    title: localData.ctaOverride?.title || defaultSettings.ctaTitleTemplate,
-                    description: localData.ctaOverride?.description || replacePlaceholders(defaultSettings.ctaDescriptionTemplate, prefix, clinic)
+                    title: localData.ctaOverride?.title || replacePlaceholders(defaultSettings.ctaTitleTemplate, prefix, clinic, localData.name),
+                    description: localData.ctaOverride?.description || replacePlaceholders(defaultSettings.ctaDescriptionTemplate, prefix, clinic, localData.name)
                 }
             } as CityData;
         }
@@ -132,6 +138,7 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
             const settings = data.settings || defaultSettings;
             const prefix = page.locationPrefix || localData?.locationPrefix || "";
             const clinic = page.clinicName || localData?.clinicName || "";
+            const cityName = page.name || localData?.name;
 
             return {
                 slug: page.slug || localData?.slug,
@@ -148,8 +155,8 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                         textBottom: page.heroContent?.headline?.textBottom || localData?.heroContent.headline.textBottom || "",
                         styles: localData?.heroContent.headline.styles || {}
                     },
-                    description: page.heroContent?.description || replacePlaceholders(settings.heroDescriptionTemplate || defaultSettings.heroDescriptionTemplate, prefix, clinic),
-                    ctaText: page.heroContent?.ctaText || replacePlaceholders(settings.heroCtaTextTemplate || defaultSettings.heroCtaTextTemplate, prefix, clinic),
+                    description: page.heroContent?.description || replacePlaceholders(settings.heroDescriptionTemplate || defaultSettings.heroDescriptionTemplate, prefix, clinic, cityName),
+                    ctaText: page.heroContent?.ctaText || replacePlaceholders(settings.heroCtaTextTemplate || defaultSettings.heroCtaTextTemplate, prefix, clinic, cityName),
                 },
                 bgImages: page.bgImages && page.bgImages.length > 0 ? page.bgImages : localData?.bgImages,
                 aboutOverride: {
@@ -157,8 +164,8 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                     paragraphs: resolveParagraphs(page.aboutOverride?.paragraphs, prefix, clinic, settings.aboutParagraphsTemplate || defaultSettings.aboutParagraphsTemplate)
                 },
                 ctaOverride: {
-                    title: page.ctaOverride?.title || settings.ctaTitleTemplate || defaultSettings.ctaTitleTemplate,
-                    description: page.ctaOverride?.description || replacePlaceholders(settings.ctaDescriptionTemplate || defaultSettings.ctaDescriptionTemplate, prefix, clinic)
+                    title: page.ctaOverride?.title || replacePlaceholders(settings.ctaTitleTemplate || defaultSettings.ctaTitleTemplate, prefix, clinic, cityName),
+                    description: page.ctaOverride?.description || replacePlaceholders(settings.ctaDescriptionTemplate || defaultSettings.ctaDescriptionTemplate, prefix, clinic, cityName)
                 },
                 address: page.address || localData?.address,
                 geo: page.geo || localData?.geo,

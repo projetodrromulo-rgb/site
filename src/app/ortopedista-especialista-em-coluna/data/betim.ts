@@ -84,5 +84,27 @@ export const betimData: CityData = {
       "Alterosas",
       "Bueno Franco"
     ]
-  }
+  },
+  conditionsTitle: "Tratamentos e Condições da Coluna em Betim",
+  conditions: [
+    {
+      title: "Hérnia de Disco em Betim",
+      description: "Tratamento especializado para deslocamentos de discos vertebrais e dores ciáticas irradiadas, priorizando a cirurgia minimamente invasiva e endoscopia de coluna."
+    },
+    {
+      title: "Dor Lombar e Cervical",
+      description: "Avaliação completa para dores crônicas ou agudas nas costas, com plano terapêutico focado na causa do problema."
+    }
+  ],
+  faqsTitle: "Perguntas Frequentes sobre Atendimento em Betim",
+  faqs: [
+    {
+      question: "Onde fica o consultório do Dr. Rômulo em Betim?",
+      answer: "O atendimento em Betim ocorre no Hospital Mater Dei Betim (Via Expressa, 15500) e na Clínica Centra (Rua Inconfidência, 488 - Centro)."
+    },
+    {
+      question: "Como agendar uma consulta em Betim?",
+      answer: "Você pode solicitar o agendamento diretamente pelo WhatsApp do consultório, escolhendo a unidade de sua preferência."
+    }
+  ]
 };

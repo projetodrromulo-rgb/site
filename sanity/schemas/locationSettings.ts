@@ -16,7 +16,7 @@ export const locationSettingsType = defineType({
             name: "ctaTitleTemplate",
             title: "Template - Título do CTA",
             type: "string",
-            description: "Use as variáveis se desejar, ex: 'Precisa de uma avaliação médica especializada?'"
+            description: "Use as variáveis se desejar, ex: 'Precisando de um médico especialista em coluna {{locationPrefix}}?'"
         }),
         defineField({
             name: "ctaDescriptionTemplate",

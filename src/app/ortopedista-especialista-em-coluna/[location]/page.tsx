@@ -124,13 +124,11 @@ export default async function CityPage({ params }: { params: Promise<{ location:
     };
 
     // Merge city-specific cta override
-    const cityCtaContent = data.ctaOverride
-        ? {
-            ...ctaContent,
-            ...(data.ctaOverride.title && { headline: data.ctaOverride.title }),
-            ...(data.ctaOverride.description && { description: data.ctaOverride.description }),
-        }
-        : ctaContent;
+    const cityCtaContent = {
+        ...ctaContent,
+        headline: data.ctaOverride?.title || `Precisando de um médico especialista em coluna em ${data.name}?`,
+        ...(data.ctaOverride?.description && { description: data.ctaOverride.description }),
+    };
 
     const whatsAppNumber = env().whatsAppNumber;
 
@@ -269,13 +267,12 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 bgImages={data.bgImages}
                 trustLocations={data.locations}
             />
-            <About content={cityAboutContent} />
+            <CTA content={cityCtaContent} />
             <CityLocations
                 cityName={data.name}
                 locations={cityLocations}
                 hospitals={insuranceContent.hospitals}
             />
-            <CTA content={cityCtaContent} />
             <ParallaxSection content={parallaxContent} />
             <TestimonialsSection content={testimonialsContent} />
             {/* <Procedures content={proceduresContent} />*/}

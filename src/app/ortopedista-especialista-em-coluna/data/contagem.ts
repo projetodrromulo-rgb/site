@@ -79,5 +79,27 @@ export const contagemData: CityData = {
       "Inconfidentes",
       "Alvorada"
     ]
-  }
+  },
+  conditionsTitle: "Tratamentos e Condições da Coluna em Contagem",
+  conditions: [
+    {
+      title: "Hérnia de Disco em Contagem",
+      description: "Diagnóstico preciso e tratamento individualizado para compressão de nervo ciático e hérnias vertebrais no bairro Eldorado."
+    },
+    {
+      title: "Dor Lombar e Cervicalgia",
+      description: "Abordagem especializada para dores nas costas e limitação de movimento com foco em técnicas preservadoras da coluna."
+    }
+  ],
+  faqsTitle: "Perguntas Frequentes sobre Atendimento em Contagem",
+  faqs: [
+    {
+      question: "Onde fica o consultório do Dr. Rômulo em Contagem?",
+      answer: "O atendimento ocorre no CEOFE Contagem, localizado na Av. José Faria da Rocha, 4458, no bairro Eldorado."
+    },
+    {
+      question: "Como agendar uma consulta em Contagem?",
+      answer: "O agendamento pode ser feito de forma prática via WhatsApp."
+    }
+  ]
 };
