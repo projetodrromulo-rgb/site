@@ -92,11 +92,23 @@ export const pampulhaData: CityData = {
     },
     {
       question: "O Dr. Rômulo atende pacientes de bairros vizinhos da Pampulha?",
-      answer: "Sim, atendemos com frequência moradores de São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto e de toda a região norte de Belo Horizonte."
+      answer: "Sim! Atendemos com frequência moradores de São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto, Guarani, Itapoã e de toda a região da Pampulha e Norte de BH."
     },
     {
       question: "Como agendar consulta na unidade da Pampulha?",
       answer: "Você pode agendar sua consulta diretamente pelo WhatsApp de atendimento do consultório."
+    },
+    {
+      question: "Como é o acesso e estacionamento na Clínica NUMAI na Pampulha?",
+      answer: "A Clínica NUMAI está situada em local tranquilo no bairro São Luiz, próxima ao Mineirinho e UFMG, com facilidade para estacionar e desembarcar pacientes com dor nas costas."
+    },
+    {
+      question: "É possível tratar dor no nervo ciático na unidade da Pampulha?",
+      answer: "Sim! O Dr. Rômulo realiza avaliação clínica minuciosa da dor ciática e encaminha exames de imagem ou procedimentos conforme a necessidade de cada paciente."
+    },
+    {
+      question: "Quais são os horários de atendimento do consultório na Pampulha?",
+      answer: "Os atendimentos ocorrem mediante agendamento prévio. Entre em contato via WhatsApp para consultar os horários e dias disponíveis nesta semana."
     }
   ]
 };

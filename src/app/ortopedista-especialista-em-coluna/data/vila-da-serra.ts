@@ -89,11 +89,23 @@ export const vilaDaSerraData: CityData = {
     },
     {
       question: "Pacientes do Belvedere e Vale do Sereno também são atendidos no Biocor?",
-      answer: "Sim, a localização no Vila da Serra é estratégica e com acesso rápido para moradores do Belvedere, Vale do Sereno e Seis Pistas."
+      answer: "Sim! A localização no Vila da Serra é estratégica e oferece acesso muito rápido para moradores do Belvedere, Vale do Sereno, Alameda da Serra e Seis Pistas."
     },
     {
       question: "Como solicitar agendamento no Hospital Biocor?",
       answer: "Basta entrar em contato via WhatsApp e informar a preferência de atendimento na unidade Biocor / Vila da Serra."
+    },
+    {
+      question: "A cirurgia de hérnia de disco por endoscopia é realizada no Hospital Biocor?",
+      answer: "Sim! A endoscopia de coluna é realizada no Hospital Biocor (Rede D'Or) com câmara de vídeo de alta definição, incisão de milímetros e rápida alta hospitalar."
+    },
+    {
+      question: "Quais planos de saúde cobrem os atendimentos no Vila da Serra?",
+      answer: "No Hospital Biocor são aceitos diversos planos como Bradesco Saúde, Amil, SulAmérica, Porto Seguro, Care Plus, Allianz, Copasa, Cemig Saúde, Unimed Seguros, entre outros."
+    },
+    {
+      question: "Posso solicitar reembolso de consulta particular no Vila da Serra pelo meu convênio?",
+      answer: "Sim! O consultório disponibiliza toda a documentação necessária (relatório médico e nota fiscal) para você solicitar o reembolso da consulta junto ao seu plano de saúde."
     }
   ]
 };

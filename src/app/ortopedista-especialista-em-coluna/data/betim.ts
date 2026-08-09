@@ -100,11 +100,31 @@ export const betimData: CityData = {
   faqs: [
     {
       question: "Onde fica o consultório do Dr. Rômulo em Betim?",
-      answer: "O atendimento em Betim ocorre no Hospital Mater Dei Betim (Via Expressa, 15500) e na Clínica Centra (Rua Inconfidência, 488 - Centro)."
+      answer: "O atendimento em Betim ocorre no Hospital Mater Dei Betim (Via Expressa de Betim, 15500 - Duque de Caxias) e na Clínica Centra (Rua Inconfidência, 488, 3º Andar - Centro)."
     },
     {
-      question: "Como agendar uma consulta em Betim?",
-      answer: "Você pode solicitar o agendamento diretamente pelo WhatsApp do consultório, escolhendo a unidade de sua preferência."
+      question: "Quais convênios são aceitos nas unidades de Betim?",
+      answer: "Atendemos diversos convênios como Amil, Bradesco Saúde, SulAmérica, Saúde Caixa, Copasa, Cemig Saúde, Unimed, entre outros, além de atendimentos particulares."
+    },
+    {
+      question: "O Dr. Rômulo realiza cirurgias de coluna em Betim?",
+      answer: "Sim! Cirurgias minimamente invasivas, endoscopia de coluna e tratamentos de hérnia de disco são realizados na infraestrutura de ponta do Hospital Mater Dei Betim."
+    },
+    {
+      question: "Como agendar uma consulta com especialista em coluna em Betim?",
+      answer: "O agendamento é simples e rápido. Você pode clicar no botão do WhatsApp nesta página para falar diretamente com nossa equipe de atendimento."
+    },
+    {
+      question: "O Dr. Rômulo realiza infiltrações e bloqueios para dor na coluna em Betim?",
+      answer: "Sim! Procedimentos de infiltração articular e bloqueios anestésicos guiados por imagem são realizados no Hospital Mater Dei Betim para alívio rápido e seguro de dores agudas."
+    },
+    {
+      question: "Moradores de bairros afastados do centro de Betim também são atendidos?",
+      answer: "Com certeza! Atendemos diariamente pacientes do Centro, Ingá, Duque de Caxias, Jardim da Cidade, PTB, Alterosas, Bueno Franco, Citrolândia e toda a região metropolitana."
+    },
+    {
+      question: "Qual a vantagem da cirurgia de coluna minimamente invasiva em Betim?",
+      answer: "A cirurgia minimamente invasiva (como a endoscopia vertebral) utiliza cortes milimétricos, reduz o sangramento, preserva os músculos da coluna e permite alta no mesmo dia no Hospital Mater Dei Betim."
     }
   ]
 };

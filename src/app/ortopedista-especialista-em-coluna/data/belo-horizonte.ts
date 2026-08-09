@@ -111,20 +111,28 @@ export const beloHorizonteData: CityData = {
       answer: "O atendimento na capital ocorre na Clínica NUMAI (Avenida Coronel José Dias Bicalho, 928 - São Luiz/Pampulha) e na Clínica Elcenter (Rua Alcindo Vieira, 305 - Barreiro), facilitando o acesso para pacientes de diferentes regiões da cidade."
     },
     {
-      question: "Preciso de indicação médica para agendar uma consulta?",
-      answer: "Não, você pode agendar diretamente pelo WhatsApp informando seus sintomas para que a equipe oriente sobre exames prévios, se necessário."
+      question: "Preciso de indicação médica para agendar uma consulta em BH?",
+      answer: "Não. Você pode agendar diretamente pelo WhatsApp informando seus sintomas para que nossa equipe acolha e oriente sobre o atendimento presencial."
     },
     {
-      question: "Toda hérnia de disco precisa de cirurgia?",
-      answer: "Não. A maioria dos casos responde bem a tratamento conservador. A cirurgia é indicada apenas quando há falha do tratamento clínico ou sinais de comprometimento neurológico."
+      question: "Toda hérnia de disco precisa de cirurgia em Belo Horizonte?",
+      answer: "Não! A grande maioria dos casos responde muito bem ao tratamento conservador com medicação e fisioterapia. A cirurgia de coluna é indicada apenas quando há falha do tratamento clínico ou déficit neurológico."
     },
     {
       question: "Quanto tempo dura a recuperação de uma cirurgia minimamente invasiva de coluna?",
-      answer: "Varia conforme o procedimento e o paciente, mas em geral é significativamente mais rápida do que a cirurgia aberta tradicional, sendo avaliada individualmente na consulta."
+      answer: "Por ser um procedimento com incisões mínimas e preservação muscular, a recuperação costuma ser muito mais rápida do que a cirurgia tradicional, permitindo alta no mesmo dia ou em até 24 horas na maioria dos casos."
     },
     {
       question: "Quais convênios são aceitos nas unidades de Belo Horizonte?",
-      answer: "Isso varia por unidade; a forma mais rápida de confirmar é consultar diretamente pelo WhatsApp informando seu convênio."
+      answer: "Atendemos diversos planos de saúde como Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde, Unimed, além de consultas particulares com reembolso."
+    },
+    {
+      question: "O Dr. Rômulo atende casos de emergência ou crise de dor na coluna em BH?",
+      answer: "Sim! Para pacientes em crise aguda de dor lombar ou dor ciática intensa, recomendamos entrar em contato via WhatsApp para verificar o encaixe mais rápido possível."
+    },
+    {
+      question: "Quais exames devo levar na primeira consulta com o especialista em coluna?",
+      answer: "É recomendado levar todos os exames recentes que você possuir, como radiografias (raio-X), ressonância magnética ou tomografia da coluna, além de relatórios de tratamentos anteriores."
     }
   ]
 };

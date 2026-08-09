@@ -108,6 +108,18 @@ export const contagemData: CityData = {
     {
       question: "Como agendar uma consulta com o especialista em coluna em Contagem?",
       answer: "O agendamento pode ser feito diretamente via WhatsApp com rápida resposta da nossa equipe."
+    },
+    {
+      question: "Pacientes dos bairros Eldorado, Riacho e Cabral possuem fácil acesso ao consultório em Contagem?",
+      answer: "Sim! O CEOFE está localizado em ponto nobre do Eldorado (Av. José Faria da Rocha), com fácil acesso de transporte público, carros por aplicativo e amplo estacionamento nas proximidades."
+    },
+    {
+      question: "É possível tratar hérnia de disco no CEOFE em Contagem sem cirurgia?",
+      answer: "Sim! A maioria dos casos de hérnia de disco responde muito bem a tratamentos conservadores, como medicações específicas, bloqueios para dor e fisioterapia direcionada."
+    },
+    {
+      question: "O Dr. Rômulo realiza cirurgia minimamente invasiva em pacientes de Contagem?",
+      answer: "Sim! Quando há indicação cirúrgica, os procedimentos minimamente invasivos (como descompressão endoscópica) são agendados na estrutura hospitalar credenciada com total segurança."
     }
   ]
 };

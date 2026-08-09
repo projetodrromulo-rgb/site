@@ -95,6 +95,18 @@ export const novaLimaData: CityData = {
     {
       question: "Como posso agendar uma consulta em Nova Lima?",
       answer: "Você pode solicitar o agendamento de forma simples pelo WhatsApp oficial do consultório."
+    },
+    {
+      question: "Moradores de condomínios como Alphaville, Vale do Sereno e Jardim Canadá têm facilidade de acesso?",
+      answer: "Sim! O Hospital Biocor fica estrategicamente localizado no Vila da Serra/Nova Lima, facilitando o deslocamento sem necessidade de enfrentar o trânsito do centro de BH."
+    },
+    {
+      question: "O Dr. Rômulo trata dor cervical, lombalgia e ciática em Nova Lima?",
+      answer: "Sim! É realizada avaliação minuciosa para hérnias de disco cervicais e lombares, espondilolistese, estenose de canal e dores crônicas na coluna."
+    },
+    {
+      question: "O Hospital Biocor possui suporte para exames de imagem de urgência?",
+      answer: "Sim! O Hospital Biocor (Rede D'Or) conta com tomografia, ressonância magnética de alta definição e toda a infraestrutura hospitalar de ponta."
     }
   ]
 };
