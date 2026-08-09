@@ -136,7 +136,7 @@ export default function CityHero({
     return (
         <section
             ref={containerRef}
-            className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 overflow-hidden bg-primary-dark"
+            className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-primary-dark"
         >
             {/* Background Slideshow */}
             <div
@@ -195,7 +195,7 @@ export default function CityHero({
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-start pt-28 pb-32">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-start pt-28 pb-32">
                 <div
                     ref={contentRef}
                     className="flex flex-col items-start text-left space-y-6 max-w-2xl"

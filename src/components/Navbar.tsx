@@ -129,7 +129,7 @@ export default function Navbar() {
                         : "bg-transparent py-4"
                     }`}
             >
-                <div className="w-full px-6 md:px-12 lg:px-20 flex items-center justify-between">
+                <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
                     {/* Logo Section */}
                     <Link href="/" aria-label="Ir para a página inicial">
                         <Logo
