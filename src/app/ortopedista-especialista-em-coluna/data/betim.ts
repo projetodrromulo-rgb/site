@@ -34,7 +34,7 @@ export const betimData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    },
+  },
   locationPrefix: "em Betim",
   clinicName: "no Hospital Mater Dei Betim e na Clínica Centra",
   address: {
