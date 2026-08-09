@@ -76,5 +76,24 @@ export const vilaDaSerraData: CityData = {
       "Alameda da Serra",
       "Nova Lima"
     ]
-  }
+  },
+  faqsTitle: "Perguntas Frequentes sobre Atendimento no Vila da Serra",
+  faqs: [
+    {
+      question: "Onde o Dr. Rômulo atende no bairro Vila da Serra?",
+      answer: "Os atendimentos no Vila da Serra são realizados no Hospital Biocor - Rede D'Or, localizado na Rua da Paisagem, 290."
+    },
+    {
+      question: "Quais são os principais tratamentos realizados no Vila da Serra?",
+      answer: "Consultas especializadas, infiltrações e bloqueios de dor na coluna, descompressão nervosa, cirurgia endoscópica de hérnia de disco e procedimentos minimamente invasivos."
+    },
+    {
+      question: "Pacientes do Belvedere e Vale do Sereno também são atendidos no Biocor?",
+      answer: "Sim, a localização no Vila da Serra é estratégica e com acesso rápido para moradores do Belvedere, Vale do Sereno e Seis Pistas."
+    },
+    {
+      question: "Como solicitar agendamento no Hospital Biocor?",
+      answer: "Basta entrar em contato via WhatsApp e informar a preferência de atendimento na unidade Biocor / Vila da Serra."
+    }
+  ]
 };

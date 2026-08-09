@@ -1134,7 +1134,9 @@ async function main() {
                 ctaOverride: city.ctaOverride,
                 address: city.address,
                 geo: city.geo,
-                locations: city.locations
+                locations: city.locations,
+                faqsTitle: city.faqsTitle,
+                faqs: city.faqs
             };
 
             await writeClient.createOrReplace(locPageDoc);

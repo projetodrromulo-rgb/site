@@ -95,11 +95,19 @@ export const contagemData: CityData = {
   faqs: [
     {
       question: "Onde fica o consultório do Dr. Rômulo em Contagem?",
-      answer: "O atendimento ocorre no CEOFE Contagem, localizado na Av. José Faria da Rocha, 4458, no bairro Eldorado."
+      answer: "O atendimento em Contagem é realizado no CEOFE (Centro de Ortopedia e Fraturas Eldorado), localizado na Av. José Faria da Rocha, 4458 - bairro Eldorado."
     },
     {
-      question: "Como agendar uma consulta em Contagem?",
-      answer: "O agendamento pode ser feito de forma prática via WhatsApp."
+      question: "Quais convênios são aceitos no CEOFE Contagem?",
+      answer: "São aceitos convênios como Bradesco Saúde, Amil, Saúde Caixa, SulAmérica, Copasa, Cemig Saúde, Itaú, Usisaúde, Vale, Unimed, além de atendimentos particulares."
+    },
+    {
+      question: "Quais condições da coluna são tratadas em Contagem?",
+      answer: "Hérnias de disco, dor ciática, estenose do canal vertebral, lombalgias agudas e crônicas, espondilolistese e dores cervicais."
+    },
+    {
+      question: "Como agendar uma consulta com o especialista em coluna em Contagem?",
+      answer: "O agendamento pode ser feito diretamente via WhatsApp com rápida resposta da nossa equipe."
     }
   ]
 };

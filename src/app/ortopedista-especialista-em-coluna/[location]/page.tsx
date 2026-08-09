@@ -31,6 +31,10 @@ const CTA = dynamic(() => import("@/components/sections/cta"), {
     loading: () => <div className="min-h-[30vh] animate-pulse bg-white/5" />
 });
 
+const CityFaqSection = dynamic(() => import("@/components/sections/faq"), {
+    loading: () => <div className="min-h-[30vh] animate-pulse bg-white/5" />
+});
+
 const Insurance = dynamic(() => import("@/components/sections/insurance").then(m => m.Insurance), {
     loading: () => <div className="min-h-[20vh] animate-pulse bg-white/5" />
 });
@@ -275,6 +279,14 @@ export default async function CityPage({ params }: { params: Promise<{ location:
             />
             <ParallaxSection content={parallaxContent} />
             <TestimonialsSection content={testimonialsContent} />
+            <CityFaqSection
+                content={{
+                    title: data.faqsTitle || `Perguntas Frequentes sobre Atendimento em ${data.name}`,
+                    faqs: data.faqs || [],
+                    cityName: data.name,
+                    whatsAppNumber
+                }}
+            />
             {/* <Procedures content={proceduresContent} />*/}
             {/* <Insurance content={insuranceContent} />*/}
             <Footer content={footerContent} />

@@ -126,6 +126,11 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                     name,
                     streetAddress,
                     telephone
+                },
+                faqsTitle,
+                faqs[] {
+                    question,
+                    answer
                 }
             },
             "settings": *[_type == "locationSettings"][0]
@@ -169,7 +174,9 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 },
                 address: page.address || localData?.address,
                 geo: page.geo || localData?.geo,
-                locations: page.locations && page.locations.length > 0 ? page.locations : localData?.locations
+                locations: page.locations && page.locations.length > 0 ? page.locations : localData?.locations,
+                faqsTitle: page.faqsTitle || localData?.faqsTitle || `Perguntas Frequentes sobre Atendimento ${prefix}`,
+                faqs: (page.faqs && page.faqs.length > 0) ? page.faqs : localData?.faqs
             } as CityData;
         }
     } catch (error) {

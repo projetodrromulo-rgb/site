@@ -136,6 +136,25 @@ export const locationPageType = defineType({
                     ]
                 }
             ]
+        }),
+        defineField({
+            name: "faqsTitle",
+            title: "Título das Perguntas Frequentes (FAQ)",
+            type: "string"
+        }),
+        defineField({
+            name: "faqs",
+            title: "Perguntas Frequentes (FAQ)",
+            type: "array",
+            of: [
+                {
+                    type: "object",
+                    fields: [
+                        defineField({ name: "question", title: "Pergunta", type: "string", validation: (Rule) => Rule.required() }),
+                        defineField({ name: "answer", title: "Resposta", type: "text", rows: 3, validation: (Rule) => Rule.required() })
+                    ]
+                }
+            ]
         })
     ]
 });

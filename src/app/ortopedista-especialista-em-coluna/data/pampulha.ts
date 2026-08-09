@@ -79,5 +79,24 @@ export const pampulhaData: CityData = {
       "Itapoã",
       "Planalto"
     ]
-  }
+  },
+  faqsTitle: "Perguntas Frequentes sobre Atendimento na Pampulha",
+  faqs: [
+    {
+      question: "Onde fica a clínica de atendimento na Pampulha?",
+      answer: "O atendimento na Pampulha é realizado na Clínica NUMAI, localizada na Av. Coronel José Dias Bicalho, 928 - bairro São Luiz/Pampulha, com fácil estacionamento e acesso rápido."
+    },
+    {
+      question: "Quais convênios são aceitos na Clínica NUMAI na Pampulha?",
+      answer: "Na Clínica NUMAI são aceitos planos como Amil, Cassi, Copasa, Cemig Saúde, Fundação Fiat, Fundação Libertas, SulAmérica, Usisaúde, Vale e Unimed Seguros, além de consultas particulares."
+    },
+    {
+      question: "O Dr. Rômulo atende pacientes de bairros vizinhos da Pampulha?",
+      answer: "Sim, atendemos com frequência moradores de São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto e de toda a região norte de Belo Horizonte."
+    },
+    {
+      question: "Como agendar consulta na unidade da Pampulha?",
+      answer: "Você pode agendar sua consulta diretamente pelo WhatsApp de atendimento do consultório."
+    }
+  ]
 };

@@ -77,5 +77,24 @@ export const novaLimaData: CityData = {
       "Quintas do Sol",
       "Retiro das Pedras"
     ]
-  }
+  },
+  faqsTitle: "Perguntas Frequentes sobre Atendimento em Nova Lima",
+  faqs: [
+    {
+      question: "Onde o Dr. Rômulo realiza atendimentos em Nova Lima?",
+      answer: "O atendimento ocorre no Hospital Biocor - Rede D'Or (Rua da Paisagem, 290 - Vila da Serra / Nova Lima), oferecendo fácil acesso para residentes de Nova Lima, Vale do Sereno e condomínios."
+    },
+    {
+      question: "Quais convênios são aceitos no Hospital Biocor em Nova Lima?",
+      answer: "São aceitos diversos convênios como Bradesco Saúde, Amil, SulAmérica, Porto Seguro, Care Plus, Allianz, Copasa, Cemig Saúde, Unimed Seguros, entre outros, além de plano particular."
+    },
+    {
+      question: "Como funciona a avaliação para cirurgia minimamente invasiva em Nova Lima?",
+      answer: "Na consulta presencial no Hospital Biocor, o Dr. Rômulo analisa os exames de imagem e o histórico do paciente para indicar o tratamento mais moderno e menos invasivo possível."
+    },
+    {
+      question: "Como posso agendar uma consulta em Nova Lima?",
+      answer: "Você pode solicitar o agendamento de forma simples pelo WhatsApp oficial do consultório."
+    }
+  ]
 };
