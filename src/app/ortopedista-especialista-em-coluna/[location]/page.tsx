@@ -143,8 +143,16 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "description": data.metaDescription,
         "url": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
         "telephone": "+5531999675665",
-        "medicalSpecialty": "OrthopedicSurgery",
+        "medicalSpecialty": ["Orthopedic", "SpineSurgery"],
         "priceRange": "$$$",
+        "areaServed": {
+            "@type": "City",
+            "name": data.name,
+            "containedInPlace": {
+                "@type": "AdministrativeArea",
+                "name": "Minas Gerais"
+            }
+        },
         "address": {
             "@type": "PostalAddress",
             "streetAddress": data.address?.streetAddress || "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
@@ -168,11 +176,12 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Tratamentos de Coluna",
+            "name": `Tratamentos de Coluna em ${data.name}`,
             "itemListElement": [
                 { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cirurgia de Coluna Minimamente Invasiva" } },
                 { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Endoscopia de Coluna" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": `Tratamento de Hérnia de Disco em ${data.name}` } }
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": `Tratamento de Hérnia de Disco em ${data.name}` } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": `Consulta com Ortopedista de Coluna em ${data.name}` } }
             ]
         },
         "location": data.locations ? data.locations.map(loc => ({
@@ -216,11 +225,40 @@ export default async function CityPage({ params }: { params: Promise<{ location:
             image: u.image
         }));
 
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Início",
+                "item": "https://www.drromulocoluna.com.br"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Ortopedista Especialista em Coluna",
+                "item": "https://www.drromulocoluna.com.br/#sobre"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": data.name,
+                "item": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`
+            }
+        ]
+    };
+
     return (
         <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <CityHero
                 cityName={data.name}

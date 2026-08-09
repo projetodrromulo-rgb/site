@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
+import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { MapPin, Phone, ShieldCheck, Star } from "lucide-react";
 
 const SLIDE_DURATION = 6;   // seconds each image stays
@@ -199,6 +200,15 @@ export default function CityHero({
                     ref={contentRef}
                     className="flex flex-col items-start text-left space-y-6 max-w-2xl"
                 >
+                    {/* Breadcrumb Navigation */}
+                    <Breadcrumb
+                        items={[
+                            { label: "Início", href: "/" },
+                            { label: "Especialista em Coluna", href: "/#sobre" },
+                            { label: cityName }
+                        ]}
+                    />
+
                     {/* Location Badge */}
                     <div className="flex items-center gap-2 bg-accent/15 border border-accent/30 backdrop-blur-sm px-4 py-2 rounded-full">
                         <MapPin size={14} className="text-accent shrink-0" />
