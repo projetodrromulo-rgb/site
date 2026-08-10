@@ -50,27 +50,7 @@ export default function ProcedurePageClient({ procedure, footerContent }: Proced
 
     return (
         <div className="min-h-screen bg-[#0A192F] text-white flex flex-col font-sans selection:bg-[#0db9f2]/30">
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F]/95 backdrop-blur-md border-b border-white/5">
-                <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
-                    <Link href="/#procedimentos" className="text-[#0db9f2] flex items-center gap-2 px-4 py-2 hover:bg-white/10 rounded-xl transition-all active:scale-95 group">
-                        <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-bold uppercase tracking-wider hidden md:block">Voltar</span>
-                    </Link>
-
-                    <Link href="/" className="flex-1 flex justify-center">
-                        <Logo
-                            logoImage={logoData}
-                            scrolled={true}
-                            className="scale-75 md:scale-90"
-                        />
-                    </Link>
-
-                    <div className="flex w-24 items-center justify-end">
-                    </div>
-                </div>
-            </header>
-
-            <main className="flex-1 container mx-auto px-6 pt-32 pb-24 md:pt-48 max-w-6xl">
+            <main className="flex-1 container mx-auto px-6 pt-28 pb-24 md:pt-36 max-w-6xl">
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                     {/* Background Image for Mobile */}
                     <div className="lg:hidden absolute inset-0 -mx-6 -my-12 overflow-hidden pointer-events-none max-h-screen">

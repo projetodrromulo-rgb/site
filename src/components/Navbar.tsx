@@ -30,7 +30,7 @@ import { IconWhatsApp } from "./icon-whats-app";
 const specialtiesList = [
     {
         label: "Cirurgia Minimamente Invasiva",
-        href: "/procedimentos/cirurgia-minimamente-invasiva-de-coluna",
+        href: "/procedimentos/cirurgia-minimamente-invasiva",
         icon: Activity,
         desc: "Preservação muscular e rápida recuperação"
     },
@@ -54,13 +54,13 @@ const specialtiesList = [
     },
     {
         label: "Tratamento de Tumores da Coluna",
-        href: "/procedimentos/tratamento-de-tumores-da-coluna",
+        href: "/procedimentos/tratamento-tumores-coluna",
         icon: Stethoscope,
         desc: "Oncologia ortopédica de alta complexidade"
     },
     {
         label: "Artrodese da Coluna",
-        href: "/procedimentos/artrodese-da-coluna",
+        href: "/procedimentos/artrodese-de-coluna",
         icon: Activity,
         desc: "Estabilização vertebral para dor grave"
     },
@@ -98,6 +98,10 @@ export default function Navbar() {
     // Ocultar a Navbar global em páginas do studio
     const isStudioPage = pathname?.startsWith("/studio");
 
+    if (isStudioPage) {
+        return null;
+    }
+
     logoData: {
         src: "/images/logo.svg";
         alt: "Dr. Rômulo Oliveira Logo"
@@ -129,7 +133,7 @@ export default function Navbar() {
                         : "bg-transparent py-4"
                     }`}
             >
-                <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
+                <div className="w-full px-6 md:px-12 lg:px-20 flex items-center justify-between">
                     {/* Logo Section */}
                     <Link href="/" aria-label="Ir para a página inicial">
                         <Logo

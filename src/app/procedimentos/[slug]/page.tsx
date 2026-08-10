@@ -6,10 +6,22 @@ import ProcedurePageClient from "./ProcedurePageClient";
 
 export const revalidate = 0;
 
+function findProcedure(items: any[], slug: string) {
+    const cleanSlug = slug.toLowerCase();
+    return items.find((p) => {
+        const itemSlug = p.slug ? p.slug.toLowerCase() : "";
+        if (itemSlug === cleanSlug) return true;
+
+        // Check canonical variations (with/without -de-coluna, -da-coluna, -de-)
+        const normalize = (s: string) => s.replace(/-d[ao]-coluna$/, "").replace(/-d[eao]-/g, "-");
+        return normalize(itemSlug) === normalize(cleanSlug);
+    });
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const { items } = await getProceduresContent();
-    const procedure = items.find((p) => p.slug === slug);
+    const procedure = findProcedure(items, slug);
 
     if (!procedure) return {};
 
@@ -17,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: procedure.metaTitle || `${procedure.title} | Dr. Romulo`,
         description: procedure.metaDescription || procedure.description,
         alternates: {
-            canonical: `/procedimentos/${slug}`,
+            canonical: `/procedimentos/${procedure.slug}`,
         },
         openGraph: {
             title: procedure.metaTitle || procedure.title,
@@ -37,7 +49,7 @@ export async function generateStaticParams() {
 export default async function ProcedurePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const { items } = await getProceduresContent();
-    const procedure = items.find((p) => p.slug === slug);
+    const procedure = findProcedure(items, slug);
 
     if (!procedure) {
         notFound();
