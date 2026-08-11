@@ -13,7 +13,8 @@ export default function CityFaqSection({ content }: CityFaqProps) {
     const { title, faqs, cityName, badge = "Tire suas Dúvidas" } = content;
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-    if (!faqs || faqs.length === 0) return null;
+    const displayFaqs = (faqs || []).slice(0, 5);
+    if (!displayFaqs || displayFaqs.length === 0) return null;
 
     const toggleFaq = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -28,7 +29,7 @@ export default function CityFaqSection({ content }: CityFaqProps) {
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": faqs.map((faq) => ({
+        "mainEntity": displayFaqs.map((faq) => ({
             "@type": "Question",
             "name": faq.question,
             "acceptedAnswer": {
@@ -73,7 +74,7 @@ export default function CityFaqSection({ content }: CityFaqProps) {
 
                 {/* FAQ Accordion List */}
                 <div className="space-y-4">
-                    {faqs.map((faq, index) => {
+                    {displayFaqs.map((faq, index) => {
                         const isOpen = openIndex === index;
                         return (
                             <div

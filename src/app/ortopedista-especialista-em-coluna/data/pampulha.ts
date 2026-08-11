@@ -83,32 +83,24 @@ export const pampulhaData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento na Pampulha",
   faqs: [
     {
-      question: "Onde fica a clínica de atendimento na Pampulha?",
-      answer: "O atendimento na Pampulha é realizado na Clínica NUMAI, localizada na Av. Coronel José Dias Bicalho, 928 - bairro São Luiz/Pampulha, com fácil estacionamento e acesso rápido."
+      question: "Onde se localiza o consultório do especialista em coluna na Pampulha?",
+      answer: "O Dr. Rômulo Oliveira atende na Clínica NUMAI, situada na Av. Coronel José Dias Bicalho, 928 - Bairro São Luiz/Pampulha, próxima ao Mineirinho e à UFMG."
     },
     {
-      question: "Quais convênios são aceitos na Clínica NUMAI na Pampulha?",
-      answer: "Na Clínica NUMAI são aceitos planos como Amil, Cassi, Copasa, Cemig Saúde, Fundação Fiat, Fundação Libertas, SulAmérica, Usisaúde, Vale e Unimed Seguros, além de consultas particulares."
+      question: "Quais bairros da região da Pampulha são atendidos na Clínica NUMAI?",
+      answer: "A unidade atende rotineiramente pacientes de bairros como São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto, Guarani, Itapoã e Bandeirantes, oferecendo fácil estacionamento e mobilidade sem trânsito."
     },
     {
-      question: "O Dr. Rômulo atende pacientes de bairros vizinhos da Pampulha?",
-      answer: "Sim! Atendemos com frequência moradores de São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto, Guarani, Itapoã e de toda a região da Pampulha e Norte de BH."
+      question: "Quais convênios médicos são aceitos na unidade Pampulha?",
+      answer: "Na Clínica NUMAI são aceitos planos como Amil, Cassi, Copasa, Cemig Saúde, Fundação Libertas, SulAmérica, Usisaúde, Vale, Unimed Seguros e atendimentos particulares."
     },
     {
-      question: "Como agendar consulta na unidade da Pampulha?",
-      answer: "Você pode agendar sua consulta diretamente pelo WhatsApp de atendimento do consultório."
+      question: "Quais sintomas indicam a necessidade de consultar um especialista em coluna na Pampulha?",
+      answer: "Sinais como dor persistente nas costas há mais de duas semanas, dor que se irradia para as pernas ou braços, formigamento, dormência nos pés ou perda de força muscular exigem avaliação médica especializada."
     },
     {
-      question: "Como é o acesso e estacionamento na Clínica NUMAI na Pampulha?",
-      answer: "A Clínica NUMAI está situada em local tranquilo no bairro São Luiz, próxima ao Mineirinho e UFMG, com facilidade para estacionar e desembarcar pacientes com dor nas costas."
-    },
-    {
-      question: "É possível tratar dor no nervo ciático na unidade da Pampulha?",
-      answer: "Sim! O Dr. Rômulo realiza avaliação clínica minuciosa da dor ciática e encaminha exames de imagem ou procedimentos conforme a necessidade de cada paciente."
-    },
-    {
-      question: "Quais são os horários de atendimento do consultório na Pampulha?",
-      answer: "Os atendimentos ocorrem mediante agendamento prévio. Entre em contato via WhatsApp para consultar os horários e dias disponíveis nesta semana."
+      question: "Como posso agendar consulta na unidade Pampulha?",
+      answer: "Você pode realizar o agendamento de forma simples pelo WhatsApp de atendimento do consultório, onde a equipe informará os dias de atendimento presencial e orientará sobre o envio prévio de exames."
     }
   ]
 };

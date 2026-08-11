@@ -1134,9 +1134,20 @@ async function main() {
                 ctaOverride: city.ctaOverride,
                 address: city.address,
                 geo: city.geo,
-                locations: city.locations,
+                locations: city.locations?.map((loc: any, i: number) => ({
+                    _key: loc._key || `loc-${i + 1}`,
+                    ...loc
+                })),
+                conditionsTitle: city.conditionsTitle,
+                conditions: city.conditions?.map((cond: any, i: number) => ({
+                    _key: cond._key || `cond-${i + 1}`,
+                    ...cond
+                })),
                 faqsTitle: city.faqsTitle,
-                faqs: city.faqs
+                faqs: city.faqs?.map((faq: any, i: number) => ({
+                    _key: faq._key || `faq-${i + 1}`,
+                    ...faq
+                }))
             };
 
             await writeClient.createOrReplace(locPageDoc);

@@ -104,35 +104,27 @@ export const beloHorizonteData: CityData = {
       description: "Curvaturas da coluna que se agravam com a idade podem gerar dor e alterações posturais. A avaliação personalizada define se o acompanhamento clínico é suficiente ou se há indicação cirúrgica."
     }
   ],
-  faqsTitle: "Perguntas Frequentes sobre Atendimento em Belo Horizonte",
+  faqsTitle: "Perguntas Frequentes sobre Atendimento de Coluna em Belo Horizonte",
   faqs: [
     {
-      question: "Onde fica o consultório do Dr. Rômulo em Belo Horizonte?",
-      answer: "O atendimento na capital ocorre na Clínica NUMAI (Avenida Coronel José Dias Bicalho, 928 - São Luiz/Pampulha) e na Clínica Elcenter (Rua Alcindo Vieira, 305 - Barreiro), facilitando o acesso para pacientes de diferentes regiões da cidade."
+      question: "Onde consultar com ortopedista especialista em coluna em Belo Horizonte?",
+      answer: "O Dr. Rômulo Oliveira (CRM 73889 | RQE 59057) realiza atendimentos presenciais em duas unidades estratégicas na capital mineira: na Clínica NUMAI (Av. Coronel José Dias Bicalho, 928 - Bairro São Luiz / Pampulha) e na Clínica Elcenter (Rua Alcindo Vieira, 305 - Barreiro). As unidades atendem com facilidade moradores de bairros como Lourdes, Savassi, Buritis, Gutierrez, Castelo, Santo Agostinho, Sion, Ouro Preto, Belvedere e de toda a Região Metropolitana de BH."
     },
     {
-      question: "Preciso de indicação médica para agendar uma consulta em BH?",
-      answer: "Não. Você pode agendar diretamente pelo WhatsApp informando seus sintomas para que nossa equipe acolha e oriente sobre o atendimento presencial."
+      question: "Como funciona o tratamento de hérnia de disco e dor ciática com cirurgia minimamente invasiva em BH?",
+      answer: "O tratamento prioritário para hérnia de disco e dor no nervo ciático em Belo Horizonte é conservador (medicação e fisioterapia especializada). Quando há dor persistente ou déficit neurológico, o Dr. Rômulo indica cirurgia minimamente invasiva, como a endoscopia de coluna. O procedimento utiliza incisões milimétricas, preserva a musculatura das costas, reduz o sangramento e permite alta hospitalar em até 24 horas."
     },
     {
-      question: "Toda hérnia de disco precisa de cirurgia em Belo Horizonte?",
-      answer: "Não! A grande maioria dos casos responde muito bem ao tratamento conservador com medicação e fisioterapia. A cirurgia de coluna é indicada apenas quando há falha do tratamento clínico ou déficit neurológico."
+      question: "Quais convênios de saúde são aceitos no consultório de coluna em Belo Horizonte?",
+      answer: "Nas unidades de BH são aceitos diversos planos de saúde, incluindo Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde, Unimed e Fundação Libertas. Para pacientes de outros planos ou consultas particulares, o consultório fornece laudo médico e nota fiscal para solicitação de reembolso junto à operadora."
     },
     {
-      question: "Quanto tempo dura a recuperação de uma cirurgia minimamente invasiva de coluna?",
-      answer: "Por ser um procedimento com incisões mínimas e preservação muscular, a recuperação costuma ser muito mais rápida do que a cirurgia tradicional, permitindo alta no mesmo dia ou em até 24 horas na maioria dos casos."
+      question: "Quando procurar um especialista em coluna em BH e quais exames levar na consulta?",
+      answer: "É recomendado agendar uma avaliação quando a dor nas costas persiste por mais de duas semanas, piora à noite ou vem acompanhada de dor irradiada para as pernas, dormência ou fraqueza muscular. Na primeira consulta na capital, traga seus exames de imagem recentes (ressonância magnética, tomografia ou radiografias) e histórico de tratamentos anteriores."
     },
     {
-      question: "Quais convênios são aceitos nas unidades de Belo Horizonte?",
-      answer: "Atendemos diversos planos de saúde como Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde, Unimed, além de consultas particulares com reembolso."
-    },
-    {
-      question: "O Dr. Rômulo atende casos de emergência ou crise de dor na coluna em BH?",
-      answer: "Sim! Para pacientes em crise aguda de dor lombar ou dor ciática intensa, recomendamos entrar em contato via WhatsApp para verificar o encaixe mais rápido possível."
-    },
-    {
-      question: "Quais exames devo levar na primeira consulta com o especialista em coluna?",
-      answer: "É recomendado levar todos os exames recentes que você possuir, como radiografias (raio-X), ressonância magnética ou tomografia da coluna, além de relatórios de tratamentos anteriores."
+      question: "Como agendar uma consulta ou verificar disponibilidade de encaixe para crise de dor na coluna em BH?",
+      answer: "O agendamento é realizado de forma rápida e direta via WhatsApp oficial do consultório. Para pacientes em crise aguda de dor lombar ou dor ciática intensa, nossa equipe prioriza a verificação do encaixe mais breve possível em uma das unidades de atendimento de Belo Horizonte (Pampulha ou Barreiro)."
     }
   ]
 };

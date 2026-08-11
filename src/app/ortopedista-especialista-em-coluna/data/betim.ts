@@ -99,32 +99,24 @@ export const betimData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Betim",
   faqs: [
     {
-      question: "Onde fica o consultório do Dr. Rômulo em Betim?",
-      answer: "O atendimento em Betim ocorre no Hospital Mater Dei Betim (Via Expressa de Betim, 15500 - Duque de Caxias) e na Clínica Centra (Rua Inconfidência, 488, 3º Andar - Centro)."
+      question: "Onde o Dr. Rômulo Oliveira atende em Betim?",
+      answer: "O atendimento especializado em Betim é realizado no Hospital Mater Dei Betim (Via Expressa de Betim, 15500 - Duque de Caxias) para consultas e procedimentos hospitalares, e na Clínica Centra (Rua Inconfidência, 488 - 3º andar, Centro de Betim), facilitando a rotina de quem mora na região."
     },
     {
-      question: "Quais convênios são aceitos nas unidades de Betim?",
-      answer: "Atendemos diversos convênios como Amil, Bradesco Saúde, SulAmérica, Saúde Caixa, Copasa, Cemig Saúde, Unimed, entre outros, além de atendimentos particulares."
+      question: "Quais cirurgias de coluna são realizadas no Hospital Mater Dei Betim?",
+      answer: "No Hospital Mater Dei Betim, o Dr. Rômulo realiza cirurgias minimamente invasivas de hérnia de disco, descompressão endoscópica de coluna e procedimentos para dor crônica como bloqueios articulares e infiltrações, contando com suporte hospitalar e de UTI de alta complexidade."
     },
     {
-      question: "O Dr. Rômulo realiza cirurgias de coluna em Betim?",
-      answer: "Sim! Cirurgias minimamente invasivas, endoscopia de coluna e tratamentos de hérnia de disco são realizados na infraestrutura de ponta do Hospital Mater Dei Betim."
+      question: "Quais planos de saúde cobrem o atendimento ortopédico de coluna em Betim?",
+      answer: "São aceitos diversos convênios de saúde como Amil, Bradesco Saúde, SulAmérica, Saúde Caixa, Copasa, Cemig Saúde, Unimed e Usisaúde, além de atendimentos na modalidade particular com orientação para reembolso."
     },
     {
-      question: "Como agendar uma consulta com especialista em coluna em Betim?",
-      answer: "O agendamento é simples e rápido. Você pode clicar no botão do WhatsApp nesta página para falar diretamente com nossa equipe de atendimento."
+      question: "Como é feita a infiltração na coluna para alívio rápido de crises de dor em Betim?",
+      answer: "A infiltração ou bloqueio analgésico é um procedimento minimamente invasivo guiado por imagem, realizado no ambiente hospitalar do Mater Dei Betim. Ele aplica medicação anti-inflamatória diretamente no foco da inflamação nervosa, oferecendo rápido alívio para crises agudas de dor ciática e lombar."
     },
     {
-      question: "O Dr. Rômulo realiza infiltrações e bloqueios para dor na coluna em Betim?",
-      answer: "Sim! Procedimentos de infiltração articular e bloqueios anestésicos guiados por imagem são realizados no Hospital Mater Dei Betim para alívio rápido e seguro de dores agudas."
-    },
-    {
-      question: "Moradores de bairros afastados do centro de Betim também são atendidos?",
-      answer: "Com certeza! Atendemos diariamente pacientes do Centro, Ingá, Duque de Caxias, Jardim da Cidade, PTB, Alterosas, Bueno Franco, Citrolândia e toda a região metropolitana."
-    },
-    {
-      question: "Qual a vantagem da cirurgia de coluna minimamente invasiva em Betim?",
-      answer: "A cirurgia minimamente invasiva (como a endoscopia vertebral) utiliza cortes milimétricos, reduz o sangramento, preserva os músculos da coluna e permite alta no mesmo dia no Hospital Mater Dei Betim."
+      question: "Moradores dos bairros centrais e afastados de Betim conseguem agendamento rápido?",
+      answer: "Sim! Pacientes de bairros como Centro, Ingá, Duque de Caxias, Jardim da Cidade, PTB, Alterosas e Bueno Franco podem agendar consultas rapidamente via WhatsApp direto com a equipe de atendimento."
     }
   ]
 };

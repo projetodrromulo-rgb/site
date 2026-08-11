@@ -94,32 +94,24 @@ export const contagemData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Contagem",
   faqs: [
     {
-      question: "Onde fica o consultório do Dr. Rômulo em Contagem?",
-      answer: "O atendimento em Contagem é realizado no CEOFE (Centro de Ortopedia e Fraturas Eldorado), localizado na Av. José Faria da Rocha, 4458 - bairro Eldorado."
+      question: "Onde fica a clínica de ortopedia especialista em coluna em Contagem?",
+      answer: "O Dr. Rômulo Oliveira atende no CEOFE (Centro de Ortopedia e Fraturas Eldorado), localizado na Av. José Faria da Rocha, 4458 - Bairro Eldorado, em ponto de fácil acesso na cidade de Contagem."
     },
     {
-      question: "Quais convênios são aceitos no CEOFE Contagem?",
-      answer: "São aceitos convênios como Bradesco Saúde, Amil, Saúde Caixa, SulAmérica, Copasa, Cemig Saúde, Itaú, Usisaúde, Vale, Unimed, além de atendimentos particulares."
+      question: "Pacientes dos bairros Eldorado, Cabral, Riacho e Industrial têm facilidade de acesso ao CEOFE?",
+      answer: "Sim! O CEOFE fica situado em uma das principais avenidas do Eldorado, com amplo acesso por vias rápidas, linhas de ônibus, transporte por aplicativo e estacionamento no entorno, atendendo perfeitamente pacientes de toda a região de Contagem."
     },
     {
-      question: "Quais condições da coluna são tratadas em Contagem?",
-      answer: "Hérnias de disco, dor ciática, estenose do canal vertebral, lombalgias agudas e crônicas, espondilolistese e dores cervicais."
+      question: "Quais convênios médicos cobrem consultas e tratamentos de coluna no CEOFE Contagem?",
+      answer: "O atendimento em Contagem contempla convênios como Bradesco Saúde, Amil, SulAmérica, Saúde Caixa, Copasa, Cemig Saúde, Usisaúde, Vale, Itaú e Unimed, além de consultas particulares."
     },
     {
-      question: "Como agendar uma consulta com o especialista em coluna em Contagem?",
-      answer: "O agendamento pode ser feito diretamente via WhatsApp com rápida resposta da nossa equipe."
+      question: "É possível tratar hérnia de disco e dor no nervo ciático em Contagem sem cirurgia?",
+      answer: "Sim. A maioria dos quadros de dor ciática e hérnia discativa evolui muito bem com condutas não cirúrgicas, como bloqueios de dor, tratamento medicamentoso individualizado e fisioterapia direcionada."
     },
     {
-      question: "Pacientes dos bairros Eldorado, Riacho e Cabral possuem fácil acesso ao consultório em Contagem?",
-      answer: "Sim! O CEOFE está localizado em ponto nobre do Eldorado (Av. José Faria da Rocha), com fácil acesso de transporte público, carros por aplicativo e amplo estacionamento nas proximidades."
-    },
-    {
-      question: "É possível tratar hérnia de disco no CEOFE em Contagem sem cirurgia?",
-      answer: "Sim! A maioria dos casos de hérnia de disco responde muito bem a tratamentos conservadores, como medicações específicas, bloqueios para dor e fisioterapia direcionada."
-    },
-    {
-      question: "O Dr. Rômulo realiza cirurgia minimamente invasiva em pacientes de Contagem?",
-      answer: "Sim! Quando há indicação cirúrgica, os procedimentos minimamente invasivos (como descompressão endoscópica) são agendados na estrutura hospitalar credenciada com total segurança."
+      question: "Como proceder caso o paciente de Contagem necessite de cirurgia minimamente invasiva?",
+      answer: "Havendo indicação para intervenção cirúrgica (como endoscopia ou microcirurgia vertebral), o procedimento é planejado pelo Dr. Rômulo e realizado em estrutura hospitalar credenciada de ponta com total suporte de segurança."
     }
   ]
 };

@@ -108,7 +108,9 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 "bgImages": bgImages[].asset->url,
                 aboutOverride {
                     subtitle,
-                    paragraphs
+                    h2Title,
+                    paragraphs,
+                    neighborhoods
                 },
                 ctaOverride {
                     title,
@@ -126,6 +128,11 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                     name,
                     streetAddress,
                     telephone
+                },
+                conditionsTitle,
+                conditions[] {
+                    title,
+                    description
                 },
                 faqsTitle,
                 faqs[] {
@@ -166,7 +173,9 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 bgImages: page.bgImages && page.bgImages.length > 0 ? page.bgImages : localData?.bgImages,
                 aboutOverride: {
                     subtitle: page.aboutOverride?.subtitle || localData?.aboutOverride?.subtitle,
-                    paragraphs: resolveParagraphs(page.aboutOverride?.paragraphs, prefix, clinic, settings.aboutParagraphsTemplate || defaultSettings.aboutParagraphsTemplate)
+                    h2Title: page.aboutOverride?.h2Title || localData?.aboutOverride?.h2Title,
+                    paragraphs: resolveParagraphs(page.aboutOverride?.paragraphs, prefix, clinic, settings.aboutParagraphsTemplate || defaultSettings.aboutParagraphsTemplate),
+                    neighborhoods: page.aboutOverride?.neighborhoods || localData?.aboutOverride?.neighborhoods
                 },
                 ctaOverride: {
                     title: page.ctaOverride?.title || replacePlaceholders(settings.ctaTitleTemplate || defaultSettings.ctaTitleTemplate, prefix, clinic, cityName),
@@ -175,8 +184,10 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 address: page.address || localData?.address,
                 geo: page.geo || localData?.geo,
                 locations: page.locations && page.locations.length > 0 ? page.locations : localData?.locations,
+                conditionsTitle: page.conditionsTitle || localData?.conditionsTitle,
+                conditions: (page.conditions && page.conditions.length > 0) ? page.conditions : localData?.conditions,
                 faqsTitle: page.faqsTitle || localData?.faqsTitle || `Perguntas Frequentes sobre Atendimento ${prefix}`,
-                faqs: (page.faqs && page.faqs.length > 0) ? page.faqs : localData?.faqs
+                faqs: (page.faqs && page.faqs.length > 0) ? page.faqs.slice(0, 5) : (localData?.faqs || []).slice(0, 5)
             } as CityData;
         }
     } catch (error) {
