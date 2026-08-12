@@ -87,17 +87,6 @@ export const locationPageType = defineType({
             ]
         }),
         defineField({
-            name: "aboutOverride",
-            title: "Sobre (Sobrescrita Específica)",
-            type: "object",
-            fields: [
-                defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
-                defineField({ name: "h2Title", title: "Título H2 do Sobre", type: "string" }),
-                defineField({ name: "paragraphs", title: "Parágrafos", type: "array", of: [{ type: "text", rows: 3 }] }),
-                defineField({ name: "neighborhoods", title: "Bairros Atendidos", type: "array", of: [{ type: "string" }] })
-            ]
-        }),
-        defineField({
             name: "conditionsTitle",
             title: "Título de Condições/Tratamentos",
             type: "string"

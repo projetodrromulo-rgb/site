@@ -34,7 +34,9 @@ export const beloHorizonteData: CityData = {
         textColorHighlightTo: "var(--color-title-primary-highlight-to)",
         textColorBottom: "var(--color-title-primary)"
       }
-    }
+    },
+    description: "Médico Ortopedista Especialista em Coluna em Belo Horizonte. Especialista em cirurgia de coluna minimamente invasiva com atendimentos nas unidades Pampulha (Clínica NUMAI) e Barreiro (Clínica Elcenter).",
+    ctaText: "Agendar Consulta em Belo Horizonte"
   },
   locationPrefix: "em Belo Horizonte",
   clinicName: "na Clínica NUMAI e Clínica Elcenter Barreiro",
@@ -65,30 +67,6 @@ export const beloHorizonteData: CityData = {
     "/images/dr_romulo_surgery_05.jpg",
     "/images/dr_romulo_surgery_01.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Especialista em Coluna em Belo Horizonte",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Belo Horizonte",
-    paragraphs: [
-      "Sou o Dr. Rômulo Oliveira, médico ortopedista com fellowship em cirurgia de coluna (CRM 73889 | RQE 59057 | TEOT 19406), e atendo pacientes de Belo Horizonte que buscam um diagnóstico preciso e um tratamento realmente adequado para dores na coluna. Muita gente convive por anos com dor lombar, formigamento nas pernas ou limitação de movimento sem saber que existem hoje técnicas minimamente invasivas capazes de resolver o problema com recuperação muito mais rápida do que a cirurgia tradicional. Meu consultório na capital funciona em duas unidades, na Pampulha e no Barreiro, o que facilita o acesso para pacientes de diferentes regiões da cidade. Meu compromisso é sempre buscar primeiro a abordagem mais conservadora possível, reservando a cirurgia para os casos em que ela realmente traz mais benefício do que risco.",
-      "Na capital mineira, o atendimento acontece em dois endereços: na Clínica NUMAI, localizada na Avenida Coronel José Dias Bicalho, 928, no bairro São Luiz/Pampulha (com consultas presenciais e retorno facilitado para exames de imagem), e na Clínica Elcenter Barreiro, na Rua Alcindo Vieira, 305, no Barreiro, atendendo quem mora na regional oeste e sul de Belo Horizonte. As duas unidades contam com estrutura para avaliação clínica completa e encaminhamento para exames complementares quando necessário."
-    ],
-    neighborhoods: [
-      "Lourdes",
-      "Savassi",
-      "Funcionários",
-      "Gutierrez",
-      "Santo Agostinho",
-      "Belvedere",
-      "Buritis",
-      "Pampulha / São Luiz",
-      "Barreiro",
-      "Castelo",
-      "Sion",
-      "Anchieta",
-      "Prado",
-      "Santa Efigênia"
-    ]
-  },
   conditionsTitle: "Tratamentos e Condições da Coluna em Belo Horizonte",
   conditions: [
     {
@@ -104,6 +82,10 @@ export const beloHorizonteData: CityData = {
       description: "Curvaturas da coluna que se agravam com a idade podem gerar dor e alterações posturais. A avaliação personalizada define se o acompanhamento clínico é suficiente ou se há indicação cirúrgica."
     }
   ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna em Belo Horizonte?",
+    description: "Agende sua consulta nas unidades Pampulha ou Barreiro com o Dr. Rômulo Oliveira e receba tratamento adequado para a sua coluna."
+  },
   faqsTitle: "Perguntas Frequentes sobre Atendimento de Coluna em Belo Horizonte",
   faqs: [
     {
@@ -116,7 +98,7 @@ export const beloHorizonteData: CityData = {
     },
     {
       question: "Quais convênios de saúde são aceitos no consultório de coluna em Belo Horizonte?",
-      answer: "Nas unidades de BH são aceitos diversos planos de saúde, incluindo Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde, Unimed e Fundação Libertas. Para pacientes de outros planos ou consultas particulares, o consultório fornece laudo médico e nota fiscal para solicitação de reembolso junto à operadora."
+      answer: "Nas unidades de BH são aceitos diversos planos de saúde, incluindo Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde e Fundação Libertas. Para pacientes de outros planos ou consultas particulares, o consultório fornece laudo médico e nota fiscal para solicitação de reembolso junto à operadora."
     },
     {
       question: "Quando procurar um especialista em coluna em BH e quais exames levar na consulta?",

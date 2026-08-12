@@ -34,6 +34,8 @@ export const betimData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
+    description: "Médico Ortopedista Especialista em Coluna em Betim. Especialista em cirurgia de coluna minimamente invasiva com atendimento no Hospital Mater Dei Betim e na Clínica Centra.",
+    ctaText: "Agendar Consulta em Betim"
   },
   locationPrefix: "em Betim",
   clinicName: "no Hospital Mater Dei Betim e na Clínica Centra",
@@ -64,27 +66,6 @@ export const betimData: CityData = {
     "/images/dr_romulo_surgery_04.jpg",
     "/images/dr_romulo_surgery_05.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Atendimento Especializado em Betim",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Betim",
-    paragraphs: [
-      "O Dr. Rômulo Oliveira atua como especialista em coluna atendendo pacientes de Betim e toda a região metropolitana, oferecendo medicina ortopédica de alta precisão para alívio de dores nas costas.",
-      "Com atendimentos no Hospital Mater Dei Betim e na Clínica Centra (Centro de Betim), disponibiliza estrutura moderna para consultas, infiltrações e cirurgias de coluna.",
-      "Especializado em cirurgia minimamente invasiva e tratamento preservador da musculatura, garante recuperação célere para pacientes com hérnia de disco e bico de papagaio em Betim."
-    ],
-    neighborhoods: [
-      "Centro de Betim",
-      "Duque de Caxias",
-      "Ingá",
-      "Nossa Senhora das Graças",
-      "Jardim da Cidade",
-      "PTB",
-      "Alvorada",
-      "Betim Industrial",
-      "Alterosas",
-      "Bueno Franco"
-    ]
-  },
   conditionsTitle: "Tratamentos e Condições da Coluna em Betim",
   conditions: [
     {
@@ -96,6 +77,10 @@ export const betimData: CityData = {
       description: "Avaliação completa para dores crônicas ou agudas nas costas, com plano terapêutico focado na causa do problema."
     }
   ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna em Betim?",
+    description: "Agende sua consulta no Hospital Mater Dei Betim ou na Clínica Centra e consulte com o especialista Dr. Rômulo Oliveira."
+  },
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Betim",
   faqs: [
     {

@@ -34,6 +34,8 @@ export const pampulhaData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
+    description: "Médico Ortopedista Especialista em Coluna na região da Pampulha. Atendimento presencial na Clínica NUMAI (São Luiz / Pampulha) com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
+    ctaText: "Agendar Consulta na Pampulha"
   },
   locationPrefix: "na Pampulha",
   clinicName: "na Clínica NUMAI",
@@ -59,26 +61,20 @@ export const pampulhaData: CityData = {
     "/images/dr_romulo_surgery_05.jpg",
     "/images/dr_romulo_surgery_01.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Ortopedista de Coluna na Pampulha",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna na Pampulha",
-    paragraphs: [
-      "Com consultório localizado na Avenida Coronel José Dias Bicalho (Clínica NUMAI, bairro São Luiz/Pampulha), o Dr. Rômulo Oliveira é referência em ortopedia e cirurgia de coluna na região da Pampulha em BH.",
-      "Oferece diagnósticos precisos e tratamentos avançados para dor lombar, espondilolistese, hérnias de disco e dores cervicais.",
-      "Atendimento humanizado e próximo aos moradores da Pampulha, unindo infraestrutura de clínica boutique com excelência técnica."
-    ],
-    neighborhoods: [
-      "São Luiz",
-      "Jaraguá",
-      "Ouro Preto",
-      "Dona Clara",
-      "Castelo",
-      "Santa Amélia",
-      "Bandeirantes",
-      "Guarani",
-      "Itapoã",
-      "Planalto"
-    ]
+  conditionsTitle: "Tratamentos e Condições da Coluna na Pampulha",
+  conditions: [
+    {
+      title: "Hérnia de Disco na Pampulha",
+      description: "Tratamento de dores ciáticas intensas e hérnias vertebrais na Clínica NUMAI com indicação de condutas conservadoras ou endoscopia de coluna."
+    },
+    {
+      title: "Dor Lombar e Alterações Posturais",
+      description: "Avaliação ortopédica completa para prevenção e alívio da lombalgia crônica em moradores da região norte e Pampulha."
+    }
+  ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna na Pampulha?",
+    description: "Agende sua consulta na Clínica NUMAI (Pampulha) com o Dr. Rômulo Oliveira e descubra as melhores opções para o seu tratamento."
   },
   faqsTitle: "Perguntas Frequentes sobre Atendimento na Pampulha",
   faqs: [

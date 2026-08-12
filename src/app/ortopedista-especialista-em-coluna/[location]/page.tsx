@@ -118,15 +118,6 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         getParallaxContent()
     ]);
 
-    // Merge city-specific about override (SEO local) on top of the generic content
-    const cityAboutContent: typeof aboutContent = {
-        ...aboutContent,
-        subtitle: data.aboutOverride?.subtitle || `Especialista em Coluna em ${data.name}`,
-        customH2Title: data.aboutOverride?.h2Title || `Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em ${data.name}`,
-        ...(data.aboutOverride?.paragraphs && { paragraphs: data.aboutOverride.paragraphs }),
-        ...(data.aboutOverride?.neighborhoods && { neighborhoods: data.aboutOverride.neighborhoods }),
-    };
-
     // Merge city-specific cta override
     const cityCtaContent = {
         ...ctaContent,

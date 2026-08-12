@@ -34,6 +34,8 @@ export const novaLimaData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
+    description: "Médico Ortopedista Especialista em Coluna em Nova Lima. Atendimento no Hospital Biocor - Rede D'Or com foco em cirurgias minimamente invasivas e tratamento de hérnia de disco.",
+    ctaText: "Agendar Consulta em Nova Lima"
   },
   locationPrefix: "em Nova Lima",
   clinicName: "no Hospital Biocor - Rede D'Or",
@@ -59,24 +61,20 @@ export const novaLimaData: CityData = {
     "/images/dr_romulo_surgery_02.jpg",
     "/images/dr_romulo_surgery_03.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Consultas de Coluna em Nova Lima",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Nova Lima",
-    paragraphs: [
-      "Atendendo a região de Nova Lima e condomínios vizinhos, o Dr. Rômulo Oliveira proporciona cuidado ortopédico altamente especializado para hérnia de disco, dor cervical e patologias vertebrais.",
-      "Com atendimento de referência no Hospital Biocor (Rede D'Or) no Vila da Serra, oferece estrutura hospitalar de ponta para exames avançados e procedimentos cirúrgicos de precisão.",
-      "Sua atuação combina técnicas de última geração em cirurgia de coluna com protocolos de recuperação rápida focados no bem-estar do paciente."
-    ],
-    neighborhoods: [
-      "Vila da Serra",
-      "Vale do Sereno",
-      "Alphaville",
-      "Centro de Nova Lima",
-      "Jardim Canadá",
-      "Bosque da Ribeira",
-      "Quintas do Sol",
-      "Retiro das Pedras"
-    ]
+  conditionsTitle: "Tratamentos e Condições da Coluna em Nova Lima",
+  conditions: [
+    {
+      title: "Hérnia de Disco em Nova Lima",
+      description: "Descompressão nervosa endoscópica e tratamento conservador individualizado para alívio imediato da dor ciática com suporte hospitalar completo."
+    },
+    {
+      title: "Dor Lombar e Cervicalgias",
+      description: "Tratamento de crises dolorosas e dores crônicas com bloqueios articulares e infiltrações guiadas por imagem no Hospital Biocor."
+    }
+  ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna em Nova Lima?",
+    description: "Agende sua consulta com o Dr. Rômulo Oliveira no Hospital Biocor e cuide da saúde da sua coluna com alta precisão."
   },
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Nova Lima",
   faqs: [

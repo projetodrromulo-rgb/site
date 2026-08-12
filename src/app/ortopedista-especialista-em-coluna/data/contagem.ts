@@ -33,7 +33,9 @@ export const contagemData: CityData = {
         textColorHighlightTo: "var(--color-title-primary-highlight-to)",
         textColorBottom: "var(--color-title-primary)"
       }
-    }
+    },
+    description: "Médico Ortopedista Especialista em Coluna em Contagem. Atendimento no CEOFE Eldorado com foco em tratamentos modernos e cirurgia minimamente invasiva.",
+    ctaText: "Agendar Consulta em Contagem"
   },
   locationPrefix: "em Contagem",
   clinicName: "no CEOFE Contagem",
@@ -59,27 +61,6 @@ export const contagemData: CityData = {
     "/images/dr_romulo_surgery_01.jpg",
     "/images/dr_romulo_surgery_02.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Atendimento Ortopédico em Contagem",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna em Contagem",
-    paragraphs: [
-      "Para os moradores de Contagem que buscam tratamento especializado em dores da coluna e patologias vertebrais, o Dr. Rômulo Oliveira oferece consultas e procedimentos no CEOFE Contagem (Eldorado).",
-      "Combinando microcirurgia, endoscopia de coluna e técnicas minimamente invasivas, o Dr. Rômulo avalia detalhadamente cada queixa de dor lombar, nervo ciático e hérnia de disco.",
-      "Seu compromisso é proporcionar aos pacientes de Contagem um diagnóstico seguro e tratamentos modernos focado no retorno rápido à rotina de trabalho e lazer."
-    ],
-    neighborhoods: [
-      "Eldorado",
-      "Biguaçu",
-      "Riacho das Pedras",
-      "Cabral",
-      "Nossa Senhora do Carmo",
-      "Industrial",
-      "Novo Eldorado",
-      "Fonte Grande",
-      "Inconfidentes",
-      "Alvorada"
-    ]
-  },
   conditionsTitle: "Tratamentos e Condições da Coluna em Contagem",
   conditions: [
     {
@@ -91,6 +72,10 @@ export const contagemData: CityData = {
       description: "Abordagem especializada para dores nas costas e limitação de movimento com foco em técnicas preservadoras da coluna."
     }
   ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna em Contagem?",
+    description: "Agende sua consulta no CEOFE Eldorado com o Dr. Rômulo Oliveira e receba tratamento adequado para a sua coluna."
+  },
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Contagem",
   faqs: [
     {

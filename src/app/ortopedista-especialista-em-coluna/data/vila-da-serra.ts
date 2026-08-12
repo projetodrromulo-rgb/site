@@ -35,6 +35,8 @@ export const vilaDaSerraData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
+    description: "Médico Ortopedista Especialista em Coluna no bairro Vila da Serra. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado no Hospital Biocor - Rede D'Or.",
+    ctaText: "Agendar Consulta no bairro Vila da Serra"
   },
   locationPrefix: "no bairro Vila da Serra",
   clinicName: "no Hospital Biocor - Rede D'Or",
@@ -60,22 +62,24 @@ export const vilaDaSerraData: CityData = {
     "/images/dr_romulo_surgery_05.jpg",
     "/images/dr_romulo_surgery_01.jpg"
   ],
-  aboutOverride: {
-    subtitle: "Atendimento de Excelência no Vila da Serra",
-    h2Title: "Dr. Rômulo Oliveira | Médico Ortopedista Especialista em Coluna no Vila da Serra",
-    paragraphs: [
-      "O Dr. Rômulo Oliveira oferece atendimento focado em alta tecnologia e cirurgia minimamente invasiva da coluna para pacientes da região do Vila da Serra e Vale do Sereno.",
-      "Atendendo no renomado Hospital Biocor (Rede D'Or), disponibiliza cirurgias endoscópicas guiadas por imagem e procedimentos de infiltração articular para alívio rápido de dores intensas.",
-      "Tratamento individualizado com foco em preservar estruturas anatômicas e acelerar o retorno às atividades de vida diária."
-    ],
-    neighborhoods: [
-      "Vila da Serra",
-      "Vale do Sereno",
-      "Belvedere",
-      "Seis Pistas",
-      "Alameda da Serra",
-      "Nova Lima"
-    ]
+  conditionsTitle: "Tratamentos e Condições da Coluna no Vila da Serra",
+  conditions: [
+    {
+      title: "Hérnia de Disco no Vila da Serra",
+      description: "Atendimento especializado para tratamento conservador e cirurgia minimamente invasiva (endoscopia de coluna) com rápida alta hospitalar no Hospital Biocor."
+    },
+    {
+      title: "Dor Lombar e Cervical Crônica",
+      description: "Investigação diagnóstica precisa de dores persistentes nas costas e pescoço, oferecendo procedimentos analgésicos como infiltrações articulares e denervação por radiofrequência."
+    },
+    {
+      title: "Deformidades e Doenças Degenerativas",
+      description: "Acompanhamento clínico de escoliose no adulto, espondilolistese e estenose do canal vertebral, visando a preservação da mobilidade e qualidade de vida."
+    }
+  ],
+  ctaOverride: {
+    title: "Precisando de um médico especialista em coluna no bairro Vila da Serra?",
+    description: "Agende sua consulta no Hospital Biocor - Rede D'Or com o Dr. Rômulo Oliveira e receba uma avaliação completa para a sua coluna."
   },
   faqsTitle: "Perguntas Frequentes sobre Atendimento no Vila da Serra",
   faqs: [
