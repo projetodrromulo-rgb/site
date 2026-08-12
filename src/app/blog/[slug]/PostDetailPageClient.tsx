@@ -450,27 +450,8 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
         return "";
     };
 
-    const faqSchema = faqItems.length > 0 ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": faqItems.map((item: any) => ({
-            "@type": "Question",
-            "name": item.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": getCleanText(item)
-            }
-        }))
-    } : null;
-
     return (
         <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-clip text-slate-900">
-            {faqSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-                />
-            )}
             <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F] backdrop-blur-md border-b border-white/5">
                 <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
                     <Link href="/blog" className="text-[#0db9f2] flex items-center gap-2 px-4 py-2 hover:bg-white/10 rounded-xl transition-all active:scale-95 group">

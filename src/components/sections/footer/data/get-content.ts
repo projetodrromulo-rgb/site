@@ -6,7 +6,7 @@ import { client, projectId } from "../../../../lib/sanity";
 const { whatsAppNumber, instagramUrl } = env();
 
 const defaultNavLinks: NavLink[] = [
-    { label: "Início", href: "#" },
+    { label: "Início", href: "/" },
     { label: "Sobre", href: "#sobre" },
     { label: "Onde Atendemos", href: "#locations" },
     { label: "Convênios", href: "#Insurance" },

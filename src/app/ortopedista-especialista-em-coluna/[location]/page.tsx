@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
+import JsonLdHead from "@/components/seo/JsonLdHead";
 import { getAllLocationSlugs, getLocationPageContent } from "../data/get-location-page";
 import CityHero from "./_components/CityHero";
 import { getAboutContent } from "@/components/sections/about/data/get-about-content";
@@ -77,6 +78,12 @@ export async function generateMetadata({ params }: { params: Promise<{ location:
                 },
             ],
         },
+        twitter: {
+            card: "summary_large_image",
+            title: data.title,
+            description: data.metaDescription,
+            images: ["/images/og-profile.webp"],
+        },
     };
 }
 
@@ -130,12 +137,13 @@ export default async function CityPage({ params }: { params: Promise<{ location:
     // Dynamic physician and local business JSON-LD schema
     const physicianJsonLd = {
         "@context": "https://schema.org",
-        "@type": "Physician",
-        "name": "Dr. Romulo Oliveira",
+        "@type": ["Physician", "MedicalClinic"],
+        "@id": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}#clinic`,
+        "name": `Dr. Rômulo Oliveira - Especialista em Coluna em ${data.name}`,
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
         "url": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
-        "telephone": "+5531999675665",
+        "telephone": "+553135040045",
         "medicalSpecialty": ["Orthopedic", "SpineSurgery"],
         "priceRange": "$$$",
         "areaServed": {
@@ -243,16 +251,25 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         ]
     };
 
+    const displayFaqs = (data.faqs || []).slice(0, 5);
+    const faqJsonLd = displayFaqs.length > 0 ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": displayFaqs.map((faq) => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    } : null;
+
     return (
         <main className="min-h-screen bg-primary-dark text-neutral-light relative selection:bg-accent/30 flex flex-col">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLdHead id="physician-jsonld" schema={physicianJsonLd} />
+            <JsonLdHead id="breadcrumb-jsonld" schema={breadcrumbJsonLd} />
+            {faqJsonLd && <JsonLdHead id="faq-jsonld" schema={faqJsonLd} />}
             <CityHero
                 cityName={data.name}
                 headline={data.heroContent.headline}
@@ -260,6 +277,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 ctaText={finalCtaText}
                 whatsAppNumber={whatsAppNumber}
                 bgImages={data.bgImages}
+                bgImageAlts={data.bgImageAlts}
                 trustLocations={data.locations}
             />
             <CTA content={cityCtaContent} />

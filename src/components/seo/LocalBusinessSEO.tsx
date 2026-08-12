@@ -1,4 +1,5 @@
 import { getLocationsContent } from "@/components/sections/locations/data/get-locations-content";
+import JsonLdHead from "@/components/seo/JsonLdHead";
 import { env } from "@/env";
 
 export async function LocalBusinessSEO() {
@@ -65,14 +66,8 @@ export async function LocalBusinessSEO() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-            />
+            <JsonLdHead id="local-physician-jsonld" schema={physicianJsonLd} />
+            <JsonLdHead id="local-website-jsonld" schema={websiteJsonLd} />
         </>
     );
 }

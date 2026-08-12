@@ -25,26 +25,8 @@ export default function CityFaqSection({ content }: CityFaqProps) {
     const message = encodeURIComponent(`Olá! Gostaria de tirar algumas dúvidas sobre a consulta de coluna em ${cityName || "Belo Horizonte"}.`);
     const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
 
-    // Schema JSON-LD para Rich Snippets do Google (Local SEO)
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": displayFaqs.map((faq) => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-            }
-        }))
-    };
-
     return (
         <section id="faq" className="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-primary-dark">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
 
             {/* Background Glow Overlay */}
             <div

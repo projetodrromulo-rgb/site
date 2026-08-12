@@ -3,7 +3,7 @@ import { CityData } from "./types";
 export const beloHorizonteData: CityData = {
   slug: "belo-horizonte",
   name: "Belo Horizonte",
-  title: "Ortopedista Especialista em Coluna em Belo Horizonte | Dr. Rômulo Oliveira",
+  title: "Ortopedista Especialista em Coluna em BH | Dr. Rômulo Oliveira",
   metaDescription: "Ortopedista especialista em coluna em Belo Horizonte. Cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende sua consulta em BH.",
   keywords: [
     "medico ortopedista especialista em coluna em belo horizonte",
@@ -67,6 +67,13 @@ export const beloHorizonteData: CityData = {
     "/images/dr_romulo_surgery_05.jpg",
     "/images/dr_romulo_surgery_01.jpg"
   ],
+  bgImageAlts: [
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Belo Horizonte",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em BH",
+    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente",
+    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento"
+  ],
   conditionsTitle: "Tratamentos e Condições da Coluna em Belo Horizonte",
   conditions: [
     {
@@ -89,24 +96,29 @@ export const beloHorizonteData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento de Coluna em Belo Horizonte",
   faqs: [
     {
-      question: "Onde consultar com ortopedista especialista em coluna em Belo Horizonte?",
-      answer: "O Dr. Rômulo Oliveira (CRM 73889 | RQE 59057) realiza atendimentos presenciais em duas unidades estratégicas na capital mineira: na Clínica NUMAI (Av. Coronel José Dias Bicalho, 928 - Bairro São Luiz / Pampulha) e na Clínica Elcenter (Rua Alcindo Vieira, 305 - Barreiro). As unidades atendem com facilidade moradores de bairros como Lourdes, Savassi, Buritis, Gutierrez, Castelo, Santo Agostinho, Sion, Ouro Preto, Belvedere e de toda a Região Metropolitana de BH."
+      // Foco Navigacional: Otimizada para buscas diretas por endereço e hiperlocalização.
+      question: "Onde o Dr. Rômulo atende como especialista em coluna em Belo Horizonte?",
+      answer: "O Dr. Rômulo Oliveira (CRM-MG 73889 | RQE 59057) realiza atendimentos em duas regiões estratégicas de BH. Na Pampulha, atende na Clínica NUMAI (Av. Coronel José Dias Bicalho, 928 - São Luiz), ideal para moradores do Castelo, Ouro Preto e Vetor Norte. No Barreiro, atende na Clínica Elcenter (Rua Alcindo Vieira, 305), facilitando o acesso para a região Sul e cidades metropolitanas vizinhas."
     },
     {
-      question: "Como funciona o tratamento de hérnia de disco e dor ciática com cirurgia minimamente invasiva em BH?",
-      answer: "O tratamento prioritário para hérnia de disco e dor no nervo ciático em Belo Horizonte é conservador (medicação e fisioterapia especializada). Quando há dor persistente ou déficit neurológico, o Dr. Rômulo indica cirurgia minimamente invasiva, como a endoscopia de coluna. O procedimento utiliza incisões milimétricas, preserva a musculatura das costas, reduz o sangramento e permite alta hospitalar em até 24 horas."
+      // Foco Informacional/Autoridade:  
+      question: "Como funciona a cirurgia minimamente invasiva para hérnia de disco?",
+      answer: "A cirurgia minimamente invasiva, como a endoscopia de coluna, é indicada pelo Dr. Rômulo quando o tratamento conservador (fisioterapia e medicações) não alivia a dor ciática persistente. O procedimento utiliza incisões milimétricas, preserva a musculatura e permite alta hospitalar no mesmo dia. As cirurgias são realizadas nos principais hospitais de referência em Belo Horizonte, garantindo total segurança ao paciente."
     },
     {
-      question: "Quais convênios de saúde são aceitos no consultório de coluna em Belo Horizonte?",
-      answer: "Nas unidades de BH são aceitos diversos planos de saúde, incluindo Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde e Fundação Libertas. Para pacientes de outros planos ou consultas particulares, o consultório fornece laudo médico e nota fiscal para solicitação de reembolso junto à operadora."
+      // Foco Transacional (Convênios): Pergunta mais curta e direta ao ponto.
+      question: "Quais planos de saúde a clínica de coluna em BH aceita?",
+      answer: "Aceitamos diversos planos de saúde em nossos consultórios de BH, como Bradesco Saúde, Amil, SulAmérica, Cassi, Saúde Caixa, Copasa, Cemig Saúde e Fundação Libertas. Para pacientes particulares ou de outros convênios, emitimos laudo médico e nota fiscal para que você solicite o reembolso diretamente com a sua operadora."
     },
     {
-      question: "Quando procurar um especialista em coluna em BH e quais exames levar na consulta?",
-      answer: "É recomendado agendar uma avaliação quando a dor nas costas persiste por mais de duas semanas, piora à noite ou vem acompanhada de dor irradiada para as pernas, dormência ou fraqueza muscular. Na primeira consulta na capital, traga seus exames de imagem recentes (ressonância magnética, tomografia ou radiografias) e histórico de tratamentos anteriores."
+      // Foco Informacional: Pergunta direta. Retirado o "em BH" e focado no sintoma (dor nas costas).
+      question: "Quando devo procurar um ortopedista de coluna e quais exames levar?",
+      answer: "Agende uma avaliação se a sua dor nas costas durar mais de duas semanas, piorar durante a noite, ou vier acompanhada de formigamento, choque ou fraqueza nas pernas (sintomas comuns de compressão do nervo ciático). Na sua primeira consulta, leve seus exames de imagem mais recentes, como ressonância magnética ou raio-x, para uma avaliação precisa."
     },
     {
-      question: "Como agendar uma consulta ou verificar disponibilidade de encaixe para crise de dor na coluna em BH?",
-      answer: "O agendamento é realizado de forma rápida e direta via WhatsApp oficial do consultório. Para pacientes em crise aguda de dor lombar ou dor ciática intensa, nossa equipe prioriza a verificação do encaixe mais breve possível em uma das unidades de atendimento de Belo Horizonte (Pampulha ou Barreiro)."
+      // Foco Transacional/Urgência: Otimizada para quem está com dor intensa buscando atendimento rápido.
+      question: "Como marcar consulta ou pedir encaixe para crise de dor na coluna?",
+      answer: "O agendamento é feito de forma ágil pelo nosso WhatsApp oficial. Se você estiver enfrentando uma crise aguda de dor lombar ou travamento da coluna, informe nossa equipe. Priorizamos o encontro do encaixe mais rápido possível em uma de nossas unidades em Belo Horizonte (Pampulha ou Barreiro) para que você inicie o tratamento rapidamente."
     }
   ]
 };

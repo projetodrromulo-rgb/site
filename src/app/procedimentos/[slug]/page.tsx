@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import ProcedurePageClient from "./ProcedurePageClient";
+import JsonLdHead from "@/components/seo/JsonLdHead";
 
 export const revalidate = 0;
 
@@ -57,5 +58,24 @@ export default async function ProcedurePage({ params }: { params: Promise<{ slug
 
     const footerContent = await getFooterContent();
 
-    return <ProcedurePageClient procedure={procedure} footerContent={footerContent} />;
+    const displayFaqs = procedure.faq || [];
+    const faqJsonLd = displayFaqs.length > 0 ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": displayFaqs.map((faq: any) => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    } : null;
+
+    return (
+        <>
+            {faqJsonLd && <JsonLdHead id="procedure-faq-jsonld" schema={faqJsonLd} />}
+            <ProcedurePageClient procedure={procedure} footerContent={footerContent} />
+        </>
+    );
 }

@@ -1,6 +1,7 @@
 import { client, projectId } from "@/lib/sanity";
 import { Metadata } from "next";
 import PostDetailPageClient from "./PostDetailPageClient";
+import JsonLdHead from "@/components/seo/JsonLdHead";
 import { processPostData } from "./utils/process-post";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { notFound } from "next/navigation";
@@ -102,7 +103,34 @@ export default async function PostDetailPage({ params }: PageProps) {
     // 3. Processamento de dados no servidor
     const processedData = processPostData(post, logoData, footerContent);
 
-    return <PostDetailPageClient initialData={processedData} />;
+    const displayFaqs = processedData.faqItems || [];
+    const faqJsonLd = displayFaqs.length > 0 ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": displayFaqs.map((item: any) => {
+        let answerText = item.answerText || "";
+        if (item.answerHTML) {
+          answerText = item.answerHTML.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+        } else if (item.answerBlocks) {
+          answerText = item.answerBlocks.map((b: any) => b.children?.map((c: any) => c.text).join("") || "").join(" ");
+        }
+        return {
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": answerText
+          }
+        };
+      })
+    } : null;
+
+    return (
+      <>
+        {faqJsonLd && <JsonLdHead id="blog-faq-jsonld" schema={faqJsonLd} />}
+        <PostDetailPageClient initialData={processedData} />
+      </>
+    );
   } catch (error) {
     console.error("Error loading post page data on server:", error);
     notFound();

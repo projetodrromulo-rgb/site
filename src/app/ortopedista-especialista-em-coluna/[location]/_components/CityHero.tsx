@@ -20,6 +20,7 @@ interface CityHeroProps {
     ctaText: string;
     whatsAppNumber: string;
     bgImages?: string[];
+    bgImageAlts?: string[];
     trustLocations?: Array<{ name: string; telephone: string }>;
 }
 
@@ -32,6 +33,7 @@ export default function CityHero({
     ctaText,
     whatsAppNumber,
     bgImages,
+    bgImageAlts,
     trustLocations
 }: CityHeroProps) {
     const containerRef = useRef<HTMLElement>(null);
@@ -157,7 +159,11 @@ export default function CityHero({
                         >
                             <Image
                                 src={src}
-                                alt={`Cirurgia de coluna — especialista em ${cityName}`}
+                                alt={
+                                    (bgImageAlts && bgImageAlts[i])
+                                        ? bgImageAlts[i]
+                                        : `Dr. Rômulo Oliveira - Especialista em Coluna em ${cityName} - Imagem ${i + 1}`
+                                }
                                 fill
                                 priority={i === 0}
                                 sizes="100vw"

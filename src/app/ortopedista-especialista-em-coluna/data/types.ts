@@ -29,6 +29,7 @@ export interface CityData {
     image?: string;
   }>;
   bgImages?: string[];
+  bgImageAlts?: string[];
   ctaOverride?: {
     title?: string;
     description?: string;
