@@ -139,10 +139,24 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         ? `+55${data.locations[0].telephone.replace(/[^0-9]/g, "")}`
         : "+553135040045";
 
+    const reviewsJsonLd = (testimonialsContent?.testimonials || []).map((t: any) => ({
+        "@type": "Review",
+        "author": {
+            "@type": "Person",
+            "name": t.name
+        },
+        "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": String(t.rating || 5),
+            "bestRating": "5"
+        },
+        "reviewBody": t.text
+    }));
+
     // Dynamic physician and local business JSON-LD schema
     const physicianJsonLd = {
         "@context": "https://schema.org",
-        "@type": ["Physician", "MedicalClinic"],
+        "@type": "MedicalClinic",
         "@id": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}#clinic`,
         "name": `Dr. Rômulo Oliveira - Especialista em Coluna em ${data.name}`,
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
@@ -155,8 +169,9 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5.0",
-            "reviewCount": "48"
+            "reviewCount": String(testimonialsContent?.testimonials?.length || 48)
         },
+        "review": reviewsJsonLd,
         "areaServed": {
             "@type": "City",
             "name": data.name,
@@ -251,7 +266,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Ortopedista Especialista em Coluna",
-                "item": "https://www.drromulocoluna.com.br/#sobre"
+                "item": "https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna"
             },
             {
                 "@type": "ListItem",

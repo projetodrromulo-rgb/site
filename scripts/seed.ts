@@ -1089,7 +1089,9 @@ async function main() {
 
             const bgImageRefs: any[] = [];
             if (city.bgImages) {
-                for (const imgPath of city.bgImages) {
+                for (let i = 0; i < city.bgImages.length; i++) {
+                    const imgPath = city.bgImages[i];
+                    const altText = city.bgImageAlts?.[i] || `Dr. Rômulo Oliveira em procedimento de cirurgia de coluna em ${city.name}`;
                     const fullPath = path.join(process.cwd(), "public", imgPath);
                     if (fs.existsSync(fullPath)) {
                         console.log(`📥 Fazendo upload da imagem de fundo para a localidade ${city.name}: ${imgPath}`);
@@ -1101,7 +1103,7 @@ async function main() {
                                 _type: "reference",
                                 _ref: asset._id
                             },
-                            alt: `Imagem de fundo de ${city.name}`
+                            alt: altText
                         });
                     } else {
                         console.warn(`⚠️ Imagem de fundo não encontrada para ${city.name}: ${fullPath}`);

@@ -51,8 +51,9 @@ export default function ParallaxSection({ content }: ParallaxSectionProps) {
                 <Image
                     src={backgroundImage.src}
                     alt={backgroundImage.alt}
-                    fill
-                    className="object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
+                    width={1920}
+                    height={1080}
+                    className="w-full h-full object-cover absolute inset-0 opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
                     priority
                 />
                 {/* Overlay for better integration */}

@@ -60,11 +60,18 @@ export const betimData: CityData = {
     }
   ],
   bgImages: [
-    "/images/dr_romulo_surgery_01.jpg",
     "/images/dr_romulo_surgery_02.jpg",
     "/images/dr_romulo_surgery_03.jpg",
     "/images/dr_romulo_surgery_04.jpg",
-    "/images/dr_romulo_surgery_05.jpg"
+    "/images/dr_romulo_surgery_05.jpg",
+    "/images/dr_romulo_surgery_01.jpg"
+  ],
+  bgImageAlts: [
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Betim",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em Betim",
+    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente em Betim",
+    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares em Betim",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento em Betim"
   ],
   conditionsTitle: "Tratamentos e Condições da Coluna em Betim",
   conditions: [

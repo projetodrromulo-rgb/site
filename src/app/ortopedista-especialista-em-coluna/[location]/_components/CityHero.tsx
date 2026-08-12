@@ -147,7 +147,7 @@ export default function CityHero({
             >
                 {images.map((src, i) => (
                     <div
-                        key={src}
+                        key={`${src}-${i}`}
                         ref={(el) => { slidesRef.current[i] = el; }}
                         className="absolute inset-0 w-full h-full"
                         style={{ opacity: i === 0 ? 1 : 0 }}
@@ -157,18 +157,29 @@ export default function CityHero({
                             ref={(el) => { kenBurnsRef.current[i] = el; }}
                             className="absolute inset-0 w-full h-full will-change-transform"
                         >
-                            <Image
-                                src={src}
-                                alt={
-                                    (bgImageAlts && bgImageAlts[i])
-                                        ? bgImageAlts[i]
-                                        : `Dr. Rômulo Oliveira - Especialista em Coluna em ${cityName} - Imagem ${i + 1}`
-                                }
-                                fill
-                                priority={i === 0}
-                                sizes="100vw"
-                                className="object-cover object-center"
-                            />
+                            {(() => {
+                                const defaultAlts = [
+                                    `Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em ${cityName}`,
+                                    `Equipe médica especialista em cirurgia de coluna em centro cirúrgico em ${cityName}`,
+                                    `Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente em ${cityName}`,
+                                    `Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares em ${cityName}`,
+                                    `Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna analisando imagens em monitor em ${cityName}`
+                                ];
+                                const altText = (bgImageAlts && bgImageAlts[i] && bgImageAlts[i].trim())
+                                    ? bgImageAlts[i]
+                                    : defaultAlts[i % defaultAlts.length];
+                                return (
+                                    <Image
+                                        src={src}
+                                        alt={altText}
+                                        width={1920}
+                                        height={1080}
+                                        priority={i === 0}
+                                        sizes="100vw"
+                                        className="w-full h-full object-cover object-center absolute inset-0"
+                                    />
+                                );
+                            })()}
                         </div>
                     </div>
                 ))}
@@ -208,10 +219,9 @@ export default function CityHero({
                 >
                     {/* Breadcrumb Navigation */}
                     <Breadcrumb
-                        className="-ml-4 sm:-ml-8 md:-ml-16 lg:-ml-24"
                         items={[
                             { label: "Início", href: "/" },
-                            { label: "Especialista em Coluna", href: "/#sobre" },
+                            { label: "Especialista em Coluna", href: "/ortopedista-especialista-em-coluna" },
                             { label: cityName }
                         ]}
                     />

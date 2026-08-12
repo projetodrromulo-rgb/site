@@ -62,6 +62,13 @@ export const vilaDaSerraData: CityData = {
     "/images/dr_romulo_surgery_05.jpg",
     "/images/dr_romulo_surgery_01.jpg"
   ],
+  bgImageAlts: [
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Belo Horizonte",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em BH",
+    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente",
+    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento"
+  ],
   conditionsTitle: "Tratamentos e Condições da Coluna no Vila da Serra",
   conditions: [
     {

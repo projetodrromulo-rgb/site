@@ -123,6 +123,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/ortopedista-especialista-em-coluna`,
+      lastModified: rootLastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     ...procedureUrls,
     ...blogUrls,
     ...locationUrls,

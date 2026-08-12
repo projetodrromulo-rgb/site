@@ -90,6 +90,7 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                     ctaText
                 },
                 "bgImages": bgImages[].asset->url,
+                "bgImageAlts": bgImages[].alt,
                 ctaOverride {
                     title,
                     description
@@ -149,6 +150,9 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                     ctaText: page.heroContent?.ctaText || replacePlaceholders(settings.heroCtaTextTemplate || defaultSettings.heroCtaTextTemplate, prefix, clinic, cityName),
                 },
                 bgImages: page.bgImages && page.bgImages.length > 0 ? page.bgImages : localData?.bgImages,
+                bgImageAlts: (page.bgImageAlts && page.bgImageAlts.length > 0 && new Set(page.bgImageAlts.filter(Boolean)).size > 1) 
+                    ? page.bgImageAlts 
+                    : localData?.bgImageAlts,
                 ctaOverride: {
                     title: page.ctaOverride?.title || replacePlaceholders(settings.ctaTitleTemplate || defaultSettings.ctaTitleTemplate, prefix, clinic, cityName),
                     description: page.ctaOverride?.description || replacePlaceholders(settings.ctaDescriptionTemplate || defaultSettings.ctaDescriptionTemplate, prefix, clinic, cityName)

@@ -76,8 +76,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                                     <Image
                                         src={unit.mobileImage}
                                         alt={unit.title}
-                                        fill
-                                        className="object-cover"
+                                        width={800}
+                                        height={600}
+                                        className="w-full h-full object-cover absolute inset-0"
                                         sizes="100vw"
                                         priority={index < 3}
                                         quality={80}
@@ -88,8 +89,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                                     <Image
                                         src={unit.image}
                                         alt={unit.title}
-                                        fill
-                                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                                        width={800}
+                                        height={600}
+                                        className="w-full h-full object-cover absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-110"
                                         sizes="(max-width: 1024px) 50vw, 400px"
                                         priority={index < 3}
                                         quality={80}
@@ -100,8 +102,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                             <Image
                                 src={unit.image}
                                 alt={unit.title}
-                                fill
-                                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                                width={800}
+                                height={600}
+                                className="w-full h-full object-cover absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-110"
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
                                 priority={index < 3}
                                 quality={80}
