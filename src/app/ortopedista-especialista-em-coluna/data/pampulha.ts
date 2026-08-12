@@ -72,38 +72,38 @@ export const pampulhaData: CityData = {
   conditions: [
     {
       title: "Hérnia de Disco na Pampulha",
-      description: "Tratamento de dores ciáticas intensas e hérnias vertebrais na Clínica NUMAI com indicação de condutas conservadoras ou endoscopia de coluna."
+      description: "Descompressão nervosa endoscópica e tratamento conservador individualizado para alívio imediato da dor ciática na Clínica NUMAI."
     },
     {
-      title: "Dor Lombar e Alterações Posturais",
-      description: "Avaliação ortopédica completa para prevenção e alívio da lombalgia crônica em moradores da região norte e Pampulha."
+      title: "Dor Lombar e Cervicalgias",
+      description: "Tratamento de crises dolorosas e dores crônicas com bloqueios articulares e infiltrações guiadas por imagem na Clínica NUMAI."
     }
   ],
   ctaOverride: {
     title: "Precisando de um médico especialista em coluna na Pampulha?",
-    description: "Agende sua consulta na Clínica NUMAI (Pampulha) com o Dr. Rômulo Oliveira e descubra as melhores opções para o seu tratamento."
+    description: "Agende sua consulta com o Dr. Rômulo Oliveira na Clínica NUMAI e cuide da saúde da sua coluna com alta precisão."
   },
   faqsTitle: "Perguntas Frequentes sobre Atendimento na Pampulha",
   faqs: [
     {
-      question: "Onde se localiza o consultório do especialista em coluna na Pampulha?",
-      answer: "O Dr. Rômulo Oliveira atende na Clínica NUMAI, situada na Av. Coronel José Dias Bicalho, 928 - Bairro São Luiz/Pampulha, próxima ao Mineirinho e à UFMG."
+      question: "Onde o Dr. Rômulo atende na região da Pampulha?",
+      answer: "Os atendimentos são realizados na estrutura premium da Clínica NUMAI (Avenida Coronel José Dias Bicalho, 928 - Bairro São Luiz/Pampulha). O local oferece infraestrutura de ponta, fácil estacionamento e máximo conforto para os pacientes da região."
     },
     {
-      question: "Quais bairros da região da Pampulha são atendidos na Clínica NUMAI?",
-      answer: "A unidade atende rotineiramente pacientes de bairros como São Luiz, Jaraguá, Ouro Preto, Castelo, Santa Amélia, Dona Clara, Planalto, Guarani, Itapoã e Bandeirantes, oferecendo fácil estacionamento e mobilidade sem trânsito."
+      question: "Como funciona a cirurgia de coluna por endoscopia na Clínica NUMAI?",
+      answer: "A endoscopia vertebral é um procedimento moderno e minimamente invasivo. Através de uma incisão de apenas 1 cm e uma microcâmera de alta definição, o Dr. Rômulo trata hérnias de disco preservando a musculatura. O procedimento é rápido, com baixo risco de sangramento e, na maioria dos casos, permite alta hospitalar no mesmo dia."
     },
     {
-      question: "Quais convênios médicos são aceitos na unidade Pampulha?",
-      answer: "Na Clínica NUMAI são aceitos planos como Amil, Cassi, Copasa, Cemig Saúde, Fundação Libertas, SulAmérica, Usisaúde, Vale, Unimed Seguros e atendimentos particulares."
+      question: "Quais convênios médicos são aceitos para consultas na Pampulha?",
+      answer: "Atendemos uma ampla rede de planos de saúde, incluindo Amil, Cassi, Copasa, Cemig Saúde, Fundação Libertas, SulAmérica, Usisaúde, Vale e Unimed Seguros. Para consultas particulares, nossa equipe emite toda a documentação necessária para o seu reembolso, caso o seu plano ofereça esse tipo de cobertura."
     },
     {
-      question: "Quais sintomas indicam a necessidade de consultar um especialista em coluna na Pampulha?",
-      answer: "Sinais como dor persistente nas costas há mais de duas semanas, dor que se irradia para as pernas ou braços, formigamento, dormência nos pés ou perda de força muscular exigem avaliação médica especializada."
+      question: "A clínica é de fácil acesso para quem mora nos bairros da região norte e Pampulha?",
+      answer: "Com certeza. A localização no bairro São Luiz foi escolhida de forma estratégica para evitar o trânsito do centro de BH. Pacientes que residem no Ouro Preto, Castelo, Bandeirantes, Santa Amélia, Jaraguá, Planalto, Itapoã e demais bairros da região chegam rapidamente à clínica."
     },
     {
-      question: "Como posso agendar consulta na unidade Pampulha?",
-      answer: "Você pode realizar o agendamento de forma simples pelo WhatsApp de atendimento do consultório, onde a equipe informará os dias de atendimento presencial e orientará sobre o envio prévio de exames."
+      question: "Como faço para agendar uma avaliação presencial?",
+      answer: "O agendamento é feito de maneira ágil e personalizada pelo nosso WhatsApp. Nossa equipe de atendimento está pronta para organizar o melhor horário na sua agenda e orientar sobre todos os exames e documentos necessários para a primeira consulta."
     }
   ]
 };
