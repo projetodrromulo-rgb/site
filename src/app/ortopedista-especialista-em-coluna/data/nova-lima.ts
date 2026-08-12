@@ -3,8 +3,8 @@ import { CityData } from "./types";
 export const novaLimaData: CityData = {
   slug: "nova-lima",
   name: "Nova Lima",
-  title: "Médico Ortopedista Especialista em Coluna em Nova Lima | Dr. Rômulo Oliveira",
-  metaDescription: "Ortopedista especialista em coluna em Nova Lima. Dr. Rômulo Oliveira realiza cirurgia minimamente invasiva e tratamento de hérnia de disco.",
+  title: "Especialista em Coluna em Nova Lima | Dr. Rômulo Oliveira",
+  metaDescription: "Ortopedista especialista em coluna em Nova Lima: cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende sua consulta com o Dr. Rômulo Oliveira.",
   keywords: [
     "medico ortopedista especialista em coluna em nova lima",
     "ortopedista especialista em coluna em nova lima",
@@ -62,11 +62,11 @@ export const novaLimaData: CityData = {
     "/images/dr_romulo_surgery_01.jpg"
   ],
   bgImageAlts: [
-    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Belo Horizonte",
-    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em BH",
-    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente",
-    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares",
-    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento"
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Nova Lima",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico no Hospital Biocor em Nova Lima",
+    "Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente em Nova Lima",
+    "Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares em Nova Lima",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão no Hospital Biocor em Nova Lima"
   ],
   conditionsTitle: "Tratamentos e Condições da Coluna em Nova Lima",
   conditions: [
@@ -86,24 +86,24 @@ export const novaLimaData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento em Nova Lima",
   faqs: [
     {
-      question: "Em qual local de Nova Lima o Dr. Rômulo Oliveira realiza consultas de coluna?",
-      answer: "Os atendimentos ocorrem no renomado Hospital Biocor - Rede D'Or (Rua da Paisagem, 290 - Vila da Serra / Nova Lima), oferecendo máxima infraestrutura e conforto para pacientes de Nova Lima, Vale do Sereno e condomínios da região."
+      question: "Onde o Dr. Rômulo atende na região de Nova Lima e Vila da Serra?",
+      answer: "Os atendimentos são realizados na estrutura premium do Hospital Biocor - Rede D'Or (Rua da Paisagem, 290 - Vila da Serra). O local oferece infraestrutura de ponta, estacionamento e máximo conforto para os pacientes da região."
     },
     {
-      question: "Quais as vantagens da cirurgia de coluna por endoscopia realizada no Hospital Biocor?",
-      answer: "A endoscopia vertebral permite tratar hérnias de disco através de uma pequena incisão de cerca de 1 cm com auxílio de uma microcâmera de alta definição. O procedimento preserva a musculatura da coluna, reduz o risco de sangramento e possibilita alta hospitalar no mesmo dia no Biocor."
+      question: "Como funciona a cirurgia de coluna por endoscopia no Biocor?",
+      answer: "A endoscopia vertebral é um procedimento moderno e minimamente invasivo. Através de uma incisão de apenas 1 cm e uma microcâmera de alta definição, o Dr. Rômulo trata hérnias de disco preservando a musculatura. O procedimento é rápido, com baixo risco de sangramento e, na maioria dos casos, permite alta hospitalar no mesmo dia."
     },
     {
-      question: "Quais convênios de saúde cobrem o atendimento no Hospital Biocor em Nova Lima?",
-      answer: "São aceitos planos como Bradesco Saúde, Amil, SulAmérica, Porto Seguro, Care Plus, Allianz, Copasa, Cemig Saúde e Unimed Seguros, além de modalidade particular com emissão de documentação para reembolso."
+      question: "Quais convênios médicos são aceitos para consultas no Vila da Serra?",
+      answer: "Atendemos os principais planos de saúde, incluindo Amil, Bradesco, Copass, Saúde Caixa, SulAmerica, Vale. Para consultas particulares, nossa equipe emite toda a documentação necessária para o seu reembolso, caso o seu plano ofereça esse tipo de cobertura."
     },
     {
-      question: "Moradores de condomínios como Alphaville, Jardim Canadá e Vale do Sereno têm acesso facilitado?",
-      answer: "Sim! A localização estratégica do Hospital Biocor no Vila da Serra/Nova Lima permite que moradores de Alphaville, Vale do Sereno, Bosque da Ribeira e Quinta dos Lontras acessem atendimento de alta complexidade sem necessitar ir ao centro de BH."
+      question: "O hospital é de fácil acesso para quem mora nos condomínios da região?",
+      answer: "Com certeza. A localização no Vila da Serra foi escolhida de forma estratégica para evitar o trânsito do centro de BH. Pacientes que residem no Alphaville, Jardim Canadá, Vale do Sereno, Bosque da Ribeira e demais condomínios de Nova Lima chegam rapidamente ao complexo hospitalar."
     },
     {
-      question: "Como agendar uma avaliação com o especialista em coluna em Nova Lima?",
-      answer: "O agendamento é prático e direto via WhatsApp oficial do consultório. A equipe esclarece dúvidas sobre horários e documentação necessária para o dia da consulta."
+      question: "Como faço para agendar uma avaliação presencial?",
+      answer: "O agendamento é feito de maneira ágil e personalizada pelo nosso WhatsApp. Nossa equipe de atendimento está pronta para organizar o melhor horário na sua agenda e orientar sobre todos os exames e documentos necessários para a primeira consulta."
     }
   ]
 };

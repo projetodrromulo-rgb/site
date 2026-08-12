@@ -3,8 +3,8 @@ import { CityData } from "./types";
 export const pampulhaData: CityData = {
   slug: "pampulha",
   name: "Pampulha",
-  title: "Médico Ortopedista Especialista em Coluna na Pampulha | Dr. Rômulo Oliveira",
-  metaDescription: "Especialista em coluna na Pampulha, BH. Dr. Rômulo Oliveira realiza cirurgia de coluna minimamente invasiva e tratamento de hérnia de disco.",
+  title: "Especialista em Coluna na Pampulha | Dr. Rômulo Oliveira",
+  metaDescription: "Ortopedista especialista em coluna na Pampulha: cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende sua consulta com o Dr. Rômulo Oliveira.",
   keywords: [
     "medico ortopedista especialista em coluna na pampulha",
     "ortopedista especialista em coluna na pampulha",
@@ -62,11 +62,11 @@ export const pampulhaData: CityData = {
     "/images/dr_romulo_surgery_01.jpg"
   ],
   bgImageAlts: [
-    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Belo Horizonte",
-    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em BH",
-    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente",
-    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares",
-    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento"
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna na Pampulha",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico na região da Pampulha",
+    "Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente na Pampulha",
+    "Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares na Pampulha",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna na Clínica NUMAI na Pampulha"
   ],
   conditionsTitle: "Tratamentos e Condições da Coluna na Pampulha",
   conditions: [

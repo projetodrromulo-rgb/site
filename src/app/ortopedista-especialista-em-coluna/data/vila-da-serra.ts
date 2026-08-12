@@ -3,11 +3,11 @@ import { CityData } from "./types";
 export const vilaDaSerraData: CityData = {
   slug: "vila-da-serra",
   name: "Vila da Serra",
-  title: "Médico Ortopedista Especialista em Coluna no Vila da Serra | Dr. Rômulo Oliveira",
-  metaDescription: "Especialista em coluna no Vila da Serra (Nova Lima). Dr. Rômulo Oliveira realiza cirurgia de coluna minimamente invasiva e tratamento de hérnia de disco.",
+  title: "Especialista em Coluna no Vila da Serra | Dr. Rômulo Oliveira",
+  metaDescription: "Ortopedista especialista em coluna no Vila da Serra: cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende consulta com o Dr. Rômulo Oliveira.",
   keywords: [
     "medico ortopedista especialista em coluna no vila da serra",
-    "ortopedista especialista em coluna em vila da serra",
+    "ortopedista especialista em coluna no vila da serra",
     "especialista em coluna no vila da serra",
     "cirurgia de coluna no vila da serra",
     "clinica de coluna no vila da serra",
@@ -15,8 +15,7 @@ export const vilaDaSerraData: CityData = {
     "dor nas costas vila da serra",
     "ortopedista no vila da serra",
     "cirurgiao de coluna vila da serra",
-    "biocor vila da serra",
-    "hospital biocor vila da serra"
+    "biocor vila da serra"
   ],
   heroContent: {
     typingPhrases: [
@@ -35,10 +34,10 @@ export const vilaDaSerraData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: "Médico Ortopedista Especialista em Coluna no bairro Vila da Serra. Especialista em cirurgia de coluna minimamente invasiva com foco em rápida recuperação, alívio da dor e atendimento humanizado no Hospital Biocor - Rede D'Or.",
-    ctaText: "Agendar Consulta no bairro Vila da Serra"
+    description: "Médico Ortopedista Especialista em Coluna no bairro Vila da Serra. Atendimento no Hospital Biocor - Rede D'Or com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
+    ctaText: "Agendar Consulta no Vila da Serra"
   },
-  locationPrefix: "no bairro Vila da Serra",
+  locationPrefix: "no Vila da Serra",
   clinicName: "no Hospital Biocor - Rede D'Or",
   address: {
     streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",
@@ -63,11 +62,11 @@ export const vilaDaSerraData: CityData = {
     "/images/dr_romulo_surgery_01.jpg"
   ],
   bgImageAlts: [
-    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna em Belo Horizonte",
-    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico em BH",
-    "Dr. Romulo Oliveira em uma cirurgia minimamente invasiva de coluna com auxilio de um assistente",
-    "Dr. Romulo Oliveira iniciando um procedimento juntamente com sua equipe de auxiliares",
-    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna de alta precisão analisando as imagens em um monitor durante o procedimento"
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna no Vila da Serra",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico no Vila da Serra",
+    "Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente no Vila da Serra",
+    "Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares no Vila da Serra",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna no Hospital Biocor no Vila da Serra"
   ],
   conditionsTitle: "Tratamentos e Condições da Coluna no Vila da Serra",
   conditions: [
