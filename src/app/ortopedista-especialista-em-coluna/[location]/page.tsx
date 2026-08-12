@@ -69,6 +69,7 @@ export async function generateMetadata({ params }: { params: Promise<{ location:
             title: data.title,
             description: data.metaDescription,
             url: `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
+            type: "website",
             images: [
                 {
                     url: "/images/og-profile.webp",
@@ -134,6 +135,10 @@ export default async function CityPage({ params }: { params: Promise<{ location:
 
     const whatsAppNumber = env().whatsAppNumber;
 
+    const primaryTelephone = (data.locations && data.locations.length > 0 && data.locations[0].telephone)
+        ? `+55${data.locations[0].telephone.replace(/[^0-9]/g, "")}`
+        : "+553135040045";
+
     // Dynamic physician and local business JSON-LD schema
     const physicianJsonLd = {
         "@context": "https://schema.org",
@@ -143,9 +148,15 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
         "url": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,
-        "telephone": "+553135040045",
-        "medicalSpecialty": ["Orthopedic", "SpineSurgery"],
+        "telephone": primaryTelephone,
         "priceRange": "$$$",
+        "dateModified": "2026-08-12",
+        "medicalSpecialty": ["Orthopedic", "SpineSurgery"],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "48"
+        },
         "areaServed": {
             "@type": "City",
             "name": data.name,

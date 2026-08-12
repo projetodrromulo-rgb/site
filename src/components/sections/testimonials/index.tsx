@@ -169,7 +169,7 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
                                     </div>
 
                                     <div className="text-center flex flex-col items-center gap-2">
-                                        <h4 className="text-xl md:text-2xl font-bold text-white mb-0.5">{visibleItems[1].name}</h4>
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-0.5">{visibleItems[1].name}</h3>
 
                                         {/* Badge 'Avaliação no Google' diretamente debaixo do nome */}
                                         <div className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/15 shadow-sm">

@@ -56,8 +56,8 @@ export default function Footer({ content }: FooterProps) {
                                 <a
                                     key={social.platform}
                                     href={social.href}
-                                    target={social.platform === "whatsapp" ? "_blank" : undefined}
-                                    rel={social.platform === "whatsapp" ? "noopener noreferrer" : undefined}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label={social.platform === "whatsapp" ? "Conversar pelo WhatsApp" : "Seguir no Instagram"}
                                     className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center text-neutral-light/60 hover:bg-accent hover:text-primary-dark transition-all duration-300"
                                 >

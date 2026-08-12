@@ -2,8 +2,8 @@ import { CityData } from "./types";
 export const betimData: CityData = {
   slug: "betim",
   name: "Betim",
-  title: "Médico Ortopedista Especialista em Coluna em Betim | Dr. Rômulo Oliveira",
-  metaDescription: "Especialista em coluna em Betim. Dr. Rômulo Oliveira realiza cirurgia minimamente invasiva e tratamento de hérnia de disco no Mater Dei Betim.",
+  title: "Ortopedista Especialista em Coluna em Betim | Dr. Rômulo Oliveira",
+  metaDescription: "Especialista em coluna em Betim: cirurgia minimamente invasiva e tratamento de hérnia de disco no Mater Dei. Agende sua consulta com o Dr. Rômulo.",
   keywords: [
     "medico ortopedista especialista em coluna em betim",
     "ortopedista especialista em coluna em betim",
