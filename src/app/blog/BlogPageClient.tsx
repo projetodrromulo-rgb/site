@@ -53,6 +53,16 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
         return filteredPosts.slice(startIndex, startIndex + postsPerPage);
     }, [filteredPosts, currentPage]);
 
+    // Reset scroll to top on initial page mount
+    useEffect(() => {
+        if (typeof window !== "undefined" && !window.location.hash) {
+            window.scrollTo(0, 0);
+            if ((window as any).__lenis) {
+                (window as any).__lenis.scrollTo(0, { immediate: true });
+            }
+        }
+    }, []);
+
     // Handle scroll to top on page change
     useEffect(() => {
         if (currentPage > 1) {
@@ -76,21 +86,18 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
 
     return (
         <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900">
-            {/* Header Section - Fixed Positioning */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F] backdrop-blur-md border-b border-white/5">
-                <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
-                    <Link href="/#blog" className="text-[#0db9f2] flex size-12 shrink-0 items-center justify-center hover:bg-white/10 rounded-xl transition-all active:scale-95">
-                        <ArrowLeft size={28} />
+            <main id="blog-content" className="flex-1 max-w-5xl mx-auto w-full px-4 pt-28 md:pt-32 pb-32 scroll-mt-28">
+                {/* Botão Voltar para a Seção Blog da Home */}
+                <div className="pt-2 pb-4">
+                    <Link
+                        href="/#blog"
+                        className="inline-flex items-center gap-2 text-slate-600 hover:text-[#0db9f2] font-semibold text-sm transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-200/60 active:scale-95 group"
+                    >
+                        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                        <span>Voltar para o Início</span>
                     </Link>
-                    <h2 className="text-white text-lg md:text-xl font-bold leading-tight tracking-tight flex-1 text-center font-display">
-                        Blog e Artigos
-                    </h2>
-                    <div className="flex w-12 items-center justify-end">
-                    </div>
                 </div>
-            </header>
 
-            <main id="blog-content" className="flex-1 max-w-5xl mx-auto w-full px-4 pt-24 pb-32 scroll-mt-28">
                 {/* Search Bar */}
                 <div className="py-6">
                     <label className="flex flex-col w-full group">

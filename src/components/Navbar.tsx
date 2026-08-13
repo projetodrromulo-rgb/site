@@ -120,7 +120,7 @@ export default function Navbar() {
         }
     });
 
-    const showSolidNavbar = hasScrolled || isStudioPage;
+    const showSolidNavbar = hasScrolled || isStudioPage || pathname !== "/";
 
     return (
         <>

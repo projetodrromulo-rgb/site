@@ -328,6 +328,15 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     const [activeId, setActiveId] = useState<string>("");
 
     useEffect(() => {
+        if (typeof window !== "undefined" && !window.location.hash) {
+            window.scrollTo(0, 0);
+            if ((window as any).__lenis) {
+                (window as any).__lenis.scrollTo(0, { immediate: true });
+            }
+        }
+    }, []);
+
+    useEffect(() => {
         if (tocItems.length === 0) return;
 
         const observer = new IntersectionObserver(
@@ -452,27 +461,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
 
     return (
         <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-clip text-slate-900">
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A192F] backdrop-blur-md border-b border-white/5">
-                <div className="flex items-center p-4 justify-between max-w-5xl mx-auto w-full gap-4">
-                    <Link href="/blog" className="text-[#0db9f2] flex items-center gap-2 px-4 py-2 hover:bg-white/10 rounded-xl transition-all active:scale-95 group">
-                        <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-bold uppercase tracking-wider hidden md:block">Voltar</span>
-                    </Link>
-
-                    <Link href="/" className="flex-1 flex justify-center">
-                        <Logo
-                            logoImage={logoData}
-                            scrolled={true}
-                            className="scale-75 md:scale-90"
-                        />
-                    </Link>
-
-                    <div className="flex w-24 items-center justify-end">
-                    </div>
-                </div>
-            </header>
-
-            <main className="flex-1 max-w-6xl mx-auto w-full px-4 pt-32 pb-32">
+            <main className="flex-1 max-w-6xl mx-auto w-full px-4 pt-28 md:pt-32 pb-32">
                 {/* Article Header (Full Width Centered) */}
                 <header className="mb-8 max-w-5xl mx-auto">
                     <motion.div
@@ -480,6 +469,17 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
+                        {/* Botão Voltar para a Seção Blog da Home */}
+                        <div className="mb-6">
+                            <Link
+                                href="/#blog"
+                                className="inline-flex items-center gap-2 text-slate-600 hover:text-[#0db9f2] font-semibold text-sm transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-200/60 active:scale-95 group w-fit"
+                            >
+                                <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                                <span>Voltar para o Blog</span>
+                            </Link>
+                        </div>
+
                         <span className="inline-block bg-[#0db9f2] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white mb-4 shadow-sm">
                             {post.category}
                         </span>
