@@ -1,5 +1,6 @@
 import { post as dorLombarPost } from "./posts/dor-lombar-quando-a-dor-nas-costas-deixa-de-ser-algo-normal";
 import { post as herniaPrecisaCirurgiaPost } from "./posts/hernia-de-disco-precisa-de-cirurgia-mitos-e-verdades";
+import { post as ressonanciaPost } from "./posts/ressonancia-magnetica-da-coluna-como-entender-esse-exame";
 
 export interface Post {
     slug: string;
@@ -18,6 +19,7 @@ export interface Post {
 
 export const allPosts: Post[] = [
     dorLombarPost,
-    herniaPrecisaCirurgiaPost
+    herniaPrecisaCirurgiaPost,
+    ressonanciaPost
 ];
 

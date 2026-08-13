@@ -34,6 +34,15 @@ const localBlogContent: BlogSectionContent = {
             category: "Saúde da Coluna",
             excerpt: "Receber o diagnóstico de uma hérnia de disco costuma vir acompanhado de uma dúvida imediata: será que eu vou precisar operar? Entenda os mitos e as verdades.",
             image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200"
+        },
+        {
+            title: "Ressonância Magnética da Coluna: Como entender esse exame?",
+            slug: "ressonancia-magnetica-da-coluna-como-entender-esse-exame",
+            date: "24 Jun, 2026",
+            readTime: "5 min",
+            category: "Exames de Imagem",
+            excerpt: "A ressonância magnética (RM) é um dos exames mais importantes para avaliar doenças da coluna vertebral. Entenda como funciona, quais estruturas são identificadas e quando é indicada.",
+            image: "/images/blog/ressonancia-header.png"
         }
     ]
 };
