@@ -125,18 +125,50 @@ async function main() {
         !assetDocs.includes(d) && !itemDocs.includes(d)
     );
 
-    const orderedDocs = [...assetDocs, ...itemDocs, ...sectionDocs];
+    // 1. Upload de mídias/assets (download do dev + upload binário para o prod)
+    console.log(`\n🚀 Enviando ${assetDocs.length} assets de mídia para production (upload de arquivos binários)...`);
+    let assetCount = 0;
+    const ASSET_CONCURRENCY = 5;
 
-    // Migração em lotes
-    console.log(`\n🚀 Enviando para production em lotes de ${BATCH_SIZE}...\n`);
-    console.log(`   📎 ${assetDocs.length} assets  →  primeiro`);
-    console.log(`   📄 ${itemDocs.length + sectionDocs.length} conteúdo →  depois\n`);
+    for (let i = 0; i < assetDocs.length; i += ASSET_CONCURRENCY) {
+        const chunk = assetDocs.slice(i, i + ASSET_CONCURRENCY);
+        await Promise.all(
+            chunk.map(async (assetDoc) => {
+                if (!assetDoc.url) return;
+                try {
+                    const res = await fetch(assetDoc.url);
+                    if (res.ok) {
+                        const arrayBuf = await res.arrayBuffer();
+                        const buffer = Buffer.from(arrayBuf);
+                        const kind = assetDoc._type === "sanity.fileAsset" ? "file" : "image";
+                        await prodWriteClient.assets.upload(kind, buffer, {
+                            filename: assetDoc.originalFilename || path.basename(assetDoc.url),
+                            contentType: assetDoc.mimeType
+                        });
+                    }
+                } catch (err: any) {
+                    console.warn(`\n⚠️  Aviso ao enviar asset ${assetDoc._id}:`, err.message);
+                } finally {
+                    assetCount++;
+                }
+            })
+        );
+        const percent = Math.round((assetCount / assetDocs.length) * 100);
+        const bar = "█".repeat(Math.floor(percent / 5)).padEnd(20);
+        process.stdout.write(`\r   [${bar}] ${percent}% (${assetCount}/${assetDocs.length}) assets de mídia`);
+    }
+    console.log("\n✅ Upload de assets de mídia concluído.\n");
+
+    const contentDocs = [...assetDocs, ...itemDocs, ...sectionDocs];
+
+    // 2. Migração dos documentos de conteúdo e metadados de assets em lotes
+    console.log(`🚀 Enviando ${contentDocs.length} documentos de conteúdo e metadados para production em lotes de ${BATCH_SIZE}...\n`);
 
     let processed = 0;
     let errors = 0;
 
-    for (let i = 0; i < orderedDocs.length; i += BATCH_SIZE) {
-        const batch = orderedDocs.slice(i, i + BATCH_SIZE);
+    for (let i = 0; i < contentDocs.length; i += BATCH_SIZE) {
+        const batch = contentDocs.slice(i, i + BATCH_SIZE);
         const transaction = prodWriteClient.transaction();
 
         for (const doc of batch) {
@@ -146,9 +178,9 @@ async function main() {
         try {
             await transaction.commit();
             processed += batch.length;
-            const percent = Math.round((processed / orderedDocs.length) * 100);
+            const percent = Math.round((processed / contentDocs.length) * 100);
             const bar = "█".repeat(Math.floor(percent / 5)).padEnd(20);
-            process.stdout.write(`\r   [${bar}] ${percent}% (${processed}/${orderedDocs.length})`);
+            process.stdout.write(`\r   [${bar}] ${percent}% (${processed}/${contentDocs.length}) documentos`);
         } catch (err: any) {
             errors++;
             console.error(`\n   ⚠️  Erro no lote ${Math.floor(i / BATCH_SIZE) + 1}: ${err.message}`);
