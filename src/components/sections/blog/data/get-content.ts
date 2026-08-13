@@ -16,7 +16,26 @@ const localBlogContent: BlogSectionContent = {
     },
     description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
     viewAllCta: "Ver Todos os Artigos",
-    posts: []
+    posts: [
+        {
+            title: "Dor Lombar: Quando a dor nas costas deixa de ser algo normal?",
+            slug: "dor-lombar-quando-a-dor-nas-costas-deixa-de-ser-algo-normal",
+            date: "24 Jun, 2026",
+            readTime: "6 min",
+            category: "Saúde da Coluna",
+            excerpt: "A dor lombar é uma das queixas mais comuns. Entenda quando ela deixa de ser normal, as principais causas, quando fazer exames de imagem e tratamentos.",
+            image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200"
+        },
+        {
+            title: "Hérnia de disco precisa de cirurgia? Mitos e Verdades.",
+            slug: "hernia-de-disco-precisa-de-cirurgia-mitos-e-verdades",
+            date: "24 Jun, 2026",
+            readTime: "5 min",
+            category: "Saúde da Coluna",
+            excerpt: "Receber o diagnóstico de uma hérnia de disco costuma vir acompanhado de uma dúvida imediata: será que eu vou precisar operar? Entenda os mitos e as verdades.",
+            image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200"
+        }
+    ]
 };
 
 export async function getBlogContent(): Promise<BlogSectionContent> {
@@ -34,7 +53,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
             },
             description,
             viewAllCta,
-            posts[]-> | order(date desc) {
+            posts[]-> {
                 title,
                 "slug": slug.current,
                 date,
