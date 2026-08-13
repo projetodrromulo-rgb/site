@@ -87,7 +87,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                         excerpt: post.excerpt,
                         image: post.image,
                     }))
-                    : []
+                    : localBlogContent.posts
             };
         }
     } catch (error) {
