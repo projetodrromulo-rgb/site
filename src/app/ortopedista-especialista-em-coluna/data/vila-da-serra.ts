@@ -103,7 +103,7 @@ export const vilaDaSerraData: CityData = {
     },
     {
       question: "Quais planos de saúde a clínica atende?",
-      answer: "O atendimento engloba os principais convênios do mercado, como Care Plus, Porto Seguro, Allianz, Bradesco Saúde, Amil, SulAmérica, Unimed Seguros, Copasa e Cemig Saúde. Em caso de consultas particulares, emitimos toda a documentação (nota fiscal e laudo) para o seu pedido de reembolso."
+      answer: "Atendemos os principais planos de saúde, incluindo Amil, Bradesco, Copass, Saúde Caixa, SulAmerica, Vale. Para consultas particulares, nossa equipe emite toda a documentação necessária para o seu reembolso, caso o seu plano ofereça esse tipo de cobertura."
     },
     {
       question: "Como faço para marcar a minha consulta?",
