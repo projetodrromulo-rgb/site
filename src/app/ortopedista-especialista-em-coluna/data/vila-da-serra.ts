@@ -90,24 +90,24 @@ export const vilaDaSerraData: CityData = {
   faqsTitle: "Perguntas Frequentes sobre Atendimento na Vila da Serra",
   faqs: [
     {
-      question: "Onde fica o consultório de atendimento ortopédico no bairro Vila da Serra?",
-      answer: "O atendimento presencial na Vila da Serra ocorre no Hospital Biocor - Rede D'Or, localizado na Rua da Paisagem, 290 - Vila da Serra (divisa entre Belo Horizonte e Nova Lima)."
+      question: "Onde fica o consultório do ortopedista de coluna na região?",
+      answer: "O atendimento presencial ocorre na estrutura de alto padrão do Hospital Biocor - Rede D'Or. O complexo está localizado na Rua da Paisagem, 290, bem na divisa entre o Vila da Serra e o Belvedere, oferecendo conforto e segurança."
     },
     {
-      question: "Quais tratamentos e procedimentos para a coluna são oferecidos na Vila da Serra?",
-      answer: "São realizadas consultas para investigação de dor vertebral, infiltrações e bloqueios articulares para alívio analgésico rápido, descompressão nervosa endoscópica e cirurgias minimamente invasivas de hérnia de disco."
+      question: "Quais tratamentos para a coluna são realizados na unidade do Biocor?",
+      answer: "Nossa equipe realiza desde a investigação detalhada de dores vertebrais até procedimentos de ponta. O portfólio inclui infiltrações para alívio rápido da dor e cirurgias minimamente invasivas, como a descompressão endoscópica para hérnia de disco."
     },
     {
-      question: "Residentes do Belvedere, Vale do Sereno e Seis Pistas têm acesso direto à unidade Biocor?",
-      answer: "Sim! A localização na Vila da Serra é conveniente para quem mora no Belvedere, Alameda da Serra, Vale do Sereno e Seis Pistas, permitindo atendimento de padrão internacional perto de casa."
+      question: "O acesso ao hospital é fácil para quem mora nos arredores?",
+      answer: "Sim! A localização no Vila da Serra foi pensada exatamente para a comodidade de quem mora no eixo Sul. Pacientes do Belvedere, Alameda da Serra, Vale do Sereno e região das Seis Pistas têm acesso direto a um atendimento de padrão internacional a poucos minutos de casa."
     },
     {
-      question: "Quais convênios atendem no Hospital Biocor na Vila da Serra?",
-      answer: "O Hospital Biocor aceita planos como Bradesco Saúde, Amil, SulAmérica, Porto Seguro, Care Plus, Allianz, Copasa, Cemig Saúde e Unimed Seguros, além de consultas particulares com fornecimento de nota fiscal e laudo para reembolso."
+      question: "Quais planos de saúde a clínica atende?",
+      answer: "O atendimento engloba os principais convênios do mercado, como Care Plus, Porto Seguro, Allianz, Bradesco Saúde, Amil, SulAmérica, Unimed Seguros, Copasa e Cemig Saúde. Em caso de consultas particulares, emitimos toda a documentação (nota fiscal e laudo) para o seu pedido de reembolso."
     },
     {
-      question: "Qual é o canal de contato para agendar consulta na Vila da Serra?",
-      answer: "O contato e agendamento podem ser feitos diretamente pelo WhatsApp oficial, com a equipe confirmando datas e orientando sobre estacionamento e recepção no Biocor."
+      question: "Como faço para marcar a minha consulta?",
+      answer: "Você pode agendar o seu horário de forma ágil e direta pelo nosso WhatsApp oficial. Nossa equipe de atendimento confirmará as melhores datas disponíveis e passará todas as orientações sobre recepção e estacionamento no complexo do Biocor."
     }
   ]
 };
