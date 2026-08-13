@@ -88,7 +88,7 @@ export const post: Post = {
         <li>Ruetten, S., et al. (2008). Full-endoscopic interlaminar and transforaminal lumbar discectomy versus conventional microsurgical discectomy: a prospective, randomized, controlled clinical trial. Spine, 33(9), 931-939. (Referente à técnica de endoscopia de 1 cm e recuperação acelerada).</li>
     </ul>
     `,
-    date: "24 Jun, 2026",
+    date: "24-06-2026",
     category: "Saúde da Coluna",
     readTime: "6 min",
     image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200",

@@ -2,8 +2,8 @@ import { Post } from "../posts";
 
 export const post: Post = {
     slug: "hernia-de-disco-precisa-de-cirurgia-mitos-e-verdades",
-    title: "Hérnia de disco precisa de cirurgia? Mitos e Verdades.",
-    excerpt: "Receber o diagnóstico de uma hérnia de disco costuma vir acompanhado de uma dúvida imediata: será que eu vou precisar operar? Entenda os mitos e as verdades.",
+    title: "Hérnia de Disco: Entenda o que é, os sintomas e quando procurar ajuda",
+    excerpt: "Hérnia de disco é uma das condições mais comuns da coluna vertebral, mas nem toda hérnia precisa de cirurgia. Entenda as causas, sintomas e tratamentos.",
     content: `
     <p>Receber o diagnóstico de uma hérnia de disco costuma vir acompanhado de uma dúvida imediata e muito comum: <em>"Será que eu vou precisar operar?"</em>. O medo do procedimento cirúrgico na coluna, muitas vezes alimentado por mitos antigos, faz com que muitos pacientes adiem a busca por ajuda especializada.</p>
 
@@ -57,9 +57,9 @@ export const post: Post = {
         <li>Wei, F. L., et al. (2018). <em>Surgical versus non-operative treatment for lumbar disc herniation: a systematic review and meta-analysis</em>. PubMed PMID: 28715939.</li>
     </ul>
     `,
-    date: "24 Jun, 2026",
+    date: "02-07-2026",
     category: "Saúde da Coluna",
-    readTime: "5 min",
+    readTime: "3 min",
     image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
     author: "Dr. Rômulo Oliveira",
     authorRole: "Ortopedista e Cirurgião de Coluna",

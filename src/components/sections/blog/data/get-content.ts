@@ -18,40 +18,31 @@ const localBlogContent: BlogSectionContent = {
     viewAllCta: "Ver Todos os Artigos",
     posts: [
         {
-            title: "Dor Lombar: Quando a dor nas costas deixa de ser algo normal?",
-            slug: "dor-lombar-quando-a-dor-nas-costas-deixa-de-ser-algo-normal",
-            date: "24 Jun, 2026",
-            readTime: "6 min",
-            category: "Saúde da Coluna",
-            excerpt: "A dor lombar é uma das queixas mais comuns. Entenda quando ela deixa de ser normal, as principais causas, quando fazer exames de imagem e tratamentos.",
-            image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200"
-        },
-        {
-            title: "Hérnia de disco precisa de cirurgia? Mitos e Verdades.",
-            slug: "hernia-de-disco-precisa-de-cirurgia-mitos-e-verdades",
-            date: "24 Jun, 2026",
-            readTime: "5 min",
-            category: "Saúde da Coluna",
-            excerpt: "Receber o diagnóstico de uma hérnia de disco costuma vir acompanhado de uma dúvida imediata: será que eu vou precisar operar? Entenda os mitos e as verdades.",
-            image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200"
-        },
-        {
             title: "Ressonância Magnética da Coluna: Como entender esse exame?",
             slug: "ressonancia-magnetica-da-coluna-como-entender-esse-exame",
-            date: "24 Jun, 2026",
+            date: "23-07-2026",
             readTime: "5 min",
             category: "Exames de Imagem",
             excerpt: "A ressonância magnética (RM) é um dos exames mais importantes para avaliar doenças da coluna vertebral. Entenda como funciona, quais estruturas são identificadas e quando é indicada.",
             image: "/images/blog/ressonancia-header.png"
         },
         {
-            title: "Lesões Musculares da Coluna: Contraturas e Estiramentos Podem Causar Dor Intensa?",
-            slug: "lesoes-musculares-da-coluna-contraturas-e-estiramentos",
-            date: "24 Jun, 2026",
-            readTime: "5 min",
+            title: "Hérnia de Disco: Entenda o que é, os sintomas e quando procurar ajuda",
+            slug: "hernia-de-disco-precisa-de-cirurgia-mitos-e-verdades",
+            date: "02-07-2026",
+            readTime: "3 min",
             category: "Saúde da Coluna",
-            excerpt: "As lesões musculares da coluna estão entre as causas mais comuns de dor aguda nas costas. Entenda o que são contraturas e estiramentos, sintomas, diagnóstico e tratamentos.",
-            image: "/images/blog/lesoes-musculares-header.png"
+            excerpt: "Hérnia de disco é uma das condições mais comuns da coluna vertebral, mas nem toda hérnia precisa de cirurgia. Entenda as causas, sintomas e tratamentos.",
+            image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200"
+        },
+        {
+            title: "Dor Lombar: Quando a dor nas costas deixa de ser algo normal?",
+            slug: "dor-lombar-quando-a-dor-nas-costas-deixa-de-ser-algo-normal",
+            date: "24-06-2026",
+            readTime: "6 min",
+            category: "Saúde da Coluna",
+            excerpt: "A dor lombar é uma das queixas mais comuns. Entenda quando ela deixa de ser normal, as principais causas, quando fazer exames de imagem e tratamentos.",
+            image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200"
         }
     ]
 };
