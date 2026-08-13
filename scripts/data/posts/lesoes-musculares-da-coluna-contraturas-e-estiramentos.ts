@@ -102,7 +102,7 @@ export const post: Post = {
         <li>Matheus O Almeida, Alessandra Narciso Garcia, Luciola C Menezes Costa, Maurits W van Tulder, Chung-Wei Christine Lin, Luciana AC Machado; The McKenzie method for (sub)acute non‐specific low back pain; Version published: 05 April 2023; https://doi.org/10.1002/14651858.CD009711.pub2</li>
     </ul>
     `,
-    date: "24 Jun, 2026",
+    date: "24-06-2026",
     category: "Saúde da Coluna",
     readTime: "5 min",
     image: "/images/blog/lesoes-musculares-header.png",

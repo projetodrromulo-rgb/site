@@ -111,7 +111,7 @@ export default function Footer({ content }: FooterProps) {
                     </div>
                 </div>
 
-                {/* Internal Link Silos (SEO Local por Cidade) */}
+                {/* Internal Link Silos (SEO Local por Cidade) 
                 <div className="pt-8 mb-12 border-t border-accent/10">
                     <h3 className="text-neutral-light text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
                         <MapPin size={14} className="text-accent" />
@@ -142,7 +142,7 @@ export default function Footer({ content }: FooterProps) {
                             Ortopedista Especialista em Coluna na Pampulha
                         </a>
                     </div>
-                </div>
+                </div>*/}
 
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-accent/10 flex flex-col gap-2">

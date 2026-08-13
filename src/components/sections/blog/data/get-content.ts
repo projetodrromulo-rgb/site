@@ -18,6 +18,15 @@ const localBlogContent: BlogSectionContent = {
     viewAllCta: "Ver Todos os Artigos",
     posts: [
         {
+            title: "Lesões Musculares da Coluna: Contraturas e Estiramentos Podem Causar Dor Intensa?",
+            slug: "lesoes-musculares-da-coluna-contraturas-e-estiramentos",
+            date: "24-06-2026",
+            readTime: "5 min",
+            category: "Saúde da Coluna",
+            excerpt: "As lesões musculares da coluna estão entre as causas mais comuns de dor aguda nas costas. Entenda o que são contraturas e estiramentos, sintomas, diagnóstico e tratamentos.",
+            image: "/images/blog/lesoes-musculares-header.png"
+        },
+        {
             title: "Ressonância Magnética da Coluna: Como entender esse exame?",
             slug: "ressonancia-magnetica-da-coluna-como-entender-esse-exame",
             date: "23-07-2026",
