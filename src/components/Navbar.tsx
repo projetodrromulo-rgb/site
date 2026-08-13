@@ -30,7 +30,7 @@ import { IconWhatsApp } from "./icon-whats-app";
 const specialtiesList = [
     {
         label: "Cirurgia Minimamente Invasiva",
-        href: "/procedimentos/cirurgia-minimamente-invasiva",
+        href: "/procedimentos/cirurgia-minimamente-invasiva-de-coluna",
         icon: Activity,
         desc: "Preservação muscular e rápida recuperação"
     },
