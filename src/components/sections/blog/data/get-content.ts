@@ -43,6 +43,15 @@ const localBlogContent: BlogSectionContent = {
             category: "Exames de Imagem",
             excerpt: "A ressonância magnética (RM) é um dos exames mais importantes para avaliar doenças da coluna vertebral. Entenda como funciona, quais estruturas são identificadas e quando é indicada.",
             image: "/images/blog/ressonancia-header.png"
+        },
+        {
+            title: "Lesões Musculares da Coluna: Contraturas e Estiramentos Podem Causar Dor Intensa?",
+            slug: "lesoes-musculares-da-coluna-contraturas-e-estiramentos",
+            date: "24 Jun, 2026",
+            readTime: "5 min",
+            category: "Saúde da Coluna",
+            excerpt: "As lesões musculares da coluna estão entre as causas mais comuns de dor aguda nas costas. Entenda o que são contraturas e estiramentos, sintomas, diagnóstico e tratamentos.",
+            image: "/images/blog/lesoes-musculares-header.png"
         }
     ]
 };
