@@ -3,25 +3,25 @@ import { CityData } from "./types";
 export const vilaDaSerraData: CityData = {
   slug: "vila-da-serra",
   name: "Vila da Serra",
-  title: "Especialista em Coluna no Vila da Serra | Dr. Rômulo Oliveira",
-  metaDescription: "Ortopedista especialista em coluna no Vila da Serra: cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende consulta com o Dr. Rômulo Oliveira.",
+  title: "Especialista em Coluna na Vila da Serra | Dr. Rômulo Oliveira",
+  metaDescription: "Ortopedista especialista em coluna na Vila da Serra: cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende consulta com o Dr. Rômulo Oliveira.",
   keywords: [
-    "medico ortopedista especialista em coluna no vila da serra",
-    "ortopedista especialista em coluna no vila da serra",
-    "especialista em coluna no vila da serra",
-    "cirurgia de coluna no vila da serra",
-    "clinica de coluna no vila da serra",
-    "tratamento de hernia de disco no vila da serra",
+    "medico ortopedista especialista em coluna na vila da serra",
+    "ortopedista especialista em coluna na vila da serra",
+    "especialista em coluna na vila da serra",
+    "cirurgia de coluna na vila da serra",
+    "clinica de coluna na vila da serra",
+    "tratamento de hernia de disco na vila da serra",
     "dor nas costas vila da serra",
-    "ortopedista no vila da serra",
+    "ortopedista na vila da serra",
     "cirurgiao de coluna vila da serra",
     "biocor vila da serra"
   ],
   heroContent: {
     typingPhrases: [
-      "Especialista em Coluna no Vila da Serra",
+      "Especialista em Coluna na Vila da Serra",
       "Consultas no Hospital Biocor",
-      "Cirurgia de Coluna no Vila da Serra"
+      "Cirurgia de Coluna na Vila da Serra"
     ],
     headline: {
       textTop: "",
@@ -35,9 +35,9 @@ export const vilaDaSerraData: CityData = {
       }
     },
     description: "Médico Ortopedista Especialista em Coluna no bairro Vila da Serra. Atendimento no Hospital Biocor - Rede D'Or com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
-    ctaText: "Agendar Consulta no Vila da Serra"
+    ctaText: "Agendar Consulta na Vila da Serra"
   },
-  locationPrefix: "no Vila da Serra",
+  locationPrefix: "na Vila da Serra",
   clinicName: "no Hospital Biocor - Rede D'Or",
   address: {
     streetAddress: "R. Da Paisagem, 290 - Vila Da Serra",
@@ -62,16 +62,16 @@ export const vilaDaSerraData: CityData = {
     "/images/dr_romulo_surgery_01.jpg"
   ],
   bgImageAlts: [
-    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna no Vila da Serra",
-    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico no Vila da Serra",
-    "Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente no Vila da Serra",
-    "Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares no Vila da Serra",
-    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna no Hospital Biocor no Vila da Serra"
+    "Dr. Rômulo Oliveira em procedimento de cirurgia minimamente invasiva de coluna na Vila da Serra",
+    "Equipe médica especialista em cirurgia de coluna em centro cirúrgico na Vila da Serra",
+    "Dr. Rômulo Oliveira em cirurgia minimamente invasiva de coluna com auxílio de assistente na Vila da Serra",
+    "Dr. Rômulo Oliveira iniciando procedimento cirúrgico de coluna com equipe de auxiliares na Vila da Serra",
+    "Dr. Rômulo Oliveira durante atendimento e cirurgia de coluna no Hospital Biocor na Vila da Serra"
   ],
-  conditionsTitle: "Tratamentos e Condições da Coluna no Vila da Serra",
+  conditionsTitle: "Tratamentos e Condições da Coluna na Vila da Serra",
   conditions: [
     {
-      title: "Hérnia de Disco no Vila da Serra",
+      title: "Hérnia de Disco na Vila da Serra",
       description: "Atendimento especializado para tratamento conservador e cirurgia minimamente invasiva (endoscopia de coluna) com rápida alta hospitalar no Hospital Biocor."
     },
     {
@@ -87,26 +87,26 @@ export const vilaDaSerraData: CityData = {
     title: "Precisando de um médico especialista em coluna no bairro Vila da Serra?",
     description: "Agende sua consulta no Hospital Biocor - Rede D'Or com o Dr. Rômulo Oliveira e receba uma avaliação completa para a sua coluna."
   },
-  faqsTitle: "Perguntas Frequentes sobre Atendimento no Vila da Serra",
+  faqsTitle: "Perguntas Frequentes sobre Atendimento na Vila da Serra",
   faqs: [
     {
       question: "Onde fica o consultório de atendimento ortopédico no bairro Vila da Serra?",
-      answer: "O atendimento presencial no Vila da Serra ocorre no Hospital Biocor - Rede D'Or, localizado na Rua da Paisagem, 290 - Vila da Serra (divisa entre Belo Horizonte e Nova Lima)."
+      answer: "O atendimento presencial na Vila da Serra ocorre no Hospital Biocor - Rede D'Or, localizado na Rua da Paisagem, 290 - Vila da Serra (divisa entre Belo Horizonte e Nova Lima)."
     },
     {
-      question: "Quais tratamentos e procedimentos para a coluna são oferecidos no Vila da Serra?",
+      question: "Quais tratamentos e procedimentos para a coluna são oferecidos na Vila da Serra?",
       answer: "São realizadas consultas para investigação de dor vertebral, infiltrações e bloqueios articulares para alívio analgésico rápido, descompressão nervosa endoscópica e cirurgias minimamente invasivas de hérnia de disco."
     },
     {
       question: "Residentes do Belvedere, Vale do Sereno e Seis Pistas têm acesso direto à unidade Biocor?",
-      answer: "Sim! A localização no Vila da Serra é conveniente para quem mora no Belvedere, Alameda da Serra, Vale do Sereno e Seis Pistas, permitindo atendimento de padrão internacional perto de casa."
+      answer: "Sim! A localização na Vila da Serra é conveniente para quem mora no Belvedere, Alameda da Serra, Vale do Sereno e Seis Pistas, permitindo atendimento de padrão internacional perto de casa."
     },
     {
-      question: "Quais convênios atendem no Hospital Biocor no Vila da Serra?",
+      question: "Quais convênios atendem no Hospital Biocor na Vila da Serra?",
       answer: "O Hospital Biocor aceita planos como Bradesco Saúde, Amil, SulAmérica, Porto Seguro, Care Plus, Allianz, Copasa, Cemig Saúde e Unimed Seguros, além de consultas particulares com fornecimento de nota fiscal e laudo para reembolso."
     },
     {
-      question: "Qual é o canal de contato para agendar consulta no Vila da Serra?",
+      question: "Qual é o canal de contato para agendar consulta na Vila da Serra?",
       answer: "O contato e agendamento podem ser feitos diretamente pelo WhatsApp oficial, com a equipe confirmando datas e orientando sobre estacionamento e recepção no Biocor."
     }
   ]
