@@ -34,7 +34,7 @@ export const pampulhaData: CityData = {
         textColorBottom: "var(--color-title-primary)"
       }
     },
-    description: "Médico Ortopedista Especialista em Coluna na região da Pampulha. Atendimento presencial na Clínica NUMAI (São Luiz / Pampulha) com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
+    description: "Médico Ortopedista Especialista em Coluna na Pampulha. Atendimento presencial na Clínica NUMAI (São Luiz / Pampulha) com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
     ctaText: "Agendar Consulta na Pampulha"
   },
   locationPrefix: "na Pampulha",

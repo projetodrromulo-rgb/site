@@ -183,7 +183,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "address": {
             "@type": "PostalAddress",
             "streetAddress": data.address?.streetAddress || "Avenida Coronel José Dias Bicalho 928, bairro São Luiz/Pampulha",
-            "addressLocality": data.name,
+            "addressLocality": data.slug === "pampulha" ? "Belo Horizonte" : data.slug === "vila-da-serra" ? "Nova Lima" : data.name,
             "addressRegion": "MG",
             "postalCode": data.address?.postalCode || "31275-050",
             "addressCountry": "BR"
