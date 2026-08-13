@@ -10,7 +10,7 @@ const localHeroContent: HeroContent = {
     ],
     headline: {
         textTop: "Sua jornada para uma",
-        textHighlight: "vida sem dor",
+        textHighlight: "melhor qualidade de vida",
         textBottom: "começa aqui",
         styles: {
             textColorTitle: "var(--color-title-primary)",
