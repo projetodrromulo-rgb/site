@@ -110,14 +110,47 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
     return (
         <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900">
             <main id="blog-content" className="flex-1 max-w-5xl mx-auto w-full px-4 pt-28 md:pt-32 pb-32 scroll-mt-28">
-                {/* Botão Voltar para a Seção Blog da Home */}
-                <div className="pt-2 pb-4">
+                {/* Top Bar: Breadcrumb + Botão Voltar para a Home */}
+                <div className="pt-2 pb-4 flex flex-wrap items-center justify-between gap-4">
+                    {/* Breadcrumb Navigation: Home > Blog */}
+                    <nav aria-label="Navegação Breadcrumb">
+                        <ol
+                            itemScope
+                            itemType="https://schema.org/BreadcrumbList"
+                            className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-slate-600 font-medium"
+                        >
+                            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="flex items-center gap-1.5">
+                                <meta itemProp="position" content="1" />
+                                <Link
+                                    href="/"
+                                    itemProp="item"
+                                    className="flex items-center gap-1.5 text-slate-600 hover:text-[#0db9f2] transition-colors py-1 px-2 rounded-lg hover:bg-slate-200/60"
+                                >
+                                    <Home size={15} className="text-slate-500" />
+                                    <span itemProp="name">Home</span>
+                                </Link>
+                            </li>
+
+                            <li className="text-slate-400 select-none" aria-hidden="true">
+                                <ChevronRight size={14} />
+                            </li>
+
+                            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="flex items-center gap-1.5">
+                                <meta itemProp="position" content="2" />
+                                <span itemProp="name" className="text-slate-900 font-semibold py-1 px-2">
+                                    Blog
+                                </span>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    {/* Botão Voltar para a Home */}
                     <Link
-                        href="/#blog"
+                        href="/"
                         className="inline-flex items-center gap-2 text-slate-600 hover:text-[#0db9f2] font-semibold text-sm transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-200/60 active:scale-95 group"
                     >
                         <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-                        <span>Voltar para o Início</span>
+                        <span>Voltar para a Home</span>
                     </Link>
                 </div>
 
