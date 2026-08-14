@@ -50,7 +50,7 @@ export const post: Post = {
         <li>Review of MRI in spinal disorders. https://onlinelibrary.wiley.com/doi/10.1155/2021/9940001</li>
     </ul>
     `,
-    date: "23-07-2026",
+    date: "2026-07-23",
     category: "Exames de Imagem",
     readTime: "5 min",
     image: "/images/blog/ressonancia-header.png",

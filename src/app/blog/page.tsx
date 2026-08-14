@@ -26,10 +26,11 @@ export default async function BlogPage() {
 
   if (projectId && projectId !== "placeholder") {
     try {
-      const query = `*[_type == "post"] | order(date desc) {
+      const query = `*[_type == "post"] | order(title asc) {
         title,
         "slug": slug.current,
         date,
+        _createdAt,
         readTime,
         category,
         excerpt,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -16,7 +16,9 @@ export default function BlogSection({ content }: BlogSectionProps) {
     const { containerRef } = useBlogAnimation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleItems, setVisibleItems] = useState(3.5);
-    const posts = content.posts;
+    const posts = useMemo(() => {
+        return [...content.posts].sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+    }, [content.posts]);
     const postsCount = posts.length;
 
     // Sync visible items with JS for boundary logic

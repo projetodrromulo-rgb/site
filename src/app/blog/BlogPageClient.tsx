@@ -26,7 +26,17 @@ function formatDate(isoDate: string): string {
     const [year, month, day] = isoDate.split("-");
     return `${day}-${month}-${year}`;
 }
-const categories = ["Todos", "Prevenção", "Cirurgia", "Bem-estar"];
+function parsePostDate(dateStr?: string): number {
+    if (!dateStr) return 0;
+    if (/^\d{2}-\d{2}-\d{4}$/.test(dateStr)) {
+        const [d, m, y] = dateStr.split("-");
+        return new Date(`${y}-${m}-${d}`).getTime();
+    }
+    const timestamp = Date.parse(dateStr);
+    return isNaN(timestamp) ? 0 : timestamp;
+}
+
+const categories = ["Todos", "Exames de Imagem", "Saúde de Coluna"];
 
 interface BlogPageClientProps {
     initialPosts: any[];
@@ -39,12 +49,21 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
     const postsPerPage = 9;
 
     const filteredPosts = useMemo(() => {
-        return initialPosts.filter(post => {
-            const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
+        const filtered = initialPosts.filter(post => {
+            const matchesCategory = selectedCategory === "Todos" ||
+                (post.category && (
+                    post.category.toLowerCase().trim() === selectedCategory.toLowerCase().trim() ||
+                    (selectedCategory === "Saúde de Coluna" && (
+                        post.category.toLowerCase().trim() === "saúde da coluna" ||
+                        post.category.toLowerCase().trim() === "saúde de coluna"
+                    ))
+                ));
             const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+                (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
             return matchesCategory && matchesSearch;
         });
+
+        return filtered.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
     }, [initialPosts, selectedCategory, searchQuery]);
 
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
