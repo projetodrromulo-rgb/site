@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles, Book } from "lucide-react";
+import { ArrowLeft, Clock, ChevronDown, ChevronUp, AlignLeft, HelpCircle, BookOpen, Sparkles, Book, Home, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Logo } from "@/components/sections/hero/_components/logo";
@@ -469,16 +469,52 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        {/* Botão Voltar para a Seção Blog da Home */}
-                        <div className="mb-6">
-                            <Link
-                                href="/#blog"
-                                className="inline-flex items-center gap-2 text-slate-600 hover:text-[#0db9f2] font-semibold text-sm transition-colors py-2 px-3.5 rounded-xl hover:bg-slate-200/60 active:scale-95 group w-fit"
+                        {/* Breadcrumb Navigation: Home > Blog > [Artigo] */}
+                        <nav aria-label="Navegação Breadcrumb" className="mb-6">
+                            <ol
+                                itemScope
+                                itemType="https://schema.org/BreadcrumbList"
+                                className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-slate-600 font-medium flex-wrap"
                             >
-                                <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-                                <span>Voltar para o Blog</span>
-                            </Link>
-                        </div>
+                                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="flex items-center gap-1.5">
+                                    <meta itemProp="position" content="1" />
+                                    <Link
+                                        href="/"
+                                        itemProp="item"
+                                        className="flex items-center gap-1.5 text-slate-600 hover:text-[#0db9f2] transition-colors py-1 px-2 rounded-lg hover:bg-slate-200/60"
+                                    >
+                                        <Home size={15} className="text-slate-500" />
+                                        <span itemProp="name">Home</span>
+                                    </Link>
+                                </li>
+
+                                <li className="text-slate-400 select-none" aria-hidden="true">
+                                    <ChevronRight size={14} />
+                                </li>
+
+                                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="flex items-center gap-1.5">
+                                    <meta itemProp="position" content="2" />
+                                    <Link
+                                        href="/blog"
+                                        itemProp="item"
+                                        className="text-slate-600 hover:text-[#0db9f2] transition-colors py-1 px-2 rounded-lg hover:bg-slate-200/60"
+                                    >
+                                        <span itemProp="name">Blog</span>
+                                    </Link>
+                                </li>
+
+                                <li className="text-slate-400 select-none" aria-hidden="true">
+                                    <ChevronRight size={14} />
+                                </li>
+
+                                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="flex items-center gap-1.5 min-w-0">
+                                    <meta itemProp="position" content="3" />
+                                    <span itemProp="name" className="text-slate-900 font-semibold truncate max-w-[200px] sm:max-w-[350px] md:max-w-[500px]" title={post.title}>
+                                        {post.title}
+                                    </span>
+                                </li>
+                            </ol>
+                        </nav>
 
                         <span className="inline-block bg-[#0db9f2] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white mb-4 shadow-sm">
                             {post.category}
