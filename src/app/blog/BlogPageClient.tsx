@@ -63,7 +63,11 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
             return matchesCategory && matchesSearch;
         });
 
-        return filtered.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+        return filtered.sort((a, b) => {
+            const timeA = parsePostDate(a.date || a._createdAt);
+            const timeB = parsePostDate(b.date || b._createdAt);
+            return timeB - timeA;
+        });
     }, [initialPosts, selectedCategory, searchQuery]);
 
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);

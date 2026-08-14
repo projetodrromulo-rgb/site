@@ -12,12 +12,26 @@ interface BlogSectionProps {
     content: BlogSectionContent;
 }
 
+function parsePostDate(dateStr?: string): number {
+    if (!dateStr) return 0;
+    if (/^\d{2}-\d{2}-\d{4}$/.test(dateStr)) {
+        const [d, m, y] = dateStr.split("-");
+        return new Date(`${y}-${m}-${d}`).getTime();
+    }
+    const timestamp = Date.parse(dateStr);
+    return isNaN(timestamp) ? 0 : timestamp;
+}
+
 export default function BlogSection({ content }: BlogSectionProps) {
     const { containerRef } = useBlogAnimation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleItems, setVisibleItems] = useState(3.5);
     const posts = useMemo(() => {
-        return [...content.posts].sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+        return [...content.posts].sort((a, b) => {
+            const timeA = parsePostDate(a.date || (a as any)._createdAt);
+            const timeB = parsePostDate(b.date || (b as any)._createdAt);
+            return timeB - timeA;
+        });
     }, [content.posts]);
     const postsCount = posts.length;
 

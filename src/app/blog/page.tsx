@@ -26,7 +26,7 @@ export default async function BlogPage() {
 
   if (projectId && projectId !== "placeholder") {
     try {
-      const query = `*[_type == "post"] | order(title asc) {
+      const query = `*[_type == "post"] | order(coalesce(date, _createdAt) desc) {
         title,
         "slug": slug.current,
         date,
