@@ -4,7 +4,8 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CtaWhatsApp } from "@/components/shared/cta-whatsapp";
+import { IconWhatsApp } from "@/components/icon-whats-app";
+import { sendGAEvent } from "@next/third-parties/google";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { MapPin, Phone, ShieldCheck, Star } from "lucide-react";
 
@@ -22,6 +23,7 @@ interface CityHeroProps {
     bgImages?: string[];
     bgImageAlts?: string[];
     trustLocations?: Array<{ name: string; telephone: string }>;
+    onlineBookingUrl?: string;
 }
 
 const DEFAULT_IMAGES = ["/images/spine_surgery_team.png"];
@@ -34,7 +36,8 @@ export default function CityHero({
     whatsAppNumber,
     bgImages,
     bgImageAlts,
-    trustLocations
+    trustLocations,
+    onlineBookingUrl
 }: CityHeroProps) {
     const containerRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
@@ -249,12 +252,39 @@ export default function CityHero({
                     )}
 
                     {/* CTA */}
-                    <div className="pt-2">
-                        <CtaWhatsApp
-                            cta={{ text: ctaText, whatsAppNumber: whatsAppNumber }}
-                            fullWidth={false}
-                            analyticsLabel={`cta_cidade_${cityName.toLowerCase().replace(/\s+/g, '_')}`}
-                        />
+                    <div className="pt-2 flex flex-col sm:flex-row items-start gap-3">
+                        {/* Botão WhatsApp */}
+                        <a
+                            href={`https://wa.me/${whatsAppNumber}?text=${encodeURIComponent("Olá! Vim do site do Dr. Romulo. Gostaria de mais informações sobre o atendimento")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            id={`cta_whatsapp_${cityName.toLowerCase().replace(/\s+/g, '_')}`}
+                            aria-label="Falar com um atendente pelo WhatsApp"
+                            className="inline-flex items-center justify-center gap-2 w-[300px] px-6 py-3.5 rounded-full font-semibold text-sm transition-all duration-300 border-2 border-[#25D366]/70 text-[#25D366] hover:bg-[#25D366] hover:text-white hover:border-[#25D366] hover:shadow-lg hover:shadow-[#25D366]/20 active:scale-95 backdrop-blur-sm bg-black/20"
+                            onClick={() => sendGAEvent('event', 'click_whatsapp', { value: `cta_cidade_${cityName.toLowerCase().replace(/\s+/g, '_')}` })}
+                        >
+                            <div className="flex items-center justify-center">
+                                <IconWhatsApp width={16} height={16} />
+                            </div>
+                            {ctaText}
+                        </a>
+                        {onlineBookingUrl && (
+                            <a
+                                href={onlineBookingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                id={`cta_agendamento_online_${cityName.toLowerCase().replace(/\s+/g, '_')}`}
+                                className="inline-flex items-center justify-center gap-2 w-[300px] px-6 py-3.5 rounded-full font-semibold text-sm transition-all duration-300 border-2 border-accent/70 text-accent hover:bg-accent hover:text-primary-dark hover:border-accent hover:shadow-lg hover:shadow-accent/20 active:scale-95 backdrop-blur-sm bg-black/20"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
+                                Agendamento On-line
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

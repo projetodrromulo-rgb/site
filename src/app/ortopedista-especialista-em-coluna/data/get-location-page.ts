@@ -147,7 +147,7 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                         styles: localData?.heroContent.headline.styles || {}
                     },
                     description: page.heroContent?.description || replacePlaceholders(settings.heroDescriptionTemplate || defaultSettings.heroDescriptionTemplate, prefix, clinic, cityName),
-                    ctaText: page.heroContent?.ctaText || replacePlaceholders(settings.heroCtaTextTemplate || defaultSettings.heroCtaTextTemplate, prefix, clinic, cityName),
+                    ctaText: page.heroContent?.ctaText || localData?.heroContent?.ctaText || replacePlaceholders(settings.heroCtaTextTemplate || defaultSettings.heroCtaTextTemplate, prefix, clinic, cityName),
                 },
                 bgImages: page.bgImages && page.bgImages.length > 0 ? page.bgImages : localData?.bgImages,
                 bgImageAlts: (page.bgImageAlts && page.bgImageAlts.length > 0 && new Set(page.bgImageAlts.filter(Boolean)).size > 1) 
@@ -163,7 +163,8 @@ export async function getLocationPageContent(slug: string): Promise<CityData | n
                 conditionsTitle: page.conditionsTitle || localData?.conditionsTitle,
                 conditions: (page.conditions && page.conditions.length > 0) ? page.conditions : localData?.conditions,
                 faqsTitle: page.faqsTitle || localData?.faqsTitle || `Perguntas Frequentes sobre Atendimento ${prefix}`,
-                faqs: (page.faqs && page.faqs.length > 0) ? page.faqs.slice(0, 5) : (localData?.faqs || []).slice(0, 5)
+                faqs: (page.faqs && page.faqs.length > 0) ? page.faqs.slice(0, 5) : (localData?.faqs || []).slice(0, 5),
+                onlineBookingUrl: localData?.onlineBookingUrl
             } as CityData;
         }
     } catch (error) {

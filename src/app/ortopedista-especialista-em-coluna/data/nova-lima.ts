@@ -35,7 +35,7 @@ export const novaLimaData: CityData = {
       }
     },
     description: "Médico Ortopedista Especialista em Coluna em Nova Lima. Atendimento no Hospital Biocor - Rede D'Or com foco em cirurgias minimamente invasivas e tratamento de hérnia de disco.",
-    ctaText: "Agendar Consulta em Nova Lima"
+    ctaText: "Falar com um Atendente"
   },
   locationPrefix: "em Nova Lima",
   clinicName: "no Hospital Biocor - Rede D'Or",
@@ -105,5 +105,6 @@ export const novaLimaData: CityData = {
       question: "Como faço para agendar uma avaliação presencial?",
       answer: "O agendamento é feito de maneira ágil e personalizada pelo nosso WhatsApp. Nossa equipe de atendimento está pronta para organizar o melhor horário na sua agenda e orientar sobre todos os exames e documentos necessários para a primeira consulta."
     }
-  ]
+  ],
+  onlineBookingUrl: "https://www.rededorsaoluiz.com.br/paciente/marcar-consulta"
 };
