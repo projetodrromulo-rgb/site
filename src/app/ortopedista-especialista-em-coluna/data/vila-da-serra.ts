@@ -35,7 +35,7 @@ export const vilaDaSerraData: CityData = {
       }
     },
     description: "Médico Ortopedista Especialista em Coluna no bairro Vila da Serra. Atendimento no Hospital Biocor - Rede D'Or com foco em cirurgia minimamente invasiva e tratamento de hérnia de disco.",
-    ctaText: "Agendar Consulta na Vila da Serra"
+    ctaText: "Falar com um Atendente"
   },
   locationPrefix: "na Vila da Serra",
   clinicName: "no Hospital Biocor - Rede D'Or",
@@ -109,5 +109,6 @@ export const vilaDaSerraData: CityData = {
       question: "Como faço para marcar a minha consulta?",
       answer: "Você pode agendar o seu horário de forma ágil e direta pelo nosso WhatsApp oficial. Nossa equipe de atendimento confirmará as melhores datas disponíveis e passará todas as orientações sobre recepção e estacionamento no complexo do Biocor."
     }
-  ]
+  ],
+  onlineBookingUrl: "https://www.rededorsaoluiz.com.br/paciente/marcar-consulta"
 };

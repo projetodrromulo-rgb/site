@@ -44,4 +44,5 @@ export interface CityData {
     question: string;
     answer: string;
   }>;
+  onlineBookingUrl?: string;
 }

@@ -305,6 +305,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
                 bgImages={data.bgImages}
                 bgImageAlts={data.bgImageAlts}
                 trustLocations={data.locations}
+                onlineBookingUrl={data.onlineBookingUrl}
             />
             <CTA content={cityCtaContent} />
             <CityLocations
