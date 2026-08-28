@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from "next/script";
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
@@ -113,8 +113,8 @@ export default function RootLayout({
           <Navbar />
         </SmoothScrolling>
         <SpeedInsights />
-        {process.env.NEXT_PUBLIC_GTM_ID && process.env.NODE_ENV === "production" && (
-          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
         {process.env.NEXT_PUBLIC_CLARITY_ID && process.env.NODE_ENV === "production" && (
           <Script id="microsoft-clarity" strategy="afterInteractive">
