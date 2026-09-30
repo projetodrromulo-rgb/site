@@ -21,22 +21,74 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `*[_type == "post" && slug.current == $slug][0] {
         title,
         excerpt,
-        "image": coalesce(image.asset->url, "")
+        "image": coalesce(image.asset->url, ""),
+        date,
+        _createdAt,
+        _updatedAt,
+        author,
+        category,
+        seo {
+          metaTitle,
+          metaDescription,
+          canonicalUrl,
+          noIndex,
+          ogTitle,
+          ogDescription,
+          "ogImage": coalesce(ogImage.asset->url, ""),
+          authorName,
+          sectionCategory
+        }
       }`,
       { slug }
     );
     if (!post) return {};
 
+    const rawTitle = post.seo?.metaTitle || post.title;
+    const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
+    const metaDesc = post.seo?.metaDescription || post.excerpt;
+    const canonicalUrl = post.seo?.canonicalUrl || `https://www.drromulocoluna.com.br/blog/${slug}`;
+    const isNoIndex = post.seo?.noIndex ?? false;
+    
+    const ogTitle = post.seo?.ogTitle || pageTitle;
+    const ogDesc = post.seo?.ogDescription || metaDesc;
+    const ogImageUrl = post.seo?.ogImage || post.image;
+    
+    const publishedTime = post.date || post._createdAt;
+    const modifiedTime = post._updatedAt || publishedTime;
+    const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
+    const sectionCategory = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
+
     return {
-      title: `${post.title} | Dr. Rômulo Oliveira`,
-      description: post.excerpt,
+      title: pageTitle,
+      description: metaDesc,
+      robots: {
+        index: !isNoIndex,
+        follow: !isNoIndex,
+      },
       alternates: {
-        canonical: `/blog/${slug}`,
+        canonical: canonicalUrl,
+      },
+      other: {
+        "citation_author": authorName,
+        "citation_title": post.title,
+        "citation_publication_date": (publishedTime || "").substring(0, 10).replace(/-/g, "/"),
+        "citation_language": "pt-BR",
       },
       openGraph: {
-        title: post.title,
-        description: post.excerpt,
-        images: post.image ? [{ url: post.image }] : [],
+        type: "article",
+        title: ogTitle,
+        description: ogDesc,
+        images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+        publishedTime,
+        modifiedTime,
+        authors: [authorName],
+        section: sectionCategory,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDesc,
+        images: ogImageUrl ? [ogImageUrl] : [],
       },
     };
   } catch (error) {
@@ -58,6 +110,8 @@ export default async function PostDetailPage({ params }: PageProps) {
       title,
       "slug": slug.current,
       date,
+      _createdAt,
+      _updatedAt,
       readTime,
       category,
       excerpt,
@@ -73,6 +127,10 @@ export default async function PostDetailPage({ params }: PageProps) {
       },
       references,
       disclaimer,
+      seo {
+        authorName,
+        sectionCategory
+      },
       "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(date desc)[0...2] {
         title,
         "slug": slug.current,
@@ -103,6 +161,81 @@ export default async function PostDetailPage({ params }: PageProps) {
     // 3. Processamento de dados no servidor
     const processedData = processPostData(post, logoData, footerContent);
 
+    const siteUrl = "https://www.drromulocoluna.com.br";
+    const postUrl = `${siteUrl}/blog/${slug}`;
+
+    const sectionCat = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
+    const authorNameClean = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
+
+    // Schema 1: BreadcrumbList para indexação hierárquica
+    const breadcrumbJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": `${siteUrl}/blog`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": sectionCat,
+          "item": `${siteUrl}/blog/categoria/${sectionCat.toLowerCase().replace(/\s+/g, "-")}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": post.title,
+          "item": postUrl
+        }
+      ]
+    };
+
+    // Schema 2: MedicalWebPage otimizado para GEO / IA (ChatGPT, Gemini, Perplexity)
+    const referencesList = Array.isArray(post.references) ? post.references : [];
+    const medicalWebPageJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "url": postUrl,
+      "headline": post.title,
+      "description": post.excerpt,
+      "mainEntityOfPage": postUrl,
+      "image": post.image ? [post.image] : [],
+      "inLanguage": "pt-BR",
+      "author": {
+        "@type": "Physician",
+        "name": authorNameClean,
+        "jobTitle": "Ortopedista e Cirurgião de Coluna",
+        "medicalSpecialty": "Orthopedic",
+        "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
+        "sameAs": [siteUrl]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Dr. Rômulo Oliveira - Cirurgia de Coluna",
+        "url": siteUrl
+      },
+      "datePublished": post.date || post._createdAt || new Date().toISOString(),
+      "dateModified": post._updatedAt || post.date || new Date().toISOString(),
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "#faq", "#referencias"]
+      },
+      "citation": referencesList.map((ref: string) => ({
+        "@type": "MedicalScholarlyArticle",
+        "name": ref
+      }))
+    };
+
+    // Schema 3: FAQPage para extração direta de Perguntas e Respostas por IAs
     const displayFaqs = processedData.faqItems || [];
     const faqJsonLd = displayFaqs.length > 0 ? {
       "@context": "https://schema.org",
@@ -127,6 +260,8 @@ export default async function PostDetailPage({ params }: PageProps) {
 
     return (
       <>
+        <JsonLdHead id="blog-breadcrumb-jsonld" schema={breadcrumbJsonLd} />
+        <JsonLdHead id="blog-medicalwebpage-jsonld" schema={medicalWebPageJsonLd} />
         {faqJsonLd && <JsonLdHead id="blog-faq-jsonld" schema={faqJsonLd} />}
         <PostDetailPageClient initialData={processedData} />
       </>
