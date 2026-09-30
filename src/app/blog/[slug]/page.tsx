@@ -37,7 +37,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           ogDescription,
           "ogImage": coalesce(ogImage.asset->url, ""),
           authorName,
-          sectionCategory
+          sectionCategory,
+          keywords,
+          reviewerName
         }
       }`,
       { slug }
@@ -47,9 +49,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const rawTitle = post.seo?.metaTitle || post.title;
     const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
     
-    // Suporta o antigo (string) e o novo (excerptPlain extraído do Block Content)
-    const fallbackDesc = post.excerptPlain || (typeof post.excerpt === "string" ? post.excerpt : "");
-    const metaDesc = post.seo?.metaDescription || fallbackDesc;
+    // SEO description strictly from Sanity Meta Description
+    const metaDesc = post.seo?.metaDescription || "";
     const canonicalUrl = post.seo?.canonicalUrl || `https://www.drromulocoluna.com.br/blog/${slug}`;
     const isNoIndex = post.seo?.noIndex ?? false;
     
@@ -61,10 +62,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const modifiedTime = post._updatedAt || publishedTime;
     const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
     const sectionCategory = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
+    const keywordsArray = post.seo?.keywords ? post.seo.keywords.split(',').map((k: string) => k.trim()).filter(Boolean) : [];
 
     return {
       title: pageTitle,
       description: metaDesc,
+      keywords: keywordsArray.length > 0 ? keywordsArray : undefined,
       robots: {
         index: !isNoIndex,
         follow: !isNoIndex,
@@ -82,6 +85,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         type: "article",
         title: ogTitle,
         description: ogDesc,
+        url: canonicalUrl,
         images: ogImageUrl ? [{ url: ogImageUrl }] : [],
         publishedTime,
         modifiedTime,
@@ -134,7 +138,9 @@ export default async function PostDetailPage({ params }: PageProps) {
       disclaimer,
       seo {
         authorName,
-        sectionCategory
+        sectionCategory,
+        keywords,
+        reviewerName
       },
       "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(date desc)[0...2] {
         title,
@@ -170,6 +176,7 @@ export default async function PostDetailPage({ params }: PageProps) {
     const postUrl = `${siteUrl}/blog/${slug}`;
 
     const sectionCat = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
+    const categorySlug = sectionCat.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     const authorNameClean = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
 
     // Schema 1: BreadcrumbList para indexação hierárquica
@@ -192,12 +199,6 @@ export default async function PostDetailPage({ params }: PageProps) {
         {
           "@type": "ListItem",
           "position": 3,
-          "name": sectionCat,
-          "item": `${siteUrl}/blog/categoria/${sectionCat.toLowerCase().replace(/\s+/g, "-")}`
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
           "name": post.title,
           "item": postUrl
         }
@@ -206,30 +207,47 @@ export default async function PostDetailPage({ params }: PageProps) {
 
     // Schema 2: MedicalWebPage otimizado para GEO / IA (ChatGPT, Gemini, Perplexity)
     const referencesList = Array.isArray(post.references) ? post.references : [];
+    
+    const physicianAuthor = {
+      "@type": "Physician",
+      "name": authorNameClean,
+      "jobTitle": "Ortopedista e Cirurgião de Coluna",
+      "medicalSpecialty": "Orthopedic",
+      "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
+      "sameAs": [siteUrl]
+    };
+
+    const reviewerNameClean = post.seo?.reviewerName || authorNameClean;
+    const physicianReviewer = {
+      "@type": "Physician",
+      "name": reviewerNameClean,
+      "jobTitle": "Ortopedista e Cirurgião de Coluna",
+      "medicalSpecialty": "Orthopedic",
+      "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
+      "sameAs": [siteUrl]
+    };
+
+    const finalDescription = post.seo?.metaDescription || "";
+
     const medicalWebPageJsonLd = {
       "@context": "https://schema.org",
-      "@type": "MedicalWebPage",
+      "@type": ["MedicalWebPage", "Article"],
       "url": postUrl,
       "headline": post.title,
-      "description": post.excerpt,
+      "description": finalDescription,
       "mainEntityOfPage": postUrl,
       "image": post.image ? [post.image] : [],
       "inLanguage": "pt-BR",
-      "author": {
-        "@type": "Physician",
-        "name": authorNameClean,
-        "jobTitle": "Ortopedista e Cirurgião de Coluna",
-        "medicalSpecialty": "Orthopedic",
-        "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
-        "sameAs": [siteUrl]
-      },
+      "author": physicianAuthor,
+      "reviewedBy": physicianReviewer,
+      "lastReviewed": post._updatedAt ? new Date(post._updatedAt).toISOString() : (post.date ? new Date(post.date).toISOString() : new Date().toISOString()),
       "publisher": {
         "@type": "Organization",
         "name": "Dr. Rômulo Oliveira - Cirurgia de Coluna",
         "url": siteUrl
       },
-      "datePublished": post.date || post._createdAt || new Date().toISOString(),
-      "dateModified": post._updatedAt || post.date || new Date().toISOString(),
+      "datePublished": post.date ? new Date(post.date).toISOString() : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString()),
+      "dateModified": post._updatedAt ? new Date(post._updatedAt).toISOString() : (post.date ? new Date(post.date).toISOString() : new Date().toISOString()),
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "#faq", "#referencias"]

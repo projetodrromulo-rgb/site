@@ -501,7 +501,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                     >
                         {/* Top Bar: Breadcrumb + Dynamic Voltar Button */}
                         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-                            {/* Breadcrumb Navigation: Home > Blog > [Artigo] */}
+                            {/* Breadcrumb Navigation: Home > Blog > Categoria > [Artigo] */}
                             <nav aria-label="Navegação Breadcrumb">
                                 <ol
                                     itemScope

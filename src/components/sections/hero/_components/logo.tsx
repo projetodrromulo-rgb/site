@@ -19,7 +19,8 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
                 <div className="relative">
                     <Image
                         src={logoImage.src}
-                        alt={logoImage.alt}
+                        alt=""
+                        aria-hidden="true"
                         width={250}
                         height={80}
                         priority
