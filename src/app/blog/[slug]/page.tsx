@@ -48,16 +48,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const rawTitle = post.seo?.metaTitle || post.title;
     const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
-    
+
     // SEO description strictly from Sanity Meta Description
     const metaDesc = post.seo?.metaDescription || "";
     const canonicalUrl = post.seo?.canonicalUrl || `https://www.drromulocoluna.com.br/blog/${slug}`;
     const isNoIndex = post.seo?.noIndex ?? false;
-    
+
     const ogTitle = post.seo?.ogTitle || pageTitle;
     const ogDesc = post.seo?.ogDescription || metaDesc;
     const ogImageUrl = post.seo?.ogImage || post.image;
-    
+
     const publishedTime = post.date || post._createdAt;
     const modifiedTime = post._updatedAt || publishedTime;
     const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
@@ -207,14 +207,32 @@ export default async function PostDetailPage({ params }: PageProps) {
 
     // Schema 2: MedicalWebPage otimizado para GEO / IA (ChatGPT, Gemini, Perplexity)
     const referencesList = Array.isArray(post.references) ? post.references : [];
-    
+
+    // Audience and About definitions for JSON‑LD
+    const audience = {
+      "@type": "PeopleAudience",
+      "suggestedMinAge": 18
+    };
+
+    const about = {
+      "@type": "MedicalProcedure",
+      "name": "Bloqueio da coluna vertebral",
+      "procedureType": "https://schema.org/PercutaneousProcedure"
+    };
+
     const physicianAuthor = {
       "@type": "Physician",
       "name": authorNameClean,
       "jobTitle": "Ortopedista e Cirurgião de Coluna",
       "medicalSpecialty": "Orthopedic",
-      "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
-      "sameAs": [siteUrl]
+      "identifier": "CRM 73889 | RQE 59057",
+      "sameAs": [siteUrl],
+      "url": `${siteUrl}/sobre`,
+      "knowsAbout": [
+        "Bloqueio da coluna",
+        "Rizotomia por radiofrequência",
+        "Cirurgia de coluna"
+      ]
     };
 
     const reviewerNameClean = post.seo?.reviewerName || authorNameClean;
@@ -255,7 +273,9 @@ export default async function PostDetailPage({ params }: PageProps) {
       "citation": referencesList.map((ref: string) => ({
         "@type": "MedicalScholarlyArticle",
         "name": ref
-      }))
+      })),
+      "audience": audience,
+      "about": about
     };
 
     // Schema 3: FAQPage para extração direta de Perguntas e Respostas por IAs
