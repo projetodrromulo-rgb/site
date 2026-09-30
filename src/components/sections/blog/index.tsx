@@ -27,11 +27,18 @@ export default function BlogSection({ content }: BlogSectionProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleItems, setVisibleItems] = useState(3.5);
     const posts = useMemo(() => {
-        return [...content.posts].sort((a, b) => {
-            const timeA = parsePostDate(a.date || (a as any)._createdAt);
-            const timeB = parsePostDate(b.date || (b as any)._createdAt);
-            return timeB - timeA;
-        });
+        const now = Date.now();
+        return content.posts
+            .filter(post => {
+                const postTime = parsePostDate(post.date || (post as any)._createdAt);
+                // Se não houver data definida (0), exibe por padrão. Caso haja data, descarta se postTime > agora.
+                return postTime === 0 || postTime <= now;
+            })
+            .sort((a, b) => {
+                const timeA = parsePostDate(a.date || (a as any)._createdAt);
+                const timeB = parsePostDate(b.date || (b as any)._createdAt);
+                return timeB - timeA;
+            });
     }, [content.posts]);
     const postsCount = posts.length;
 
