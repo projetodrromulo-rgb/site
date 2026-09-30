@@ -324,7 +324,14 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     const DISCLAIMER_DEFAULT = "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar dores persistentes ou que se irradiam para as pernas.";
     const disclaimerText = disclaimer ?? DISCLAIMER_DEFAULT;
 
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+
+    useEffect(() => {
+        if (faqItems && faqItems.length > 0) {
+            setOpenFaqs(faqItems.map((_: any, i: number) => i));
+        }
+    }, [faqItems]);
+
     const [activeId, setActiveId] = useState<string>("");
     const [backTarget, setBackTarget] = useState({ href: "/blog", label: "Voltar para o Blog" });
 
@@ -383,7 +390,11 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     }, [tocItems]);
 
     const toggleFaq = (index: number) => {
-        setOpenFaq(openFaq === index ? null : index);
+        setOpenFaqs(prev => 
+            prev.includes(index) 
+                ? prev.filter(i => i !== index) 
+                : [...prev, index]
+        );
     };
 
     const TocCard = () => {
@@ -566,9 +577,13 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                         <span className="text-xs font-bold uppercase tracking-widest text-[#0db9f2] block mb-2">
                                             Neste Artigo
                                         </span>
-                                        <p className="text-slate-700 text-lg md:text-xl font-medium leading-relaxed italic">
-                                            "{post.excerpt}"
-                                        </p>
+                                        <div className="text-slate-700 text-lg md:text-xl font-medium leading-relaxed italic prose prose-slate max-w-none prose-p:my-0 prose-strong:text-slate-800 prose-strong:font-bold">
+                                            {Array.isArray(post.excerpt) ? (
+                                                <PortableText value={post.excerpt} components={ptComponents} />
+                                            ) : (
+                                                <p>"{post.excerpt}"</p>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -589,8 +604,11 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 <p className="text-slate-900 font-bold text-sm md:text-base leading-tight">
                                     Dr. Rômulo Oliveira
                                 </p>
-                                <p className="text-slate-550 text-xs md:text-sm font-medium leading-relaxed mt-0.5">
-                                    <span className="text-slate-400">CRM 73889 | RQE 59057 | TEOT 19406</span>
+                                <p className="text-slate-600 text-[13px] md:text-sm font-medium leading-snug mt-0.5">
+                                    Ortopedista e Cirurgia de Coluna
+                                </p>
+                                <p className="text-slate-400 text-[11px] md:text-xs font-medium leading-relaxed mt-0.5">
+                                    CRM 73889 | RQE 59057 | TEOT 19406
                                 </p>
                             </div>
                             <div className="flex flex-col items-end gap-1.5 text-right shrink-0">
@@ -680,29 +698,30 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
 
                                 <div className="space-y-4">
                                     {faqItems.map((item: any, index: number) => {
-                                        const isOpen = openFaq === index;
+                                        const isOpen = openFaqs.includes(index);
                                         return (
                                             <div
                                                 key={index}
-                                                className="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-white transition-colors"
+                                                className="border border-slate-200 rounded-2xl shadow-sm bg-white overflow-hidden transition-colors"
                                             >
                                                 <button
                                                     onClick={() => toggleFaq(index)}
-                                                    className="w-full text-left py-4 px-6 flex items-center justify-between font-bold text-slate-800 hover:text-[#0db9f2] transition-colors focus:outline-none bg-slate-50/20"
+                                                    className="w-full text-left py-5 px-6 flex items-start gap-4 text-slate-700 hover:text-[#0db9f2] transition-colors focus:outline-none bg-slate-50/20"
                                                 >
-                                                    <span className="text-sm md:text-base leading-snug">{item.question}</span>
-                                                    {isOpen ? (
-                                                        <ChevronUp size={18} className="text-[#0db9f2] shrink-0 ml-4" />
-                                                    ) : (
-                                                        <ChevronDown size={18} className="text-slate-400 shrink-0 ml-4" />
-                                                    )}
+                                                    <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 font-medium shrink-0 text-sm mt-0.5 bg-white">
+                                                        Q
+                                                    </div>
+                                                    <span className="text-base md:text-lg font-bold text-slate-800 leading-snug flex-1 mt-0.5">{item.question}</span>
+                                                    <div className="shrink-0 mt-0.5 text-slate-400 font-light text-2xl leading-none">
+                                                        {isOpen ? "−" : "+"}
+                                                    </div>
                                                 </button>
 
                                                 <div
-                                                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-[1000px] border-t border-slate-100" : "max-h-0"
+                                                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
                                                         }`}
                                                 >
-                                                    <div className="p-6 text-slate-650 text-sm md:text-base leading-relaxed bg-white">
+                                                    <div className="px-6 pb-6 pt-2 text-slate-650 text-sm md:text-base leading-relaxed pl-[4.5rem]">
                                                         {item.answerBlocks ? (
                                                             <div className="prose prose-slate max-w-none prose-p:my-2 prose-p:text-slate-650">
                                                                 <PortableText value={item.answerBlocks} components={ptComponents} />

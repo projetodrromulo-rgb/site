@@ -62,41 +62,43 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
     }
 
     try {
-        const query = `*[_type == "blog-section"][0] {
-            badge,
-            headline {
-                textTop,
-                textHighlight,
-                textBottom
+        const query = `{
+            "section": *[_type == "blog-section"][0] {
+                badge,
+                headline {
+                    textTop,
+                    textHighlight,
+                    textBottom
+                },
+                description,
+                viewAllCta
             },
-            description,
-            viewAllCta,
-            posts[]-> {
+            "latestPosts": *[_type == "post"] | order(coalesce(date, _createdAt) desc)[0...4] {
                 title,
                 "slug": slug.current,
                 date,
                 readTime,
                 category,
-                excerpt,
+                "excerpt": coalesce(pt::text(excerpt), excerpt),
                 "image": coalesce(image.asset->url, "")
             }
         }`;
 
         const data = await client.fetch<any>(query);
 
-        if (data) {
+        if (data && data.section) {
             return {
-                badge: data.badge || localBlogContent.badge,
+                badge: data.section.badge || localBlogContent.badge,
                 headline: {
-                    textTop: data.headline?.textTop || localBlogContent.headline.textTop,
-                    textHighlight: data.headline?.textHighlight || localBlogContent.headline.textHighlight,
-                    textBottom: data.headline?.textBottom || localBlogContent.headline.textBottom || "",
+                    textTop: data.section.headline?.textTop || localBlogContent.headline.textTop,
+                    textHighlight: data.section.headline?.textHighlight || localBlogContent.headline.textHighlight,
+                    textBottom: data.section.headline?.textBottom || localBlogContent.headline.textBottom || "",
                     styles: localBlogContent.headline.styles
                 },
-                description: data.description || localBlogContent.description,
-                viewAllCta: data.viewAllCta || localBlogContent.viewAllCta,
-                posts: data.posts && data.posts.length > 0
-                    ? data.posts.map((post: any) => ({
+                description: data.section.description || localBlogContent.description,
+                viewAllCta: data.section.viewAllCta || localBlogContent.viewAllCta,
+                posts: data.latestPosts && data.latestPosts.length > 0
+                    ? data.latestPosts.map((post: any) => ({
                         title: post.title,
                         slug: post.slug,
                         date: post.date,

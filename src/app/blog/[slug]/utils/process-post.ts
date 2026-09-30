@@ -23,10 +23,17 @@ export function processPostData(post: any, logoData: any, footerContent: any) {
         const hasStructuredFaq = Array.isArray(post.faq) && post.faq.length > 0;
         if (hasStructuredFaq) {
             post.faq.forEach((item: any) => {
-                faqItems.push({
-                    question: item.question,
-                    answerText: item.answer
-                });
+                if (Array.isArray(item.answer)) {
+                    faqItems.push({
+                        question: item.question,
+                        answerBlocks: item.answer
+                    });
+                } else {
+                    faqItems.push({
+                        question: item.question,
+                        answerText: item.answer
+                    });
+                }
             });
         }
 

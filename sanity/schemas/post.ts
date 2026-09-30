@@ -45,8 +45,41 @@ export const postType = defineType({
         defineField({
             name: "excerpt",
             title: "Resumo (Breve Descrição)",
-            type: "text",
-            rows: 2,
+            type: "array",
+            of: [
+                {
+                    type: "block",
+                    styles: [
+                        { title: "Normal", value: "normal" },
+                        { title: "H2", value: "h2" },
+                        { title: "H3", value: "h3" },
+                        { title: "Quote", value: "blockquote" },
+                    ],
+                    lists: [
+                        { title: "Bullet", value: "bullet" },
+                        { title: "Numbered", value: "number" },
+                    ],
+                    marks: {
+                        decorators: [
+                            { title: "Strong", value: "strong" },
+                            { title: "Emphasis", value: "em" },
+                            { title: "Underline", value: "underline" },
+                        ],
+                    },
+                },
+                {
+                    type: "image",
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: "alt",
+                            title: "Descrição da Imagem (Acessibilidade)",
+                            type: "string",
+                            validation: (Rule: any) => Rule.required(),
+                        },
+                    ],
+                },
+            ],
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({
@@ -136,8 +169,29 @@ export const postType = defineType({
                         {
                             name: "answer",
                             title: "Resposta",
-                            type: "text",
-                            rows: 4,
+                            type: "array",
+                            of: [
+                                {
+                                    type: "block",
+                                    styles: [
+                                        { title: "Normal", value: "normal" },
+                                        { title: "H3", value: "h3" },
+                                        { title: "H4", value: "h4" },
+                                        { title: "Quote", value: "blockquote" },
+                                    ],
+                                    lists: [
+                                        { title: "Bullet", value: "bullet" },
+                                        { title: "Numbered", value: "number" },
+                                    ],
+                                    marks: {
+                                        decorators: [
+                                            { title: "Strong", value: "strong" },
+                                            { title: "Emphasis", value: "em" },
+                                            { title: "Underline", value: "underline" },
+                                        ],
+                                    },
+                                }
+                            ],
                             validation: (Rule: any) => Rule.required(),
                         },
                     ],

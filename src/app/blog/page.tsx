@@ -33,7 +33,7 @@ export default async function BlogPage() {
         _createdAt,
         readTime,
         category,
-        excerpt,
+        "excerpt": coalesce(pt::text(excerpt), excerpt),
         "image": coalesce(image.asset->url, "")
       }`;
       posts = await client.fetch<any[]>(query);

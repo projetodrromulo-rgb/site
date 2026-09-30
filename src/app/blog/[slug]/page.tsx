@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `*[_type == "post" && slug.current == $slug][0] {
         title,
         excerpt,
+        "excerptPlain": pt::text(excerpt),
         "image": coalesce(image.asset->url, ""),
         date,
         _createdAt,
@@ -45,7 +46,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const rawTitle = post.seo?.metaTitle || post.title;
     const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
-    const metaDesc = post.seo?.metaDescription || post.excerpt;
+    
+    // Suporta o antigo (string) e o novo (excerptPlain extraído do Block Content)
+    const fallbackDesc = post.excerptPlain || (typeof post.excerpt === "string" ? post.excerpt : "");
+    const metaDesc = post.seo?.metaDescription || fallbackDesc;
     const canonicalUrl = post.seo?.canonicalUrl || `https://www.drromulocoluna.com.br/blog/${slug}`;
     const isNoIndex = post.seo?.noIndex ?? false;
     
@@ -115,6 +119,7 @@ export default async function PostDetailPage({ params }: PageProps) {
       readTime,
       category,
       excerpt,
+      "excerptPlain": pt::text(excerpt),
       "image": coalesce(image.asset->url, ""),
       content,
       author,
@@ -137,7 +142,7 @@ export default async function PostDetailPage({ params }: PageProps) {
         date,
         readTime,
         category,
-        excerpt,
+        "excerpt": coalesce(pt::text(excerpt), excerpt),
         "image": coalesce(image.asset->url, "")
       }
     }`;
