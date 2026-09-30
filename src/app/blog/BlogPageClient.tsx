@@ -36,7 +36,7 @@ function parsePostDate(dateStr?: string): number {
     return isNaN(timestamp) ? 0 : timestamp;
 }
 
-const categories = ["Todos", "Exames de Imagem", "Saúde de Coluna"];
+const categories = ["Todos", "Exames de Imagem", "Saúde de Coluna", "Procedimentos Minimamente Invasivo"];
 
 interface BlogPageClientProps {
     initialPosts: any[];
@@ -51,17 +51,12 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
     const filteredPosts = useMemo(() => {
         const filtered = initialPosts.filter(post => {
             const matchesCategory = selectedCategory === "Todos" ||
-                (post.category && (
-                    post.category.toLowerCase().trim() === selectedCategory.toLowerCase().trim() ||
-                    (selectedCategory === "Saúde de Coluna" && (
-                        post.category.toLowerCase().trim() === "saúde da coluna" ||
-                        post.category.toLowerCase().trim() === "saúde de coluna"
-                    ))
-                ));
+                (post.category && post.category.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
             const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
             return matchesCategory && matchesSearch;
         });
+
 
         return filtered.sort((a, b) => {
             const timeA = parsePostDate(a.date || a._createdAt);
