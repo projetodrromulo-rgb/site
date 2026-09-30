@@ -50,8 +50,27 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
 
     const filteredPosts = useMemo(() => {
         const filtered = initialPosts.filter(post => {
+            const normalizedSelected = selectedCategory
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim();
+
+            const normalizedPost = post.category
+                ? post.category
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase()
+                    .trim()
+                : '';
+
+            const clean = (s: string) => s.replace(/\sde\s|\sda\s/g, ' ');
+            const cleanedSelected = clean(normalizedSelected);
+            const cleanedPost = clean(normalizedPost);
+
             const matchesCategory = selectedCategory === "Todos" ||
-                (post.category && post.category.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+                cleanedPost.includes(cleanedSelected) ||
+                cleanedSelected.includes(cleanedPost);
             const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
             return matchesCategory && matchesSearch;
