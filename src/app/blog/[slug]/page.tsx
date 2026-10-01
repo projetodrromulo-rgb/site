@@ -23,10 +23,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         excerpt,
         "excerptPlain": pt::text(excerpt),
         "image": {
-      "url": coalesce(image.asset->url, ""),
-      "alt": coalesce(image.alt, "")
-    },
+          "url": coalesce(image.asset->url, ""),
+          "alt": coalesce(image.alt, "")
+        },
         date,
+        publishedAt,
+        medicalReviewedAt,
         _createdAt,
         _updatedAt,
         author,
@@ -61,7 +63,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const ogDesc = post.seo?.ogDescription || metaDesc;
     const ogImageUrl = post.seo?.ogImage || post.image;
 
-    const publishedTime = post.date || post._createdAt;
+    // publishedAt (ISO datetime) tem prioridade; fallback para date (apenas data) ou _createdAt
+    const publishedTime = post.publishedAt || (post.date ? `${post.date}T00:00:00.000-03:00` : post._createdAt);
     const modifiedTime = post._updatedAt || publishedTime;
     const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
     const sectionCategory = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
@@ -121,6 +124,8 @@ export default async function PostDetailPage({ params }: PageProps) {
       title,
       "slug": slug.current,
       date,
+      publishedAt,
+      medicalReviewedAt,
       _createdAt,
       _updatedAt,
       readTime,
@@ -263,15 +268,22 @@ export default async function PostDetailPage({ params }: PageProps) {
       "image": post.image ? [post.image] : [],
       "inLanguage": "pt-BR",
       "author": physicianAuthor,
-      "reviewedBy": physicianReviewer,
-      "lastReviewed": post._updatedAt ? new Date(post._updatedAt).toISOString() : (post.date ? new Date(post.date).toISOString() : new Date().toISOString()),
+      // reviewedBy só aparece quando houver revisão médica registrada (medicalReviewedAt preenchido no CMS)
+      ...(post.medicalReviewedAt && {
+        "reviewedBy": physicianReviewer,
+        "lastReviewed": new Date(`${post.medicalReviewedAt}T00:00:00-03:00`).toISOString(),
+      }),
       "publisher": {
         "@type": "Organization",
         "name": "Dr. Rômulo Oliveira - Cirurgia de Coluna",
         "url": siteUrl
       },
-      "datePublished": post.date ? new Date(post.date).toISOString() : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString()),
-      "dateModified": post._updatedAt ? new Date(post._updatedAt).toISOString() : (post.date ? new Date(post.date).toISOString() : new Date().toISOString()),
+      "datePublished": post.publishedAt
+        ? new Date(post.publishedAt).toISOString()
+        : (post.date ? `${post.date}T00:00:00-03:00` : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString())),
+      "dateModified": post._updatedAt
+        ? new Date(post._updatedAt).toISOString()
+        : (post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date().toISOString()),
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "#faq", "#referencias"]

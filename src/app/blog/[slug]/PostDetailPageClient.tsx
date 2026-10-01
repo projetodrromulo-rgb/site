@@ -449,25 +449,38 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     };
 
     const hasReferences = !!(referencesContent || processedReferencesHtml);
-    const formatDisplayDate = (dateStr: string) => {
-        if (!dateStr) return "";
-        if (dateStr.includes("de")) return `Criação: ${dateStr}`;
-        const monthsMap: Record<string, string> = {
-            jan: "Janeiro", fev: "Fevereiro", mar: "Março", abr: "Abril",
-            mai: "Maio", jun: "Junho", jul: "Julho", ago: "Agosto",
-            set: "Setembro", out: "Outubro", nov: "Novembro", dez: "Dezembro"
-        };
-        const cleanStr = dateStr.replace(",", "");
-        const parts = cleanStr.split(/\s+/);
-        if (parts.length >= 3) {
-            const day = parts[0];
-            const monthKey = parts[1].toLowerCase().substring(0, 3);
-            const year = parts[2];
-            const monthName = monthsMap[monthKey] || parts[1];
-            return `Criação: ${day} de ${monthName} de ${year}`;
+    // Formata uma data ISO (datetime ou date) em pt-BR com fuso America/Sao_Paulo
+    const fmtDate = (iso: string): string => {
+        if (!iso) return "";
+        try {
+            // Se for apenas data (YYYY-MM-DD), adiciona o offset de Brasília para evitar off-by-one de UTC
+            const normalized = iso.length === 10 ? `${iso}T00:00:00-03:00` : iso;
+            return new Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                timeZone: 'America/Sao_Paulo',
+            }).format(new Date(normalized));
+        } catch {
+            return iso;
         }
-        return `Criação: ${dateStr}`;
     };
+
+    // publishedAt (ISO datetime com fuso) tem prioridade;
+    // fallback para date (YYYY-MM-DD) adicionando meia-noite em Brasília (-03:00)
+    const publishedIso: string = post.publishedAt || (post.date ? `${post.date}T00:00:00-03:00` : "");
+    const updatedIso: string = post._updatedAt || "";
+    const reviewedIso: string = post.medicalReviewedAt ? `${post.medicalReviewedAt}T00:00:00-03:00` : "";
+
+    // Exibir "Atualizado em" apenas se a data de atualização for pelo menos 1 dia após a publicação
+    const showUpdated = (() => {
+        if (!updatedIso || !publishedIso) return false;
+        try {
+            const pubDate = new Date(publishedIso);
+            const updDate = new Date(updatedIso);
+            return (updDate.getTime() - pubDate.getTime()) > 86_400_000; // > 1 dia
+        } catch { return false; }
+    })();
 
     const getCleanText = (item: any) => {
         if (item.answerBlocks) {
@@ -615,9 +628,26 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold">
                                     <Clock size={14} /> {post.readTime}
                                 </div>
-                                <p className="text-slate-400 text-[11px] font-medium">
-                                    {formatDisplayDate(post.date)}
+                                <p className="text-slate-400 text-[11px] font-medium leading-relaxed">
+                                    {publishedIso && (
+                                        <>
+                                            Publicado em{" "}
+                                            <time dateTime={publishedIso}>{fmtDate(publishedIso)}</time>
+                                        </>
+                                    )}
+                                    {showUpdated && (
+                                        <>
+                                            {" "}&middot; Atualizado em{" "}
+                                            <time dateTime={updatedIso}>{fmtDate(updatedIso)}</time>
+                                        </>
+                                    )}
                                 </p>
+                                {reviewedIso && (
+                                    <p className="text-slate-400 text-[10px] font-medium mt-0.5">
+                                        Revisão médica em{" "}
+                                        <time dateTime={reviewedIso}>{fmtDate(reviewedIso)}</time>
+                                    </p>
+                                )}
 
                             </div>
                         </div>

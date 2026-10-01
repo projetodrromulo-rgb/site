@@ -23,12 +23,33 @@ export const postType = defineType({
         }),
         defineField({
             name: "date",
-            title: "Data de Publicação",
+            title: "Data de Publicação (legado)",
             type: "date",
             options: {
                 dateFormat: "DD/MM/YYYY",
             },
+            description: "Campo mantido para compatibilidade. Prefira usar 'Data de Publicação Oficial' abaixo.",
             validation: (Rule: any) => Rule.required(),
+        }),
+        defineField({
+            name: "publishedAt",
+            title: "Data de Publicação Oficial",
+            type: "datetime",
+            description: "Data e hora de publicação do artigo (com fuso horário). Usada no SEO, sitemap e exibição ao leitor. Se não preenchida, será usada a Data de Publicação acima.",
+            options: {
+                dateFormat: "DD/MM/YYYY",
+                timeFormat: "HH:mm",
+                timeStep: 30,
+            },
+        }),
+        defineField({
+            name: "medicalReviewedAt",
+            title: "Data da Revisão Médica",
+            type: "date",
+            options: {
+                dateFormat: "DD/MM/YYYY",
+            },
+            description: "⚠️ Preencher SOMENTE quando o Dr. Rômulo revisar o conteúdo clinicamente. NÃO alterar por correções de ortografia ou formatação. Afeta o campo lastReviewed do schema médico (SEO).",
         }),
         defineField({
             name: "readTime",

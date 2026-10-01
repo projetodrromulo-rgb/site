@@ -18,7 +18,6 @@ import {
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 
-import "./blog.css";
 
 // Converte data ISO do Sanity ("2026-07-02") para DD-MM-AAAA
 // Usa manipulação direta de string para evitar dependência de ICU/locale do Node.js
