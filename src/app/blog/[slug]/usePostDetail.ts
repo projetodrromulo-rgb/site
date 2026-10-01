@@ -12,7 +12,8 @@ function slugify(text: string) {
 }
 
 export function usePostDetail() {
-    const { slug } = useParams();
+    const params = useParams();
+    const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
     const [sanityPost, setSanityPost] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [tocExpanded, setTocExpanded] = useState(true);

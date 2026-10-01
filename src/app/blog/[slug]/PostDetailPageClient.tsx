@@ -70,36 +70,104 @@ interface ReferencesSectionProps {
     processedReferencesHtml: string;
 }
 
-function ReferencesSection({ referencesContent, processedReferencesHtml }: ReferencesSectionProps) {
-    const isStructured = Array.isArray(referencesContent) && typeof referencesContent[0] === "string";
+/** Converte URLs em formato texto (https://...) em links clicáveis <a> */
+function linkifyText(text: string): React.ReactNode {
+    if (!text) return text;
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
 
-    const parsedPortableTextGroups = (() => {
-        if (isStructured || !referencesContent || !Array.isArray(referencesContent)) return null;
-        const groups: { title: string; blocks: any[] }[] = [];
-        let currentGroup: { title: string; blocks: any[] } | null = null;
+    if (parts.length <= 1) return text;
 
-        referencesContent.forEach((block: any) => {
-            const isHeading = block._type === "block" && ["h2", "h3", "h4"].includes(block.style);
-            if (isHeading) {
-                const titleText = block.children ? block.children.map((c: any) => c.text).join("") : "";
-                currentGroup = {
-                    title: titleText,
-                    blocks: []
-                };
-                groups.push(currentGroup);
-            } else {
-                if (!currentGroup) {
-                    currentGroup = {
-                        title: "Referências Fundamentais",
-                        blocks: []
-                    };
-                    groups.push(currentGroup);
-                }
-                currentGroup.blocks.push(block);
+    return parts.map((part, i) => {
+        if (/^https?:\/\//i.test(part)) {
+            let url = part;
+            let trailing = "";
+            const match = part.match(/([.,;)]+)$/);
+            if (match) {
+                trailing = match[1];
+                url = part.slice(0, -trailing.length);
             }
+            return (
+                <span key={i}>
+                    <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#0db9f2] underline underline-offset-2 hover:text-cyan-600 transition-colors break-all font-medium"
+                    >
+                        {url}
+                    </a>
+                    {trailing}
+                </span>
+            );
+        }
+        return part;
+    });
+}
+
+function processChildrenAutoLinks(children: any): React.ReactNode {
+    if (typeof children === "string") {
+        return linkifyText(children);
+    }
+    if (Array.isArray(children)) {
+        return children.map((child, idx) => {
+            if (typeof child === "string") {
+                return <span key={idx}>{linkifyText(child)}</span>;
+            }
+            return child;
         });
-        return groups;
-    })();
+    }
+    return children;
+}
+
+const refPtComponents = {
+    block: {
+        normal: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        h1: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        h2: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        h3: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        h4: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+    },
+    list: {
+        bullet: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        number: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+    },
+    listItem: {
+        bullet: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+        number: ({ children }: any) => <>{processChildrenAutoLinks(children)}</>,
+    },
+    marks: {
+        link: ({ value, children }: any) => {
+            const href = value?.href || "#";
+            const isExternal = value?.blank !== false || href.startsWith("http");
+            return (
+                <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0db9f2] underline underline-offset-2 hover:text-cyan-600 transition-colors break-all font-medium"
+                >
+                    {children}
+                </a>
+            );
+        },
+        strong: ({ children }: any) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
+        em: ({ children }: any) => <em className="italic">{children}</em>,
+    },
+};
+
+/** Card individual de referência */
+function RefCard({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="bg-white dark:bg-[#0c1a20] rounded-[2rem] px-6 py-5 border border-slate-100 dark:border-neutral-800/80 border-t-4 border-t-primary-dark shadow-md hover:shadow-lg transition-shadow duration-300 w-full text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-sans">
+            {children}
+        </div>
+    );
+}
+
+function ReferencesSection({ referencesContent, processedReferencesHtml }: ReferencesSectionProps) {
+    // isStructured = true apenas para dados legados (array of string pura)
+    const isStructured = Array.isArray(referencesContent) && referencesContent.length > 0 && typeof referencesContent[0] === "string";
 
     const [htmlGroups, setHtmlGroups] = useState<{ title: string; items: string[] }[]>([]);
 
@@ -109,165 +177,63 @@ function ReferencesSection({ referencesContent, processedReferencesHtml }: Refer
         }
     }, [processedReferencesHtml]);
 
-    const getCardMeta = (title: string, index: number) => {
-        const lowerTitle = title.toLowerCase();
-
-        const schemes = [
-            { icon: "📚", bg: "bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400", ring: "ring-cyan-500/10" },
-            { icon: "📊", bg: "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400", ring: "ring-indigo-500/10" },
-            { icon: "🧠", bg: "bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400", ring: "ring-pink-500/10" },
-            { icon: "🌱", bg: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400", ring: "ring-emerald-500/10" },
-            { icon: "🛡️", bg: "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400", ring: "ring-amber-500/10" }
-        ];
-
-        if (lowerTitle.includes("livro") || lowerTitle.includes("academic") || lowerTitle.includes("bibliograf") || lowerTitle.includes("fundament")) {
-            return { icon: "📚", bg: "bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400", ring: "ring-cyan-500/10" };
-        }
-        if (lowerTitle.includes("revis") || lowerTitle.includes("meta") || lowerTitle.includes("artigo") || lowerTitle.includes("estudo")) {
-            return { icon: "📊", bg: "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400", ring: "ring-indigo-500/10" };
-        }
-        if (lowerTitle.includes("neuro") || lowerTitle.includes("memoria") || lowerTitle.includes("cerebro") || lowerTitle.includes("cognit")) {
-            return { icon: "🧠", bg: "bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400", ring: "ring-pink-500/10" };
-        }
-
-        return schemes[index % schemes.length];
-    };
-
-    const getFlatCardTitle = (text: string) => {
-        const lower = text.toLowerCase();
-        if (lower.includes("guideline") || lower.includes("diretriz") || lower.includes("recommendation")) {
-            return "Diretrizes Clínicas";
-        }
-        if (lower.includes("review") || lower.includes("meta-analysis") || lower.includes("metanálise")) {
-            return "Revisão e Metanálise";
-        }
-        if (lower.includes("book") || lower.includes("livro")) {
-            return "Livro Acadêmico";
-        }
-        if (lower.includes("trial") || lower.includes("clinical") || lower.includes("estudo") || lower.includes("randomized")) {
-            return "Estudo Clínico";
-        }
-        return "Artigo Científico";
-    };
-
-    const renderCard = (title: string, itemsContent: React.ReactNode, index: number) => {
-        const borderColor = "border-t-primary-dark";
-
-        return (
-            <div
-                key={title + index}
-                className={`bg-white dark:bg-[#0c1a20] rounded-[2rem] p-8 border border-slate-100 dark:border-neutral-800/80 border-t-4 ${borderColor} shadow-md flex flex-col items-start hover:shadow-lg transition-shadow duration-300`}
-            >
-                {/* References List */}
-                <div className="flex flex-col gap-6 w-full text-left">
-                    {itemsContent}
-                </div>
-            </div>
-        );
-    };
-
-    const isFlatPortableText = parsedPortableTextGroups
-        ? (parsedPortableTextGroups.length <= 1 && (parsedPortableTextGroups[0]?.title === "Referências Fundamentais" || parsedPortableTextGroups[0]?.title === "Referências Científicas"))
-        : false;
-
-    const isFlatHtml = htmlGroups.length <= 1 && (htmlGroups[0]?.title === "Referências Fundamentais" || htmlGroups[0]?.title === "Referências Científicas");
-
+    // ── Legado: array of strings ─────────────────────────────────────────────
     if (isStructured) {
         return (
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-4">
                 {(referencesContent as string[]).map((ref: string, idx: number) => (
-                    <div
-                        key={idx}
-                        className="bg-white dark:bg-[#0c1a20] rounded-[2rem] p-8 border border-slate-100 dark:border-neutral-800/80 border-t-4 border-t-primary-dark shadow-md flex flex-col items-start hover:shadow-lg transition-shadow duration-300 w-full text-slate-655 dark:text-slate-300 text-sm leading-relaxed font-sans text-left"
-                    >
-                        {ref}
-                    </div>
+                    <RefCard key={idx}>{linkifyText(ref)}</RefCard>
                 ))}
             </div>
         );
     }
 
-    return (
-        <div className="grid grid-cols-1 gap-6">
-            {/* 1. PortableText groups */}
-            {parsedPortableTextGroups && !isFlatPortableText && parsedPortableTextGroups.map((group, index) => {
-                const itemsContent = group.blocks.map((block, bIdx) => (
-                    <div key={bIdx} className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
-                        <PortableText
-                            value={[block]}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
-                                },
-                                listItem: {
-                                    bullet: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>,
-                                    number: ({ children }) => <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed">{children}</p>
-                                },
-                                marks: {
-                                    strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
-                                    em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-455">{children}</span>
-                                }
-                            }}
-                        />
-                    </div>
-                ));
-                return renderCard(group.title, itemsContent, index);
-            })}
+    // ── Portable Text: cada bloco vira um card individual ────────────────────
+    if (Array.isArray(referencesContent) && referencesContent.length > 0) {
+        return (
+            <div className="grid grid-cols-1 gap-4">
+                {referencesContent.map((block: any, idx: number) => {
+                    const children = block.children || [];
+                    const plainText = children.map((c: any) => c.text || "").join("").trim();
+                    if (!plainText) return null;
+                    return (
+                        <RefCard key={block._key || idx}>
+                            <PortableText value={[block]} components={refPtComponents} />
+                        </RefCard>
+                    );
+                })}
+            </div>
+        );
+    }
 
-            {/* 2. Flat PortableText items (each item is a card) */}
-            {parsedPortableTextGroups && isFlatPortableText && parsedPortableTextGroups[0].blocks.map((block, index) => {
-                const textContent = block.children ? block.children.map((c: any) => c.text).join("") : "";
-                const title = getFlatCardTitle(textContent);
-                const itemsContent = (
-                    <div className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed font-sans prose prose-slate dark:prose-invert max-w-none prose-p:my-0 prose-strong:text-slate-800 dark:prose-strong:text-slate-100 prose-strong:font-bold prose-em:italic">
-                        <PortableText
-                            value={[block]}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
-                                },
-                                listItem: {
-                                    bullet: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>,
-                                    number: ({ children }) => <p className="text-sm text-slate-655 dark:text-slate-300 leading-relaxed">{children}</p>
-                                },
-                                marks: {
-                                    strong: ({ children }) => <strong className="font-bold text-slate-800 dark:text-slate-100">{children}</strong>,
-                                    em: ({ children }) => <span className="italic text-slate-505 dark:text-neutral-455">{children}</span>
-                                }
-                            }}
-                        />
-                    </div>
-                );
-                return renderCard(title, itemsContent, index);
-            })}
+    // ── HTML legado ──────────────────────────────────────────────────────────
+    const allHtmlItems = htmlGroups.flatMap(g => g.items);
+    if (allHtmlItems.length > 0) {
+        return (
+            <div className="grid grid-cols-1 gap-4">
+                {allHtmlItems.map((itemHtml, index) => {
+                    const linkedHtml = itemHtml.replace(
+                        /(?<!href=["'])(https?:\/\/[^\s<]+)/g,
+                        '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-[#0db9f2] underline underline-offset-2 hover:text-cyan-600 transition-colors break-all font-medium">$1</a>'
+                    );
+                    return (
+                        <RefCard key={index}>
+                            <span
+                                className="[&>a]:text-[#0db9f2] [&>a]:underline [&>a]:underline-offset-2 [&>strong]:font-bold [&>em]:italic"
+                                dangerouslySetInnerHTML={{ __html: linkedHtml }}
+                            />
+                        </RefCard>
+                    );
+                })}
+            </div>
+        );
+    }
 
-            {/* 3. HTML groups */}
-            {!parsedPortableTextGroups && !isFlatHtml && htmlGroups.map((group, index) => {
-                const itemsContent = group.items.map((itemHtml, iIdx) => (
-                    <div
-                        key={iIdx}
-                        className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
-                        dangerouslySetInnerHTML={{ __html: itemHtml }}
-                    />
-                ));
-                return renderCard(group.title, itemsContent, index);
-            })}
-
-            {/* 4. Flat HTML items (each item is a card) */}
-            {!parsedPortableTextGroups && isFlatHtml && htmlGroups[0]?.items.map((itemHtml, index) => {
-                const plainText = itemHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-                const title = getFlatCardTitle(plainText);
-                const itemsContent = (
-                    <div
-                        className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-sans [&>strong]:text-slate-800 [&>strong]:dark:text-slate-100 [&>strong]:font-bold [&>em]:italic [&>em]:text-slate-500 [&>em]:dark:text-neutral-455"
-                        dangerouslySetInnerHTML={{ __html: itemHtml }}
-                    />
-                );
-                return renderCard(title, itemsContent, index);
-            })}
-        </div>
-    );
+    return null;
 }
+
+
+
 
 const ptComponents = {
     types: {
@@ -795,6 +761,52 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 />
                             </section>
                         )}
+                    </div>
+                </div>
+
+                {/* Author Bio Card */}
+                <div className="max-w-5xl mx-auto mt-12 mb-4">
+                    <div className="flex items-start gap-5 p-6 md:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
+                        {/* Avatar */}
+                        <div className="shrink-0">
+                            <div className="size-16 md:size-20 rounded-full overflow-hidden border-2 border-slate-100 shadow">
+                                <Image
+                                    src="/images/avatar.png"
+                                    alt="Dr. Rômulo Oliveira"
+                                    width={80}
+                                    height={80}
+                                    className="object-cover w-full h-full"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Info */}
+                        <div className="flex-1 min-w-0">
+                            <p className="text-[11px] md:text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">
+                                Escrito por
+                            </p>
+                            <h3 className="text-base md:text-lg font-extrabold text-slate-900 leading-tight">
+                                Dr. Rômulo Oliveira
+                            </h3>
+                            <p className="text-xs md:text-sm font-semibold text-[#0db9f2] mt-0.5">
+                                Ortopedista e Cirurgião de Coluna
+                            </p>
+                            <p className="text-[11px] text-slate-400 font-medium mt-0.5">
+                                CRM-MG 73.889 &nbsp;|&nbsp; RQE 59.057 &nbsp;|&nbsp; TEOT 19.406
+                            </p>
+                            <p className="text-slate-600 text-sm md:text-base leading-relaxed mt-3">
+                                Especialista em cirurgia minimamente invasiva da coluna vertebral, com mais de uma
+                                década de experiência no tratamento de doenças degenerativas, hérnias discais e
+                                deformidades. Atende em Belo Horizonte e região com foco em resultados precisos e
+                                recuperação rápida.{" "}
+                                <a
+                                    href="/sobre"
+                                    className="text-[#0db9f2] font-semibold hover:underline underline-offset-2 transition-colors"
+                                >
+                                    Conheça o Dr. Rômulo →
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
 

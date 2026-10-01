@@ -222,8 +222,49 @@ export const postType = defineType({
         defineField({
             name: "references",
             title: "Referências Bibliográficas",
+            description: "Adicione as referências do artigo. Use o botão de link para vincular ao artigo original.",
             type: "array",
-            of: [{ type: "string" }],
+            of: [
+                {
+                    type: "block",
+                    styles: [{ title: "Normal", value: "normal" }],
+                    lists: [
+                        { title: "Bullet", value: "bullet" },
+                        { title: "Numerada", value: "number" },
+                    ],
+                    marks: {
+                        decorators: [
+                            { title: "Negrito", value: "strong" },
+                            { title: "Itálico", value: "em" },
+                        ],
+                        annotations: [
+                            {
+                                name: "link",
+                                type: "object",
+                                title: "Link Externo",
+                                fields: [
+                                    {
+                                        name: "href",
+                                        type: "url",
+                                        title: "URL",
+                                        validation: (Rule: any) =>
+                                            Rule.uri({
+                                                allowRelative: false,
+                                                scheme: ["http", "https"],
+                                            }),
+                                    },
+                                    {
+                                        name: "blank",
+                                        type: "boolean",
+                                        title: "Abrir em nova aba",
+                                        initialValue: true,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                },
+            ],
         }),
         defineField({
             name: "disclaimer",

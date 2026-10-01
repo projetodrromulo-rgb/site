@@ -217,7 +217,29 @@ export default async function PostDetailPage({ params }: PageProps) {
     };
 
     // Schema 2: MedicalWebPage otimizado para GEO / IA (ChatGPT, Gemini, Perplexity)
-    const referencesList = Array.isArray(post.references) ? post.references : [];
+    const rawReferencesList = Array.isArray(post.references) ? post.references : [];
+
+    // Extrai texto puro e URLs de links de cada bloco Portable Text (ou string legada)
+    const referencesList = rawReferencesList.map((ref: any) => {
+      if (typeof ref === "string") {
+        return { name: ref, url: null };
+      }
+      // Portable Text block: extrai texto e possível href do primeiro link encontrado
+      const children = ref?.children || [];
+      const plainText = children.map((c: any) => c.text || "").join("");
+      let linkHref: string | null = null;
+      for (const child of children) {
+        if (child.marks?.length > 0) {
+          // Anotações de link são objetos no array marks do bloco
+        }
+      }
+      // Verifica markDefs para links
+      const markDefs: any[] = ref?.markDefs || [];
+      const linkDef = markDefs.find((md: any) => md._type === "link");
+      if (linkDef?.href) linkHref = linkDef.href;
+
+      return { name: plainText, url: linkHref };
+    }).filter((r: any) => r.name.trim() !== "");
 
     // Audience and About definitions for JSON‑LD
     const audience = {
@@ -288,9 +310,10 @@ export default async function PostDetailPage({ params }: PageProps) {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "#faq", "#referencias"]
       },
-      "citation": referencesList.map((ref: string) => ({
+      "citation": referencesList.map((ref: { name: string; url: string | null }) => ({
         "@type": "MedicalScholarlyArticle",
-        "name": ref
+        "name": ref.name,
+        ...(ref.url && { "url": ref.url })
       })),
       "audience": audience,
       "about": about
