@@ -281,6 +281,18 @@ export const postType = defineType({
                     type: "string",
                     description: "Ex: Saúde da Coluna",
                 }),
+                defineField({
+                    name: "keywords",
+                    title: "Palavras-chave (Keywords)",
+                    type: "string",
+                    description: "Palavras-chave separadas por vírgula. Ex: dor na lombar, tratamento de coluna, hérnia de disco",
+                }),
+                defineField({
+                    name: "reviewerName",
+                    title: "Revisor Médico (Nome)",
+                    type: "string",
+                    description: "Ex: Dr. Rômulo Oliveira. Usado no SEO (E-E-A-T) para indicar quem validou o artigo. Se não preenchido, será o autor.",
+                }),
             ],
         }),
     ],

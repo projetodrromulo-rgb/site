@@ -18,6 +18,8 @@ import {
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 
+import "./blog.css";
+
 // Converte data ISO do Sanity ("2026-07-02") para DD-MM-AAAA
 // Usa manipulação direta de string para evitar dependência de ICU/locale do Node.js
 function formatDate(isoDate: string): string {
@@ -203,7 +205,7 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                 </div>
 
                 {/* Articles Grid */}
-                <div className="min-h-[400px]">
+                <div className="min-h-[400px] blog-page">
                     <AnimatePresence mode="popLayout">
                         {paginatedPosts.length > 0 ? (
                             <motion.div
@@ -232,7 +234,7 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                                                     </span>
                                                 </div>
                                             </div>
- 
+
                                             {/* Content Treatment */}
                                             <div className="flex flex-col gap-2 px-1">
                                                 <p className="text-slate-500 text-[11px] font-bold uppercase tracking-[0.1em]">

@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from "next/script";
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import "./globals.css";
+import "./blog.css"
 import SmoothScrolling from "@/components/shared/SmoothScrolling";
 import Navbar from "@/components/Navbar";
 

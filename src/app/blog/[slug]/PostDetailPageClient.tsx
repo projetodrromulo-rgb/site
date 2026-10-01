@@ -390,9 +390,9 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
     }, [tocItems]);
 
     const toggleFaq = (index: number) => {
-        setOpenFaqs(prev => 
-            prev.includes(index) 
-                ? prev.filter(i => i !== index) 
+        setOpenFaqs(prev =>
+            prev.includes(index)
+                ? prev.filter(i => i !== index)
                 : [...prev, index]
         );
     };
@@ -647,7 +647,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                 </div>
 
                 {/* Grid Container starting where the text body starts */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mt-12 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mt-12 w-full post-content">
 
                     {/* Desktop TOC Sidebar (Left) */}
                     <aside className="hidden lg:block lg:col-span-4 sticky top-28 self-start space-y-6">
@@ -773,8 +773,8 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                     {ctaDescription}
                                 </p>
                             </div>
-                            <CtaWhatsApp 
-                                cta={{ text: "Agendar Avaliação Especializada", whatsAppNumber: "5531996689572" }} 
+                            <CtaWhatsApp
+                                cta={{ text: "Agendar Avaliação Especializada", whatsAppNumber: "5531996689572" }}
                                 analyticsLabel={`blog_cta_${slugify(post.title)}`}
                             />
                         </div>

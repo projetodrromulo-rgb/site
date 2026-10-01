@@ -13,7 +13,7 @@ export const client = createClient({
 });
 
 // Image asset URL builder helper
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 export function urlFor(source: any) {
     if (!projectId || projectId === "placeholder") {

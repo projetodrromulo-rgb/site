@@ -90,13 +90,23 @@ body {
 }
 
 @keyframes marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-25%);
+  }
 }
 
 @keyframes marquee-right {
-  0% { transform: translateX(-25%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .animate-marquee-left {
@@ -116,9 +126,11 @@ body.insurance-modal-open #global-navbar {
   pointer-events: none;
   transition: all 0.4s ease;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -128,6 +140,7 @@ body.insurance-modal-open #global-navbar {
   from {
     stroke-dashoffset: 100;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -137,3 +150,4 @@ body.insurance-modal-open #global-navbar {
   animation: border-dot-rotate 5s linear infinite;
 }
 
+/* globals.css – adicione ao final do arquivo */

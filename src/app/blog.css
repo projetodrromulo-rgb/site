@@ -1,0 +1,25 @@
+.post-content strong>em {
+  color: #3b3838;
+  margin-top: -30px;
+  display: block;
+  opacity: 0.7;
+  font-size: 14px;
+  margin-left: 16px;
+  font-style: italic;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.post-content em>strong {
+  color: #3b3838;
+  margin-top: -30px;
+  display: block;
+  opacity: 0.7;
+  font-size: 14px;
+  margin-left: 16px;
+  font-style: italic;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.post-content img {
+  margin-top: 0px;
+}
