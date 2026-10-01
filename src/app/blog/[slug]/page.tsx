@@ -22,7 +22,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title,
         excerpt,
         "excerptPlain": pt::text(excerpt),
-        "image": coalesce(image.asset->url, ""),
+        "image": {
+      "url": coalesce(image.asset->url, ""),
+      "alt": coalesce(image.alt, "")
+    },
         date,
         _createdAt,
         _updatedAt,
@@ -124,7 +127,10 @@ export default async function PostDetailPage({ params }: PageProps) {
       category,
       excerpt,
       "excerptPlain": pt::text(excerpt),
-      "image": coalesce(image.asset->url, ""),
+      "image": {
+        "url": coalesce(image.asset->url, ""),
+        "alt": coalesce(image.alt, "")
+      },
       content,
       author,
       authorRole,

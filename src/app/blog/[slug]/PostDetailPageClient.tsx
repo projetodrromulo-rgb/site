@@ -631,16 +631,23 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-3xl mb-12 shadow-2xl shadow-slate-200/50 max-w-5xl mx-auto"
                 >
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        priority
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                        className="object-cover"
-                    />
-                </motion.div>
+                    <figure>
+                        <Image
+                            src={post.image?.url ?? ''}
+                            alt={post.image?.alt ?? post.title}
 
+                            fill
+                            priority
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                            className="object-cover"
+                        />
+                        <figcaption className="mt-2 text-sm text-slate-600">
+
+                        </figcaption>
+                    </figure>
+
+                </motion.div>
+                <strong className="post-legend">Imagem 01: {post.image?.alt}</strong>
                 {/* Global Warning / Disclaimer Box (Below hero image) */}
                 <div className="max-w-5xl mx-auto mb-10 p-5 bg-amber-500/5 border-l-4 border-amber-500 rounded-r-2xl text-slate-600 text-sm leading-relaxed italic">
                     <span className="font-bold text-amber-600 not-italic">⚠️ Aviso:</span> {disclaimerText}
