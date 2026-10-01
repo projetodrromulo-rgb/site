@@ -61,7 +61,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const ogTitle = post.seo?.ogTitle || pageTitle;
     const ogDesc = post.seo?.ogDescription || metaDesc;
-    const ogImageUrl = post.seo?.ogImage || post.image;
+
+    // Extrai URL em string (evita passar objeto { url, alt } para openGraph/twitter metadata)
+    const imageUrl = (typeof post.image === "object" ? post.image?.url : post.image) || "";
+    const imageAlt = (typeof post.image === "object" ? post.image?.alt : "") || post.title || "";
+    const ogImageUrl = (typeof post.seo?.ogImage === "string" && post.seo.ogImage.length > 0)
+      ? post.seo.ogImage
+      : imageUrl;
 
     // publishedAt (ISO datetime) tem prioridade; fallback para date (apenas data) ou _createdAt
     const publishedTime = post.publishedAt || (post.date ? `${post.date}T00:00:00.000-03:00` : post._createdAt);
@@ -92,7 +98,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: ogTitle,
         description: ogDesc,
         url: canonicalUrl,
-        images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+        images: ogImageUrl ? [{ url: ogImageUrl, alt: imageAlt }] : [],
         publishedTime,
         modifiedTime,
         authors: [authorName],
@@ -280,6 +286,8 @@ export default async function PostDetailPage({ params }: PageProps) {
 
     const finalDescription = post.seo?.metaDescription || "";
 
+    const postImageUrl = (typeof post.image === "object" ? post.image?.url : post.image) || "";
+
     const medicalWebPageJsonLd = {
       "@context": "https://schema.org",
       "@type": ["MedicalWebPage", "Article"],
@@ -287,7 +295,7 @@ export default async function PostDetailPage({ params }: PageProps) {
       "headline": post.title,
       "description": finalDescription,
       "mainEntityOfPage": postUrl,
-      "image": post.image ? [post.image] : [],
+      "image": postImageUrl ? [postImageUrl] : [],
       "inLanguage": "pt-BR",
       "author": physicianAuthor,
       // reviewedBy só aparece quando houver revisão médica registrada (medicalReviewedAt preenchido no CMS)
