@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           "url": coalesce(image.asset->url, ""),
           "alt": coalesce(image.alt, "")
         },
-        date,
         publishedAt,
+        updatedAt,
         medicalReviewedAt,
         _createdAt,
         _updatedAt,
@@ -69,9 +69,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ? post.seo.ogImage
       : imageUrl;
 
-    // publishedAt (ISO datetime) tem prioridade; fallback para date (apenas data) ou _createdAt
-    const publishedTime = post.publishedAt || (post.date ? `${post.date}T00:00:00.000-03:00` : post._createdAt);
-    const modifiedTime = post._updatedAt || publishedTime;
+    // publishedAt (ISO datetime) tem prioridade; fallback para _createdAt
+    const publishedTime = post.publishedAt || post._createdAt;
+    const modifiedTime = post.updatedAt || publishedTime;
     const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
     const sectionCategory = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
     const keywordsArray = post.seo?.keywords ? post.seo.keywords.split(',').map((k: string) => k.trim()).filter(Boolean) : [];
@@ -129,8 +129,8 @@ export default async function PostDetailPage({ params }: PageProps) {
     const postQuery = `*[_type == "post" && slug.current == $slug][0] {
       title,
       "slug": slug.current,
-      date,
       publishedAt,
+      updatedAt,
       medicalReviewedAt,
       _createdAt,
       _updatedAt,
@@ -159,10 +159,10 @@ export default async function PostDetailPage({ params }: PageProps) {
         keywords,
         reviewerName
       },
-      "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(date desc)[0...2] {
+      "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(coalesce(publishedAt, _createdAt) desc)[0...2] {
         title,
         "slug": slug.current,
-        date,
+        publishedAt,
         readTime,
         category,
         "excerpt": coalesce(pt::text(excerpt), excerpt),
@@ -310,10 +310,10 @@ export default async function PostDetailPage({ params }: PageProps) {
       },
       "datePublished": post.publishedAt
         ? new Date(post.publishedAt).toISOString()
-        : (post.date ? `${post.date}T00:00:00-03:00` : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString())),
-      "dateModified": post._updatedAt
-        ? new Date(post._updatedAt).toISOString()
-        : (post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date().toISOString()),
+        : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString()),
+      "dateModified": post.updatedAt
+        ? new Date(post.updatedAt).toISOString()
+        : (post.publishedAt ? new Date(post.publishedAt).toISOString() : (post._createdAt ? new Date(post._createdAt).toISOString() : new Date().toISOString())),
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "#faq", "#referencias"]

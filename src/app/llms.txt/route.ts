@@ -49,7 +49,7 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
     // 2. Artigos do Blog (Últimos 10)
     content += `\n## Últimos Artigos do Blog Médico\n`;
     if (projectId && projectId !== 'placeholder') {
-      const blogQuery = `*[_type == "post"] | order(date desc)[0...10] {
+      const blogQuery = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...10] {
         title,
         "slug": slug.current,
         "excerptPlain": pt::text(excerpt)

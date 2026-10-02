@@ -73,10 +73,10 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                 description,
                 viewAllCta
             },
-            "latestPosts": *[_type == "post"] | order(coalesce(date, _createdAt) desc)[0...4] {
+            "latestPosts": *[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...4] {
                 title,
                 "slug": slug.current,
-                date,
+                publishedAt,
                 readTime,
                 category,
                 "excerpt": coalesce(pt::text(excerpt), excerpt),
@@ -101,7 +101,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                     ? data.latestPosts.map((post: any) => ({
                         title: post.title,
                         slug: post.slug,
-                        date: post.date,
+                        date: post.publishedAt || "",
                         readTime: post.readTime,
                         category: post.category,
                         excerpt: post.excerpt,

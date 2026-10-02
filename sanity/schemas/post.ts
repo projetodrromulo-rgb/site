@@ -22,20 +22,22 @@ export const postType = defineType({
             validation: (Rule: any) => Rule.required(),
         }),
         defineField({
-            name: "date",
-            title: "Data de Publicação (legado)",
-            type: "date",
-            options: {
-                dateFormat: "DD/MM/YYYY",
-            },
-            description: "Campo mantido para compatibilidade. Prefira usar 'Data de Publicação Oficial' abaixo.",
-            validation: (Rule: any) => Rule.required(),
-        }),
-        defineField({
             name: "publishedAt",
             title: "Data de Publicação Oficial",
             type: "datetime",
-            description: "Data e hora de publicação do artigo (com fuso horário). Usada no SEO, sitemap e exibição ao leitor. Se não preenchida, será usada a Data de Publicação acima.",
+            description: "Data e hora de publicação do artigo (com fuso horário). Usada no SEO, sitemap e exibição ao leitor.",
+            options: {
+                dateFormat: "DD/MM/YYYY",
+                timeFormat: "HH:mm",
+                timeStep: 30,
+            },
+            validation: (Rule: any) => Rule.required(),
+        }),
+        defineField({
+            name: "updatedAt",
+            title: "Data de Atualização",
+            type: "datetime",
+            description: "Data e hora de atualização do artigo. Se preenchida, o texto 'Atualizado em...' será exibido no artigo e utilizado no SEO/Sitemap. Se não informada, o campo não é exibido.",
             options: {
                 dateFormat: "DD/MM/YYYY",
                 timeFormat: "HH:mm",

@@ -9,6 +9,7 @@ export interface Post {
     excerpt: string;
     content: string;
     date: string;
+    publishedAt?: string;
     category: string;
     readTime: string;
     image: string;

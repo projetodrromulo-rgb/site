@@ -13,12 +13,16 @@ import { useState, useEffect } from "react";
 import Footer from "@/components/sections/footer";
 
 function slugify(text: string) {
-    return text
+    if (!text) return "heading";
+    const slug = text
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-");
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    return slug || "heading";
 }
 
 function parseHtmlReferences(html: string): { title: string; items: string[] }[] {
@@ -380,9 +384,9 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                 {tocExpanded && (
                     <div className="p-5 bg-slate-50/30 max-h-[70vh] overflow-y-auto">
                         <div className="flex flex-col">
-                            {tocItems.map((item: any) => (
+                            {tocItems.map((item: any, index: number) => (
                                 <div
-                                    key={item.id}
+                                    key={`${item.id}-${index}`}
                                     className={`flex items-start gap-1.5 text-sm leading-relaxed transition-all ${item.isH3
                                         ? `pl-6 text-xs mt-1.5 mb-2 border-l ml-1.5 ${activeId === item.id
                                             ? "border-[#0db9f2] text-[#0db9f2] font-semibold"
@@ -432,21 +436,13 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
         }
     };
 
-    // publishedAt (ISO datetime com fuso) tem prioridade;
-    // fallback para date (YYYY-MM-DD) adicionando meia-noite em Brasília (-03:00)
-    const publishedIso: string = post.publishedAt || (post.date ? `${post.date}T00:00:00-03:00` : "");
-    const updatedIso: string = post._updatedAt || "";
+    // publishedAt (ISO datetime com fuso) tem prioridade; fallback para _createdAt
+    const publishedIso: string = post.publishedAt || post._createdAt || "";
+    const updatedIso: string = post.updatedAt || "";
     const reviewedIso: string = post.medicalReviewedAt ? `${post.medicalReviewedAt}T00:00:00-03:00` : "";
 
-    // Exibir "Atualizado em" apenas se a data de atualização for pelo menos 1 dia após a publicação
-    const showUpdated = (() => {
-        if (!updatedIso || !publishedIso) return false;
-        try {
-            const pubDate = new Date(publishedIso);
-            const updDate = new Date(updatedIso);
-            return (updDate.getTime() - pubDate.getTime()) > 86_400_000; // > 1 dia
-        } catch { return false; }
-    })();
+    // Exibir "Atualizado em" apenas se a data de atualização (updatedAt) for informada no Sanity
+    const showUpdated = Boolean(post.updatedAt);
 
     const getCleanText = (item: any) => {
         if (item.answerBlocks) {
@@ -800,7 +796,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 deformidades. Atende em Belo Horizonte e região com foco em resultados precisos e
                                 recuperação rápida.{" "}
                                 <a
-                                    href="/sobre"
+                                    href="/#sobre"
                                     className="text-[#0db9f2] font-semibold hover:underline underline-offset-2 transition-colors"
                                 >
                                     Conheça o Dr. Rômulo →

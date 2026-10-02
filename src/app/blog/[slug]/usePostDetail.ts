@@ -37,7 +37,8 @@ export function usePostDetail() {
                 const query = `*[_type == "post" && slug.current == $slug][0] {
                     title,
                     "slug": slug.current,
-                    date,
+                    publishedAt,
+                    updatedAt,
                     readTime,
                     category,
                     excerpt,
@@ -53,10 +54,10 @@ export function usePostDetail() {
                     },
                     references,
                     disclaimer,
-                    "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(_createdAt desc)[0...2] {
+                    "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(coalesce(publishedAt, _createdAt) desc)[0...2] {
                         title,
                         "slug": slug.current,
-                        date,
+                        publishedAt,
                         readTime,
                         category,
                         excerpt,

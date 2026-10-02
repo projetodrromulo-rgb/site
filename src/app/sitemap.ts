@@ -48,12 +48,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let posts: Array<{ slug: string; lastModified: Date }> = [];
   if (projectId && projectId !== 'placeholder') {
     try {
-      const query = `*[_type == "post"] { "slug": slug.current, _updatedAt }`;
+      const query = `*[_type == "post"] { "slug": slug.current, updatedAt, _updatedAt }`;
       const sanityPosts = await client.fetch<any[]>(query);
       if (sanityPosts && sanityPosts.length > 0) {
         posts = sanityPosts.map((post: any) => ({
           slug: post.slug,
-          lastModified: post._updatedAt ? new Date(post._updatedAt) : new Date(),
+          lastModified: post.updatedAt ? new Date(post.updatedAt) : (post._updatedAt ? new Date(post._updatedAt) : new Date()),
         }));
       }
     } catch (error) {

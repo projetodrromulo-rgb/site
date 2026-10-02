@@ -1,10 +1,14 @@
 function slugify(text: string) {
-    return text
+    if (!text) return "heading";
+    const slug = text
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-");
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    return slug || "heading";
 }
 
 export function processPostData(post: any, logoData: any, footerContent: any) {

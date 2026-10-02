@@ -1021,7 +1021,7 @@ async function main() {
                         _type: "slug",
                         current: p.slug
                     },
-                    date: p.date,
+                    publishedAt: p.publishedAt || (p.date ? `${p.date.split('-').reverse().join('-')}T12:00:00-03:00` : new Date().toISOString()),
                     readTime: p.readTime,
                     category: p.category,
                     excerpt: p.excerpt,
