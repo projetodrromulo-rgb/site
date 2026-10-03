@@ -7,5 +7,9 @@ export default defineCliConfig({
     api: {
         projectId,
         dataset,
+    },
+    server: {
+        port: 3333,
+        hostname: "0.0.0.0",
     }
 });
