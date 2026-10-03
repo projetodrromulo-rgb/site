@@ -6,12 +6,32 @@ import { Calendar, ArrowRight, Clock } from "lucide-react";
 import { BlogPost } from "../types";
 import Image from "next/image";
 
-// Converte data ISO do Sanity ("2026-07-02") para DD-MM-AAAA
+// Converte data ISO do Sanity ("2026-07-02T23:30:00.000Z" ou "2026-07-02") para DD/MM/AAAA
 function formatDate(isoDate: string): string {
     if (!isoDate) return "";
-    if (!/^\d{4}-\d{2}-\d{2}/.test(isoDate)) return isoDate;
-    const [year, month, day] = isoDate.split("-");
-    return `${day}-${month}-${year}`;
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(isoDate)) return isoDate;
+    if (/^\d{2}-\d{2}-\d{4}$/.test(isoDate)) {
+        return isoDate.replace(/-/g, "/");
+    }
+    try {
+        const dateObj = new Date(isoDate);
+        if (!isNaN(dateObj.getTime())) {
+            return new Intl.DateTimeFormat("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                timeZone: "America/Sao_Paulo",
+            }).format(dateObj);
+        }
+    } catch {
+        // fallback
+    }
+    const match = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (match) {
+        const [, year, month, day] = match;
+        return `${day}/${month}/${year}`;
+    }
+    return isoDate;
 }
 
 interface BlogPostCardProps {
