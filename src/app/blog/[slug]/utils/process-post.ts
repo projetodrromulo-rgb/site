@@ -13,7 +13,7 @@ function slugify(text: string) {
 
 export function processPostData(post: any, logoData: any, footerContent: any) {
     const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo Oliveira e dê o primeiro passo para uma melhor qualidade de vida.";
-    const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
+    const ctaTitle = post?.ctaTitle || "Melhore sua qualidade de vida";
     const relatedPosts = post?.related || [];
 
     // Extract FAQ and References, and clean content

@@ -791,16 +791,9 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 CRM-MG 73.889 &nbsp;|&nbsp; RQE 59.057 &nbsp;|&nbsp; TEOT 19.406
                             </p>
                             <p className="text-slate-600 text-sm md:text-base leading-relaxed mt-3">
-                                Especialista em cirurgia minimamente invasiva da coluna vertebral, com mais de uma
-                                década de experiência no tratamento de doenças degenerativas, hérnias discais e
-                                deformidades. Atende em Belo Horizonte e região com foco em resultados precisos e
-                                recuperação rápida.{" "}
-                                <a
-                                    href="/#sobre"
-                                    className="text-[#0db9f2] font-semibold hover:underline underline-offset-2 transition-colors"
-                                >
-                                    Conheça o Dr. Rômulo →
-                                </a>
+
+                                Médico ortopedista formado pela UNEC, especialista em Ortopedia e Traumatologia pela SBOT e com fellowship em Cirurgia da Coluna pelo Hospital da Baleia, em Belo Horizonte.
+
                             </p>
                         </div>
                     </div>
