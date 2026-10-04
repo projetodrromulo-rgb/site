@@ -99,7 +99,7 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                         <div className="relative z-10 flex items-center justify-center my-4 w-full">
                             <Link
                                 href={`/blog/${post.slug}`}
-                                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0a192f] text-white border border-white text-xs font-bold tracking-wide hover:bg-[#112240] hover:border-white/90 hover:shadow-lg hover:shadow-white/10 transition-all duration-300 group/btn"
+                                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0a192f] text-white border border-white text-xs font-bold tracking-wide hover:bg-[#112240] hover:border-[#0db9f2] hover:text-[#0db9f2] hover:shadow-lg hover:shadow-[#0db9f2]/20 transition-all duration-300 group/btn"
                             >
                                 Ler artigo
                                 <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
