@@ -96,10 +96,10 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                             "{typeof post.excerpt === "string" ? post.excerpt : ""}"
                         </p>
 
-                        <div className="relative z-10 flex items-center justify-center my-4">
+                        <div className="relative z-10 flex items-center justify-center my-4 w-full">
                             <Link
                                 href={`/blog/${post.slug}`}
-                                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0db9f2] text-white text-xs font-bold tracking-wide hover:bg-[#0db9f2]/90 hover:shadow-lg hover:shadow-[#0db9f2]/30 transition-all duration-300 group/btn"
+                                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0db9f2] text-white text-xs font-bold tracking-wide hover:bg-[#0db9f2]/90 hover:shadow-lg hover:shadow-[#0db9f2]/30 transition-all duration-300 group/btn"
                             >
                                 Ler artigo
                                 <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
