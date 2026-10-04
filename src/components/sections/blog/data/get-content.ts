@@ -73,7 +73,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                 description,
                 viewAllCta
             },
-            "latestPosts": *[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...4] {
+            "latestPosts": *[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
                 title,
                 "slug": slug.current,
                 publishedAt,

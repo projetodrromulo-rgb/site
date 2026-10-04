@@ -47,10 +47,9 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                 className="blog-animate-card group relative flex flex-col h-full opacity-0"
             >
                 {/* Card Content - Persistent Dark Blue Top Border (#1a3055) */}
-                <div className="relative z-10 flex flex-col h-full bg-[#112240] border border-white/5 border-t-2 border-t-[#1a3055] rounded-xl overflow-hidden transition-all duration-500 shadow-xl shadow-[#0db9f2]/5 group-hover:bg-[#1a3055] group-hover:-translate-y-2 group-hover:shadow-[0_-12px_30px_-10px_rgba(13,185,242,0.25)]">
-
+                <div className="relative z-10 flex flex-col h-full min-h-[540px] bg-[#112240] border border-white/5 border-t-2 border-t-[#1a3055] rounded-xl overflow-hidden transition-all duration-500 shadow-xl shadow-[#0db9f2]/5 group-hover:bg-[#1a3055] group-hover:-translate-y-2 group-hover:shadow-[0_-12px_30px_-10px_rgba(13,185,242,0.25)]">
                     {/* Image Container - Always Colorful */}
-                    <div className="aspect-video w-full relative overflow-hidden bg-slate-800">
+                    <div className="aspect-[16/10] w-full relative overflow-hidden bg-slate-800">
                         <div className="absolute inset-0 bg-transparent z-10" />
                         <Image
                             src={post.image}
@@ -88,23 +87,51 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                                 </span>
                             </div>
 
-                            <h3 className="text-white text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500">
+                            <h3 className="text-white text-lg md:text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500 line-clamp-4 h-[6.5rem] flex items-start overflow-hidden">
                                 {post.title}
                             </h3>
                         </div>
 
-                        <p className="relative z-10 mt-6 text-white/60 text-sm leading-relaxed mb-6 line-clamp-2 italic font-light">
-                            "{post.excerpt}"
+                        <p className="relative z-10 mt-4 text-white/60 text-sm leading-relaxed mb-4 line-clamp-3 italic font-light h-[4.5rem] overflow-hidden">
+                            "{typeof post.excerpt === "string" ? post.excerpt : ""}"
                         </p>
 
-                        <div className="relative z-10 mt-auto pt-4 border-t border-white/5 flex items-center justify-end">
+                        <div className="relative z-10 flex items-center justify-end mb-4">
                             <Link
                                 href={`/blog/${post.slug}`}
-                                className="flex items-center gap-2 text-[#0db9f2] text-sm font-bold tracking-tight hover:text-white transition-all group/link underline-offset-4 hover:underline"
+                                className="flex items-center gap-1.5 text-[#0db9f2] text-xs font-bold tracking-tight hover:text-white transition-all shrink-0 group/link underline-offset-4 hover:underline"
                             >
                                 Ler artigo
-                                <ArrowRight size={14} className="group-hover/link:translate-x-1.5 transition-transform" />
+                                <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
                             </Link>
+                        </div>
+
+                        <div className="relative z-10 mt-auto pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                                <div className="size-10 rounded-full overflow-hidden shrink-0 border border-white/10 shadow-sm">
+                                    <Image
+                                        src="/images/avatar.png"
+                                        alt="Dr. Rômulo Oliveira"
+                                        width={40}
+                                        height={40}
+                                        className="object-cover w-full h-full"
+                                    />
+                                </div>
+                                <div className="flex flex-col min-w-0">
+                                    <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-white/40 leading-tight">
+                                        Escrito por
+                                    </span>
+                                    <p className="text-white font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
+                                        Dr. Rômulo Oliveira
+                                    </p>
+                                    <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
+                                        Ortopedista e Cirurgia de Coluna
+                                    </p>
+                                    <p className="text-white/40 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
+                                        CRM 73889 | RQE 59057 | TEOT 19406
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -31,6 +31,7 @@ export default async function BlogPage() {
         "slug": slug.current,
         publishedAt,
         _createdAt,
+        "date": coalesce(publishedAt, _createdAt),
         readTime,
         category,
         "excerpt": coalesce(pt::text(excerpt), excerpt),

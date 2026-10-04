@@ -16,6 +16,7 @@ import {
     User
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useMemo, useEffect } from "react";
 
 
@@ -143,7 +144,7 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
 
     return (
         <div className="bg-[#f5f8f8] min-h-screen flex flex-col font-sans selection:bg-[#0db9f2]/30 overflow-x-hidden text-slate-900">
-            <main id="blog-content" className="flex-1 max-w-5xl mx-auto w-full px-4 pt-28 md:pt-32 pb-32 scroll-mt-28">
+            <main id="blog-content" className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-28 md:pt-32 pb-32 scroll-mt-28">
                 {/* Top Bar: Breadcrumb + Botão Voltar para a Home */}
                 <div className="pt-2 pb-4 flex flex-wrap items-center justify-between gap-4">
                     {/* Breadcrumb Navigation: Home > Blog */}
@@ -237,11 +238,11 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                                             animate={{ opacity: 1, scale: 1 }}
                                             exit={{ opacity: 0, scale: 0.9 }}
                                             transition={{ duration: 0.3 }}
-                                            className="flex flex-col gap-4 group cursor-pointer"
+                                            className="flex flex-col h-full min-h-[480px] bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
                                             layout
                                         >
                                             {/* Image Container with Stitch logic */}
-                                            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-slate-100">
+                                            <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
                                                 <div
                                                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                                                     style={{ backgroundImage: `url("${post.image}")` }}
@@ -254,16 +255,53 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                                             </div>
 
                                             {/* Content Treatment */}
-                                            <div className="flex flex-col gap-2 px-1">
-                                                <p className="text-slate-500 text-[11px] font-bold uppercase tracking-[0.1em]">
-                                                    {formatDate(post.date)} • {post.readTime} LEITURA
-                                                </p>
-                                                <h3 className="text-slate-900 text-lg font-bold leading-snug group-hover:text-[#0db9f2] transition-colors line-clamp-2">
-                                                    {post.title}
-                                                </h3>
-                                                <p className="text-slate-600 text-sm leading-relaxed line-clamp-2">
-                                                    {post.excerpt}
-                                                </p>
+                                            <div className="p-6 flex flex-col flex-1 justify-between gap-4">
+                                                <div className="flex flex-col gap-2.5">
+                                                    <div className="flex items-center gap-3 text-slate-500 text-xs font-semibold">
+                                                        <span className="flex items-center gap-1.5">
+                                                            <Calendar size={13} className="text-[#0db9f2]" />
+                                                            {formatDate(post.date || post.publishedAt || post._createdAt)}
+                                                        </span>
+                                                        <span className="text-slate-300">•</span>
+                                                        <span className="flex items-center gap-1.5">
+                                                            <Clock size={13} className="text-[#0db9f2]" />
+                                                            {post.readTime}
+                                                        </span>
+                                                    </div>
+                                                    <h3 className="text-slate-900 text-lg md:text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors line-clamp-3 h-[5.75rem] flex items-start overflow-hidden">
+                                                        {post.title}
+                                                    </h3>
+                                                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3 h-[4.5rem] overflow-hidden">
+                                                        {typeof post.excerpt === "string" ? post.excerpt : (post.excerpt ? String(post.excerpt) : "")}
+                                                    </p>
+                                                </div>
+
+                                                {/* Author Footer */}
+                                                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                                                    <div className="size-10 rounded-full overflow-hidden shrink-0 border border-slate-200/80 shadow-sm">
+                                                        <Image
+                                                            src="/images/avatar.png"
+                                                            alt="Dr. Rômulo Oliveira"
+                                                            width={40}
+                                                            height={40}
+                                                            className="object-cover w-full h-full"
+                                                        />
+                                                    </div>
+                                                    <div className="flex flex-col min-w-0">
+                                                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 leading-tight">
+                                                            Escrito por
+                                                        </span>
+                                                        <p className="text-slate-900 font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
+                                                            Dr. Rômulo Oliveira
+                                                        </p>
+                                                        <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
+                                                            Ortopedista e Cirurgia de Coluna
+                                                        </p>
+                                                        <p className="text-slate-400 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
+                                                            CRM 73889 | RQE 59057 | TEOT 19406
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </motion.article>
                                     </Link>
