@@ -92,7 +92,7 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                             </h3>
                         </div>
 
-                        <p className="relative z-10 mt-4 text-white/70 text-base leading-relaxed mb-4 line-clamp-3 italic font-light h-[5rem] overflow-hidden">
+                        <p className="relative z-10 mt-4 text-white/80 text-lg leading-relaxed mb-4 line-clamp-3 italic font-light h-[5.5rem] overflow-hidden">
                             "{typeof post.excerpt === "string" ? post.excerpt : ""}"
                         </p>
 
