@@ -76,7 +76,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
         <section
             id="blog"
             ref={containerRef as any}
-            className="py-24 bg-[#f5f8f8] relative overflow-hidden"
+            className="pt-12 pb-20 bg-[#f5f8f8] relative overflow-hidden"
         >
             {/* Light Pattern Texture */}
             <div className="absolute inset-0 opacity-[0.4] pointer-events-none"

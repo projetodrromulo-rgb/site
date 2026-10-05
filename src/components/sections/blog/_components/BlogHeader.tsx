@@ -14,7 +14,7 @@ export const BlogHeader = forwardRef<HTMLDivElement, BlogHeaderProps>(
     ({ badge, headline, description }, ref) => {
 
         return (
-            <div ref={ref} className="mb-16 text-center lg:text-left">
+            <div ref={ref} className="mb-8 text-center lg:text-left">
                 <div className="max-w-4xl space-y-4">
                     <div className="blog-animate-badge opacity-0">
                         <TypingText phrases={[badge]} />
