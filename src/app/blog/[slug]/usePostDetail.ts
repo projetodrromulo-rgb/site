@@ -116,7 +116,7 @@ export function usePostDetail() {
     const post = sanityPost;
 
     const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo e dê o primeiro passo para uma melhor qualidade de vida.";
-    const ctaTitle = post?.ctaTitle || "Recupere sua qualidade de vida";
+    const ctaTitle = post?.ctaTitle || "Melhore sua qualidade de vida";
 
     const relatedPosts = post?.related || [];
 

@@ -63,6 +63,6 @@ export const post: Post = {
     image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
     author: "Dr. Rômulo Oliveira",
     authorRole: "Ortopedista e Cirurgião de Coluna",
-    ctaTitle: "Recupere sua qualidade de vida",
+    ctaTitle: "Melhore sua qualidade de vida",
     ctaDescription: "Agende sua consulta com o Dr. Rômulo Oliveira e dê o primeiro passo para uma melhor qualidade de vida"
 }

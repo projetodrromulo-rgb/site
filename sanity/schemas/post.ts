@@ -164,7 +164,7 @@ export const postType = defineType({
             name: "ctaTitle",
             title: "Título do CTA do Post",
             type: "string",
-            description: "Título exibido no card de agendamento ao final do post (Ex: Recupere sua qualidade de vida)",
+            description: "Título exibido no card de agendamento ao final do post (Ex: Melhore sua qualidade de vida)",
         }),
         defineField({
             name: "ctaDescription",
