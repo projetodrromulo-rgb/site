@@ -78,56 +78,56 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
 
                         {/* Content inside the light */}
                         <div className="relative z-10 space-y-4">
-                            <div className="flex items-center justify-between text-white/60 text-sm font-semibold">
-                                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
-                                    <Calendar size={13} className="text-[#0db9f2]" /> {formatDate(post.date)}
+                            <div className="flex items-center justify-between text-white/50 text-xs font-semibold">
+                                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
+                                    <Calendar size={12} className="text-[#0db9f2]/70" /> {formatDate(post.date)}
                                 </span>
-                                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
-                                    <Clock size={13} className="text-[#0db9f2]" /> {post.readTime}
+                                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/40 border border-white/5 shadow-sm">
+                                    <Clock size={12} className="text-[#0db9f2]/70" /> {post.readTime}
                                 </span>
                             </div>
 
-                            <h3 className="text-white text-xl md:text-2xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500 line-clamp-4 h-[7rem] flex items-start overflow-hidden">
+                            <h3 className="text-white text-lg md:text-xl font-bold leading-snug group-hover:text-[#0db9f2] transition-colors duration-500 line-clamp-4 h-[6.5rem] flex items-start overflow-hidden">
                                 {post.title}
                             </h3>
                         </div>
 
-                        <p className="relative z-10 mt-4 text-white/80 text-lg leading-relaxed mb-4 line-clamp-3 italic font-light h-[5.5rem] overflow-hidden">
+                        <p className="relative z-10 mt-4 text-white/60 text-sm leading-relaxed mb-4 line-clamp-3 italic font-light h-[4.5rem] overflow-hidden">
                             "{typeof post.excerpt === "string" ? post.excerpt : ""}"
                         </p>
 
                         <div className="relative z-10 flex items-center justify-center my-4 w-full">
                             <Link
                                 href={`/blog/${post.slug}`}
-                                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0a192f] text-white border border-white text-sm font-bold tracking-wide hover:bg-[#112240] hover:border-[#0db9f2] hover:text-[#0db9f2] hover:shadow-lg hover:shadow-[#0db9f2]/20 transition-all duration-300 group/btn"
+                                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0a192f] text-white border border-white text-xs font-bold tracking-wide hover:bg-[#112240] hover:border-[#0db9f2] hover:text-[#0db9f2] hover:shadow-lg hover:shadow-[#0db9f2]/20 transition-all duration-300 group/btn"
                             >
                                 Ler artigo
-                                <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                                <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                             </Link>
                         </div>
 
                         <div className="relative z-10 mt-auto pt-4 border-t border-white/10 flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3 min-w-0">
-                                <div className="size-11 rounded-full overflow-hidden shrink-0 border border-white/10 shadow-sm">
+                                <div className="size-10 rounded-full overflow-hidden shrink-0 border border-white/10 shadow-sm">
                                     <Image
                                         src="/images/avatar.png"
                                         alt="Dr. Rômulo Oliveira"
-                                        width={44}
-                                        height={44}
+                                        width={40}
+                                        height={40}
                                         className="object-cover w-full h-full"
                                     />
                                 </div>
                                 <div className="flex flex-col min-w-0">
-                                    <span className="text-[11px] md:text-xs font-bold uppercase tracking-wider text-white/50 leading-tight">
+                                    <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-white/40 leading-tight">
                                         Escrito por
                                     </span>
-                                    <p className="text-white font-bold text-sm md:text-base leading-tight mt-0.5 truncate">
+                                    <p className="text-white font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
                                         Dr. Rômulo Oliveira
                                     </p>
-                                    <p className="text-[#0db9f2] text-xs md:text-sm font-medium leading-tight mt-0.5 truncate">
+                                    <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
                                         Ortopedista e Cirurgia de Coluna
                                     </p>
-                                    <p className="text-white/50 text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
+                                    <p className="text-white/40 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
                                         CRM 73889 | RQE 59057 | TEOT 19406
                                     </p>
                                 </div>
