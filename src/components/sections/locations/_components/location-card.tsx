@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Phone, ShieldCheck } from "lucide-react";
+import { MapPin, Phone, ShieldCheck, Navigation } from "lucide-react";
 import { IconWhatsApp } from "@/components/icon-whats-app";
 import { env } from "@/env";
 import { LocationUnit } from "../types";
@@ -123,6 +123,23 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
 
                     {/* 2. Conteúdo Flutuante */}
                     <div className="relative z-10 flex flex-col h-full p-4 md:p-6 justify-end [transform-style:preserve-3d] backdrop-blur-[0.5px]">
+
+                        {/* Botão do Mapa (lado esquerdo, apenas ícone) */}
+                        {unit.mapUrl && (
+                            <div className="absolute top-5 left-5 md:top-6 md:left-6 [transform:translateZ(60px)] z-30 group/map">
+                                <a
+                                    href={unit.mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="relative w-10 h-10 rounded-xl bg-primary-dark flex items-center justify-center text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
+                                    title="Ver no mapa"
+                                    aria-label={`Ver ${unit.title} no mapa`}
+                                >
+                                    <Navigation size={18} className="group-hover/map:rotate-12 transition-transform" />
+                                </a>
+                            </div>
+                        )}
 
                         {/* Elementos Superiores - GPS PULSANTE */}
                         <div className="absolute top-5 right-5 md:top-6 md:right-6 [transform:translateZ(60px)] z-30 group/gps">
