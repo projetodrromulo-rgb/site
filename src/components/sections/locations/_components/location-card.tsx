@@ -1,7 +1,9 @@
 import { forwardRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Globe, Navigation, ExternalLink, Plus } from "lucide-react";
+import { MapPin, Phone, ShieldCheck } from "lucide-react";
+import { IconWhatsApp } from "@/components/icon-whats-app";
+import { env } from "@/env";
 import { LocationUnit } from "../types";
 import { Hospital } from "@/components/sections/insurance/types";
 import { InsuranceModal } from "@/components/sections/insurance/_components";
@@ -50,6 +52,11 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
     ({ unit, index, hospitals = [] }, ref) => {
         const [isModalOpen, setIsModalOpen] = useState(false);
         const matchedPlans = getPlansForUnit(unit.title, hospitals);
+        const scheduleName = /^ceofe\b/i.test(unit.title.trim()) ? `Clínica ${unit.title.trim()}` : unit.title;
+        const preposition = /^cl[ií]nica\b/i.test(scheduleName.trim()) ? "na" : "no";
+        const whatsAppUrl = `https://wa.me/${env().whatsAppNumber}?text=${encodeURIComponent(
+            `Gostaria de agendar uma consulta com o Dr. Rômulo ${preposition} ${scheduleName}`
+        )}`;
         return (
             <>
                 <motion.div
@@ -121,16 +128,19 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                         <div className="absolute top-5 right-5 md:top-6 md:right-6 [transform:translateZ(60px)] z-30 group/gps">
 
 
-                            <a
-                                href={unit.mapUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="relative w-10 md:w-auto md:px-4 h-10 rounded-xl bg-primary-dark flex items-center justify-center gap-2 text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90"
-                                title="Abrir no Google Maps"
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsModalOpen(true);
+                                }}
+                                className="relative w-10 md:w-auto md:px-4 h-10 rounded-xl bg-primary-dark flex items-center justify-center gap-2 text-white border border-white/20 shadow-[0_8px_20px_rgba(212,175,55,0.4)] hover:bg-white hover:text-accent transition-all duration-500 active:scale-90 cursor-pointer"
+                                title="Ver Convênios Aceitos"
+                                aria-label="Ver Convênios Aceitos"
                             >
-                                <Navigation size={18} className="group-hover/gps:rotate-12 transition-transform" />
-                                <span className="text-[11px] uppercase tracking-wider hidden md:inline">Como Chegar</span>
-                            </a>
+                                <ShieldCheck size={18} className="group-hover/gps:rotate-12 transition-transform" />
+                                <span className="text-[11px] uppercase tracking-wider hidden md:inline">Convênios Aceitos</span>
+                            </button>
                         </div>
 
                         {/* Informações Principais (Fixo) */}
@@ -162,27 +172,23 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                                     </div>
                                 </address>
 
-                                <footer className="pt-2 md:pt-4 flex flex-col gap-3">
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setIsModalOpen(true);
-                                        }}
-                                        className="group/btn relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-8 h-10 md:h-12 overflow-hidden bg-white/10 backdrop-blur-md border border-accent/40 rounded-2xl text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500 hover:bg-accent hover:border-accent hover:scale-[1.02] active:scale-95 shadow-2xl w-fit cursor-pointer"
-                                        title="Ver Convênios Aceitos"
+                                <footer className="pt-2 md:pt-4 flex flex-col items-center gap-3">
+                                    <a
+                                        href={whatsAppUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="group/btn relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-8 min-h-10 md:min-h-12 py-2 overflow-hidden bg-[#25D366] border border-[#25D366] rounded-2xl text-white text-xs md:text-[13px] font-semibold uppercase tracking-[0.2em] transition-all duration-500 hover:bg-[#1EBE5A] hover:scale-[1.02] active:scale-95 shadow-[0_8px_24px_rgba(37,211,102,0.35)] w-fit cursor-pointer"
+                                        title="Agendar Consulta pelo WhatsApp"
                                     >
                                         {/* Efeito de Brilho Interno (Shimmer) */}
-                                        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700" />
+                                        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700" />
 
-                                        {/* Efeito de Borda Conic (Ponto Azul circulando) */}
-                                        <div className="absolute inset-0 z-0 pointer-events-none rounded-2xl overflow-hidden">
-                                            <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_10%,#0db9f2_15%,transparent_20%,transparent_100%)] animate-[spin_4s_linear_infinite]" />
-                                        </div>
-                                        <div className="absolute inset-[1px] bg-[#0A192F] group-hover/btn:bg-accent rounded-[15px] z-0 transition-colors duration-500" />
-
-                                        <Plus size={16} className="text-accent group-hover/btn:text-white group-hover/btn:rotate-90 transition-all duration-500" />
-                                        <span className="relative z-10">Convênios Aceitos</span>
-                                    </button>
+                                        <span className="relative z-10 shrink-0 group-hover/btn:scale-110 transition-transform duration-500">
+                                            <IconWhatsApp width={18} height={18} />
+                                        </span>
+                                        <span className="relative z-10 text-center">Agendar minha avaliação</span>
+                                    </a>
 
 
                                 </footer>
