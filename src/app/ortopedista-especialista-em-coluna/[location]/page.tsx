@@ -158,7 +158,7 @@ export default async function CityPage({ params }: { params: Promise<{ location:
         "@context": "https://schema.org",
         "@type": "MedicalClinic",
         "@id": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}#clinic`,
-        "name": `Dr. Rômulo Oliveira - Especialista em Coluna em ${data.name}`,
+        "name": `Dr. Rômulo Oliveira - Ortopedista e Cirurgiao de coluna em ${data.name}`,
         "image": "https://www.drromulocoluna.com.br/images/image-profile.webp",
         "description": data.metaDescription,
         "url": `https://www.drromulocoluna.com.br/ortopedista-especialista-em-coluna/${data.slug}`,

@@ -3,8 +3,8 @@ import { CityData } from "./types";
 export const beloHorizonteData: CityData = {
   slug: "belo-horizonte",
   name: "Belo Horizonte",
-  title: "Especialista em Coluna em Belo Horizonte | Dr. Rômulo Oliveira",
-  metaDescription: "Ortopedista especialista em coluna em Belo Horizonte. Cirurgia minimamente invasiva e tratamento de hérnia de disco. Agende sua consulta em BH.",
+  title: "Ortopedista e Cirurgião de Coluna em Belo Horizonte | Dr. Rômulo Oliveira",
+  metaDescription: "Ortopedista e Cirurgião Especialista em Coluna em Belo Horizonte. Agende sua consulta em Belo Horizonte.",
   keywords: [
     "medico ortopedista especialista em coluna em belo horizonte",
     "ortopedista especialista em coluna em belo horizonte",
