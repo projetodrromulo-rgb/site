@@ -7,19 +7,10 @@ import { motion } from "framer-motion";
 import { BlogSectionContent } from "./types";
 import { BlogHeader, BlogPostCard } from "./_components";
 import { useBlogAnimation } from "./hooks/use-blog";
+import { getEndOfTodayBrazil, isPostPublished, parsePostDate } from "@/lib/blog-utils";
 
 interface BlogSectionProps {
     content: BlogSectionContent;
-}
-
-function parsePostDate(dateStr?: string): number {
-    if (!dateStr) return 0;
-    if (/^\d{2}-\d{2}-\d{4}$/.test(dateStr)) {
-        const [d, m, y] = dateStr.split("-");
-        return new Date(`${y}-${m}-${d}`).getTime();
-    }
-    const timestamp = Date.parse(dateStr);
-    return isNaN(timestamp) ? 0 : timestamp;
 }
 
 export default function BlogSection({ content }: BlogSectionProps) {
@@ -27,13 +18,9 @@ export default function BlogSection({ content }: BlogSectionProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleItems, setVisibleItems] = useState(3.5);
     const posts = useMemo(() => {
-        const now = Date.now();
+        const endOfToday = getEndOfTodayBrazil();
         return content.posts
-            .filter(post => {
-                const postTime = parsePostDate(post.date || (post as any)._createdAt);
-                // Se não houver data definida (0), exibe por padrão. Caso haja data, descarta se postTime > agora.
-                return postTime === 0 || postTime <= now;
-            })
+            .filter(post => isPostPublished(post.date || (post as any)._createdAt, endOfToday))
             .sort((a, b) => {
                 const timeA = parsePostDate(a.date || (a as any)._createdAt);
                 const timeB = parsePostDate(b.date || (b as any)._createdAt);

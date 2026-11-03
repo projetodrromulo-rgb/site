@@ -1,4 +1,5 @@
 import { client, projectId } from '@/lib/sanity';
+import { getEndOfTodayBrazil, isPostPublished } from '@/lib/blog-utils';
 import { NextResponse } from 'next/server';
 import { getProceduresContent } from '@/components/sections/procedures/data/get-content';
 
@@ -49,12 +50,18 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
     // 2. Artigos do Blog (Últimos 10)
     content += `\n## Últimos Artigos do Blog Médico\n`;
     if (projectId && projectId !== 'placeholder') {
-      const blogQuery = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...10] {
+      const blogQuery = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...20] {
         title,
         "slug": slug.current,
+        publishedAt,
+        _createdAt,
         "excerptPlain": pt::text(excerpt)
       }`;
-      const posts = await client.fetch(blogQuery);
+      const rawPosts = await client.fetch(blogQuery);
+      const endOfToday = getEndOfTodayBrazil();
+      const posts = (rawPosts || [])
+        .filter((post: any) => isPostPublished(post.publishedAt || post._createdAt, endOfToday))
+        .slice(0, 10);
       
       posts.forEach((post: any) => {
         if (post.title && post.slug) {

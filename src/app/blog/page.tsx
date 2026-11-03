@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { client, projectId } from "@/lib/sanity";
 import BlogPageClient from "./BlogPageClient";
+import { getEndOfTodayBrazil, isPostPublished } from "@/lib/blog-utils";
 
 // ISR: página regenerada em background a cada 1 hora (3600s).
 // ⚠️ Next.js EXIGE literal estático aqui. Nenhuma expressão dinâmica funciona:
@@ -37,7 +38,11 @@ export default async function BlogPage() {
         "excerpt": coalesce(pt::text(excerpt), excerpt),
         "image": coalesce(image.asset->url, "")
       }`;
-      posts = await client.fetch<any[]>(query);
+      const rawPosts = await client.fetch<any[]>(query);
+      const endOfToday = getEndOfTodayBrazil();
+      posts = (rawPosts || []).filter((post: any) =>
+        isPostPublished(post.date || post.publishedAt || post._createdAt, endOfToday)
+      );
     } catch (err) {
       console.error("Error fetching posts from Sanity:", err);
     }

@@ -5,6 +5,7 @@ import JsonLdHead from "@/components/seo/JsonLdHead";
 import { processPostData } from "./utils/process-post";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { notFound } from "next/navigation";
+import { getEndOfTodayBrazil, isPostPublished } from "@/lib/blog-utils";
 
 // ISR: A página do post é gerada em background e cacheada por 1 hora (3600s).
 // Isso fornece tempo de carregamento instantâneo e excelente indexabilidade para SEO.
@@ -50,6 +51,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       { slug }
     );
     if (!post) return {};
+
+    const endOfToday = getEndOfTodayBrazil();
+    if (!isPostPublished(post.publishedAt || post._createdAt, endOfToday)) {
+      return {};
+    }
 
     const rawTitle = post.seo?.metaTitle || post.title;
     const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
@@ -184,6 +190,18 @@ export default async function PostDetailPage({ params }: PageProps) {
 
     if (!post) {
       notFound();
+    }
+
+    const endOfToday = getEndOfTodayBrazil();
+    if (!isPostPublished(post.publishedAt || post._createdAt, endOfToday)) {
+      notFound();
+    }
+
+    // Filtra artigos relacionados para não recomendar posts agendados para o futuro
+    if (Array.isArray(post.related)) {
+      post.related = post.related.filter((r: any) =>
+        isPostPublished(r.publishedAt || r._createdAt, endOfToday)
+      );
     }
 
     // 3. Processamento de dados no servidor

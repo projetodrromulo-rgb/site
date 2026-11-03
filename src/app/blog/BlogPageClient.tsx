@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useMemo, useEffect } from "react";
+import { getEndOfTodayBrazil, isPostPublished, parsePostDate } from "@/lib/blog-utils";
 
 
 // Converte data ISO do Sanity ("2026-07-02T23:30:00.000Z" ou "2026-07-02") para DD/MM/AAAA
@@ -47,16 +48,6 @@ function formatDate(isoDate: string): string {
     }
     return isoDate;
 }
-function parsePostDate(dateStr?: string): number {
-    if (!dateStr) return 0;
-    if (/^\d{2}-\d{2}-\d{4}$/.test(dateStr)) {
-        const [d, m, y] = dateStr.split("-");
-        return new Date(`${y}-${m}-${d}`).getTime();
-    }
-    const timestamp = Date.parse(dateStr);
-    return isNaN(timestamp) ? 0 : timestamp;
-}
-
 const categories = ["Todos", "Exames de Imagem", "Saúde de Coluna", "Procedimentos Minimamente Invasivo"];
 
 interface BlogPageClientProps {
@@ -70,7 +61,12 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
     const postsPerPage = 9;
 
     const filteredPosts = useMemo(() => {
+        const endOfToday = getEndOfTodayBrazil();
         const filtered = initialPosts.filter(post => {
+            if (!isPostPublished(post.date || post.publishedAt || post._createdAt, endOfToday)) {
+                return false;
+            }
+
             const normalizedSelected = selectedCategory
                 .normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '')
