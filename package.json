@@ -11,10 +11,10 @@
     "seed": "npx -y tsx scripts/seed.ts",
     "sync:prod": "npx -y tsx scripts/sync-dev-to-prod.ts",
     "sync:dev": "npx -y tsx scripts/sync-prod-to-dev.ts"
-
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@microsoft/clarity": "^1.0.2",
     "@next/third-parties": "^16.2.9",
     "@portabletext/react": "^6.2.0",
     "@react-three/drei": "^10.7.7",
