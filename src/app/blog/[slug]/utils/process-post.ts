@@ -1,3 +1,5 @@
+import { AuthorProfile, DEFAULT_AUTHOR } from "@/lib/author";
+
 function slugify(text: string) {
     if (!text) return "heading";
     const slug = text
@@ -11,7 +13,12 @@ function slugify(text: string) {
     return slug || "heading";
 }
 
-export function processPostData(post: any, logoData: any, footerContent: any) {
+export function processPostData(
+    post: any,
+    logoData: any,
+    footerContent: any,
+    authorProfile: AuthorProfile = DEFAULT_AUTHOR
+) {
     const ctaDescription = post?.ctaDescription || "Agende sua consulta com o Dr. Rômulo Oliveira e dê o primeiro passo para uma melhor qualidade de vida.";
     const ctaTitle = post?.ctaTitle || "Melhore sua qualidade de vida";
     const relatedPosts = post?.related || [];
@@ -227,6 +234,7 @@ export function processPostData(post: any, logoData: any, footerContent: any) {
         referencesContent,
         processedReferencesHtml,
         disclaimer: post?.disclaimer ?? null,
-        footerContent
+        footerContent,
+        authorProfile
     };
 }

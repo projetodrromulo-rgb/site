@@ -11,6 +11,8 @@ import { urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { useState, useEffect } from "react";
 import Footer from "@/components/sections/footer";
+import { ReadMoreSection } from "./_components/ReadMoreSection";
+import { DEFAULT_AUTHOR, AuthorProfile } from "@/lib/author";
 
 function slugify(text: string) {
     if (!text) return "heading";
@@ -287,8 +289,11 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
         referencesContent,
         processedReferencesHtml,
         disclaimer,
-        footerContent
+        footerContent,
+        authorProfile: rawAuthorProfile
     } = initialData;
+
+    const authorProfile: AuthorProfile = rawAuthorProfile || DEFAULT_AUTHOR;
 
     const [tocExpanded, setTocExpanded] = useState(true);
     const DISCLAIMER_DEFAULT = "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar dores persistentes ou que se irradiam para as pernas.";
@@ -568,8 +573,8 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                         <div className="flex items-center gap-4 py-6 border-y border-slate-200">
                             <div className="size-12 rounded-full overflow-hidden shrink-0 border border-slate-200">
                                 <Image
-                                    src={"/images/avatar.png"}
-                                    alt="Dr. Rômulo Oliveira"
+                                    src={authorProfile.avatarUrl}
+                                    alt={authorProfile.avatarAlt}
                                     width={48}
                                     height={48}
                                     className="object-cover w-full h-full"
@@ -577,13 +582,13 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                             </div>
                             <div className="flex-1">
                                 <p className="text-slate-900 font-bold text-sm md:text-base leading-tight">
-                                    Dr. Rômulo Oliveira
+                                    {authorProfile.name}
                                 </p>
                                 <p className="text-slate-600 text-[13px] md:text-sm font-medium leading-snug mt-0.5">
-                                    Ortopedista e Cirurgia de Coluna
+                                    {authorProfile.role}
                                 </p>
                                 <p className="text-slate-400 text-[11px] md:text-xs font-medium leading-relaxed mt-0.5">
-                                    CRM 73889 | RQE 59057 | TEOT 19406
+                                    {authorProfile.credentials}
                                 </p>
                             </div>
                             <div className="flex flex-col items-end gap-1.5 text-right shrink-0">
@@ -767,8 +772,8 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                         <div className="shrink-0">
                             <div className="size-16 md:size-20 rounded-full overflow-hidden border-2 border-slate-100 shadow">
                                 <Image
-                                    src="/images/avatar.png"
-                                    alt="Dr. Rômulo Oliveira"
+                                    src={authorProfile.avatarUrl}
+                                    alt={authorProfile.avatarAlt}
                                     width={80}
                                     height={80}
                                     className="object-cover w-full h-full"
@@ -782,18 +787,16 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                                 Escrito por
                             </p>
                             <h3 className="text-base md:text-lg font-extrabold text-slate-900 leading-tight">
-                                Dr. Rômulo Oliveira
+                                {authorProfile.name}
                             </h3>
                             <p className="text-xs md:text-sm font-semibold text-[#0db9f2] mt-0.5">
-                                Ortopedista e Cirurgião de Coluna
+                                {authorProfile.role}
                             </p>
                             <p className="text-[11px] text-slate-400 font-medium mt-0.5">
-                                CRM-MG 73.889 &nbsp;|&nbsp; RQE 59.057 &nbsp;|&nbsp; TEOT 19.406
+                                {authorProfile.credentials}
                             </p>
                             <p className="text-slate-600 text-sm md:text-base leading-relaxed mt-3">
-
-                                Médico ortopedista formado pela UNEC, especialista em Ortopedia e Traumatologia pela SBOT e com fellowship em Cirurgia da Coluna pelo Hospital da Baleia, em Belo Horizonte.
-
+                                {authorProfile.bio}
                             </p>
                         </div>
                     </div>
@@ -817,6 +820,9 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                             />
                         </div>
                     </section>
+
+                    {/* Leia Também — 3 artigos relacionados */}
+                    <ReadMoreSection posts={relatedPosts} />
                 </div>
             </main>
 

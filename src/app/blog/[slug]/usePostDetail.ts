@@ -1,6 +1,7 @@
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { client, projectId } from "@/lib/sanity";
+import { CATEGORY_GROQ_FIELD } from "@/lib/category";
 
 function slugify(text: string) {
     return text
@@ -40,7 +41,7 @@ export function usePostDetail() {
                     publishedAt,
                     updatedAt,
                     readTime,
-                    category,
+                    ${CATEGORY_GROQ_FIELD},
                     excerpt,
                     "image": coalesce(image.asset->url, ""),
                     content,
@@ -59,7 +60,7 @@ export function usePostDetail() {
                         "slug": slug.current,
                         publishedAt,
                         readTime,
-                        category,
+                        ${CATEGORY_GROQ_FIELD},
                         excerpt,
                         "image": coalesce(image.asset->url, "")
                     }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Calendar, ArrowRight, Clock } from "lucide-react";
 import { BlogPost } from "../types";
 import Image from "next/image";
+import { AuthorProfile, DEFAULT_AUTHOR } from "@/lib/author";
 
 // Converte data ISO do Sanity ("2026-07-02T23:30:00.000Z" ou "2026-07-02") para DD/MM/AAAA
 function formatDate(isoDate: string): string {
@@ -37,10 +38,12 @@ function formatDate(isoDate: string): string {
 interface BlogPostCardProps {
     post: BlogPost;
     index: number;
+    author?: AuthorProfile;
 }
 
 export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
-    ({ post, index }, ref) => {
+    ({ post, index, author = DEFAULT_AUTHOR }, ref) => {
+        const cardAuthor = post.author || author;
         return (
             <article
                 ref={ref as any}
@@ -110,8 +113,8 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                             <div className="flex items-center gap-3 min-w-0">
                                 <div className="size-10 rounded-full overflow-hidden shrink-0 border border-white/10 shadow-sm">
                                     <Image
-                                        src="/images/avatar.png"
-                                        alt="Dr. Rômulo Oliveira"
+                                        src={cardAuthor.avatarUrl}
+                                        alt={cardAuthor.avatarAlt}
                                         width={40}
                                         height={40}
                                         className="object-cover w-full h-full"
@@ -122,13 +125,13 @@ export const BlogPostCard = forwardRef<HTMLElement, BlogPostCardProps>(
                                         Escrito por
                                     </span>
                                     <p className="text-white font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
-                                        Dr. Rômulo Oliveira
+                                        {cardAuthor.name}
                                     </p>
                                     <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
-                                        Ortopedista e Cirurgia de Coluna
+                                        {cardAuthor.role}
                                     </p>
                                     <p className="text-white/40 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
-                                        CRM 73889 | RQE 59057 | TEOT 19406
+                                        {cardAuthor.credentials}
                                     </p>
                                 </div>
                             </div>

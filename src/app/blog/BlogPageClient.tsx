@@ -19,6 +19,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useMemo, useEffect } from "react";
 import { getEndOfTodayBrazil, isPostPublished, parsePostDate } from "@/lib/blog-utils";
+import { AuthorProfile, DEFAULT_AUTHOR } from "@/lib/author";
+import { DEFAULT_BLOG_CATEGORIES } from "@/lib/category";
 
 
 // Converte data ISO do Sanity ("2026-07-02T23:30:00.000Z" ou "2026-07-02") para DD/MM/AAAA
@@ -48,13 +50,21 @@ function formatDate(isoDate: string): string {
     }
     return isoDate;
 }
-const categories = ["Todos", "Exames de Imagem", "Saúde de Coluna", "Procedimentos Minimamente Invasivo"];
-
 interface BlogPageClientProps {
     initialPosts: any[];
+    author?: AuthorProfile;
+    categories?: string[];
 }
 
-export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
+export default function BlogPageClient({
+    initialPosts,
+    author = DEFAULT_AUTHOR,
+    categories: categoriesProp = DEFAULT_BLOG_CATEGORIES,
+}: BlogPageClientProps) {
+    const categories = useMemo(
+        () => ["Todos", ...categoriesProp.filter((c) => c && c !== "Todos")],
+        [categoriesProp]
+    );
     const [selectedCategory, setSelectedCategory] = useState("Todos");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -273,31 +283,36 @@ export default function BlogPageClient({ initialPosts }: BlogPageClientProps) {
                                                 </div>
 
                                                 {/* Author Footer */}
-                                                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
-                                                    <div className="size-10 rounded-full overflow-hidden shrink-0 border border-slate-200/80 shadow-sm">
-                                                        <Image
-                                                            src="/images/avatar.png"
-                                                            alt="Dr. Rômulo Oliveira"
-                                                            width={40}
-                                                            height={40}
-                                                            className="object-cover w-full h-full"
-                                                        />
-                                                    </div>
-                                                    <div className="flex flex-col min-w-0">
-                                                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 leading-tight">
-                                                            Escrito por
-                                                        </span>
-                                                        <p className="text-slate-900 font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
-                                                            Dr. Rômulo Oliveira
-                                                        </p>
-                                                        <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
-                                                            Ortopedista e Cirurgia de Coluna
-                                                        </p>
-                                                        <p className="text-slate-400 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
-                                                            CRM 73889 | RQE 59057 | TEOT 19406
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                {(() => {
+                                                    const postAuthor: AuthorProfile = post.author || author;
+                                                    return (
+                                                        <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                                                            <div className="size-10 rounded-full overflow-hidden shrink-0 border border-slate-200/80 shadow-sm">
+                                                                <Image
+                                                                    src={postAuthor.avatarUrl}
+                                                                    alt={postAuthor.avatarAlt}
+                                                                    width={40}
+                                                                    height={40}
+                                                                    className="object-cover w-full h-full"
+                                                                />
+                                                            </div>
+                                                            <div className="flex flex-col min-w-0">
+                                                                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 leading-tight">
+                                                                    Escrito por
+                                                                </span>
+                                                                <p className="text-slate-900 font-bold text-xs md:text-sm leading-tight mt-0.5 truncate">
+                                                                    {postAuthor.name}
+                                                                </p>
+                                                                <p className="text-[#0db9f2] text-[11px] md:text-xs font-medium leading-tight mt-0.5 truncate">
+                                                                    {postAuthor.role}
+                                                                </p>
+                                                                <p className="text-slate-400 text-[10px] md:text-[11px] font-medium leading-tight mt-0.5 truncate">
+                                                                    {postAuthor.credentials}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
                                         </motion.article>
                                     </Link>

@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { client, projectId } from "@/lib/sanity";
 import BlogPageClient from "./BlogPageClient";
 import { getEndOfTodayBrazil, isPostPublished } from "@/lib/blog-utils";
+import { AUTHOR_GROQ_FIELDS, getDefaultAuthor, DEFAULT_AUTHOR, resolveAuthorProfile } from "@/lib/author";
+import { CATEGORY_GROQ_FIELD, DEFAULT_BLOG_CATEGORIES, getBlogCategories } from "@/lib/category";
 
 // ISR: página regenerada em background a cada 1 hora (3600s).
 // ⚠️ Next.js EXIGE literal estático aqui. Nenhuma expressão dinâmica funciona:
@@ -24,6 +26,8 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   let posts: any[] = [];
+  let author = DEFAULT_AUTHOR;
+  let categories = DEFAULT_BLOG_CATEGORIES;
 
   if (projectId && projectId !== "placeholder") {
     try {
@@ -34,19 +38,31 @@ export default async function BlogPage() {
         _createdAt,
         "date": coalesce(publishedAt, _createdAt),
         readTime,
-        category,
+        ${CATEGORY_GROQ_FIELD},
         "excerpt": coalesce(pt::text(excerpt), excerpt),
-        "image": coalesce(image.asset->url, "")
+        "image": coalesce(image.asset->url, ""),
+        "authorRef": author-> ${AUTHOR_GROQ_FIELDS}
       }`;
-      const rawPosts = await client.fetch<any[]>(query);
+      const [rawPosts, fetchedAuthor, fetchedCategories] = await Promise.all([
+        client.fetch<any[]>(query),
+        getDefaultAuthor(),
+        getBlogCategories(),
+      ]);
+      author = fetchedAuthor;
+      categories = fetchedCategories;
       const endOfToday = getEndOfTodayBrazil();
-      posts = (rawPosts || []).filter((post: any) =>
-        isPostPublished(post.date || post.publishedAt || post._createdAt, endOfToday)
-      );
+      posts = (rawPosts || [])
+        .filter((post: any) =>
+          isPostPublished(post.date || post.publishedAt || post._createdAt, endOfToday)
+        )
+        .map((post: any) => ({
+          ...post,
+          author: post.authorRef ? resolveAuthorProfile(post.authorRef) : fetchedAuthor,
+        }));
     } catch (err) {
       console.error("Error fetching posts from Sanity:", err);
     }
   }
 
-  return <BlogPageClient initialPosts={posts} />;
+  return <BlogPageClient initialPosts={posts} author={author} categories={categories} />;
 }

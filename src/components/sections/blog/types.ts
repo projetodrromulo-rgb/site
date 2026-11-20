@@ -1,4 +1,5 @@
 import { SharedComponentsTypes } from "@/components/shared/types";
+import { AuthorProfile } from "@/lib/author";
 
 export interface BlogPost {
     title: string;
@@ -8,6 +9,7 @@ export interface BlogPost {
     category: string;
     excerpt: string;
     image: string;
+    author?: AuthorProfile;
 }
 
 export interface BlogSectionContent {
@@ -16,4 +18,5 @@ export interface BlogSectionContent {
     description: string;
     viewAllCta: string;
     posts: BlogPost[];
+    author?: AuthorProfile;
 }

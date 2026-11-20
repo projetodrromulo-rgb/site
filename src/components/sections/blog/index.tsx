@@ -123,6 +123,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
                                     <BlogPostCard
                                         post={post}
                                         index={idx}
+                                        author={content.author}
                                     />
                                 </div>
                             ))}

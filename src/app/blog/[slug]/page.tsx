@@ -6,6 +6,8 @@ import { processPostData } from "./utils/process-post";
 import { getFooterContent } from "@/components/sections/footer/data/get-content";
 import { notFound } from "next/navigation";
 import { getEndOfTodayBrazil, isPostPublished } from "@/lib/blog-utils";
+import { AUTHOR_GROQ_FIELDS, getDefaultAuthor, resolveAuthorProfile } from "@/lib/author";
+import { CATEGORY_GROQ_FIELD } from "@/lib/category";
 
 // ISR: A página do post é gerada em background e cacheada por 1 hora (3600s).
 // Isso fornece tempo de carregamento instantâneo e excelente indexabilidade para SEO.
@@ -32,8 +34,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         medicalReviewedAt,
         _createdAt,
         _updatedAt,
-        author,
-        category,
+        "authorRef": author-> ${AUTHOR_GROQ_FIELDS},
+        ${CATEGORY_GROQ_FIELD},
         seo {
           metaTitle,
           metaDescription,
@@ -78,7 +80,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     // publishedAt (ISO datetime) tem prioridade; fallback para _createdAt
     const publishedTime = post.publishedAt || post._createdAt;
     const modifiedTime = post.updatedAt || publishedTime;
-    const authorName = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
+    const resolvedMetaAuthor = post.authorRef ? resolveAuthorProfile(post.authorRef) : await getDefaultAuthor();
+    const authorName = post.seo?.authorName || resolvedMetaAuthor.name;
     const sectionCategory = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
     const keywordsArray = post.seo?.keywords ? post.seo.keywords.split(',').map((k: string) => k.trim()).filter(Boolean) : [];
 
@@ -141,7 +144,7 @@ export default async function PostDetailPage({ params }: PageProps) {
       _createdAt,
       _updatedAt,
       readTime,
-      category,
+      ${CATEGORY_GROQ_FIELD},
       excerpt,
       "excerptPlain": pt::text(excerpt),
       "image": {
@@ -149,7 +152,7 @@ export default async function PostDetailPage({ params }: PageProps) {
         "alt": coalesce(image.alt, "")
       },
       content,
-      author,
+      "authorRef": author-> ${AUTHOR_GROQ_FIELDS},
       authorRole,
       ctaTitle,
       ctaDescription,
@@ -165,14 +168,31 @@ export default async function PostDetailPage({ params }: PageProps) {
         keywords,
         reviewerName
       },
-      "related": *[_type == "post" && slug.current != $slug && category == ^.category] | order(coalesce(publishedAt, _createdAt) desc)[0...2] {
+      "manualRelated": relatedPosts[]-> {
         title,
         "slug": slug.current,
         publishedAt,
+        _createdAt,
         readTime,
-        category,
+        ${CATEGORY_GROQ_FIELD},
         "excerpt": coalesce(pt::text(excerpt), excerpt),
-        "image": coalesce(image.asset->url, "")
+        "image": {
+          "url": coalesce(image.asset->url, ""),
+          "alt": coalesce(image.alt, "")
+        }
+      },
+      "candidateRelated": *[_type == "post" && slug.current != $slug] | order(coalesce(publishedAt, _createdAt) desc) {
+        title,
+        "slug": slug.current,
+        publishedAt,
+        _createdAt,
+        readTime,
+        ${CATEGORY_GROQ_FIELD},
+        "excerpt": coalesce(pt::text(excerpt), excerpt),
+        "image": {
+          "url": coalesce(image.asset->url, ""),
+          "alt": coalesce(image.alt, "")
+        }
       }
     }`;
 
@@ -182,10 +202,11 @@ export default async function PostDetailPage({ params }: PageProps) {
     }`;
 
     // 2. Busca paralela de todos os dados necessários no servidor
-    const [post, logoData, footerContent] = await Promise.all([
+    const [post, logoData, footerContent, defaultAuthor] = await Promise.all([
       client.fetch(postQuery, { slug }),
       client.fetch(logoQuery),
-      getFooterContent()
+      getFooterContent(),
+      getDefaultAuthor(),
     ]);
 
     if (!post) {
@@ -197,22 +218,67 @@ export default async function PostDetailPage({ params }: PageProps) {
       notFound();
     }
 
-    // Filtra artigos relacionados para não recomendar posts agendados para o futuro
-    if (Array.isArray(post.related)) {
-      post.related = post.related.filter((r: any) =>
-        isPostPublished(r.publishedAt || r._createdAt, endOfToday)
-      );
+    // Seleciona exatamente até 3 artigos publicados para a seção "Leia Também":
+    // 1) Artigos curados manualmente no Sanity (relatedPosts)
+    // 2) Artigos publicados da mesma categoria (com normalização para evitar variações)
+    // 3) Fallback com os artigos publicados mais recentes
+    const normalizeCategory = (value?: string) =>
+      (value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\s+(de|da|do|dos|das)\s+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    const currentCategoryNorm = normalizeCategory(post.category);
+    const manualList = Array.isArray(post.manualRelated) ? post.manualRelated : [];
+    const candidateList = Array.isArray(post.candidateRelated) ? post.candidateRelated : [];
+
+    const isEligibleRelated = (item: any) =>
+      Boolean(item?.slug && item.slug !== slug && item?.title) &&
+      isPostPublished(item.publishedAt || item._createdAt, endOfToday);
+
+    const eligibleManual = manualList.filter(isEligibleRelated);
+    const eligibleCandidates = candidateList.filter(isEligibleRelated);
+
+    const sameCategoryCandidates = currentCategoryNorm
+      ? eligibleCandidates.filter((item: any) => {
+          const itemCatNorm = normalizeCategory(item.category);
+          return (
+            itemCatNorm === currentCategoryNorm ||
+            itemCatNorm.includes(currentCategoryNorm) ||
+            currentCategoryNorm.includes(itemCatNorm)
+          );
+        })
+      : [];
+
+    const mergedRelated: any[] = [];
+    const seenSlugs = new Set<string>([slug]);
+
+    for (const group of [eligibleManual, sameCategoryCandidates, eligibleCandidates]) {
+      for (const item of group) {
+        if (mergedRelated.length >= 3) break;
+        if (!seenSlugs.has(item.slug)) {
+          seenSlugs.add(item.slug);
+          mergedRelated.push(item);
+        }
+      }
+      if (mergedRelated.length >= 3) break;
     }
 
+    post.related = mergedRelated;
+
     // 3. Processamento de dados no servidor
-    const processedData = processPostData(post, logoData, footerContent);
+    const authorProfile = post.authorRef ? resolveAuthorProfile(post.authorRef) : defaultAuthor;
+    const processedData = processPostData(post, logoData, footerContent, authorProfile);
 
     const siteUrl = "https://www.drromulocoluna.com.br";
     const postUrl = `${siteUrl}/blog/${slug}`;
 
     const sectionCat = post.seo?.sectionCategory || post.category || "Saúde da Coluna";
     const categorySlug = sectionCat.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-    const authorNameClean = post.seo?.authorName || post.author || "Dr. Rômulo Oliveira";
+    const authorNameClean = post.seo?.authorName || authorProfile.name;
 
     // Schema 1: BreadcrumbList para indexação hierárquica
     const breadcrumbJsonLd = {
@@ -280,9 +346,9 @@ export default async function PostDetailPage({ params }: PageProps) {
     const physicianAuthor = {
       "@type": "Physician",
       "name": authorNameClean,
-      "jobTitle": "Ortopedista e Cirurgião de Coluna",
+      "jobTitle": authorProfile.role,
       "medicalSpecialty": "Orthopedic",
-      "identifier": "CRM 73889 | RQE 59057",
+      "identifier": authorProfile.credentials,
       "sameAs": [siteUrl],
       "url": `${siteUrl}/sobre`,
       "knowsAbout": [
@@ -296,9 +362,9 @@ export default async function PostDetailPage({ params }: PageProps) {
     const physicianReviewer = {
       "@type": "Physician",
       "name": reviewerNameClean,
-      "jobTitle": "Ortopedista e Cirurgião de Coluna",
+      "jobTitle": authorProfile.role,
       "medicalSpecialty": "Orthopedic",
-      "identifier": post.authorRole || "CRM-MG 73.889 | RQE 59.057 | TEOT 19406",
+      "identifier": post.authorRole || authorProfile.credentials,
       "sameAs": [siteUrl]
     };
 

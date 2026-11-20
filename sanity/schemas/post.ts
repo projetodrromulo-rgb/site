@@ -61,9 +61,18 @@ export const postType = defineType({
         }),
         defineField({
             name: "category",
-            title: "Categoria (ex: Coluna, Saúde, etc.)",
-            type: "string",
+            title: "Categoria",
+            type: "reference",
+            to: [{ type: "category" }],
+            description: "Selecione a categoria cadastrada em 'Categoria do Blog' (exibida no selo/badge do artigo e nos filtros do blog).",
             validation: (Rule: any) => Rule.required(),
+        }),
+        defineField({
+            name: "author",
+            title: "Autor do Artigo",
+            type: "reference",
+            to: [{ type: "author" }],
+            description: "Selecione o autor cadastrado em 'Autor / Perfil do Médico'. Se não preenchido, o autor padrão será exibido.",
         }),
         defineField({
             name: "excerpt",
@@ -277,6 +286,26 @@ export const postType = defineType({
             initialValue: "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma consulta com um médico especialista se notar algum sintoma preocupante.",
         }),
         defineField({
+            name: "relatedPosts",
+            title: "Leia Também (Artigos Relacionados)",
+            description: "Selecione até 3 artigos na ordem em que deseja exibi-los na seção 'Leia Também'. Se vazio ou com menos de 3 itens, o site completa automaticamente com artigos relacionados e recentes.",
+            type: "array",
+            of: [
+                {
+                    type: "reference",
+                    to: [{ type: "post" }],
+                    options: {
+                        disableNew: true,
+                        filter: ({ document }: any) => ({
+                            filter: "_id != $id && !(_id in path('drafts.**'))",
+                            params: { id: document?._id?.replace(/^drafts\./, "") || "" },
+                        }),
+                    },
+                },
+            ],
+            validation: (Rule: any) => Rule.max(3).unique(),
+        }),
+        defineField({
             name: "seo",
             title: "Configurações de SEO e Metatags",
             type: "object",
@@ -360,4 +389,19 @@ export const postType = defineType({
             ],
         }),
     ],
+    preview: {
+        select: {
+            title: "title",
+            categoryTitle: "category.title",
+            categoryLegacy: "category",
+            media: "image",
+        },
+        prepare({ title, categoryTitle, categoryLegacy, media }: any) {
+            return {
+                title,
+                subtitle: categoryTitle || (typeof categoryLegacy === "string" ? categoryLegacy : ""),
+                media,
+            };
+        },
+    },
 });

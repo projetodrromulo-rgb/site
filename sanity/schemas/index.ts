@@ -14,6 +14,8 @@ import { testimonialType } from "./testimonial";
 import { testimonialsSectionType } from "./testimonials-section";
 import { postType } from "./post";
 import { blogSectionType } from "./blog-section";
+import { authorType } from "./author";
+import { categoryType } from "./category";
 
 export const schemaTypes = [
     aboutType,
@@ -31,7 +33,9 @@ export const schemaTypes = [
     testimonialType,
     testimonialsSectionType,
     postType,
-    blogSectionType
+    blogSectionType,
+    authorType,
+    categoryType
 ];
 
 

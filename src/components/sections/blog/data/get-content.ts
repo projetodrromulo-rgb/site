@@ -1,5 +1,7 @@
 import { BlogSectionContent } from "../types";
 import { client, projectId } from "../../../../lib/sanity";
+import { AUTHOR_GROQ_FIELDS, DEFAULT_AUTHOR, resolveAuthorProfile } from "@/lib/author";
+import { CATEGORY_GROQ_FIELD } from "@/lib/category";
 
 const localBlogContent: BlogSectionContent = {
     badge: "Educação e Saúde",
@@ -16,6 +18,7 @@ const localBlogContent: BlogSectionContent = {
     },
     description: "Informações especializadas sobre tratamentos, prevenção e as últimas tecnologias em cirurgia de coluna.",
     viewAllCta: "Ver Todos os Artigos",
+    author: DEFAULT_AUTHOR,
     posts: [
         {
             title: "Lesões Musculares da Coluna: Contraturas e Estiramentos Podem Causar Dor Intensa?",
@@ -78,15 +81,18 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                 "slug": slug.current,
                 publishedAt,
                 readTime,
-                category,
+                ${CATEGORY_GROQ_FIELD},
                 "excerpt": coalesce(pt::text(excerpt), excerpt),
-                "image": coalesce(image.asset->url, "")
-            }
+                "image": coalesce(image.asset->url, ""),
+                "authorRef": author-> ${AUTHOR_GROQ_FIELDS}
+            },
+            "author": *[_type == "author"] | order(_updatedAt desc)[0] ${AUTHOR_GROQ_FIELDS}
         }`;
 
         const data = await client.fetch<any>(query);
 
         if (data && data.section) {
+            const defaultAuthor = resolveAuthorProfile(data.author);
             return {
                 badge: data.section.badge || localBlogContent.badge,
                 headline: {
@@ -97,6 +103,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                 },
                 description: data.section.description || localBlogContent.description,
                 viewAllCta: data.section.viewAllCta || localBlogContent.viewAllCta,
+                author: defaultAuthor,
                 posts: data.latestPosts && data.latestPosts.length > 0
                     ? data.latestPosts.map((post: any) => ({
                         title: post.title,
@@ -106,6 +113,7 @@ export async function getBlogContent(): Promise<BlogSectionContent> {
                         category: post.category,
                         excerpt: post.excerpt,
                         image: post.image,
+                        author: post.authorRef ? resolveAuthorProfile(post.authorRef) : defaultAuthor,
                     }))
                     : localBlogContent.posts
             };
