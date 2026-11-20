@@ -5,6 +5,25 @@ import { getProceduresContent } from '@/components/sections/procedures/data/get-
 
 export const revalidate = 86400; // Cache for 24 hours (1 day)
 
+interface LlmsProcedure {
+  title?: string;
+  slug?: string;
+  shortDescription?: string;
+}
+
+interface LlmsPost {
+  title?: string;
+  slug?: string;
+  publishedAt?: string;
+  _createdAt?: string;
+  excerptPlain?: string;
+}
+
+interface LlmsLocation {
+  title?: string;
+  slug?: string;
+}
+
 export async function GET() {
   const baseUrl = 'https://www.drromulocoluna.com.br';
   let content = `# Dr. Rômulo Oliveira - Cirurgia de Coluna
@@ -22,7 +41,7 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
   try {
     // 1. Procedimentos
     content += `## Procedimentos e Tratamentos\n`;
-    let procedures: any[] = [];
+    let procedures: LlmsProcedure[] = [];
     
     if (projectId && projectId !== 'placeholder') {
       const procQuery = `*[_type == "procedures-section"][0] {
@@ -32,7 +51,7 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
           shortDescription
         }
       }`;
-      const data = await client.fetch(procQuery);
+      const data = await client.fetch<{ items?: LlmsProcedure[] } | null>(procQuery);
       if (data && data.items) procedures = data.items;
     }
     
@@ -47,27 +66,26 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
       }
     });
 
-    // 2. Artigos do Blog (Últimos 10)
-    content += `\n## Últimos Artigos do Blog Médico\n`;
+    // 2. Artigos do Blog (Todos os publicados)
+    content += `\n## Artigos do Blog Médico\n`;
     if (projectId && projectId !== 'placeholder') {
-      const blogQuery = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...20] {
+      const blogQuery = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc) {
         title,
         "slug": slug.current,
         publishedAt,
         _createdAt,
         "excerptPlain": pt::text(excerpt)
       }`;
-      const rawPosts = await client.fetch(blogQuery);
+      const rawPosts = await client.fetch<LlmsPost[] | null>(blogQuery);
       const endOfToday = getEndOfTodayBrazil();
       const posts = (rawPosts || [])
-        .filter((post: any) => isPostPublished(post.publishedAt || post._createdAt, endOfToday))
-        .slice(0, 10);
+        .filter((post) => isPostPublished(post.publishedAt || post._createdAt, endOfToday));
       
-      posts.forEach((post: any) => {
+      posts.forEach((post) => {
         if (post.title && post.slug) {
           const excerpt = post.excerptPlain || '';
-          const cleanExcerpt = excerpt.replace(/\\n/g, ' ').substring(0, 150);
-          content += `- [${post.title}](${baseUrl}/blog/${post.slug}): ${cleanExcerpt}...\n`;
+          const cleanExcerpt = excerpt.replace(/[\r\n]+/g, ' ').trim().substring(0, 150);
+          content += `- [${post.title.trim()}](${baseUrl}/blog/${post.slug}): ${cleanExcerpt}...\n`;
         }
       });
     }
@@ -79,9 +97,9 @@ Especialista no tratamento de dores nas costas, hérnia de disco, nervo ciático
         title,
         "slug": slug.current
       }`;
-      const locations = await client.fetch(locQuery);
+      const locations = await client.fetch<LlmsLocation[] | null>(locQuery);
       
-      locations.forEach((loc: any) => {
+      (locations || []).forEach((loc) => {
         if (loc.title && loc.slug) {
           content += `- [${loc.title}](${baseUrl}/ortopedista-especialista-em-coluna/${loc.slug})\n`;
         }

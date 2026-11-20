@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const rawTitle = post.seo?.metaTitle || post.title;
-    const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle} | Dr. Rômulo Oliveira`;
+    const pageTitle = rawTitle.includes("|") ? rawTitle : `${rawTitle}`;
 
     // SEO description strictly from Sanity Meta Description
     const metaDesc = post.seo?.metaDescription || "";
