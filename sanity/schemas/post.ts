@@ -1,4 +1,75 @@
 import { defineField, defineType } from "sanity";
+import {
+    YellowHighlightIcon,
+    YellowHighlightDecorator,
+    GreenHighlightIcon,
+    GreenHighlightDecorator,
+} from "../components/HighlightDecorators";
+
+const textDecorators = [
+    { title: "Strong", value: "strong" },
+    { title: "Emphasis", value: "em" },
+    { title: "Underline", value: "underline" },
+    {
+        title: "Removido (Amarelo)",
+        value: "highlightRemoved",
+        icon: YellowHighlightIcon,
+        component: YellowHighlightDecorator,
+    },
+    {
+        title: "Adicionado (Verde)",
+        value: "highlightAdded",
+        icon: GreenHighlightIcon,
+        component: GreenHighlightDecorator,
+    },
+];
+
+const inlineImageFields = [
+    {
+        name: "alt",
+        title: "Descrição da Imagem (Acessibilidade)",
+        type: "string",
+        validation: (Rule: any) => Rule.required(),
+    },
+    {
+        name: "size",
+        title: "Tamanho da Imagem",
+        type: "string",
+        description: "Define a largura exibida na página e otimiza o peso da imagem entregue pelo CDN.",
+        initialValue: "large",
+        options: {
+            list: [
+                { title: "Pequena (50%)", value: "small" },
+                { title: "Média (75%)", value: "medium" },
+                { title: "Grande (100%)", value: "large" },
+            ],
+            layout: "radio",
+            direction: "horizontal",
+        },
+    },
+    {
+        name: "aspectRatio",
+        title: "Proporção / Corte",
+        type: "string",
+        description: "Escolha uma proporção fixa (evita pulo de layout) ou 'Original' para exibir sem corte.",
+        initialValue: "16/9",
+        options: {
+            list: [
+                { title: "Widescreen (16:9)", value: "16/9" },
+                { title: "Clássica (4:3)", value: "4/3" },
+                { title: "Quadrada (1:1)", value: "1/1" },
+                { title: "Original (sem corte)", value: "auto" },
+            ],
+            layout: "dropdown",
+        },
+    },
+    {
+        name: "caption",
+        title: "Legenda (Opcional)",
+        type: "string",
+        description: "Texto discreto exibido abaixo da imagem.",
+    },
+];
 
 export const postType = defineType({
     name: "post",
@@ -92,24 +163,13 @@ export const postType = defineType({
                         { title: "Numbered", value: "number" },
                     ],
                     marks: {
-                        decorators: [
-                            { title: "Strong", value: "strong" },
-                            { title: "Emphasis", value: "em" },
-                            { title: "Underline", value: "underline" },
-                        ],
+                        decorators: textDecorators,
                     },
                 },
                 {
                     type: "image",
                     options: { hotspot: true },
-                    fields: [
-                        {
-                            name: "alt",
-                            title: "Descrição da Imagem (Acessibilidade)",
-                            type: "string",
-                            validation: (Rule: any) => Rule.required(),
-                        },
-                    ],
+                    fields: inlineImageFields,
                 },
             ],
             validation: (Rule: any) => Rule.required(),
@@ -132,24 +192,13 @@ export const postType = defineType({
                         { title: "Numbered", value: "number" },
                     ],
                     marks: {
-                        decorators: [
-                            { title: "Strong", value: "strong" },
-                            { title: "Emphasis", value: "em" },
-                            { title: "Underline", value: "underline" },
-                        ],
+                        decorators: textDecorators,
                     },
                 },
                 {
                     type: "image",
                     options: { hotspot: true },
-                    fields: [
-                        {
-                            name: "alt",
-                            title: "Descrição da Imagem (Acessibilidade)",
-                            type: "string",
-                            validation: (Rule: any) => Rule.required(),
-                        },
-                    ],
+                    fields: inlineImageFields,
                 },
             ],
             validation: (Rule: any) => Rule.required(),
@@ -216,11 +265,7 @@ export const postType = defineType({
                                         { title: "Numbered", value: "number" },
                                     ],
                                     marks: {
-                                        decorators: [
-                                            { title: "Strong", value: "strong" },
-                                            { title: "Emphasis", value: "em" },
-                                            { title: "Underline", value: "underline" },
-                                        ],
+                                        decorators: textDecorators,
                                     },
                                 }
                             ],

@@ -163,6 +163,8 @@ export default async function PostDetailPage({ params }: PageProps) {
       references,
       disclaimer,
       seo {
+        metaTitle,
+        metaDescription,
         authorName,
         sectionCategory,
         keywords,
@@ -368,7 +370,12 @@ export default async function PostDetailPage({ params }: PageProps) {
       "sameAs": [siteUrl]
     };
 
-    const finalDescription = post.seo?.metaDescription || "";
+    const fallbackExcerpt = (post.excerptPlain || "")
+      .replace(/[\r\n]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 160);
+    const finalDescription = (post.seo?.metaDescription || "").trim() || fallbackExcerpt;
 
     const postImageUrl = (typeof post.image === "object" ? post.image?.url : post.image) || "";
 

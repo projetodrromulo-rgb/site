@@ -241,19 +241,101 @@ function ReferencesSection({ referencesContent, processedReferencesHtml }: Refer
 
 
 
+const IMAGE_SIZE_CONFIG = {
+    small: {
+        wrapperClass: "max-w-md mx-auto",
+        maxWidth: 640,
+        srcSetWidths: [360, 480, 640],
+        sizes: "(max-width: 768px) 92vw, 448px",
+    },
+    medium: {
+        wrapperClass: "max-w-xl mx-auto",
+        maxWidth: 900,
+        srcSetWidths: [480, 720, 900],
+        sizes: "(max-width: 768px) 92vw, 576px",
+    },
+    large: {
+        wrapperClass: "w-full",
+        maxWidth: 1200,
+        srcSetWidths: [480, 768, 1024, 1200],
+        sizes: "(max-width: 1024px) 96vw, 760px",
+    },
+} as const;
+
+const ASPECT_CLASS_MAP: Record<string, string> = {
+    "16/9": "aspect-video",
+    "4/3": "aspect-[4/3]",
+    "1/1": "aspect-square",
+    "auto": "",
+};
+
+/** Extrai largura e altura originais do _ref do Sanity (ex: image-<hash>-2752x1536-jpg) para manter CLS = 0 */
+function parseSanityDimensions(ref?: string): { width: number; height: number } | null {
+    if (!ref) return null;
+    const match = ref.match(/-(\d+)x(\d+)-/);
+    if (!match) return null;
+    const width = Number(match[1]);
+    const height = Number(match[2]);
+    return width > 0 && height > 0 ? { width, height } : null;
+}
+
+function buildOptimizedSanityUrl(value: any, width: number): string {
+    const imgBuilder = urlFor(value);
+    if (typeof imgBuilder?.width === "function") {
+        return imgBuilder.width(width).auto("format").quality(80).fit("max").url();
+    }
+    return imgBuilder?.url?.() || "";
+}
+
 const ptComponents = {
     types: {
         image: ({ value }: any) => {
             if (!value?.asset) return null;
-            const imageUrl = urlFor(value).url();
+
+            const sizeKey = (value.size as keyof typeof IMAGE_SIZE_CONFIG) || "large";
+            const sizeConfig = IMAGE_SIZE_CONFIG[sizeKey] || IMAGE_SIZE_CONFIG.large;
+            const aspectKey = (value.aspectRatio as string) || "16/9";
+            const aspectClass = ASPECT_CLASS_MAP[aspectKey] ?? ASPECT_CLASS_MAP["16/9"];
+            const isAutoAspect = aspectKey === "auto";
+
+            const dims = parseSanityDimensions(value.asset?._ref);
+            const fallbackSrc = buildOptimizedSanityUrl(value, sizeConfig.maxWidth);
+            const srcSet = sizeConfig.srcSetWidths
+                .map((w) => `${buildOptimizedSanityUrl(value, w)} ${w}w`)
+                .join(", ");
+
+            const scaledWidth = dims ? Math.min(dims.width, sizeConfig.maxWidth) : sizeConfig.maxWidth;
+            const scaledHeight = dims
+                ? Math.round((dims.height / dims.width) * scaledWidth)
+                : Math.round(scaledWidth * 0.5625);
+
             return (
-                <div className="relative w-full aspect-video overflow-hidden rounded-3xl my-12 shadow-xl border border-slate-100 dark:border-neutral-800">
-                    <img
-                        src={imageUrl}
-                        alt={value.alt || 'Imagem do Artigo'}
-                        className="object-cover w-full h-full"
-                    />
-                </div>
+                <figure className={`my-10 ${sizeConfig.wrapperClass}`}>
+                    <div
+                        className={`relative w-full ${aspectClass} overflow-hidden rounded-3xl shadow-xl border border-slate-100 dark:border-neutral-800 bg-slate-100`}
+                    >
+                        <img
+                            src={fallbackSrc}
+                            srcSet={srcSet}
+                            sizes={sizeConfig.sizes}
+                            width={scaledWidth}
+                            height={scaledHeight}
+                            loading="lazy"
+                            decoding="async"
+                            alt={value.alt || "Imagem do Artigo"}
+                            className={
+                                isAutoAspect
+                                    ? "w-full h-auto block !my-0"
+                                    : "object-cover w-full h-full !my-0"
+                            }
+                        />
+                    </div>
+                    {value.caption && (
+                        <figcaption className="mt-3 text-center text-sm text-slate-500 italic">
+                            {value.caption}
+                        </figcaption>
+                    )}
+                </figure>
             );
         }
     },
@@ -268,6 +350,18 @@ const ptComponents = {
             const id = slugify(text);
             return <h3 id={id} className="text-2xl md:text-3xl mt-12 mb-6 leading-tight font-display font-black tracking-tight text-slate-900 dark:text-slate-100 scroll-mt-24">{children}</h3>;
         }
+    },
+    marks: {
+        highlightRemoved: ({ children }: any) => (
+            <mark className="bg-amber-200/85 text-slate-900 px-1 py-0.5 rounded-sm">
+                {children}
+            </mark>
+        ),
+        highlightAdded: ({ children }: any) => (
+            <mark className="bg-emerald-200/85 text-slate-900 px-1 py-0.5 rounded-sm">
+                {children}
+            </mark>
+        ),
     }
 };
 
@@ -644,7 +738,7 @@ export default function PostDetailPageClient({ initialData }: PostDetailPageClie
                     </figure>
 
                 </motion.div>
-                <strong className="post-legend">Imagem 01: {post.image?.alt}</strong>
+                <strong className="post-legend">{post.image?.alt}</strong>
                 {/* Global Warning / Disclaimer Box (Below hero image) */}
                 <div className="max-w-5xl mx-auto mb-10 p-5 bg-amber-500/5 border-l-4 border-amber-500 rounded-r-2xl text-slate-600 text-sm leading-relaxed italic">
                     <span className="font-bold text-amber-600 not-italic">⚠️ Aviso:</span> {disclaimerText}
